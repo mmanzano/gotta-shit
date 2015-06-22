@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace ShitGuide\Events;
 
 abstract class Event
 {

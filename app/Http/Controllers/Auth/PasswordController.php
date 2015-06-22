@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace ShitGuide\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use ShitGuide\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller
