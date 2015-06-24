@@ -1,5 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-<p>hola!</p>
+    <div class="container">
+        <p>¡Hola!</p>
+    </div>
 @endsection
