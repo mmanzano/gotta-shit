@@ -1,1 +1,1 @@
-<footer>ShitGuide - 2015</footer>
+<footer>{{ Lang::get('shitguide.site_name') }} - {{ Lang::get('shitguide.footer_year') }}</footer>

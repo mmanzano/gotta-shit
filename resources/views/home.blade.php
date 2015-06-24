@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="container">
-        <p>¡Hola!</p>
+        <p>{{ Lang::get('shitguide.welcome') }}</p>
     </div>
 @endsection
