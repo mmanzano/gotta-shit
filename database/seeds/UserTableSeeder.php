@@ -5,11 +5,19 @@ use Faker\Factory as Faker;
 
 class UserTableSeeder extends Seeder
 {
+
+    private $databaseSeeder;
+
+    public function __construct(DatabaseSeeder $databaseSeeder)
+    {
+        $this->databaseSeeder = new DatabaseSeeder();
+    }
+
     public function run()
     {
         $faker = Faker::create();
 
-        $usersAmount = 20;
+        $usersAmount = $this->databaseSeeder->getUserAmount();
 
         for ($user = 1; $user <= $usersAmount; $user++) {
             \DB::table('users')->insert(array(

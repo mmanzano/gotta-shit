@@ -5,11 +5,18 @@ use Faker\Factory as Faker;
 
 class PlaceTableSeeder extends Seeder
 {
+    private $databaseSeeder;
+
+    public function __construct(DatabaseSeeder $databaseSeeder)
+    {
+        $this->databaseSeeder = new DatabaseSeeder();
+    }
+
     public function run()
     {
         $faker = Faker::create();
 
-        $placesAmount = 200;
+        $placesAmount = $this->databaseSeeder->getPlaceAmount();
 
         for ($place = 1; $place <= $placesAmount; $place++) {
             $initialLat = 40.5;
