@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         return $this->placeStarsAmount;
     }
 
-    public function getCommentPlacesAmount()
+    public function getPlaceCommentsAmount()
     {
         return $this->placeCommentsAmount;
     }
@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->call('UserTableSeeder');
         $this->call('PlaceTableSeeder');
         $this->call('PlaceStarTableSeeder');
+        $this->call('PlaceCommentTableSeeder');
 
         Model::reguard();
     }
