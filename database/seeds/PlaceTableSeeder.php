@@ -16,7 +16,7 @@ class PlaceTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $placesAmount = $this->databaseSeeder->getPlaceAmount();
+        $placesAmount = $this->databaseSeeder->getPlacesAmount();
 
         for ($place = 1; $place <= $placesAmount; $place++) {
             $initialLat = 40.5;

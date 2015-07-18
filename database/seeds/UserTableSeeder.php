@@ -17,9 +17,9 @@ class UserTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $usersAmount = $this->databaseSeeder->getUserAmount();
+        $usersAmount = $this->databaseSeeder->getUsersAmount();
 
-        for ($user = 1; $user <= $usersAmount; $user++) {
+        for ($user = 1; $user <= $usersAmount - 1; $user++) {
             \DB::table('users')->insert(array(
               'full_name' => $faker->firstName.' '.$faker->lastName,
               'username' => $faker->userName,
@@ -27,5 +27,11 @@ class UserTableSeeder extends Seeder
               'password' => \Hash::make('123456'),
             ));
         }
+        \DB::table('users')->insert(array(
+          'full_name' => 'Miguel Manzano',
+          'username' => 'mmanzano',
+          'email' => 'mmanzano@gmail.com',
+          'password' => \Hash::make('secret'),
+        ));
     }
 }
