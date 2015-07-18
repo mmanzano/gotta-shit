@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide;
+namespace ShitGuide\Entities;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
