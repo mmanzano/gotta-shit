@@ -15,11 +15,11 @@ class CreatePlaceCommentsTable extends Migration
         Schema::create('place_comments', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('place_id')->unsigned();
-            $table->foreign('place_id')->references('id')->on('places');
-
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('place_id')->unsigned();
+            $table->foreign('place_id')->references('id')->on('places');
 
             $table->text('comment');
 
