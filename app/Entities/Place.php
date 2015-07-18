@@ -46,4 +46,31 @@ class Place extends Model
     {
         return $this->hasMany('Comment');
     }
+
+    public function getStarAttribute()
+    {
+        $starsForPlace = PlaceStar::where('place_id', $this->id)->get();
+
+        $totalStar = 0;
+        $count = 0;
+        $starAverage = 0;
+
+        foreach($starsForPlace as $star)
+        {
+            $totalStar += $star->stars;
+            $count++;
+        }
+
+        if ($count != 0)
+        {
+            $starAverage = $totalStar / $count;
+        }
+
+        return $starAverage;
+    }
+
+    public function getCommentAttribute()
+    {
+        return PlaceComment::where('place_id', $this->id)->get();
+    }
 }
