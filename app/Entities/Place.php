@@ -69,4 +69,19 @@ class Place extends Model
         return $starAverage;
     }
 
+    public function getNumberOfCommentsAttribute()
+    {
+        $allComments = $this->comments()->getResults();
+
+        $countComments = 0;
+
+        foreach($allComments as $comments)
+        {
+            $countComments++;
+        }
+
+        return $countComments;
+
+    }
+
 }
