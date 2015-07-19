@@ -34,7 +34,7 @@ class PlaceStar extends Model
      */
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('ShitGuide\Entities\User');
     }
 
     /**
@@ -44,6 +44,6 @@ class PlaceStar extends Model
      */
     public function place()
     {
-        return $this->belongsTo('Place');
+        return $this->belongsTo('ShitGuide\Entities\Place');
     }
 }

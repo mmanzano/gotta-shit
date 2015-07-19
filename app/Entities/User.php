@@ -38,9 +38,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Stars()
+    public function stars()
     {
-        return $this->hasMany('Star');
+        return $this->hasMany('ShitGuide\Entities\PlaceStar');
     }
 
     /**
@@ -48,8 +48,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Comments()
+    public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('ShitGuide\Entities\PlaceComment');
     }
 }

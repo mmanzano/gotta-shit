@@ -32,9 +32,9 @@ class Place extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Stars()
+    public function stars()
     {
-        return $this->hasMany('Star');
+        return $this->hasMany('ShitGuide\Entities\PlaceStar');
     }
 
     /**
@@ -42,14 +42,14 @@ class Place extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Comments()
+    public function comments()
     {
-        return $this->hasMany('Comment');
+        return $this->hasMany('ShitGuide\Entities\PlaceComment');
     }
 
     public function getStarAttribute()
     {
-        $starsForPlace = PlaceStar::where('place_id', $this->id)->get();
+        $starsForPlace = $this->stars()->getResults();
 
         $totalStar = 0;
         $count = 0;
@@ -69,8 +69,4 @@ class Place extends Model
         return $starAverage;
     }
 
-    public function getCommentAttribute()
-    {
-        return PlaceComment::where('place_id', $this->id)->get();
-    }
 }
