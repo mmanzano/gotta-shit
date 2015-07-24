@@ -15,6 +15,6 @@
 
 @include('scripts.javascript')
 
-
+@yield('javascript')
 </body>
 </html>

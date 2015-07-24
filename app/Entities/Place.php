@@ -69,6 +69,14 @@ class Place extends Model
         return number_format($starAverage, 2);
     }
 
+    public function getStarWidthAttribute(){
+        $starAverage = $this->getStarAttribute();
+        if($starAverage == 0)
+            $starWidth = '0%';
+        else
+            $starWidth = number_format(($starAverage / 5) * 100, 0) . '%';
+        return $starWidth;
+    }
     public function getNumberOfCommentsAttribute()
     {
         $allComments = $this->comments()->getResults();

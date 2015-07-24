@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'HomeController@index');
+
+Route::get('/place/{id}',['as' => 'place', 'uses' => 'PlacesController@show']);

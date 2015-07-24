@@ -1,17 +1,20 @@
 <div class="places">
 @foreach($places as $place)
     <div class="place-card">
-        <div class="place-title">
-            <h2>{{ $place->name }}</h2>
+        <div class="place-card-title">
+            <h2><a href="{{ route('place', [$place->id]) }}">{{ str_limit($place->name, 14) }}</a></h2>
         </div>
-        @include('sections.footer')
-        <div class="place-footer">
-            <div class="place-stars">
-                <p>
-                    {{ $place->star }}
-                </p>
+        <div id="map-{{ $place->id }}" class="place-card-map"></div>
+        <div class="place-card-footer">
+            <div class="place-card-stars">
+                <div class="place-card-stars-background">
+                    <div class="place-card-stars-points" id="place-stars-points-{{ $place->id }}">
+                        <p>&nbsp</p>
+                    </div>
+                </div>
+                <div class="place-card-stars-text">{{ $place->star }}</div>
             </div>
-            <div class="place-comments">
+            <div class="place-card-comments">
                 <p>
                     {{ $place->numberOfComments }}
                 </p>
