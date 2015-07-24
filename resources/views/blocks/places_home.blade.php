@@ -4,7 +4,7 @@
         <div class="place-title">
             <h2>{{ $place->name }}</h2>
         </div>
-        @include('blocks.map')
+        @include('sections.footer')
         <div class="place-footer">
             <div class="place-stars">
                 <p>
@@ -21,4 +21,4 @@
 @endforeach
 </div>
 
-<!--{!! $places->render() !!}-->
+{!! $places->render() !!}

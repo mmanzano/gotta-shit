@@ -1,0 +1,26 @@
+ul
+  text-align center
+  background mediumseagreen
+  padding 10px
+  margin 0
+.pagination li
+  list-style none
+  display inline-block
+  margin 0 .3em
+  &.active, &.disabled, a
+    width 3em
+    padding .1em
+    color whitesmoke
+    text-decoration none
+    border 1px solid whitesmoke
+    border-radius .2em
+  a
+    display block
+    background saddlebrown
+  &.active
+    display inline-block
+    background brown
+  &.disabled
+    background saddlebrown
+    &:nth-child(1), &:nth-last-child(1)
+      display none
