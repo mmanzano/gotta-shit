@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class UserTableSeeder extends Seeder
 {
@@ -15,23 +14,9 @@ class UserTableSeeder extends Seeder
 
     public function run()
     {
-        $faker = Faker::create();
-
         $usersAmount = $this->databaseSeeder->getUsersAmount();
 
-        for ($user = 1; $user <= $usersAmount - 1; $user++) {
-            \DB::table('users')->insert(array(
-              'full_name' => $faker->firstName.' '.$faker->lastName,
-              'username' => $faker->userName,
-              'email' => $faker->unique()->email,
-              'password' => \Hash::make('123456'),
-            ));
-        }
-        \DB::table('users')->insert(array(
-          'full_name' => 'Miguel Manzano',
-          'username' => 'mmanzano',
-          'email' => 'mmanzano@gmail.com',
-          'password' => \Hash::make('secret'),
-        ));
+        factory('ShitGuide\Entities\User', $usersAmount - 1)->create();
+        factory('ShitGuide\Entities\User', 'admin')->create();
     }
 }
