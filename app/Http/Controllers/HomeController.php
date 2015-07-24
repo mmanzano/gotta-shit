@@ -22,7 +22,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $places = Place::all();
+        $places = Place::paginate(8);
 
         return view('home', compact('places'));
     }

@@ -3,4 +3,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shit Guide</title>
 <link href="{{ asset('/css/shitguide.css') }}" rel="stylesheet">
-<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>

@@ -66,7 +66,7 @@ class Place extends Model
             $starAverage = $totalStar / $count;
         }
 
-        return $starAverage;
+        return number_format($starAverage, 2);
     }
 
     public function getNumberOfCommentsAttribute()
