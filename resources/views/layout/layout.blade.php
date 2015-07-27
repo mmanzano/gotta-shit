@@ -9,6 +9,8 @@
 
 @include('sections.navigation')
 
+@include('sections.disclaimer')
+
 @yield('content')
 
 @include('sections.footer')

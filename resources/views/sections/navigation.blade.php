@@ -1,7 +1,10 @@
 <nav>
     <ul>
-        <li><a href="#1">Link 1</a></li>
-        <li><a href="#2">Link 2</a></li>
-        <li><a href="#3">Link 3</a></li>
+        @if(Auth::check())
+            <li><a href="{{ route('logout') }}">{{ ucfirst(Lang::get('shitguide.logout')) }}</a></li>
+        @else
+            <li><a href="{{ route('login') }}">{{ ucfirst(Lang::get('shitguide.login')) }}</a></li>
+            <li><a href="{{ route('register') }}">{{ ucfirst(Lang::get('shitguide.register')) }}</a></li>
+        @endif
     </ul>
 </nav>

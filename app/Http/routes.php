@@ -16,10 +16,10 @@ Route::get('/', 'HomeController@index');
 Route::get('/place/{id}',['as' => 'place', 'uses' => 'PlacesController@show']);
 
 // Authentication routes...
-Route::get('login', 'Auth\AuthController@getLogin');
-Route::post('login', 'Auth\AuthController@postLogin');
-Route::get('logout', 'Auth\AuthController@getLogout');
+Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
+Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
+Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
 // Registration routes...
-Route::get('register', 'Auth\AuthController@getRegister');
-Route::post('register', 'Auth\AuthController@postRegister');
+Route::get('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
+Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
