@@ -1,1 +1,1 @@
-php artisan migrate:refresh --seed
+echo "Hola Producción"
