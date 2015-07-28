@@ -1,6 +1,6 @@
 ul
   text-align center
-  background mediumseagreen
+  background pagination_background
   padding 10px
   margin 0
 .pagination li
@@ -10,17 +10,17 @@ ul
   &.active, &.disabled, a
     width 3em
     padding .1em
-    color whitesmoke
+    color pagination_color
     text-decoration none
-    border 1px solid whitesmoke
+    border 1px solid pagination_border
     border-radius .2em
   a
     display block
-    background saddlebrown
+    background pagination_link_background
   &.active
     display inline-block
-    background brown
+    background pagination_link_background_active
   &.disabled
-    background saddlebrown
+    background pagination_link_background_disabled
     &:nth-child(1), &:nth-last-child(1)
       display none

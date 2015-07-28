@@ -19,7 +19,7 @@
         </div>
 
         <div>
-            <input type="checkbox" name="remember"> Remember Me
+            <input type="checkbox" name="remember" id="remember"> <label for="remember" class="checkbox">Remember Me</label>
         </div>
 
         <div>
