@@ -40,7 +40,12 @@
             <label for="stars">
                 {{ ucfirst(Lang::get('shitguide.place.stars')) }}
             </label>
-            <input type="text" name="stars" value="{{ old('stars') }}" id="stars">
+            <input type="radio" name="stars" value="0" @if(old('stars') == 0) checked @endif> <label for="stars"  class="radio">0</label>
+            <input type="radio" name="stars" value="1" @if(old('stars') == 1) checked @endif> <label for="stars" class="radio">1</label>
+            <input type="radio" name="stars" value="2" @if(old('stars') == 2) checked @endif> <label for="stars" class="radio">2</label>
+            <input type="radio" name="stars" value="3" @if(old('stars') == 3) checked @endif> <label for="stars" class="radio">3</label>
+            <input type="radio" name="stars" value="4" @if(old('stars') == 4) checked @endif> <label for="stars" class="radio">4</label>
+            <input type="radio" name="stars" value="5" @if(old('stars') == 5) checked @endif> <label for="stars" class="radio">5</label>
         </div>
         <div>
             <button type="submit">{{ ucfirst(Lang::get('shitguide.place.create_place')) }}</button>
