@@ -14,7 +14,7 @@
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 // Display a form to create a place
-Route::get('/place/create', 'PlaceController@create');
+Route::get('/place/create', ['as' => 'create_place', 'uses' => 'PlaceController@create']);
 // Display a place
 Route::get('/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
 // Store a new place
