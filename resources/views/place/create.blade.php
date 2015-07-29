@@ -37,6 +37,12 @@
         </div>
 
         <div>
+            <label for="stars">
+                {{ ucfirst(Lang::get('shitguide.place.stars')) }}
+            </label>
+            <input type="text" name="stars" value="{{ old('stars') }}" id="stars">
+        </div>
+        <div>
             <button type="submit">{{ ucfirst(Lang::get('shitguide.place.create_place')) }}</button>
         </div>
     </form>

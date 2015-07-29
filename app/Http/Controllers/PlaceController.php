@@ -1,13 +1,14 @@
-<?php
-
-namespace ShitGuide\Http\Controllers;
+<?php namespace ShitGuide\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Auth;
 
 use ShitGuide\Http\Requests;
 use ShitGuide\Http\Controllers\Controller;
 
 use ShitGuide\Entities\Place;
+use ShitGuide\Entities\PlaceStar;
+use ShitGuide\Entities\User;
 
 class PlaceController extends Controller
 {
@@ -43,6 +44,7 @@ class PlaceController extends Controller
           'name' => 'required|max:255',
           'geo_lat' => 'required|numeric|between:-90,90',
           'geo_lng' => 'required|numeric|between:-180,180',
+          'stars' => 'required|numeric|between:0,5',
         ]);
 
         $place = new Place();
@@ -53,7 +55,17 @@ class PlaceController extends Controller
 
         $place->save();
 
-        return redirect('/');
+        $star = new PlaceStar();
+
+        $star->place_id = $place->id;
+        $star->user_id = \Auth::User()->id;
+        $star->stars = $request->input('stars');
+
+        $star->save();
+
+        $status_message = $place->name . ' ' . \Lang::get('shitguide.place.created');
+        $status_message .= ' <a href="/place/' . $place->id .'">' . \Lang::get('shitguide.place.linked') . '</a>';
+        return redirect('/')->with('status', $status_message);
 
     }
 

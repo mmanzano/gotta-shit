@@ -44,6 +44,8 @@ return [
         'user' => 'User',
         'name' => 'name',
         'create_place' => 'Create Place',
+        'created' => 'created',
+        'linked' => 'see now'
     ),
 
 ];
