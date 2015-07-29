@@ -13,7 +13,13 @@
 
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-Route::get('/place/{id}',['as' => 'place', 'uses' => 'PlacesController@show']);
+// Display a form to create a place
+Route::get('/place/create', 'PlaceController@create');
+// Display a place
+Route::get('/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
+// Store a new place
+Route::post('/place', 'PlaceController@store');
+
 
 // Authentication routes...
 Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);

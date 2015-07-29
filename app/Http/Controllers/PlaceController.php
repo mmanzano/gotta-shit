@@ -9,7 +9,7 @@ use ShitGuide\Http\Controllers\Controller;
 
 use ShitGuide\Entities\Place;
 
-class PlacesController extends Controller
+class PlaceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class PlacesController extends Controller
      */
     public function create()
     {
-        //
+        return view('place.create');
     }
 
     /**
@@ -39,7 +39,22 @@ class PlacesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'name' => 'required|max:255',
+          'geo_lat' => 'required|numeric|between:-90,90',
+          'geo_lng' => 'required|numeric|between:-180,180',
+        ]);
+
+        $place = new Place();
+
+        $place->name = $request->input('name');
+        $place->geo_lat = number_format($request->input('geo_lat'), 6);
+        $place->geo_lng =  number_format($request->input('geo_lng'), 6);
+
+        $place->save();
+
+        return redirect('/');
+
     }
 
     /**
