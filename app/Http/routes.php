@@ -14,18 +14,18 @@
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 // Display a form to create a place
-Route::get('/place/create', ['as' => 'create_place', 'uses' => 'PlaceController@create']);
+Route::get('/place/create', ['middleware' => 'auth', 'as' => 'create_place', 'uses' => 'PlaceController@create']);
 // Display a place
 Route::get('/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
 // Store a new place
-Route::post('/place', 'PlaceController@store');
+Route::post('/place', ['middleware' => 'auth', 'uses' => 'PlaceController@store']);
 
 
 // Authentication routes...
-Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
-Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
-Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+Route::get('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
+Route::post('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
+Route::get('/logout', ['middleware' => 'auth', 'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
 // Registration routes...
-Route::get('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
-Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
+Route::get('/register', ['middleware' => 'guest', 'as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
+Route::post('/register', ['middleware' => 'guest', 'as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
