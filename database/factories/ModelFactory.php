@@ -43,6 +43,7 @@ $factory->define(GottaToShit\Entities\Place::class, function ($faker) {
       'name' => $faker->company,
       'geo_lat' => $latitude,
       'geo_lng' => $longitude,
+      'user_id' => GottaToShit\Entities\User::All()->random()->id,
     ];
 });
 

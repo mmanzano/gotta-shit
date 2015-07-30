@@ -19,6 +19,9 @@ class CreatePlacesTable extends Migration
             $table->decimal('geo_lat', 8, 6);
             $table->decimal('geo_lng', 9, 6);
 
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
 
         });

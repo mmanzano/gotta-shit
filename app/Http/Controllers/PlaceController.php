@@ -52,7 +52,8 @@ class PlaceController extends Controller
         $place->name = $request->input('name');
         $place->geo_lat = number_format($request->input('geo_lat'), 6);
         $place->geo_lng = number_format($request->input('geo_lng'), 6);
-
+        $place->user_id = \Auth::User()->id;
+        
         $place->save();
 
         $star = new PlaceStar();
