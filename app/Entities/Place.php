@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Entities;
+namespace GottaToShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,7 +34,7 @@ class Place extends Model
      */
     public function stars()
     {
-        return $this->hasMany('ShitGuide\Entities\PlaceStar');
+        return $this->hasMany('GottaToShit\Entities\PlaceStar');
     }
 
     /**
@@ -44,7 +44,7 @@ class Place extends Model
      */
     public function comments()
     {
-        return $this->hasMany('ShitGuide\Entities\PlaceComment');
+        return $this->hasMany('GottaToShit\Entities\PlaceComment');
     }
 
     public function getStarAttribute()

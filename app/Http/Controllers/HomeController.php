@@ -1,8 +1,8 @@
 <?php
 
-namespace ShitGuide\Http\Controllers;
+namespace GottaToShit\Http\Controllers;
 
-use ShitGuide\Entities\Place;
+use GottaToShit\Entities\Place;
 
 class HomeController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Providers;
+namespace GottaToShit\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -14,7 +14,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'ShitGuide\Http\Controllers';
+    protected $namespace = 'GottaToShit\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.

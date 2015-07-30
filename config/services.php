@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => ShitGuide\User::class,
+        'model'  => GottaToShit\User::class,
         'key' => '',
         'secret' => '',
     ],

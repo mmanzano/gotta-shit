@@ -16,17 +16,17 @@
         <div class="place-comments">
             <p class="place-comments-number">
                 @if($place->numberOfComments == 0)
-                {{ Lang::get('shitguide.place.no_comments') }}
+                {{ Lang::get('gottatoshit.place.no_comments') }}
                 @elseif($place->numberOfComments == 1)
-                {{ Lang::get('shitguide.place.one_comment') }}
+                {{ Lang::get('gottatoshit.place.one_comment') }}
                 @else
-                {{ $place->numberOfComments }} {{ Lang::get('shitguide.place.comments') }}
+                {{ $place->numberOfComments }} {{ Lang::get('gottatoshit.place.comments') }}
                 @endif
             </p>
 
             @foreach($place->comments as $comment)
                 <p class="place-comments-user">
-                    {{ Lang::get('shitguide.place.user') }}: {{ $comment->user->full_name }}
+                    {{ Lang::get('gottatoshit.place.user') }}: {{ $comment->user->full_name }}
                 </p>
                 <p class="place-comments-body">
                     {{ $comment->comment }}

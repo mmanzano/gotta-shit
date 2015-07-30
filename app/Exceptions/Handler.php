@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Exceptions;
+namespace GottaToShit\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

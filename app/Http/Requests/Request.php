@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Http\Requests;
+namespace GottaToShit\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(ShitGuide\Entities\User::class, function ($faker) {
+$factory->define(GottaToShit\Entities\User::class, function ($faker) {
     return [
         'full_name' => $faker->firstName.' '.$faker->lastName,
         'username' => $faker->userName,
@@ -21,7 +21,7 @@ $factory->define(ShitGuide\Entities\User::class, function ($faker) {
     ];
 });
 
-$factory->defineAs(ShitGuide\Entities\User::class, 'admin', function ($faker) {
+$factory->defineAs(GottaToShit\Entities\User::class, 'admin', function ($faker) {
     return [
         'full_name' => 'Miguel Manzano',
         'username' => 'mmanzano',
@@ -31,7 +31,7 @@ $factory->defineAs(ShitGuide\Entities\User::class, 'admin', function ($faker) {
     ];
 });
 
-$factory->define(ShitGuide\Entities\Place::class, function ($faker) {
+$factory->define(GottaToShit\Entities\Place::class, function ($faker) {
     $initialLat = 40.5;
     $initialLng = -3.7;
     $deltaMin = -4000;
@@ -46,18 +46,18 @@ $factory->define(ShitGuide\Entities\Place::class, function ($faker) {
     ];
 });
 
-$factory->define(ShitGuide\Entities\PlaceStar::class, function ($faker) {
+$factory->define(GottaToShit\Entities\PlaceStar::class, function ($faker) {
     return [
-        'user_id' => ShitGuide\Entities\User::All()->random()->id,
-        'place_id' => ShitGuide\Entities\Place::All()->random()->id,
+        'user_id' => GottaToShit\Entities\User::All()->random()->id,
+        'place_id' => GottaToShit\Entities\Place::All()->random()->id,
         'stars' => $faker->numberBetween(1, 5),
     ];
 });
 
-$factory->define(ShitGuide\Entities\PlaceComment::class, function ($faker) {
+$factory->define(GottaToShit\Entities\PlaceComment::class, function ($faker) {
     return [
-        'user_id' => ShitGuide\Entities\User::All()->random()->id,
-        'place_id' => ShitGuide\Entities\Place::All()->random()->id,
+        'user_id' => GottaToShit\Entities\User::All()->random()->id,
+        'place_id' => GottaToShit\Entities\Place::All()->random()->id,
         'comment' => $faker->realText(300),
     ];
 });

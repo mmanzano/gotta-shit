@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: ShitGuide
-        psr4_prefix: ShitGuide
+        namespace: GottaToShit
+        psr4_prefix: GottaToShit
         src_path: app

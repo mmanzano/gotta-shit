@@ -1,14 +1,14 @@
-<?php namespace ShitGuide\Http\Controllers;
+<?php namespace GottaToShit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth;
 
-use ShitGuide\Http\Requests;
-use ShitGuide\Http\Controllers\Controller;
+use GottaToShit\Http\Requests;
+use GottaToShit\Http\Controllers\Controller;
 
-use ShitGuide\Entities\Place;
-use ShitGuide\Entities\PlaceStar;
-use ShitGuide\Entities\User;
+use GottaToShit\Entities\Place;
+use GottaToShit\Entities\PlaceStar;
+use GottaToShit\Entities\User;
 
 class PlaceController extends Controller
 {
@@ -63,8 +63,8 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . \Lang::get('shitguide.place.created');
-        $status_message .= ' <a href="/place/' . $place->id .'">' . \Lang::get('shitguide.place.linked') . '</a>';
+        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.created');
+        $status_message .= ' <a href="/place/' . $place->id .'">' . \Lang::get('gottatoshit.place.linked') . '</a>';
         return redirect('/')->with('status', $status_message);
 
     }

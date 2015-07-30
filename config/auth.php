@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => ShitGuide\Entities\User::class,
+    'model' => GottaToShit\Entities\User::class,
 
     /*
     |--------------------------------------------------------------------------

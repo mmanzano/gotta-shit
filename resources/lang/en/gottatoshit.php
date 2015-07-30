@@ -4,15 +4,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Shit Guide
+    | Gotta To Shit
     |--------------------------------------------------------------------------
     |
-    | Text for Shit Guide
+    | Text for Gotta To Shit
     |
     */
 
-    'site_name' => 'Shit Guide',
-    'welcome' => 'welcome to Shit Guide. ¡You can start to evaluate the WC in your around!',
+    'site_name' => 'Gotta To Shit',
+    'welcome' => 'welcome to Gotta To Shit. ¡You can start to evaluate the WC in your around!',
     'footer_year' => '2015',
 
     'nav' => array (

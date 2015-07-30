@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Entities;
+namespace GottaToShit\Entities;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -40,7 +40,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function stars()
     {
-        return $this->hasMany('ShitGuide\Entities\PlaceStar');
+        return $this->hasMany('GottaToShit\Entities\PlaceStar');
     }
 
     /**
@@ -50,6 +50,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function comments()
     {
-        return $this->hasMany('ShitGuide\Entities\PlaceComment');
+        return $this->hasMany('GottaToShit\Entities\PlaceComment');
     }
 }

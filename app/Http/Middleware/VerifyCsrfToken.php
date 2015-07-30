@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Http\Middleware;
+namespace GottaToShit\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 

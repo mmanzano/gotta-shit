@@ -1,6 +1,6 @@
 <?php
 
-namespace ShitGuide\Http;
+namespace GottaToShit\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,11 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \ShitGuide\Http\Middleware\EncryptCookies::class,
+        \GottaToShit\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \ShitGuide\Http\Middleware\VerifyCsrfToken::class,
+        \GottaToShit\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -26,8 +26,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \ShitGuide\Http\Middleware\Authenticate::class,
+        'auth' => \GottaToShit\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \ShitGuide\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \GottaToShit\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 }
