@@ -23,17 +23,16 @@
         </div>
 
         <div>
-            <label for="geo_lat">
-                {{ ucfirst(Lang::get('gottatoshit.place.latitude')) }}
-            </label>
-            <input type="text" name="geo_lat"  value="{{ old('geo_lat') }}" id="geo_lat">
+            <input type="text" name="city" value="{{ old('city') }}" id="place-loc">
+            <div id="place-map-error"></div>
+            <div id="place-map" style="width:80%;height:300px"></div>
+        </div>
+        <div>
+            <input type="hidden" name="geo_lat"  value="{{ old('geo_lat') }}" id="geo_lat">
         </div>
 
         <div>
-            <label for="geo_lng">
-                {{ ucfirst(Lang::get('gottatoshit.place.longitude')) }}
-            </label>
-            <input type="text" name="geo_lng"  value="{{ old('geo_lng') }}" id="geo_lng">
+            <input type="hidden" name="geo_lng"  value="{{ old('geo_lng') }}" id="geo_lng">
         </div>
 
         <div>
@@ -55,4 +54,5 @@
 
 
 @section('javascript')
+    @include('js/place_field')
 @endsection
