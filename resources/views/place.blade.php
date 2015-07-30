@@ -5,7 +5,5 @@
 @endsection
 
 @section('javascript')
-    <script>
-        @include('js/place')
-    </script>
+    @include('js/place')
 @endsection

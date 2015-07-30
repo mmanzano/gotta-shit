@@ -5,9 +5,7 @@
 @endsection
 
 @section('javascript')
-    <script>
         @foreach($places as $place)
             @include('js/place')
         @endforeach
-    </script>
 @endsection

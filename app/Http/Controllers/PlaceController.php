@@ -51,7 +51,7 @@ class PlaceController extends Controller
 
         $place->name = $request->input('name');
         $place->geo_lat = number_format($request->input('geo_lat'), 6);
-        $place->geo_lng =  number_format($request->input('geo_lng'), 6);
+        $place->geo_lng = number_format($request->input('geo_lng'), 6);
 
         $place->save();
 
@@ -64,8 +64,7 @@ class PlaceController extends Controller
         $star->save();
 
         $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.created');
-        $status_message .= ' <a href="/place/' . $place->id .'">' . \Lang::get('gottatoshit.place.linked') . '</a>';
-        return redirect('/')->with('status', $status_message);
+        return redirect('/place/' . $place->id)->with('status', $status_message);
 
     }
 
