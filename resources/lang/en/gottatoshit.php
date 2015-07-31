@@ -32,6 +32,8 @@ return [
         'full_name' => 'full name',
         'username' => 'username',
         'confirm_password' => 'confirm password',
+        'delete' => 'delete',
+        'edit' => 'edit',
     ),
 
     'place' => array(

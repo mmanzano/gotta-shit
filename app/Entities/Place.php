@@ -77,6 +77,7 @@ class Place extends Model
             $starWidth = number_format(($starAverage / 5) * 100, 0) . '%';
         return $starWidth;
     }
+
     public function getNumberOfCommentsAttribute()
     {
         $allComments = $this->comments()->getResults();
@@ -92,4 +93,18 @@ class Place extends Model
 
     }
 
+    public function getIsAuthorAttribute()
+    {
+        $isAuthor = false;
+        
+        if(\Auth::check()){
+            if (\Auth::User()->id == $this->user_id)
+            {
+                $isAuthor = true;
+            }
+        }
+
+        return $isAuthor;
+
+    }
 }

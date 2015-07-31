@@ -3,6 +3,7 @@
     <div class="place-card">
         <div class="place-card-title">
             <h2><a href="{{ route('place', [$place->id]) }}">{{ str_limit($place->name, 14) }}</a></h2>
+            @if($place->isAuthor)<p>Editar</p>@endif
         </div>
         <div id="map-{{ $place->id }}" class="place-card-map"></div>
         <div class="place-card-footer">

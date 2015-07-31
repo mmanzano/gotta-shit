@@ -1,10 +1,25 @@
 <div class="place">
     <div class="place-title">
+        @if($place->isAuthor)
+            <div class="actions">
+                <ul>
+                    <li>
+                        <a href="/place/{{ $place->id }}">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                    </li>
+                    <li>
+                        <form method="delete" action="/place/{{ $place->id }}">
+                            {!! csrf_field() !!}
+                            <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        @endif
         <h2>{{ $place->name }}</h2>
     </div>
+
     <div id="map-{{ $place->id }}" class="place-map"></div>
     <div class="place-footer">
-
         <div class="place-stars">
             <div class="place-stars-background">
                 <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
