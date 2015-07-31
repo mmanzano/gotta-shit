@@ -1,9 +1,9 @@
 @extends('layout.layout')
 
 @section('content')
-    @include('blocks.place')
+    @include('place.place')
 @endsection
 
 @section('javascript')
-    @include('js/place')
+    @include('js.place')
 @endsection

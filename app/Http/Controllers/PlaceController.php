@@ -19,7 +19,17 @@ class PlaceController extends Controller
      */
     public function index()
     {
+        if(\Auth::check())
+        {
+            $places = Place::where('user_id', \Auth::User()->id)->paginate(8);
+        }
+        else
+        {
+            $places = Place::paginate(8);
+        }
+
         $places = Place::paginate(8);
+
 
         return view('home', compact('places'));
     }
@@ -143,6 +153,38 @@ class PlaceController extends Controller
 
         $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.edited');
         return redirect('/place/' . $place->id)->with('status', $status_message);
+    }
+
+    public function updateStars(Request $request, $id)
+    {
+        $this->validate($request, [
+          'stars' => 'required|numeric|between:0,5',
+        ]);
+
+        $place = Place::find($id);
+
+        $idStar = $place->starForUser()['id'];
+
+        if ($idStar == 0)
+        {
+            $star = new PlaceStar();
+
+            $star->place_id = $place->id;
+            $star->user_id = \Auth::User()->id;
+        }
+        else
+        {
+            $star = PlaceStar::find($idStar);
+        }
+
+
+        $star->stars = $request->input('stars');
+
+        $star->save();
+
+        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.rated');
+        return redirect('/place/' . $place->id)->with('status', $status_message);
+
     }
 
     /**

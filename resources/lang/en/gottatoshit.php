@@ -47,9 +47,11 @@ return [
         'name' => 'name',
         'create_place' => 'Create Place',
         'edit_place' => 'Edit Place',
+        'rate_place' => 'Rate this',
         'created' => 'created',
         'edited' => 'edited',
         'deleted' => 'deleted',
+        'rated' => 'rated',
         'linked' => 'see now'
     ),
 

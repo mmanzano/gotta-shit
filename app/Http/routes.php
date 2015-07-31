@@ -22,7 +22,7 @@ Route::delete('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceCon
 Route::get('/place/{place}/edit', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@edit']);
 Route::put('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@update']);
 Route::post('/place', ['middleware' => 'auth', 'uses' => 'PlaceController@store']);
-
+Route::put('place/{place}/stars', ['middleware' => 'auth', 'uses' => 'PlaceController@updateStars']);
 // Authentication routes...
 Route::get('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);

@@ -62,4 +62,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('GottaToShit\Entities\PlaceComment');
     }
+
+    public function StarsForThisPlace()
+    {
+        $stars = $this->stars()->getResults();
+    }
 }

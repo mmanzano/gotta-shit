@@ -16,6 +16,16 @@
                 </ul>
             </div>
         @endif
+        @if(Auth::check())
+            <div class="star-rate">
+                <form method="POST" action="/place/{{ $place->id }}/stars">
+                    {!! csrf_field() !!}
+                    <input name="_method" type="hidden" value="PUT">
+                        @include('place.partials.form_stars')
+                        <button type="submit" class="rate">{{ ucfirst(Lang::get('gottatoshit.place.rate_place')) }}</button>
+                </form>
+            </div>
+        @endif
         <h2>{{ $place->name }}</h2>
     </div>
 
