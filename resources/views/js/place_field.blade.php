@@ -12,6 +12,10 @@
             var lat = parseFloat({{ number_format(old('geo_lat'), 6) }});
             var lon = parseFloat({{ number_format(old('geo_lng'), 6) }});
             var latLonInitial = 1;
+        @elseif(isset($place))
+            var lat = parseFloat({{ number_format($place->geo_lat, 6) }});
+            var lon = parseFloat({{ number_format($place->geo_lng, 6) }});
+            var latLonInitial = 1;
         @else
             var lat = 40;
             var lon = -3;

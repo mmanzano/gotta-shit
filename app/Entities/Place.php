@@ -28,6 +28,16 @@ class Place extends Model
     protected $hidden = [];
 
     /**
+     * One Place has one User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne('GottaToShit\Entities\User');
+    }
+
+    /**
      * One Place has many Stars.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -103,7 +113,6 @@ class Place extends Model
                 $isAuthor = true;
             }
         }
-
         return $isAuthor;
 
     }

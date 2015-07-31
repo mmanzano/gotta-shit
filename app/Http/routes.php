@@ -11,15 +11,17 @@
 |
 */
 
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'PlaceController@index']);
 
 // Display a form to create a place
 Route::get('/place/create', ['middleware' => 'auth', 'as' => 'create_place', 'uses' => 'PlaceController@create']);
 // Display a place
 Route::get('/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
 // Store a new place
-Route::post('/place', ['middleware' => 'auth', 'uses' => 'PlaceController@store']);
+Route::delete('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@destroy']);
+Route::put('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@edit']);
 
+Route::post('/place', ['middleware' => 'auth', 'uses' => 'PlaceController@store']);
 
 // Authentication routes...
 Route::get('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);

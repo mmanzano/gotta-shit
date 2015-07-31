@@ -19,7 +19,9 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        //
+        $places = Place::paginate(8);
+
+        return view('home', compact('places'));
     }
 
     /**
@@ -90,7 +92,9 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $place = Place::find($id);
+
+        return view('place.create', compact('place'));
     }
 
     /**
@@ -113,6 +117,6 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        echo "hola";
     }
 }

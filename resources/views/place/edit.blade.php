@@ -14,6 +14,7 @@
     <div class="forms">
         <form method="POST" action="/place">
             {!! csrf_field() !!}
+            <input name="_method" type="hidden" value="">
             @include('place/partials/form')
         </form>
     </div>

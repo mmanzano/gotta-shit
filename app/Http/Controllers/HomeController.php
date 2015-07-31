@@ -2,8 +2,6 @@
 
 namespace GottaToShit\Http\Controllers;
 
-use GottaToShit\Entities\Place;
-
 class HomeController extends Controller
 {
     /*
@@ -22,8 +20,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $places = Place::paginate(8);
 
-        return view('home', compact('places'));
     }
 }

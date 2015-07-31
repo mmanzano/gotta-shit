@@ -34,6 +34,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * One User has many Places.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function places()
+    {
+        return $this->hasMany('GottaToShit\Entities\Place');
+    }
+
+    /**
      * One User has many Stars.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

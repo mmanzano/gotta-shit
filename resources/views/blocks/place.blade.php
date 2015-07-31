@@ -4,11 +4,16 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a href="/place/{{ $place->id }}">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                        <form method="post" action="/place/{{ $place->id }}">
+                            {!! csrf_field() !!}
+                            <input name="_method" type="hidden" value="PUT">
+                            <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</button>
+                        </form>
                     </li>
                     <li>
-                        <form method="delete" action="/place/{{ $place->id }}">
+                        <form method="post" action="/place/{{ $place->id }}">
                             {!! csrf_field() !!}
+                            <input name="_method" type="hidden" value="DELETE">
                             <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
                         </form>
                     </li>
