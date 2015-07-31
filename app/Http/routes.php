@@ -28,8 +28,9 @@ Route::get('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\
 Route::post('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
 Route::get('/logout', ['middleware' => 'auth', 'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 Route::post('/place/{place}/comment', ['middleware' => 'auth', 'uses' => 'PlaceController@storeComment']);
-Route::put('/place/{place}/comment/{comment}', ['middleware' => 'isAuthorComment', 'uses' => 'PlaceController@update']);
-
+Route::get('/place/{place}/comment/{comment}/edit', ['middleware' => 'isAuthorComment', 'uses' => 'PlaceController@editComment']);
+Route::put('/place/{place}/comment/{comment}', ['middleware' => 'auth', 'uses' => 'PlaceController@updateComment']);
+Route::delete('/place/{place}/comment/{comment}', ['middleware' => 'auth', 'uses' => 'PlaceController@destroyComment']);
 // Registration routes...
 Route::get('/register', ['middleware' => 'guest', 'as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
 Route::post('/register', ['middleware' => 'guest', 'as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);

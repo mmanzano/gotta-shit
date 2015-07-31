@@ -57,10 +57,10 @@
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                                    <a href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
                                 </li>
                                 <li>
-                                    <form method="post" action="/place/{{ $place->id }}">
+                                    <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>

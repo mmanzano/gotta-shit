@@ -17,9 +17,10 @@ class IsAuthorCommentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $comment = \GottaToShit\Entities\PlaceComment::Find($request->comment);
+        $comment = \GottaToShit\Entities\PlaceComment::find($request->comment);
 
         $author_comment_id = $comment->user_id;
+
         if (\Auth::check()) {
             if (\Auth::User()->id != $author_comment_id) {
                 return redirect('/place/' . $request->place);

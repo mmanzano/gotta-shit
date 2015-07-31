@@ -156,13 +156,13 @@ class PlaceController extends Controller
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
-    public function updateStars(Request $request, $id)
+    public function updateStars(Request $request, $id_place)
     {
         $this->validate($request, [
           'stars' => 'required|numeric|between:0,5',
         ]);
 
-        $place = Place::find($id);
+        $place = Place::find($id_place);
 
         $idStar = $place->starForUser()['id'];
 
@@ -189,13 +189,13 @@ class PlaceController extends Controller
     }
 
 
-    public function storeComment(Request $request, $id)
+    public function storeComment(Request $request, $id_place)
     {
         $this->validate($request, [
           'comment' => 'required',
         ]);
 
-        $place = Place::find($id);
+        $place = Place::find($id_place);
 
         $comment = new PlaceComment();
 
@@ -207,6 +207,45 @@ class PlaceController extends Controller
 
 
         $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.commented');
+        return redirect('/place/' . $place->id)->with('status', $status_message);
+    }
+
+    public function editComment(Request $request, $id_place, $id_comment)
+    {
+        $place = PlaceComment::find($id_place);
+        $editComment = PlaceComment::find($id_comment);
+
+        return view('place.comment.edit', compact('place', 'editComment'));
+    }
+
+    public function updateComment(Request $request, $id_place, $id_comment)
+    {
+        $this->validate($request, [
+          'comment' => 'required',
+        ]);
+
+        $place = Place::find($id_place);
+
+        $comment = PlaceComment::find($id_comment);
+
+        $comment->comment = $request->input('comment');
+
+        $comment->save();
+
+        $status_message = \Lang::get('gottatoshit.place.comment_for') . ' ' . $place->name . ' ' . \Lang::get('gottatoshit.place.edited');
+        return redirect('/place/' . $place->id)->with('status', $status_message);
+    }
+
+    public function destroyComment(Request $request, $id_place, $id_comment)
+    {
+        $place = Place::find($id_place);
+
+        $comment = PlaceComment::find($id_comment);
+
+        $status_message = \Lang::get('gottatoshit.place.comment_for') . ' ' . $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
+
+        $comment->delete();
+
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
