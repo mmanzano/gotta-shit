@@ -157,6 +157,8 @@ class PlaceController extends Controller
 
         $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
 
+        $place->delete();
+
         return redirect('/')->with('status', $status_message);
     }
 }

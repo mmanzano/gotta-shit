@@ -3,9 +3,11 @@
 namespace GottaToShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Place extends Model
 {
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *
@@ -27,6 +29,7 @@ class Place extends Model
      */
     protected $hidden = [];
 
+    protected $dates = ['deleted_at'];
     /**
      * One Place has one User.
      *
