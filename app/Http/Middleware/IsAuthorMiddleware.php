@@ -17,7 +17,7 @@ class IsAuthorMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $place = \GottaToShit\Entities\Place::find($request->place);
+        $place = \GottaToShit\Entities\Place::findOrFail($request->place);
 
         $author_id = $place->user_id;
         if (\Auth::check()) {

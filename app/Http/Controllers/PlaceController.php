@@ -90,7 +90,7 @@ class PlaceController extends Controller
      */
     public function show($id)
     {
-        $place = Place::find($id);
+        $place = Place::findOrFail($id);
 
         return view('place', compact('place'));
     }
@@ -103,7 +103,7 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        $place = Place::find($id);
+        $place = Place::findOrFail($id);
 
         return view('place.edit', compact('place'));
     }
@@ -125,7 +125,7 @@ class PlaceController extends Controller
           'stars' => 'required|numeric|between:0,5',
         ]);
 
-        $place = Place::find($id);
+        $place = Place::findOrFail($id);
 
         $place->name = $request->input('name');
         $place->geo_lat = number_format($request->input('geo_lat'), 6);
@@ -144,7 +144,7 @@ class PlaceController extends Controller
         }
         else
         {
-            $star = PlaceStar::find($idStar);
+            $star = PlaceStar::findOrFail($idStar);
         }
 
 
@@ -162,7 +162,7 @@ class PlaceController extends Controller
           'stars' => 'required|numeric|between:0,5',
         ]);
 
-        $place = Place::find($id_place);
+        $place = Place::findOrFail($id_place);
 
         $idStar = $place->starForUser()['id'];
 
@@ -175,7 +175,7 @@ class PlaceController extends Controller
         }
         else
         {
-            $star = PlaceStar::find($idStar);
+            $star = PlaceStar::findOrFail($idStar);
         }
 
 
@@ -195,7 +195,7 @@ class PlaceController extends Controller
           'comment' => 'required',
         ]);
 
-        $place = Place::find($id_place);
+        $place = Place::findOrFail($id_place);
 
         $comment = new PlaceComment();
 
@@ -212,8 +212,8 @@ class PlaceController extends Controller
 
     public function editComment(Request $request, $id_place, $id_comment)
     {
-        $place = PlaceComment::find($id_place);
-        $comment = PlaceComment::find($id_comment);
+        $place = PlaceComment::findOrFail($id_place);
+        $comment = PlaceComment::findOrFail($id_comment);
 
         return view('place.comment.edit', compact('place', 'comment'));
     }
@@ -224,9 +224,9 @@ class PlaceController extends Controller
           'comment' => 'required',
         ]);
 
-        $place = Place::find($id_place);
+        $place = Place::findOrFail($id_place);
 
-        $comment = PlaceComment::find($id_comment);
+        $comment = PlaceComment::findOrFail($id_comment);
 
         $comment->comment = $request->input('comment');
 
@@ -238,9 +238,9 @@ class PlaceController extends Controller
 
     public function destroyComment(Request $request, $id_place, $id_comment)
     {
-        $place = Place::find($id_place);
+        $place = Place::findOrFail($id_place);
 
-        $comment = PlaceComment::find($id_comment);
+        $comment = PlaceComment::findOrFail($id_comment);
 
         $status_message = \Lang::get('gottatoshit.place.comment_for') . ' ' . $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
 
@@ -257,7 +257,7 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        $place = Place::find($id);
+        $place = Place::findOrFail($id);
 
         $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
 

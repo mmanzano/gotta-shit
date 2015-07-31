@@ -17,7 +17,7 @@ class IsAuthorCommentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $comment = \GottaToShit\Entities\PlaceComment::find($request->comment);
+        $comment = \GottaToShit\Entities\PlaceComment::findOrFail($request->comment);
 
         $author_comment_id = $comment->user_id;
 
