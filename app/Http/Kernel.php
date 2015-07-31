@@ -30,5 +30,6 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \GottaToShit\Http\Middleware\RedirectIfAuthenticated::class,
         'isAuthor' => \GottaToShit\Http\Middleware\IsAuthorMiddleware::class,
+        'isAuthorComment' => \GottaToShit\Http\Middleware\IsAuthorCommentMiddleware::class,
     ];
 }

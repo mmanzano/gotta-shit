@@ -52,7 +52,9 @@ return [
         'edited' => 'edited',
         'deleted' => 'deleted',
         'rated' => 'rated',
-        'linked' => 'see now'
+        'comment' => 'leave a comment',
+        'create_comment' => 'send comment',
+        'commented' => 'commented',
     ),
 
 ];

@@ -27,6 +27,8 @@ Route::put('place/{place}/stars', ['middleware' => 'auth', 'uses' => 'PlaceContr
 Route::get('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('/login', ['middleware' => 'guest', 'as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
 Route::get('/logout', ['middleware' => 'auth', 'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+Route::post('/place/{place}/comment', ['middleware' => 'auth', 'uses' => 'PlaceController@storeComment']);
+Route::put('/place/{place}/comment/{comment}', ['middleware' => 'isAuthorComment', 'uses' => 'PlaceController@update']);
 
 // Registration routes...
 Route::get('/register', ['middleware' => 'guest', 'as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);

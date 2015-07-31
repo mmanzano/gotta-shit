@@ -8,6 +8,7 @@ use GottaToShit\Http\Controllers\Controller;
 
 use GottaToShit\Entities\Place;
 use GottaToShit\Entities\PlaceStar;
+use GottaToShit\Entities\PlaceComment;
 use GottaToShit\Entities\User;
 
 class PlaceController extends Controller
@@ -28,7 +29,7 @@ class PlaceController extends Controller
             $places = Place::paginate(8);
         }
 
-        $places = Place::paginate(8);
+        //$places = Place::paginate(8);
 
 
         return view('home', compact('places'));
@@ -185,6 +186,28 @@ class PlaceController extends Controller
         $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.rated');
         return redirect('/place/' . $place->id)->with('status', $status_message);
 
+    }
+
+
+    public function storeComment(Request $request, $id)
+    {
+        $this->validate($request, [
+          'comment' => 'required',
+        ]);
+
+        $place = Place::find($id);
+
+        $comment = new PlaceComment();
+
+        $comment->place_id = $place->id;
+        $comment->user_id = \Auth::User()->id;
+        $comment->comment = $request->input('comment');
+
+        $comment->save();
+
+
+        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.commented');
+        return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
     /**

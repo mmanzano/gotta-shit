@@ -16,17 +16,17 @@
                 </ul>
             </div>
         @endif
+        <h2>{{ $place->name }}</h2>
         @if(Auth::check())
             <div class="star-rate">
                 <form method="POST" action="/place/{{ $place->id }}/stars">
                     {!! csrf_field() !!}
                     <input name="_method" type="hidden" value="PUT">
-                        @include('place.partials.form_stars')
-                        <button type="submit" class="rate">{{ ucfirst(Lang::get('gottatoshit.place.rate_place')) }}</button>
+                    @include('place.partials.form_stars')
+                    <button type="submit" class="rate">{{ ucfirst(Lang::get('gottatoshit.place.rate_place')) }}</button>
                 </form>
             </div>
         @endif
-        <h2>{{ $place->name }}</h2>
     </div>
 
     <div id="map-{{ $place->id }}" class="place-map"></div>
@@ -51,13 +51,39 @@
             </p>
 
             @foreach($place->comments as $comment)
-                <p class="place-comments-user">
+                <div class="place-comments-user">
                     {{ Lang::get('gottatoshit.place.user') }}: {{ $comment->user->full_name }}
-                </p>
+                    @if($comment->isAuthor)
+                        <div class="actions">
+                            <ul>
+                                <li>
+                                    <a href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                                </li>
+                                <li>
+                                    <form method="post" action="/place/{{ $place->id }}">
+                                        {!! csrf_field() !!}
+                                        <input name="_method" type="hidden" value="DELETE">
+                                        <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
+                </div>
                 <p class="place-comments-body">
                     {{ $comment->comment }}
                 </p>
             @endforeach
+            <div class="forms">
+                <form method="POST" action="/place/{{ $place->id }}/comment">
+                    {!! csrf_field() !!}
+                    @include('place.partials.comments')
+                    <div>
+                        <button type="submit">{{ ucfirst(Lang::get('gottatoshit.place.create_comment')) }}</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

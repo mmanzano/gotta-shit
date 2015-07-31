@@ -3,6 +3,7 @@
 namespace GottaToShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth;
 
 class PlaceComment extends Model
 {
@@ -45,5 +46,16 @@ class PlaceComment extends Model
     public function place()
     {
         return $this->belongsTo('GottaToShit\Entities\Place');
+    }
+
+    public function getIsAuthorAttribute()
+    {
+        $isAuthor = false;
+        if (\Auth::Check()) {
+            if ($this->user_id == \Auth::User()->id) {
+                $isAuthor = true;
+            }
+        }
+        return $isAuthor;
     }
 }

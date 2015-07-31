@@ -2,7 +2,7 @@
     <label for="name">
         {{ ucfirst(Lang::get('gottatoshit.place.name')) }}
     </label>
-    <input type="name" name="name" @if(old('name') != "") value="{{ old('name') }}" @elseif(isset($place)) value="{{ $place->name }}" @endif" id="name">
+    <input type="name" name="name" @if(old('name') != "") value="{{ old('name') }}" @elseif(isset($place)) value="{{ $place->name }}" @endif id="name">
 </div>
 
 <div>
