@@ -79,6 +79,29 @@ class Place extends Model
         return number_format($starAverage, 2);
     }
 
+    public function StarForUser()
+    {
+        $starsForPlace = $this->stars()->getResults();
+
+        $stars = array(
+            'id' => 0,
+            'stars' => 0,
+        );
+
+        foreach($starsForPlace as $star)
+        {
+            if ($star->user->id == \Auth::User()->id)
+            {
+                $stars = array(
+                    'id' => $star->id,
+                    'stars' =>  number_format($star->stars, 0),
+                );
+            }
+        }
+
+        return $stars;
+    }
+
     public function getStarWidthAttribute(){
         $starAverage = $this->getStarAttribute();
         if($starAverage == 0)

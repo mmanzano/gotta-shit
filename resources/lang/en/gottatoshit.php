@@ -46,7 +46,10 @@ return [
         'user' => 'User',
         'name' => 'name',
         'create_place' => 'Create Place',
+        'edit_place' => 'Edit Place',
         'created' => 'created',
+        'edited' => 'edited',
+        'deleted' => 'deleted',
         'linked' => 'see now'
     ),
 

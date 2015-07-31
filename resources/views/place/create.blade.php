@@ -15,6 +15,9 @@
         <form method="POST" action="/place">
             {!! csrf_field() !!}
             @include('place/partials/form')
+            <div>
+                <button type="submit">{{ ucfirst(Lang::get('gottatoshit.place.create_place')) }}</button>
+            </div>
         </form>
     </div>
 @endsection

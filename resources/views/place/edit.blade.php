@@ -12,10 +12,13 @@
         </div>
     @endif
     <div class="forms">
-        <form method="POST" action="/place">
+        <form method="POST" action="/place/{{ $place->id }}">
             {!! csrf_field() !!}
-            <input name="_method" type="hidden" value="">
+            <input name="_method" type="hidden" value="PUT">
             @include('place/partials/form')
+            <div>
+                <button type="submit">{{ ucfirst(Lang::get('gottatoshit.place.edit_place')) }}</button>
+            </div>
         </form>
     </div>
 @endsection

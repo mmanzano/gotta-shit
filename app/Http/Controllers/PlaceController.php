@@ -94,7 +94,7 @@ class PlaceController extends Controller
     {
         $place = Place::find($id);
 
-        return view('place.create', compact('place'));
+        return view('place.edit', compact('place'));
     }
 
     /**
@@ -106,7 +106,43 @@ class PlaceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, [
+          'name' => 'required|max:255',
+          'geo_lat' => 'required|numeric|between:-90,90',
+          'geo_lng' => 'required|numeric|between:-180,180',
+          'stars' => 'required|numeric|between:0,5',
+        ]);
+
+        $place = Place::find($id);
+
+        $place->name = $request->input('name');
+        $place->geo_lat = number_format($request->input('geo_lat'), 6);
+        $place->geo_lng = number_format($request->input('geo_lng'), 6);
+
+        $place->save();
+
+        $idStar = $place->starForUser()['id'];
+
+        if ($idStar == 0)
+        {
+            $star = new PlaceStar();
+
+            $star->place_id = $place->id;
+            $star->user_id = \Auth::User()->id;
+        }
+        else
+        {
+            $star = PlaceStar::find($idStar);
+        }
+
+
+        $star->stars = $request->input('stars');
+
+        $star->save();
+
+        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.edited');
+        return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
     /**
@@ -117,6 +153,10 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        echo "hola";
+        $place = Place::find($id);
+
+        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
+
+        return redirect('/')->with('status', $status_message);
     }
 }

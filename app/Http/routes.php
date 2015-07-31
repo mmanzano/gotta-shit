@@ -19,8 +19,8 @@ Route::get('/place/create', ['middleware' => 'auth', 'as' => 'create_place', 'us
 Route::get('/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
 // Store a new place
 Route::delete('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@destroy']);
-Route::put('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@edit']);
-
+Route::get('/place/{place}/edit', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@edit']);
+Route::put('/place/{place}', ['middleware' => 'isAuthor', 'uses' => 'PlaceController@update']);
 Route::post('/place', ['middleware' => 'auth', 'uses' => 'PlaceController@store']);
 
 // Authentication routes...
