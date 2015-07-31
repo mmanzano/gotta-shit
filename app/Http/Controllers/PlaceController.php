@@ -213,9 +213,9 @@ class PlaceController extends Controller
     public function editComment(Request $request, $id_place, $id_comment)
     {
         $place = PlaceComment::find($id_place);
-        $editComment = PlaceComment::find($id_comment);
+        $comment = PlaceComment::find($id_comment);
 
-        return view('place.comment.edit', compact('place', 'editComment'));
+        return view('place.comment.edit', compact('place', 'comment'));
     }
 
     public function updateComment(Request $request, $id_place, $id_comment)

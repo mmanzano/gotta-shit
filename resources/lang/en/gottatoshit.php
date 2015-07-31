@@ -56,6 +56,8 @@ return [
         'create_comment' => 'send comment',
         'commented' => 'commented',
         'comment_for' => 'comment for',
+        'update_comment' => 'update your comment',
+        'edit_comment' => 'send comment',
     ),
 
 ];

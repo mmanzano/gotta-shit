@@ -77,7 +77,17 @@
             <div class="forms">
                 <form method="POST" action="/place/{{ $place->id }}/comment">
                     {!! csrf_field() !!}
-                    @include('place.partials.comments')
+                    <div>
+                        <label for="comment">
+                            {{ ucfirst(Lang::get('gottatoshit.place.comment')) }}
+                        </label>
+                        @if(old('comment') != "")
+                            <textarea cols="3" name="comment" id="comment">{{ old('comment') }}</textarea>
+                        @else
+                            <textarea cols="3" name="comment" id="comment"></textarea>
+                        @endif
+                    </div>
+
                     <div>
                         <button type="submit">{{ ucfirst(Lang::get('gottatoshit.place.create_comment')) }}</button>
                     </div>

@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="forms">
-        <form method="POST" action="/place/{{ $place->id }}/comment/{{$editComment->id}}">
+        <form method="POST" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PUT">
             @include('place.partials.comments')
