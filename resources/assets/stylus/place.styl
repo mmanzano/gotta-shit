@@ -1,12 +1,26 @@
 .place
   padding 1em
   background-color place_background
+.places
+  text-align center
+  background-color places_background
+.place-card
+  background-color place_card_background
+  color place_card_color
+  margin 1em 1em 3em 1em
+  width 15em
+  display inline-block
+  vertical-align top
+  position relative
+  h2
+    margin 0
 .place-title
   background-color place_title_background
   padding .3em
   color place_title_color
-.place-actions
-  text-align right
+.place-title-link
+  color place_title_color
+  text-decoration none
 .place-map
   position relative
 .place-map-render
@@ -21,11 +35,21 @@
     padding 2px 10px
 .place-map-error
   display none
+.card-footer
+  position relative
+  font-size 0
+  height 20px;
 .place-stars
   position relative
   font-size 1rem
   vertical-align top
   text-align center
+.card-stars
+  position absolute
+  width 80%
+  font-size 1rem
+  top 0
+  left 0
 .place-stars-background
   background-color place_stars_background
   width 100%
@@ -42,6 +66,14 @@
 .place-comments
   padding 1em
   background-color place_comments_background
+.card-comments
+  width 20%
+  background-color place_card_comments_background
+  font-size 1rem
+  position absolute
+  right 0
+  top 0
+  padding 0
 .place-comments-number
   font-weight bold
 .place-comments-user
@@ -53,60 +85,3 @@
   padding 2em
   margin-top 0
   margin-bottom .5em
-
-.places
-  text-align center
-  background-color places_background
-.place-card
-  background-color place_card_background
-  color place_card_color
-  margin 1em
-  width 15em
-  padding .1em 0
-  height 15em
-  display inline-block
-  vertical-align top
-  position relative
-  overflow hidden
-  h2
-    margin 0
-
-.place-card-title
-  padding .3em
-.place-card-title a
-  color place_card_title_color
-  text-decoration none
-.place-card-map
-  width 15em
-  height 100%
-.place-card-footer
-  background-color place_card_footer_background
-  position absolute
-  bottom 0
-  width 100%
-  padding 0
-  color place_card_footer_color
-  font-weight bold
-  font-size 0
-.place-card-stars
-  position relative
-  width 80%
-  display inline-block
-  font-size 1rem
-  vertical-align top
-.place-card-stars-background
-  background-color place_card_stars_background
-  width 100%
-.place-card-stars-points
-  background place_card_stars_points_background
-  overflow hidden
-.place-card-stars-text
-  font-size 1rem
-  position absolute
-  top 1em
-  left 50%
-.place-card-comments
-  width 20%
-  background-color place_card_comments_background
-  font-size 1rem
-  display inline-block

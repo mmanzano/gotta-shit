@@ -4,13 +4,13 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                        <a href="/place/{{ $place->id }}/edit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
                     </li>
                     <li>
                         <form method="post" action="/place/{{ $place->id }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
                         </form>
                     </li>
                 </ul>
@@ -23,7 +23,7 @@
                     {!! csrf_field() !!}
                     <input name="_method" type="hidden" value="PUT">
                     @include('place.partials.form_stars')
-                    <button type="submit" class="rate">{{ ucfirst(Lang::get('gottatoshit.place.rate_place')) }}</button>
+                    <button type="submit" class="button button-rate">{{ ucfirst(Lang::get('gottatoshit.place.rate_place')) }}</button>
                 </form>
             </div>
         @endif
