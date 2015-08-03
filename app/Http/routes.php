@@ -12,7 +12,7 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'PlaceController@index']);
-
+Route::get('/place/user', ['middleware' => 'auth', 'as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
 // Display a form to create a place
 Route::get('/place/create', ['middleware' => 'auth', 'as' => 'create_place', 'uses' => 'PlaceController@create']);
 // Display a place

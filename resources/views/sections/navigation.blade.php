@@ -1,6 +1,7 @@
 <nav>
     <ul>
         @if(Auth::check())
+            <li><a href="{{ route('user_places') }}">{{ ucfirst(Lang::get('gottatoshit.nav.user_places')) }}</a></li>
             <li><a href="{{ route('create_place') }}">{{ ucfirst(Lang::get('gottatoshit.nav.add_place')) }}</a></li>
             <li><a href="{{ route('logout') }}">{{ ucfirst(Lang::get('gottatoshit.nav.logout')) }}</a></li>
         @else

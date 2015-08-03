@@ -14,13 +14,14 @@ return [
     'site_name' => 'Gotta To Shit',
     'welcome' => 'Welcome to Gotta To Shit. You can start to evaluate the WC in your around when you',
     'footer_year' => '2015',
-    'start' => 'Start to evaluate others WC or add one. Wellcome',
+    'start' => 'Start to evaluate others WC or add one. Welcome',
 
     'nav' => array (
         'login' => 'login',
         'logout' => 'logout',
         'register' => 'register',
         'add_place' => 'add',
+        'user_places' => 'yours places'
     ),
 
     'form' => array (

@@ -20,17 +20,7 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        if(\Auth::check())
-        {
-            $places = Place::where('user_id', \Auth::User()->id)->paginate(8);
-        }
-        else
-        {
-            $places = Place::paginate(8);
-        }
-
-        //$places = Place::paginate(8);
-
+        $places = Place::paginate(8);
 
         return view('home', compact('places'));
     }
@@ -265,4 +255,24 @@ class PlaceController extends Controller
 
         return redirect('/')->with('status', $status_message);
     }
+
+    /**
+     * Display a listing of the resource for the user
+     *
+     * @return Response
+     */
+    public function placesForUser()
+    {
+        if(\Auth::check())
+        {
+            $places = Place::where('user_id', \Auth::User()->id)->paginate(8);
+        }
+        else
+        {
+            $places = Place::paginate(8);
+        }
+
+        return view('home', compact('places'));
+    }
+
 }
