@@ -1,7 +1,7 @@
 <div class="disclaimer">
     @if(Auth::check())
         <p>
-            {{ Lang::get('gottatoshit.start') }} {{ ucfirst(Auth::user()->username) }}
+            {{ Lang::get('gottatoshit.start') }} {{ ucfirst(Auth::user()->full_name) }}.
         </p>
     @else
         <p>
