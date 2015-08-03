@@ -40,7 +40,7 @@
             </div>
 
             <div>
-                <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.register')) }}</button>
+                <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.register')) }}</button>
             </div>
         </form>
     </div>

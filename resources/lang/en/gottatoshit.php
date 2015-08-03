@@ -12,8 +12,9 @@ return [
     */
 
     'site_name' => 'Gotta To Shit',
-    'welcome' => 'welcome to Gotta To Shit. ¡You can start to evaluate the WC in your around!',
+    'welcome' => 'Welcome to Gotta To Shit. You can start to evaluate the WC in your around when you',
     'footer_year' => '2015',
+    '' => '',
 
     'nav' => array (
         'login' => 'login',

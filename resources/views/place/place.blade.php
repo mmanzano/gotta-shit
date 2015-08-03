@@ -57,13 +57,13 @@
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                                    <a href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
                                 </li>
                                 <li>
                                     <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                                        <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
                                     </form>
                                 </li>
                             </ul>
@@ -90,7 +90,7 @@
                         </div>
 
                         <div>
-                            <button type="submit">{{ ucfirst(Lang::get('gottatoshit.place.create_comment')) }}</button>
+                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.place.create_comment')) }}</button>
                         </div>
                     </form>
                 </div>
