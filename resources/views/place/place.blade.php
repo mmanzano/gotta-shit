@@ -29,7 +29,7 @@
         @endif
     </div>
 
-    <div id="map-{{ $place->id }}" class="place-map"></div>
+    <div id="map-{{ $place->id }}" class="place-map-render"></div>
     <div class="place-footer">
         <div class="place-stars">
             <div class="place-stars-background">

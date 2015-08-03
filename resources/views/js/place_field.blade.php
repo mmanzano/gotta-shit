@@ -28,7 +28,12 @@
             zoom: 6,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            //mapTypeControl: false,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+            },
+            mapTypeControl: false,
             //panControl: false,
             //zoomControl: false,
             streetViewControl: false

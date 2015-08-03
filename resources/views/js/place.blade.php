@@ -7,6 +7,16 @@
         var mapOptions_{{ $place->id }} = {
             zoom: 16,
             center: myLatlng_{{ $place->id }},
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+            },
+            mapTypeControl: false,
+            //panControl: false,
+            //zoomControl: false,
+            streetViewControl: false
         };
         map_{{ $place->id }} = new google.maps.Map(element_{{ $place->id }}, mapOptions_{{ $place->id }})
 

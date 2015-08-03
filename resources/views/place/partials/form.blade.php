@@ -5,10 +5,10 @@
     <input type="name" name="name" @if(old('name') != "") value="{{ old('name') }}" @elseif(isset($place)) value="{{ $place->name }}" @endif id="name">
 </div>
 
-<div>
-    <input type="text" name="city" value="{{ old('city') }}" id="place-loc">
-    <div id="place-map-error"></div>
-    <div id="place-map" style="width:80%;height:300px"></div>
+<div class="place-map">
+    <div class="place-map-render" id="place-map"></div>
+    <div class="place-map-city"><input type="text" name="city" value="{{ old('city') }}" id="place-loc"></div>
+    <div class="place-map-error" id="place-map-error"></div>
 </div>
 <div>
     <input type="hidden" name="geo_lat"  @if(old('geo_lat') != "") value="{{ old('geo_lat') }}" @elseif(isset($place)) value="{{ $place->geo_lat }}" @endif id="geo_lat">
