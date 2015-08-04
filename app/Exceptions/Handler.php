@@ -44,12 +44,12 @@ class Handler extends ExceptionHandler
         if($capture){
             if ($e instanceof ModelNotFoundException)
             {
-                return response()->view('errors.'.'404');
+                return response()->view('errors.404');
             }
 
             if ($e instanceof MethodNotAllowedHttpException)
             {
-                return response()->view('errors.'.'404');
+                return response()->view('errors.404');
             }
         }
 

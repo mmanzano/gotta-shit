@@ -26,14 +26,14 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
     // Place for a user
-    Route::get('/place/user', ['middleware' => 'auth', 'as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
+    Route::get('/place/user', ['as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
 
     // Create a place
     Route::get('/place/create', ['as' => 'create_place', 'uses' => 'PlaceController@create']);
-    Route::post('/place', ['middleware' => 'auth', 'uses' => 'PlaceController@store']);
+    Route::post('/place', ['uses' => 'PlaceController@store']);
 
     // Update Stars Rate for a place
-    Route::put('place/{place}/stars', ['middleware' => 'auth', 'uses' => 'StarController@update']);
+    Route::put('place/{place}/stars', ['uses' => 'StarController@update']);
 
     // Post a Comment
     Route::post('/place/{place}/comment', ['uses' => 'CommentController@store']);
