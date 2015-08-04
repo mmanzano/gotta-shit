@@ -7,4 +7,4 @@ if [ ! -f key_generate ]; then
 fi
 composer dump-autoload
 php artisan cache:clear
-php artisan migrate
+php artisan migrate --force
