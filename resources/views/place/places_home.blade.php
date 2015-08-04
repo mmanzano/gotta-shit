@@ -6,13 +6,13 @@
                 <div class="actions card">
                     <ul>
                         <li>
-                            <a href="/place/{{ $place->id }}/edit" class="button card-button">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                            <a href="/place/{{ $place->id }}/edit" class="button card-button">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
                         </li>
                         <li>
                             <form method="post" action="/place/{{ $place->id }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button type="submit" class="button card-button">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                                <button type="submit" class="button card-button">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
                             </form>
                         </li>
                     </ul>

@@ -5,7 +5,7 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         } else {
-            disclaimer_notice.innerHTML = '{{ Lang::get('gottatoshit.no_geolocation') }}';
+            disclaimer_notice.innerHTML = '{{ Lang::get('gottashit.no_geolocation') }}';
         }
     }
 

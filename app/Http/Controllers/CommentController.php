@@ -1,14 +1,14 @@
 <?php
 
-namespace GottaToShit\Http\Controllers;
+namespace GottaShit\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use GottaToShit\Http\Requests;
-use GottaToShit\Http\Controllers\Controller;
+use GottaShit\Http\Requests;
+use GottaShit\Http\Controllers\Controller;
 
-use GottaToShit\Entities\PlaceComment;
-use GottaToShit\Entities\Place;
+use GottaShit\Entities\PlaceComment;
+use GottaShit\Entities\Place;
 
 class CommentController extends Controller
 {
@@ -55,7 +55,7 @@ class CommentController extends Controller
         $comment->save();
 
 
-        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.commented');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.commented');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -105,7 +105,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $status_message = ucfirst(\Lang::get('gottatoshit.place.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottatoshit.place.edited');
+        $status_message = ucfirst(\Lang::get('gottashit.place.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.place.edited');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -121,7 +121,7 @@ class CommentController extends Controller
 
         $comment = PlaceComment::findOrFail($id_comment);
 
-        $status_message = ucfirst(\Lang::get('gottatoshit.place.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
+        $status_message = ucfirst(\Lang::get('gottashit.place.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.place.deleted');
 
         $comment->delete();
 

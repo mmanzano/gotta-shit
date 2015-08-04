@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Jobs;
+namespace GottaShit\Jobs;
 
 use Illuminate\Bus\Queueable;
 

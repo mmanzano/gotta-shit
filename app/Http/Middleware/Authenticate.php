@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Http\Middleware;
+namespace GottaShit\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

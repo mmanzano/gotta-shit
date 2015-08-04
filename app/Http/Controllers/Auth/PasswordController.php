@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaToShit\Http\Controllers\Auth;
+namespace GottaShit\Http\Controllers\Auth;
 
-use GottaToShit\Http\Controllers\Controller;
+use GottaShit\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

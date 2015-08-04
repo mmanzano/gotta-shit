@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Http\Middleware;
+namespace GottaShit\Http\Middleware;
 
 use Illuminate\Auth;
 
@@ -17,7 +17,7 @@ class IsAuthorMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $place = \GottaToShit\Entities\Place::findOrFail($request->place);
+        $place = \GottaShit\Entities\Place::findOrFail($request->place);
 
         $author_id = $place->user_id;
         if (\Auth::check()) {

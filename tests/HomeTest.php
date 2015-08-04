@@ -14,7 +14,7 @@ class HomeTest extends TestCase
     public function test_home()
     {
         $this->visit('/')
-             ->see('Shit Guide');
+             ->see('Gotta Shit');
     }
 
 }

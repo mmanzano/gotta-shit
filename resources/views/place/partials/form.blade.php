@@ -1,6 +1,6 @@
 <div>
     <label for="name">
-        {{ ucfirst(Lang::get('gottatoshit.place.name')) }}
+        {{ ucfirst(Lang::get('gottashit.place.name')) }}
     </label>
     <input type="name" name="name" @if(old('name') != "") value="{{ old('name') }}" @elseif(isset($place)) value="{{ $place->name }}" @endif id="name">
 </div>
@@ -20,7 +20,7 @@
 
 <div>
     <label for="stars">
-        {{ ucfirst(Lang::get('gottatoshit.place.stars')) }}
+        {{ ucfirst(Lang::get('gottashit.place.stars')) }}
     </label>
     @include('place/partials/form_stars')
 </div>

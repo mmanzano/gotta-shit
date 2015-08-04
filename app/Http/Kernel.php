@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Http;
+namespace GottaShit\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -13,11 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \GottaToShit\Http\Middleware\EncryptCookies::class,
+        \GottaShit\Http\Middleware\EncryptCookies::class,
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \GottaToShit\Http\Middleware\VerifyCsrfToken::class,
+        \GottaShit\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -26,10 +26,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \GottaToShit\Http\Middleware\Authenticate::class,
+        'auth' => \GottaShit\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \GottaToShit\Http\Middleware\RedirectIfAuthenticated::class,
-        'isAuthor' => \GottaToShit\Http\Middleware\IsAuthorMiddleware::class,
-        'isAuthorComment' => \GottaToShit\Http\Middleware\IsAuthorCommentMiddleware::class,
+        'guest' => \GottaShit\Http\Middleware\RedirectIfAuthenticated::class,
+        'isAuthor' => \GottaShit\Http\Middleware\IsAuthorMiddleware::class,
+        'isAuthorComment' => \GottaShit\Http\Middleware\IsAuthorCommentMiddleware::class,
     ];
 }

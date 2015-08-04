@@ -19,7 +19,7 @@
             "database"
         ],
         "psr-4": {
-            "GottaToShit\\": "app/"
+            "GottaShit\\": "app/"
         }
     },
     "autoload-dev": {

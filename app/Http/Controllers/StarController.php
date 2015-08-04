@@ -1,14 +1,14 @@
 <?php
 
-namespace GottaToShit\Http\Controllers;
+namespace GottaShit\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use GottaToShit\Http\Requests;
-use GottaToShit\Http\Controllers\Controller;
+use GottaShit\Http\Requests;
+use GottaShit\Http\Controllers\Controller;
 
-use GottaToShit\Entities\Place;
-use GottaToshit\Entities\PlaceStar;
+use GottaShit\Entities\Place;
+use GottaShit\Entities\PlaceStar;
 
 class StarController extends Controller
 {
@@ -99,7 +99,7 @@ class StarController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.rated');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.rated');
         return redirect('/place/' . $place->id)->with('status', $status_message);
 
     }

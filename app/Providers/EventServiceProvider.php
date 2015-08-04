@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Providers;
+namespace GottaShit\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'GottaToShit\Events\SomeEvent' => [
-            'GottaToShit\Listeners\EventListener',
+        'GottaShit\Events\SomeEvent' => [
+            'GottaShit\Listeners\EventListener',
         ],
     ];
 

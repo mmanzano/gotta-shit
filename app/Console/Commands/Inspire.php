@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Console\Commands;
+namespace GottaShit\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;

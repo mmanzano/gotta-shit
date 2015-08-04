@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Entities;
+namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,7 +34,7 @@ class PlaceStar extends Model
      */
     public function user()
     {
-        return $this->belongsTo('GottaToShit\Entities\User');
+        return $this->belongsTo('GottaShit\Entities\User');
     }
 
     /**
@@ -44,7 +44,7 @@ class PlaceStar extends Model
      */
     public function place()
     {
-        return $this->belongsTo('GottaToShit\Entities\Place');
+        return $this->belongsTo('GottaShit\Entities\Place');
     }
 
     public function starForPlaceAndUser()

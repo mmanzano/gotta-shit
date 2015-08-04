@@ -1,15 +1,15 @@
-<?php namespace GottaToShit\Http\Controllers;
+<?php namespace GottaShit\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Auth;
 
-use GottaToShit\Http\Requests;
-use GottaToShit\Http\Controllers\Controller;
+use GottaShit\Http\Requests;
+use GottaShit\Http\Controllers\Controller;
 
-use GottaToShit\Entities\Place;
-use GottaToShit\Entities\PlaceStar;
-use GottaToShit\Entities\PlaceComment;
-use GottaToShit\Entities\User;
+use GottaShit\Entities\Place;
+use GottaShit\Entities\PlaceStar;
+use GottaShit\Entities\PlaceComment;
+use GottaShit\Entities\User;
 
 class PlaceController extends Controller
 {
@@ -67,7 +67,7 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.created');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.created');
         return redirect('/place/' . $place->id)->with('status', $status_message);
 
     }
@@ -142,7 +142,7 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.edited');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.edited');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -156,7 +156,7 @@ class PlaceController extends Controller
     {
         $place = Place::findOrFail($id);
 
-        $status_message = $place->name . ' ' . \Lang::get('gottatoshit.place.deleted');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.deleted');
 
         $place->delete();
 

@@ -1,6 +1,6 @@
 <div>
     <label for="comment">
-        {{ ucfirst(Lang::get('gottatoshit.place.update_comment')) }}
+        {{ ucfirst(Lang::get('gottashit.place.update_comment')) }}
     </label>
     @if(old('comment') != "")
         <textarea cols="3" name="comment" id="comment">{{ old('comment') }}</textarea>

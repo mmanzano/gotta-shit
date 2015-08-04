@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Events;
+namespace GottaShit\Events;
 
 abstract class Event
 {

@@ -4,13 +4,13 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a href="/place/{{ $place->id }}/edit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                        <a href="/place/{{ $place->id }}/edit" class="button">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
                     </li>
                     <li>
                         <form method="post" action="/place/{{ $place->id }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
                         </form>
                     </li>
                 </ul>
@@ -23,7 +23,7 @@
                     {!! csrf_field() !!}
                     <input name="_method" type="hidden" value="PUT">
                     @include('place.partials.form_stars')
-                    <button type="submit" class="button button-rate">{{ ucfirst(Lang::get('gottatoshit.place.rate_place')) }}</button>
+                    <button type="submit" class="button button-rate">{{ ucfirst(Lang::get('gottashit.place.rate_place')) }}</button>
                 </form>
             </div>
         @endif
@@ -42,28 +42,28 @@
         <div class="place-comments">
             <p class="place-comments-number">
                 @if($place->numberOfComments == 0)
-                {{ Lang::get('gottatoshit.place.no_comments') }}
+                {{ Lang::get('gottashit.place.no_comments') }}
                 @elseif($place->numberOfComments == 1)
-                {{ Lang::get('gottatoshit.place.one_comment') }}
+                {{ Lang::get('gottashit.place.one_comment') }}
                 @else
-                {{ $place->numberOfComments }} {{ Lang::get('gottatoshit.place.comments') }}
+                {{ $place->numberOfComments }} {{ Lang::get('gottashit.place.comments') }}
                 @endif
             </p>
 
             @foreach($place->comments as $comment)
                 <div class="place-comments-user">
-                    {{ Lang::get('gottatoshit.place.user') }}: {{ $comment->user->full_name }}
+                    {{ Lang::get('gottashit.place.user') }}: {{ $comment->user->full_name }}
                     @if($comment->isAuthor)
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.edit')) }}</a>
+                                    <a href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit" class="button">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
                                 </li>
                                 <li>
                                     <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.form.delete')) }}</button>
+                                        <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
                                     </form>
                                 </li>
                             </ul>
@@ -80,7 +80,7 @@
                         {!! csrf_field() !!}
                         <div>
                             <label for="comment">
-                                {{ ucfirst(Lang::get('gottatoshit.place.comment')) }}
+                                {{ ucfirst(Lang::get('gottashit.place.comment')) }}
                             </label>
                             @if(old('comment') != "")
                                 <textarea cols="3" name="comment" id="comment">{{ old('comment') }}</textarea>
@@ -90,7 +90,7 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.place.create_comment')) }}</button>
+                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.place.create_comment')) }}</button>
                         </div>
                     </form>
                 </div>

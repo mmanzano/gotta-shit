@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Providers;
+namespace GottaShit\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Http\Middleware;
+namespace GottaShit\Http\Middleware;
 
 use Illuminate\Auth;
 
@@ -17,7 +17,7 @@ class IsAuthorCommentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $comment = \GottaToShit\Entities\PlaceComment::findOrFail($request->comment);
+        $comment = \GottaShit\Entities\PlaceComment::findOrFail($request->comment);
 
         $author_comment_id = $comment->user_id;
 

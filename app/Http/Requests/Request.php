@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Http\Requests;
+namespace GottaShit\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

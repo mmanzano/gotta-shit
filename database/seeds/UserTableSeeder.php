@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder
     {
         $usersAmount = $this->databaseSeeder->getUsersAmount();
 
-        factory('GottaToShit\Entities\User', $usersAmount - 1)->create();
-        factory('GottaToShit\Entities\User', 'admin')->create();
+        factory('GottaShit\Entities\User', $usersAmount - 1)->create();
+        factory('GottaShit\Entities\User', 'admin')->create();
     }
 }

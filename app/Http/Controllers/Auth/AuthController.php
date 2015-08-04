@@ -1,10 +1,10 @@
 <?php
 
-namespace GottaToShit\Http\Controllers\Auth;
+namespace GottaShit\Http\Controllers\Auth;
 
-use GottaToShit\Entities\User;
+use GottaShit\Entities\User;
 use Validator;
-use GottaToShit\Http\Controllers\Controller;
+use GottaShit\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller

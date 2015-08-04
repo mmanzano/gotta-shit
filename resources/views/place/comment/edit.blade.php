@@ -17,7 +17,7 @@
             <input name="_method" type="hidden" value="PUT">
             @include('place.partials.comments')
             <div>
-                <button type="submit" class="button">{{ ucfirst(Lang::get('gottatoshit.place.edit_comment')) }}</button>
+                <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.place.edit_comment')) }}</button>
             </div>
         </form>
     </div>

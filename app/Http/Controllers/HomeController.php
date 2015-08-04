@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Http\Controllers;
+namespace GottaShit\Http\Controllers;
 
 class HomeController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaToShit\Entities;
+namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -37,7 +37,7 @@ class Place extends Model
      */
     public function user()
     {
-        return $this->hasOne('GottaToShit\Entities\User');
+        return $this->hasOne('GottaShit\Entities\User');
     }
 
     /**
@@ -47,7 +47,7 @@ class Place extends Model
      */
     public function stars()
     {
-        return $this->hasMany('GottaToShit\Entities\PlaceStar');
+        return $this->hasMany('GottaShit\Entities\PlaceStar');
     }
 
     /**
@@ -57,7 +57,7 @@ class Place extends Model
      */
     public function comments()
     {
-        return $this->hasMany('GottaToShit\Entities\PlaceComment');
+        return $this->hasMany('GottaShit\Entities\PlaceComment');
     }
 
     public function getStarAttribute()
