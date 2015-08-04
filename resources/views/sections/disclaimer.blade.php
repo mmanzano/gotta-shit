@@ -11,5 +11,6 @@
     @if (session('status'))
             <p>{!! session('status') !!}</p>
     @endif
+    <p id="disclaimer-notice" class="disclaimer-notice"></p>
 </div>
 

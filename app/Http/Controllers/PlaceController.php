@@ -182,4 +182,29 @@ class PlaceController extends Controller
         return view('home', compact('places'));
     }
 
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param $latitude
+     * @param $longitude
+     * @param int $distance in meters
+     */
+    public function nearest(Request $request, $latitude, $longitude, $distance)
+    {
+        $totalLat = 180;
+        $totalLng = 360;
+        $radius = 6371000;
+        $pi = pi();
+        $totalMeters = 2 * $pi * $radius;
+
+        $deltaLat = ($totalLat * $distance) / ($totalMeters / 2);
+        $deltaLng = ($totalLng * $distance) / ($totalMeters);
+
+        $places = Place::whereBetween('geo_lat', array($latitude - $deltaLat, $latitude + $deltaLat))
+                        ->whereBetween('geo_lng', array($longitude - $deltaLng, $longitude + $deltaLng))
+                        ->paginate(8);
+        return view('home', compact('places'));
+
+    }
+
 }

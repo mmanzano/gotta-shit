@@ -8,4 +8,5 @@
         @foreach($places as $place)
             @include('js.place')
         @endforeach
+        @include('js.nearest')
 @endsection

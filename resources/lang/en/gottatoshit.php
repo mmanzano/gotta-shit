@@ -15,13 +15,16 @@ return [
     'welcome' => 'Welcome to Gotta To Shit. You can start to evaluate the WC in your around when you',
     'footer_year' => '2015',
     'start' => 'Start to evaluate others WC or add one. Welcome',
+    'no_geolocation' => 'Geolocation is not supported by this browser.',
+
 
     'nav' => array (
         'login' => 'login',
         'logout' => 'logout',
         'register' => 'register',
         'add_place' => 'add',
-        'user_places' => 'yours places'
+        'user_places' => 'yours places',
+        'nearest' => 'nearest',
     ),
 
     'form' => array (

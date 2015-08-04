@@ -61,5 +61,8 @@ Route::group(['middleware' => ['auth']], function()
 // Home
 Route::get('/', ['as' => 'home', 'uses' => 'PlaceController@index']);
 
+// Nearest Places
+Route::get('place/{lat}/{lng}/{distance}',['uses' => 'PlaceController@nearest']);
+
 // Display a place
 Route::get('/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);

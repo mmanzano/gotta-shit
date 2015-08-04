@@ -6,4 +6,5 @@
 
 @section('javascript')
     @include('js.place')
+    @include('js.nearest')
 @endsection
