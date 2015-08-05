@@ -9,4 +9,5 @@
             @include('js.place')
         @endforeach
         @include('js.nearest')
+        @include('js.hover')
 @endsection

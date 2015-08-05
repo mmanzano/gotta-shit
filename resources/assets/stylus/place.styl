@@ -14,15 +14,20 @@
   position relative
   h2
     margin 0
-.place-title
+.place-title, .place-title-card
   background-color place_title_background
   border-radius .8em .8em 0 0
   color place_title_color
   padding .3em
   position relative
-.place-title-link
+.place-title-link, .place-title-link-card
   color place_title_color
   text-decoration none
+  display block
+.place-title-card-hover
+  background-color place_title_color
+  color place_title_background
+  border-color place_title_color
 .place-map-render
   width 100%
   height 300px
