@@ -1,4 +1,4 @@
-ul
+.pagination-nav ul
   text-align center
   background pagination_background
   padding 10px
@@ -13,7 +13,7 @@ ul
     color pagination_color
     text-decoration none
     border 1px solid pagination_border
-    border-radius .2em
+    //border-radius .2em
   a
     display block
     background pagination_link_background
@@ -24,3 +24,6 @@ ul
     background pagination_link_background_disabled
     &:nth-child(1), &:nth-last-child(1)
       display none
+  &:hover, a:hover
+    color pagination_link_background
+    background pagination_color

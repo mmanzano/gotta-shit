@@ -1,16 +1,26 @@
 <div class="place">
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="place-title">
         @if($place->isAuthor)
             <div class="actions">
                 <ul>
                     <li>
-                        <a href="/place/{{ $place->id }}/edit" class="button">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
+                        <a  class="button button-action" href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
                     </li>
                     <li>
                         <form method="post" action="/place/{{ $place->id }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
+                            <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
                         </form>
                     </li>
                 </ul>
@@ -23,13 +33,13 @@
                     {!! csrf_field() !!}
                     <input name="_method" type="hidden" value="PUT">
                     @include('place.partials.form_stars')
-                    <button type="submit" class="button button-rate">{{ ucfirst(Lang::get('gottashit.place.rate_place')) }}</button>
+                    <button class="button button-rate" type="submit">{{ ucfirst(Lang::get('gottashit.place.rate_place')) }}</button>
                 </form>
             </div>
         @endif
     </div>
 
-    <div id="map-{{ $place->id }}" class="place-map-render"></div>
+    <div class="place-map-render" id="map-{{ $place->id }}"></div>
     <div class="place-footer">
         <div class="place-stars">
             <div class="place-stars-background">
@@ -52,18 +62,18 @@
 
             @foreach($place->comments as $comment)
                 <div class="place-comments-user">
-                    {{ Lang::get('gottashit.place.user') }}: {{ $comment->user->full_name }}
+                    <p class="place-comments-user-name">{{ Lang::get('gottashit.place.user') }}: {{ $comment->user->full_name }}</p>
                     @if($comment->isAuthor)
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit" class="button">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
+                                    <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
                                 </li>
                                 <li>
                                     <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
+                                        <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
                                     </form>
                                 </li>
                             </ul>
@@ -79,18 +89,18 @@
                     <form method="POST" action="/place/{{ $place->id }}/comment">
                         {!! csrf_field() !!}
                         <div>
-                            <label for="comment">
+                            <label class="input-label" for="comment">
                                 {{ ucfirst(Lang::get('gottashit.place.comment')) }}
                             </label>
                             @if(old('comment') != "")
-                                <textarea cols="3" name="comment" id="comment">{{ old('comment') }}</textarea>
+                                <textarea class="textarea" cols="3" name="comment" id="comment">{{ old('comment') }}</textarea>
                             @else
-                                <textarea cols="3" name="comment" id="comment"></textarea>
+                                <textarea class="textarea" cols="3" name="comment" id="comment"></textarea>
                             @endif
                         </div>
 
                         <div>
-                            <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.place.create_comment')) }}</button>
+                            <button class="button" type="submit">{{ ucfirst(Lang::get('gottashit.place.create_comment')) }}</button>
                         </div>
                     </form>
                 </div>

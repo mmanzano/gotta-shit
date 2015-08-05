@@ -14,9 +14,9 @@
     <div class="forms">
         <form method="POST" action="/place">
             {!! csrf_field() !!}
-            @include('place/partials/form')
+            @include('place.partials.form_place')
             <div>
-                <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.place.create_place')) }}</button>
+                <button class="button" type="submit">{{ ucfirst(Lang::get('gottashit.place.create_place')) }}</button>
             </div>
         </form>
     </div>
@@ -24,5 +24,5 @@
 
 
 @section('javascript')
-    @include('js/place_field')
+    @include('js.place_field')
 @endsection

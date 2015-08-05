@@ -1,1 +1,1 @@
-<footer>{{ Lang::get('gottashit.site_name') }} - {{ Lang::get('gottashit.footer_year') }}</footer>
+<footer class="footer">{{ Lang::get('gottashit.site_name') }} - {{ Lang::get('gottashit.footer_year') }}</footer>

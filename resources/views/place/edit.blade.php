@@ -15,9 +15,9 @@
         <form method="POST" action="/place/{{ $place->id }}">
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PUT">
-            @include('place/partials/form')
+            @include('place.partials.form_place')
             <div>
-                <button type="submit" class="button">{{ ucfirst(Lang::get('gottashit.place.edit_place')) }}</button>
+                <button class="button" type="submit">{{ ucfirst(Lang::get('gottashit.place.edit_place')) }}</button>
             </div>
         </form>
     </div>
@@ -25,5 +25,5 @@
 
 
 @section('javascript')
-    @include('js/place_field')
+    @include('js.place_field')
 @endsection

@@ -2,27 +2,25 @@
 @foreach($places as $place)
     <div class="place-card">
         <div class="place-title">
+            <h2><a class="place-title-link" href="{{ route('place', [$place->id]) }}">{{ str_limit($place->name, 14) }}</a></h2>
             @if($place->isAuthor)
-                <div class="actions card">
+                <div class="card actions actions-card">
                     <ul>
                         <li>
-                            <a href="/place/{{ $place->id }}/edit" class="button card-button">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
+                            <a class="button button-card" href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
                         </li>
                         <li>
                             <form method="post" action="/place/{{ $place->id }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button type="submit" class="button card-button">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
+                                <button class="button button-card" type="submit">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
                             </form>
                         </li>
                     </ul>
                 </div>
             @endif
-            <h2><a href="{{ route('place', [$place->id]) }}" class="place-title-link">{{ str_limit($place->name, 14) }}</a></h2>
-
-
         </div>
-        <div id="map-{{ $place->id }}" class="place-map-render card"></div>
+        <div class="place-map-render card" id="map-{{ $place->id }}"></div>
         <div class="place-footer card-footer">
             <div class="place-stars card-stars">
                 <div class="place-stars-background">
@@ -42,4 +40,6 @@
 @endforeach
 </div>
 
-{!! $places->render() !!}
+<div class="pagination-nav">
+    {!! $places->render() !!}
+</div>
