@@ -22,7 +22,7 @@ class PlaceController extends Controller
     {
         $places = Place::paginate(8);
 
-        return view('home', compact('places'));
+        return view('places', compact('places'));
     }
 
     /**
@@ -179,7 +179,7 @@ class PlaceController extends Controller
             $places = Place::paginate(8);
         }
 
-        return view('home', compact('places'));
+        return view('places', compact('places'));
     }
 
 
@@ -203,7 +203,7 @@ class PlaceController extends Controller
         $places = Place::whereBetween('geo_lat', array($latitude - $deltaLat, $latitude + $deltaLat))
                         ->whereBetween('geo_lng', array($longitude - $deltaLng, $longitude + $deltaLng))
                         ->paginate(8);
-        return view('home', compact('places'));
+        return view('places', compact('places'));
 
     }
 

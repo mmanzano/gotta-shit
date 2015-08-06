@@ -1,7 +1,9 @@
 @extends('layout.layout')
 
 @section('content')
-    @include('place.places_home')
+    Welcome to ShitGuide. I love this site.
+
+    @include('place.places_show')
 @endsection
 
 @section('javascript')

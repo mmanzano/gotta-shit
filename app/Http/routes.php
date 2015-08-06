@@ -59,7 +59,10 @@ Route::group(['middleware' => ['auth']], function()
 });
 
 // Home
-Route::get('/', ['as' => 'home', 'uses' => 'PlaceController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+
+// All places
+Route::get('/place', ['as' => 'all_places', 'uses' => 'PlaceController@index']);
 
 // Nearest Places
 Route::get('place/{lat}/{lng}/{distance}',['uses' => 'PlaceController@nearest']);

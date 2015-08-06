@@ -17,13 +17,13 @@ return [
     'start' => 'Start to evaluate others WC or add one. Welcome',
     'no_geolocation' => 'Geolocation is not supported by this browser.',
 
-
     'nav' => array (
         'login' => 'login',
         'logout' => 'logout',
         'register' => 'register',
         'add_place' => 'add',
         'user_places' => 'yours places',
+        'all' => 'all',
         'nearest' => 'nearest',
     ),
 

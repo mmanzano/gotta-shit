@@ -1,5 +1,6 @@
 <nav>
     <ul class="navigation">
+        <li><a href="{{ route('all_places') }}">{{ ucfirst(Lang::get('gottashit.nav.all')) }}</a></li>
         <li><a href="/place/40.5/-3.7/1000" id="nearest-place">{{ ucfirst(Lang::get('gottashit.nav.nearest')) }}</a></li>
         @if(Auth::check())
             <li><a href="{{ route('user_places') }}">{{ ucfirst(Lang::get('gottashit.nav.user_places')) }}</a></li>
