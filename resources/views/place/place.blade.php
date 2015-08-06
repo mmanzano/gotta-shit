@@ -66,13 +66,13 @@
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
+                                    <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(Lang::get('gottashit.form.edit_comment')) }}</a>
                                 </li>
                                 <li>
                                     <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
+                                        <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.form.delete_comment')) }}</button>
                                     </form>
                                 </li>
                             </ul>
@@ -92,9 +92,9 @@
                                 {{ ucfirst(Lang::get('gottashit.place.comment')) }}
                             </label>
                             @if(old('comment') != "")
-                                <textarea class="textarea" cols="3" name="comment" id="comment">{{ old('comment') }}</textarea>
+                                <textarea class="textarea" name="comment" id="comment">{{ old('comment') }}</textarea>
                             @else
-                                <textarea class="textarea" cols="3" name="comment" id="comment"></textarea>
+                                <textarea class="textarea" name="comment" id="comment"></textarea>
                             @endif
                         </div>
 

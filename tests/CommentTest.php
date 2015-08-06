@@ -4,11 +4,11 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class PlaceTest extends TestCase
+class CommentTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_place_create()
+    public function test_comment_create()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -17,16 +17,15 @@ class PlaceTest extends TestCase
           ->type('Bar Pepe', 'name')
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
-          ->select('4', 'stars')
+          ->select('3', 'stars')
           ->press('Create Place')
-          ->see('Bar Pepe created')
-          ->see('4.00')
-          ->see('No comments')
-          ->dontSee('geo_lat')
-          ->dontSee('geo_lng');
+          ->type('Hello! Great Site', 'comment')
+          ->press('Send comment')
+          ->see('3.00')
+          ->see('Hello! Great Site');
     }
 
-    public function test_place_edit()
+    public function test_comment_edit()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -35,17 +34,21 @@ class PlaceTest extends TestCase
           ->type('Bar Pepe', 'name')
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
-          ->select('4', 'stars')
+          ->select('3', 'stars')
           ->press('Create Place')
-          ->click('Edit')
-          ->type('Bar Pepe 2', 'name')
-          ->type('40.5', 'geo_lat')
-          ->type('-3.4', 'geo_lng')
-          ->select('5', 'stars')
-          ->press('Edit Place')
-          ->see('Bar Pepe 2 edited');
+          ->type('Hello! Great Site', 'comment')
+          ->press('Send comment')
+          ->see('3.00')
+          ->see('Hello! Great Site')
+          ->click('Edit comment')
+          ->dontSee('3.00')
+          ->type('Adios', 'comment')
+          ->press('Send comment')
+          ->see('3.00')
+          ->see('Adios');
     }
-    public function test_place_delete()
+
+    public function test_comment_delete()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -54,14 +57,15 @@ class PlaceTest extends TestCase
           ->type('Bar Pepe', 'name')
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
-          ->select('4', 'stars')
+          ->select('3', 'stars')
           ->press('Create Place')
-          ->see('Bar Pepe created')
-          ->see('4.00')
-          ->see('No comments')
-          ->press('Delete')
-          ->see('Bar Pepe deleted')
-          ->seePageIs('/');
+          ->type('Hello! Great Site', 'comment')
+          ->press('Send comment')
+          ->see('3.00')
+          ->see('Hello! Great Site')
+          ->press('Delete comment')
+          ->see('3.00')
+          ->dontSee('Hello! Great Site');
     }
 
     public function test_home_gotta_shit()

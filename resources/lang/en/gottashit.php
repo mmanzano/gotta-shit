@@ -39,6 +39,8 @@ return [
         'confirm_password' => 'confirm password',
         'delete' => 'delete',
         'edit' => 'edit',
+        'edit_comment' => 'edit comment',
+        'delete_comment' => 'delete comment'
     ),
 
     'place' => array(

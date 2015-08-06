@@ -26,11 +26,25 @@ class HomeTest extends TestCase
           ->click('Register');
     }
 
+    public function test_home_all_guest()
+    {
+        $this->visit('/')
+          ->click('All');
+    }
 
     public function test_home_nearest_guest()
     {
         $this->visit('/')
           ->click('Nearest');
+    }
+
+    public function test_home_all_user()
+    {
+        $user = factory('GottaShit\Entities\User')->create();
+
+        $this->actingAs($user)
+          ->visit('/')
+          ->click('All');
     }
 
     public function test_home_nearest_user()
