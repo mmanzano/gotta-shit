@@ -44,7 +44,6 @@
         <div class="place-stars">
             <div class="place-stars-background">
                 <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
-                    <p>&nbsp</p>
                 </div>
             </div>
             <div class="place-stars-text">{{ $place->star }}</div>
@@ -62,7 +61,7 @@
 
             @foreach($place->comments as $comment)
                 <div class="place-comments-user">
-                    <p class="place-comments-user-name">{{ Lang::get('gottashit.place.user') }}: {{ $comment->user->full_name }}</p>
+                    <p class="place-comments-user-name">{{ $comment->user->full_name }}</p>
                     @if($comment->isAuthor)
                         <div class="actions">
                             <ul>

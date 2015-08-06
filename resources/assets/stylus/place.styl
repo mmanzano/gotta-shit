@@ -34,7 +34,7 @@
 .card-footer
   position relative
   font-size 0
-  height 20px;
+  height 52px;
 .place-stars
   position relative
   font-size 1rem
@@ -49,9 +49,11 @@
 .place-stars-background
   background-color place_stars_background
   width 100%
+  height 52px
 .place-stars-points
   background place_stars_points_background
   overflow hidden
+  height 52px
 .place-stars-text
   font-size 1rem
   font-weight bold
@@ -65,22 +67,34 @@
 .card-comments
   width 20%
   background-color place_card_comments_background
+  color place_card_comments_color
+  font-weight bold
   font-size 1rem
   position absolute
   right 0
   top 0
   padding 0
+  height 52px
 .place-comments-number
   font-weight bold
+  font-size 2em
+  color place-comments-number-color
 .place-comments-user
+  border-radius 10px 10px 0 0
   position relative
   background-color place_comments_user_background
+  color place_comments_user_body_color
+  font-weight bold
+  font-size 2em
   padding 1em
   margin 0
 .place-comments-user-name
   display inline-block
 .place-comments-body
   background-color place_comments_user_body
-  padding 2em
+  border-radius 0 0 10px 10px
+  color place_comments_user_body_color
+  font-size 1.5em
+  padding 1em
   margin-top 0
   margin-bottom .5em

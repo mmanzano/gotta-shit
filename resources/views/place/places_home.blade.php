@@ -25,7 +25,6 @@
             <div class="place-stars card-stars">
                 <div class="place-stars-background">
                     <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
-                        <p>&nbsp</p>
                     </div>
                 </div>
                 <div class="place-stars-text">{{ $place->star }}</div>

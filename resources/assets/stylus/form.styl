@@ -2,13 +2,21 @@
   padding 2em
   background form_background
 .input
-  border 1px solid form_input_border
-  border-radius 5px
+  border 0
+  border-bottom 1px solid form_input_border
+  background-color #FFF
+  background-color rgba(255, 255, 255, .8)
+  color #000
+  font-weight bolder
+  //border-radius 5px
   height 2em
   padding .2em 1em
   width 90%
   margin-bottom .5em
+.input:focus
+  background-color #FFF
 .input-label
+  color form_label_color
   display block
   font-size 1em
   font-weight bold
@@ -19,6 +27,7 @@
   vertical-align middle
   width 2em
 .checkbox-label
+  color form_label_color
   font-weight bold
   margin-left .3em
 .radio
@@ -26,6 +35,7 @@
   vertical-align middle
   width 4em
 .radio-label
+  color form_label_color
   font-weight bold
 
 .actions
@@ -50,7 +60,7 @@
   color button_color
   display block
   font-size 1rem
-  font-weight normal
+  font-weight bold
   margin 1.5em 1.5em .8em 0
   padding .8em 2em
   text-align center
