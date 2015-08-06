@@ -16,7 +16,29 @@ return [
     'footer_year' => '2015',
     'start' => 'Start to evaluate others WC or add one. Welcome',
     'no_geolocation' => 'Geolocation is not supported by this browser.',
+    'home' => '
+        <p>Welcome to Gotta Shit!</p>
 
+        <p>Have you got to take a shit? <br/>This is the right website for you.</p>
+
+        <p>Here you can:</p>
+
+        <ul>
+            <li>Search and find the best sites to poo close to you</li>
+            <li>Check the shitty ratings of the spot</li>
+            <li>View opinions from other users</li>
+        </ul>
+
+        <p>Once you sign up you will be able to...</p>
+
+        <ul>
+            <li>Add new places to take a shit</li>
+            <li>Express yourself about the place</li>
+            <li>Rate toilets and comment on them</li>
+        </ul>
+
+        <p>Register now and join us!</p>
+    ',
     'nav' => array (
         'login' => 'login',
         'logout' => 'logout',
