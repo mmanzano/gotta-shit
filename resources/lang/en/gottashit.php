@@ -65,6 +65,7 @@ return [
         'comment_for' => 'comment for',
         'update_comment' => 'update your comment',
         'edit_comment' => 'send comment',
+        'votes' => 'votes',
     ),
 
 ];

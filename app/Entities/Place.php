@@ -20,7 +20,7 @@ class Place extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'geo_lat', 'geo_lng'];
+    protected $fillable = ['name', 'geo_lat', 'geo_lng', 'user_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -60,29 +60,33 @@ class Place extends Model
         return $this->hasMany('GottaShit\Entities\PlaceComment');
     }
 
-    public function getStarAttribute()
+    public function starForPlace()
     {
         $starsForPlace = $this->stars()->getResults();
 
-        $totalStar = 0;
-        $count = 0;
-        $starAverage = 0;
+        $starResult = array(
+          'votes' => 0,
+          'totalStar' => 0,
+          'average' => 0,
+          'width' => '0%',
+        );
 
         foreach($starsForPlace as $star)
         {
-            $totalStar += $star->stars;
-            $count++;
+            $starResult['votes']++;
+            $starResult['totalStar'] += $star->stars;
         }
 
-        if ($count != 0)
+        if ($starResult['votes'] != 0)
         {
-            $starAverage = $totalStar / $count;
+            $starResult['average'] = number_format($starResult['totalStar'] / $starResult['votes'], 2);
+            $starResult['width'] = number_format(($starResult['average'] / 5) * 100, 0) . '%';
         }
 
-        return number_format($starAverage, 2);
+        return $starResult;
     }
 
-    public function StarForUser()
+    public function starForUser()
     {
         $starsForPlace = $this->stars()->getResults();
 
@@ -103,15 +107,6 @@ class Place extends Model
         }
 
         return $stars;
-    }
-
-    public function getStarWidthAttribute(){
-        $starAverage = $this->getStarAttribute();
-        if($starAverage == 0)
-            $starWidth = '0%';
-        else
-            $starWidth = number_format(($starAverage / 5) * 100, 0) . '%';
-        return $starWidth;
     }
 
     public function getNumberOfCommentsAttribute()

@@ -46,7 +46,7 @@
                 <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
                 </div>
             </div>
-            <div class="place-stars-text">{{ $place->star }}</div>
+            <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(Lang::get('gottashit.place.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
         </div>
         <div class="place-comments">
             <p class="place-comments-number">

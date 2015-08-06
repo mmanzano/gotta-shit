@@ -46,17 +46,4 @@ class PlaceStar extends Model
     {
         return $this->belongsTo('GottaShit\Entities\Place');
     }
-
-    public function starForPlaceAndUser()
-    {
-        $stars = 0;
-
-        if (\Auth::check())
-        {
-            $userStars = $this->user();
-
-            $this->star;
-        }
-
-    }
 }
