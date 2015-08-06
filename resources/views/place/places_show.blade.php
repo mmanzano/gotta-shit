@@ -38,7 +38,3 @@
     </div>
 @endforeach
 </div>
-
-<div class="pagination-nav">
-    {!! $places->render() !!}
-</div>

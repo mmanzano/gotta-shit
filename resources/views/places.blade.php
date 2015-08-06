@@ -2,6 +2,9 @@
 
 @section('content')
     @include('place.places_show')
+    <div class="pagination-nav">
+        {!! $places->render() !!}
+    </div>
 @endsection
 
 @section('javascript')

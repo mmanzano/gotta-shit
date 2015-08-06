@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $places = Place::paginate(2);
+        $places = Place::paginate(1);
 
         return view('home', compact('places'));
     }
