@@ -9,12 +9,10 @@
   margin 0 .3em
   font-weight bold
   &.active, &.disabled, a
-    width 3em
-    padding .1em
+    padding .5em 1em
     color pagination_color
     text-decoration none
     border 1px solid pagination_border
-    //border-radius .2em
   a
     display block
     background pagination_link_background
@@ -28,3 +26,8 @@
   &:hover, a:hover
     color pagination_link_background
     background pagination_color
+@media screen and (max-width 750px)
+  .pagination li
+    margin 0
+    &.active, &.disabled, a
+      padding .5em

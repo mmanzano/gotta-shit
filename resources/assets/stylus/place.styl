@@ -5,15 +5,24 @@
   text-align center
   background-color places_background
 .place-card
-//  background-color place_card_background
   color place_card_color
-  margin 1em 1em 3em 1em
-  width 15em
+  margin 1em 5em 3em 5em
+  width 30em
   display inline-block
   vertical-align top
   position relative
   h2
     margin 0
+@media screen and (max-width 1200px)
+  .place-card
+    width 25em
+    margin 1em 1em 1em 1em
+@media screen and (max-width 890px)
+  .place-card
+    width 35em
+@media screen and (max-width 600px)
+  .place-card
+    width 15em
 .place-title, .place-title-card
   background-color place_title_background
   border-radius .8em .8em 0 0
