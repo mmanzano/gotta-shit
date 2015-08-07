@@ -12,8 +12,10 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('password_reset') }}">
             {!! csrf_field() !!}
+
+            <input type="hidden" name="token" value="{{ $token }}">
 
             <div>
                 <label class="input-label" for="email">
@@ -29,18 +31,16 @@
                 <input class="input" type="password" name="password" id="password">
             </div>
 
-            <div class="checkbox-margin-top">
-                <input class="input checkbox" type="checkbox" name="remember" id="remember"> <label class="checkbox-label" for="remember">{{ ucfirst(Lang::get('gottashit.form.remember_me')) }}</label>
+            <div>
+                <label class="input-label" for="password_confirmation">
+                    {{ ucfirst(Lang::get('gottashit.form.confirm_password')) }}
+                </label>
+                <input class="input" type="password" name="password_confirmation" id="password_confirmation">
             </div>
 
             <div>
-                <button class="button" type="submit">{{ ucfirst(Lang::get('gottashit.form.login')) }}</button>
-            </div>
-
-            <div>
-                <a class="forgot-password" href="{{ route('password_email') }}">{{ ucfirst(Lang::get('gottashit.form.forgot_password')) }}</a>
+                <button class="button" type="submit">{{ ucfirst(Lang::get('gottashit.form.reset_password')) }}</button>
             </div>
         </form>
     </div>
 @endsection
-

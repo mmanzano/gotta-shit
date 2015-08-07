@@ -62,7 +62,10 @@ return [
         'delete' => 'delete',
         'edit' => 'edit',
         'edit_comment' => 'edit comment',
-        'delete_comment' => 'delete comment'
+        'delete_comment' => 'delete comment',
+        'sent_password_reset' => 'send Password Reset Link',
+        'forgot_password' => 'forgot your password?',
+        'reset_password' => 'reset password',
     ),
 
     'place' => array(

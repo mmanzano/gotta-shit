@@ -14,10 +14,21 @@
 // Authentication and Registration routes
 Route::group(['middleware' => ['guest']], function()
 {
+    // Authentication routes
     Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
     Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
+
+    // Registration routes
     Route::get('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
     Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
+
+    // Password reset link request routes
+    Route::get('password/email', ['as' => 'password_email', 'uses' => 'Auth\PasswordController@getEmail']);
+    Route::post('password/email', ['as' => 'password_email', 'uses' => 'Auth\PasswordController@postEmail']);
+
+    // Password reset routes
+    Route::get('password/reset/{token}', ['as' => 'password_reset', 'uses' => 'Auth\PasswordController@getReset']);
+    Route::post('password/reset', ['as' => 'password_reset', 'uses' => 'Auth\PasswordController@postReset']);
 });
 
 // Routes for authenticate users
