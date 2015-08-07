@@ -15,12 +15,17 @@
 Route::group(['middleware' => ['guest']], function()
 {
     // Authentication routes
-    Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
-    Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
+    //Route::get('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
+    //Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
+    Route::get('/login', ['as' => 'login', 'uses' => 'Auth\SessionsController@login']);
+    Route::post('/login', ['as' => 'login', 'uses' => 'Auth\SessionsController@postLogin']);
 
     // Registration routes
-    Route::get('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
-    Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
+    //Route::get('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@getRegister']);
+    //Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
+    Route::get('/register', ['as' => 'register', 'uses' => 'Auth\RegistrationController@register']);
+    Route::post('/register', ['as' => 'register', 'uses' => 'Auth\RegistrationController@postRegister']);
+    Route::get('/register/confirm/{token}', 'Auth\RegistrationController@confirmEmail');
 
     // Password reset link request routes
     Route::get('password/email', ['as' => 'password_email', 'uses' => 'Auth\PasswordController@getEmail']);
@@ -34,7 +39,8 @@ Route::group(['middleware' => ['guest']], function()
 // Routes for authenticate users
 Route::group(['middleware' => ['auth']], function(){
     // Logout
-    Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+    //Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\SessionsController@logout']);
 
     // Place for a user
     Route::get('/place/user', ['as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);

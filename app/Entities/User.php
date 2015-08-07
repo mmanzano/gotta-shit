@@ -34,6 +34,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * Boot the model.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->token = str_random(30);
+        });
+    }
+    /**
      * One User has many Places.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -66,5 +79,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function StarsForThisPlace()
     {
         $stars = $this->stars()->getResults();
+    }
+
+
+    /**
+     * Confirm the user.
+     *
+     * @return void
+     */
+    public function confirmEmail()
+    {
+        $this->verified = true;
+        $this->token = null;
+        $this->save();
     }
 }

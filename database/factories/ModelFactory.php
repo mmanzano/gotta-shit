@@ -17,6 +17,7 @@ $factory->define(GottaShit\Entities\User::class, function ($faker) {
         'username' => $faker->userName,
         'email' => $faker->unique()->email,
         'password' => bcrypt('123456'),
+        'verified' => true,
         'remember_token' => str_random(10),
     ];
 });
@@ -27,6 +28,7 @@ $factory->defineAs(GottaShit\Entities\User::class, 'admin', function ($faker) {
         'username' => 'mmanzano',
         'email' => 'mmanzano@gmail.com',
         'password' => bcrypt('secret'),
+        'verified' => true,
         'remember_token' => str_random(10),
     ];
 });
