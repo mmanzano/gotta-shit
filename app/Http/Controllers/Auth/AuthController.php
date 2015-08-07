@@ -5,6 +5,7 @@ namespace GottaShit\Http\Controllers\Auth;
 use GottaShit\Entities\User;
 use Validator;
 use GottaShit\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
@@ -20,7 +21,7 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
 
     protected $redirectPath = '/';

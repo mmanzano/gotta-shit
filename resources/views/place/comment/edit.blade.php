@@ -1,4 +1,4 @@
-@extends('layout_without_disclaimer')
+@extends('layout.layout_without_disclaimer')
 
 @section('content')
 
