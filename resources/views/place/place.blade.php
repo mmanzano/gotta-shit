@@ -14,13 +14,13 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a  class="button button-action" href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottashit.place.edit_place')) }}</a>
+                        <a  class="button button-action" href="/place/{{ $place->id }}/edit">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
                     </li>
                     <li>
                         <form method="post" action="/place/{{ $place->id }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.place.delete_place')) }}</button>
+                            <button class="button button-action" type="submit">{{ ucfirst(trans('gottashit.place.delete_place')) }}</button>
                         </form>
                     </li>
                 </ul>
@@ -33,7 +33,7 @@
                     {!! csrf_field() !!}
                     <input name="_method" type="hidden" value="PUT">
                     @include('place.partials.form_stars')
-                    <button class="button button-rate" type="submit">{{ ucfirst(Lang::get('gottashit.place.rate_place')) }}</button>
+                    <button class="button button-rate" type="submit">{{ ucfirst(trans('gottashit.place.rate_place')) }}</button>
                 </form>
             </div>
         @endif
@@ -46,16 +46,16 @@
                 <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
                 </div>
             </div>
-            <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(Lang::get('gottashit.place.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
+            <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(trans('gottashit.place.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
         </div>
         <div class="place-comments">
             <p class="place-comments-number">
                 @if($place->numberOfComments == 0)
-                {{ Lang::get('gottashit.comment.no_comments') }}
+                {{ trans('gottashit.comment.no_comments') }}
                 @elseif($place->numberOfComments == 1)
-                {{ Lang::get('gottashit.comment.one_comment') }}
+                {{ trans('gottashit.comment.one_comment') }}
                 @else
-                {{ $place->numberOfComments }} {{ Lang::get('gottashit.comment.comments') }}
+                {{ $place->numberOfComments }} {{ trans('gottashit.comment.comments') }}
                 @endif
             </p>
 
@@ -66,13 +66,13 @@
                         <div class="actions">
                             <ul>
                                 <li>
-                                    <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(Lang::get('gottashit.comment.edit_comment')) }}</a>
+                                    <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(trans('gottashit.comment.edit_comment')) }}</a>
                                 </li>
                                 <li>
                                     <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.comment.delete_comment')) }}</button>
+                                        <button class="button button-action" type="submit">{{ ucfirst(trans('gottashit.comment.delete_comment')) }}</button>
                                     </form>
                                 </li>
                             </ul>
@@ -89,7 +89,7 @@
                         {!! csrf_field() !!}
                         <div>
                             <label class="input-label" for="comment">
-                                {{ ucfirst(Lang::get('gottashit.comment.create_comment_label')) }}
+                                {{ ucfirst(trans('gottashit.comment.create_comment_label')) }}
                             </label>
                             @if(old('comment') != "")
                                 <textarea class="textarea" name="comment" id="comment">{{ old('comment') }}</textarea>
@@ -99,7 +99,7 @@
                         </div>
 
                         <div>
-                            <button class="button" type="submit">{{ ucfirst(Lang::get('gottashit.comment.create_comment')) }}</button>
+                            <button class="button" type="submit">{{ ucfirst(trans('gottashit.comment.create_comment')) }}</button>
                         </div>
                     </form>
                 </div>

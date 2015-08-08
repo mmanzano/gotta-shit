@@ -3,7 +3,7 @@
 @section('content')
     <div class="home">
         <div class="home-help">
-            {!! Lang::get('gottashit.home') !!}
+            {!! trans('gottashit.home') !!}
         </div>
         <div class='home-places'>
             @include('place.places_show')

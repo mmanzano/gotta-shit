@@ -35,7 +35,7 @@ class SessionsController extends Controller
         ]);
 
         if ($this->signIn($request)) {
-            $status_message = Lang::get('auth.login');
+            $status_message = trans('auth.login');
 
             return redirect('/')->with('status', $status_message);
         }
@@ -78,7 +78,7 @@ class SessionsController extends Controller
     {
         Auth::logout();
 
-        $status_message = Lang::get('auth.logout');
+        $status_message = trans('auth.logout');
 
         return redirect('/')->with('status', $status_message);
     }
@@ -148,6 +148,6 @@ class SessionsController extends Controller
      */
     protected function getFailedLoginMessage()
     {
-        return Lang::get('auth.failed');
+        return trans('auth.failed');
     }
 }

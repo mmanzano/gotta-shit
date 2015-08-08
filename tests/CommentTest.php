@@ -35,7 +35,7 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->press(ucfirst(trans('gottashit.place.create_place')))
           ->see(ucfirst(Lang::get('gottashit.comment.create_comment_label')))
           ->see(ucfirst(Lang::get('gottashit.comment.no_comments')))
           ->type('Hello! Great Site', 'comment')

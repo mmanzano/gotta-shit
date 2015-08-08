@@ -43,7 +43,7 @@ class RegistrationController extends Controller
 
         $mailer->sendEmailConfirmationTo($user);
 
-        $status_message = Lang::get('auth.confirm_email');
+        $status_message = trans('auth.confirm_email');
 
         return redirect('/login')->with('status', $status_message);
     }
@@ -58,7 +58,7 @@ class RegistrationController extends Controller
     {
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
-        $status_message = Lang::get('auth.confirmed') ;
+        $status_message = trans('auth.confirmed') ;
 
         return redirect('/login')->with('status', $status_message);
     }

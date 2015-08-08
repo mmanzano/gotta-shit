@@ -7,13 +7,13 @@
                 <div class="card actions actions-card">
                     <ul>
                         <li>
-                            <a class="button button-card" href="/place/{{ $place->id }}/edit" id="button-edit-card-{{ $place->id }}">{{ ucfirst(Lang::get('gottashit.place.edit_place')) }}</a>
+                            <a class="button button-card" href="/place/{{ $place->id }}/edit" id="button-edit-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
                         </li>
                         <li>
                             <form method="post" action="/place/{{ $place->id }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button class="button button-card" type="submit" id="button-delete-card-{{ $place->id }}">{{ ucfirst(Lang::get('gottashit.place.delete_place')) }}</button>
+                                <button class="button button-card" type="submit" id="button-delete-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.delete_place')) }}</button>
                             </form>
                         </li>
                     </ul>
@@ -27,7 +27,7 @@
                     <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
                     </div>
                 </div>
-                <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(Lang::get('gottashit.place.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
+                <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(trans('gottashit.place.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
             </div>
             <div class="place-comments card-comments">
                 <p>

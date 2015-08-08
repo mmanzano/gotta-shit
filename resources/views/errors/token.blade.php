@@ -2,6 +2,6 @@
 
 @section('content')
     <div class="disclaimer">
-        <p>{{ Lang::get('gottashit.exception.token') }}</p>
+        <p>{{ trans('gottashit.exception.token') }}</p>
     </div>
 @endsection
