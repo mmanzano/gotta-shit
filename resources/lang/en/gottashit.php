@@ -68,6 +68,7 @@ return [
 
     'place' => array(
         'name' => 'Name',
+        'my_location' => 'Get my current location',
         'latitude' => 'Latitude',
         'longitude' => 'Longitude',
         'create_place' => 'Create Place',

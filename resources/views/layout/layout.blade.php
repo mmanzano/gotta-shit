@@ -19,5 +19,8 @@
 @include('scripts.javascript')
 
 @yield('javascript')
+
+@include('js.nearest')
+
 </body>
 </html>

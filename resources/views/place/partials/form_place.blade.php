@@ -4,7 +4,9 @@
     </label>
     <input class="input" type="name" name="name" @if(old('name') != "") value="{{ old('name') }}" @elseif(isset($place)) value="{{ $place->name }}" @endif id="name">
 </div>
-
+<div class="my-location">
+    <a class="button" data-latitude="40.5" data-longitude="-3.7" id="get-my-location">{{ trans('gottashit.place.my_location') }}</a>
+</div>
 <div class="place-map">
     <div class="place-map-form-map" id="place-map"></div>
     <div class="place-map-form-city"><input class="input" type="text" name="city" value="{{ old('city') }}" id="place-loc"></div>

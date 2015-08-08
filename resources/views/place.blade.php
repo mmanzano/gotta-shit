@@ -6,5 +6,5 @@
 
 @section('javascript')
     @include('js.place')
-    @include('js.nearest')
+    @include('js.hover')
 @endsection
