@@ -22,7 +22,8 @@ class CommentTest extends TestCase
           ->select('3', 'stars')
           ->press(ucfirst(Lang::get('gottashit.place.create_place')))
           ->type('Hello! Great Site', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.place.create_comment')))
+          ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
+          ->see('Bar Pepe ' . Lang::get('gottashit.comment.created_comment'))
           ->see('3.00')
           ->see('Hello! Great Site');
     }
@@ -39,13 +40,14 @@ class CommentTest extends TestCase
           ->select('3', 'stars')
           ->press(ucfirst(Lang::get('gottashit.place.create_place')))
           ->type('Hello! Great Site', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.place.create_comment')))
+          ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
           ->see('3.00')
           ->see('Hello! Great Site')
-          ->click(ucfirst(Lang::get('gottashit.form.edit_comment')))
+          ->click(ucfirst(Lang::get('gottashit.comment.edit_comment')))
           ->dontSee('3.00')
           ->type('Adios', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.place.edit_comment')))
+          ->press(ucfirst(Lang::get('gottashit.comment.edit_comment')))
+          ->see(ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . \Lang::get('gottashit.comment.edited_comment'))
           ->see('3.00')
           ->see('Adios');
     }
@@ -62,10 +64,11 @@ class CommentTest extends TestCase
           ->select('3', 'stars')
           ->press(ucfirst(Lang::get('gottashit.place.create_place')))
           ->type('Hello! Great Site', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.place.create_comment')))
+          ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
           ->see('3.00')
           ->see('Hello! Great Site')
-          ->press(ucfirst(Lang::get('gottashit.form.delete_comment')))
+          ->press(ucfirst(Lang::get('gottashit.comment.delete_comment')))
+          ->see(ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . \Lang::get('gottashit.comment.deleted_comment'))
           ->see('3.00')
           ->dontSee('Hello! Great Site');
     }

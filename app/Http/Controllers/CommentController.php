@@ -55,7 +55,7 @@ class CommentController extends Controller
         $comment->save();
 
 
-        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.commented');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.comment.created_comment');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -105,7 +105,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $status_message = ucfirst(\Lang::get('gottashit.place.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.place.edited');
+        $status_message = ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.comment.edited_comment');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -121,7 +121,7 @@ class CommentController extends Controller
 
         $comment = PlaceComment::findOrFail($id_comment);
 
-        $status_message = ucfirst(\Lang::get('gottashit.place.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.place.deleted');
+        $status_message = ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.comment.deleted_comment');
 
         $comment->delete();
 
