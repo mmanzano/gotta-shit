@@ -4,6 +4,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use Illuminate\Support\Facades\Lang;
+
 class CommentTest extends TestCase
 {
     use DatabaseTransactions;
@@ -18,9 +20,9 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press('Create Place')
+          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
           ->type('Hello! Great Site', 'comment')
-          ->press('Send comment')
+          ->press(ucfirst(Lang::get('gottashit.place.create_comment')))
           ->see('3.00')
           ->see('Hello! Great Site');
     }
@@ -35,15 +37,15 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press('Create Place')
+          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
           ->type('Hello! Great Site', 'comment')
-          ->press('Send comment')
+          ->press(ucfirst(Lang::get('gottashit.place.create_comment')))
           ->see('3.00')
           ->see('Hello! Great Site')
-          ->click('Edit comment')
+          ->click(ucfirst(Lang::get('gottashit.form.edit_comment')))
           ->dontSee('3.00')
           ->type('Adios', 'comment')
-          ->press('Send comment')
+          ->press(ucfirst(Lang::get('gottashit.place.edit_comment')))
           ->see('3.00')
           ->see('Adios');
     }
@@ -58,12 +60,12 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press('Create Place')
+          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
           ->type('Hello! Great Site', 'comment')
-          ->press('Send comment')
+          ->press(ucfirst(Lang::get('gottashit.place.create_comment')))
           ->see('3.00')
           ->see('Hello! Great Site')
-          ->press('Delete comment')
+          ->press(ucfirst(Lang::get('gottashit.form.delete_comment')))
           ->see('3.00')
           ->dontSee('Hello! Great Site');
     }
