@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Lang;
 
 class PlaceTest extends TestCase
 {
@@ -18,8 +19,8 @@ class PlaceTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('4', 'stars')
-          ->press('Create Place')
-          ->see('Bar Pepe created')
+          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->see('Bar Pepe '. Lang::get('gottashit.place.created_place'))
           ->see('4.00')
           ->see('No comments')
           ->dontSee('geo_lat')
@@ -36,14 +37,14 @@ class PlaceTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('4', 'stars')
-          ->press('Create Place')
-          ->click('Edit')
+          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->click(ucfirst(Lang::get('gottashit.place.edit_place')))
           ->type('Bar Pepe 2', 'name')
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('5', 'stars')
-          ->press('Edit Place')
-          ->see('Bar Pepe 2 edited');
+          ->press('Update Place')
+          ->see('Bar Pepe 2 ' . Lang::get('gottashit.place.updated_place'));
     }
     public function test_place_delete()
     {
@@ -55,12 +56,12 @@ class PlaceTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('4', 'stars')
-          ->press('Create Place')
-          ->see('Bar Pepe created')
+          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->see('Bar Pepe ' . Lang::get('gottashit.place.created_place'))
           ->see('4.00')
           ->see('No comments')
-          ->press('Delete')
-          ->see('Bar Pepe deleted')
+          ->press(ucfirst(Lang::get('gottashit.place.delete_place')))
+          ->see('Bar Pepe ' . Lang::get('gottashit.place.deleted_place'))
           ->seePageIs('/');
     }
 

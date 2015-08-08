@@ -14,13 +14,13 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a  class="button button-action" href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottashit.form.edit')) }}</a>
+                        <a  class="button button-action" href="/place/{{ $place->id }}/edit">{{ ucfirst(Lang::get('gottashit.place.edit_place')) }}</a>
                     </li>
                     <li>
                         <form method="post" action="/place/{{ $place->id }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.form.delete')) }}</button>
+                            <button class="button button-action" type="submit">{{ ucfirst(Lang::get('gottashit.place.delete_place')) }}</button>
                         </form>
                     </li>
                 </ul>

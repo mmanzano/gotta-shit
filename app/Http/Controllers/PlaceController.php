@@ -67,7 +67,7 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.created');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.created_place');
         return redirect('/place/' . $place->id)->with('status', $status_message);
 
     }
@@ -142,7 +142,7 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.edited');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.updated_place');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -156,7 +156,7 @@ class PlaceController extends Controller
     {
         $place = Place::findOrFail($id);
 
-        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.deleted');
+        $status_message = $place->name . ' ' . \Lang::get('gottashit.place.deleted_place');
 
         $place->delete();
 
