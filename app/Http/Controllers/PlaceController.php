@@ -67,7 +67,8 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . trans('gottashit.place.created_place');
+        $status_message = trans('gottashit.place.created_place', ['place' =>  $place->name]);
+
         return redirect('/place/' . $place->id)->with('status', $status_message);
 
     }
@@ -142,7 +143,8 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . trans('gottashit.place.updated_place');
+        $status_message = trans('gottashit.place.updated_place', ['place' =>  $place->name]);
+
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -156,7 +158,7 @@ class PlaceController extends Controller
     {
         $place = Place::findOrFail($id);
 
-        $status_message = $place->name . ' ' . trans('gottashit.place.deleted_place');
+        $status_message = trans('gottashit.place.deleted_place', ['place' =>  $place->name]);
 
         $place->delete();
 
@@ -203,8 +205,8 @@ class PlaceController extends Controller
         $places = Place::whereBetween('geo_lat', array($latitude - $deltaLat, $latitude + $deltaLat))
                         ->whereBetween('geo_lng', array($longitude - $deltaLng, $longitude + $deltaLng))
                         ->paginate(8);
-        return view('places', compact('places'));
 
+        return view('places', compact('places'));
     }
 
 }

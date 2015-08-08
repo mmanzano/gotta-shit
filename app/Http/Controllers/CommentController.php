@@ -54,8 +54,8 @@ class CommentController extends Controller
 
         $comment->save();
 
+        $status_message = trans('gottashit.comment.created_comment', ['place' =>  $place->name]);
 
-        $status_message = $place->name . ' ' . trans('gottashit.comment.created_comment');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -105,7 +105,8 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $status_message = ucfirst(trans('gottashit.comment.comment_for')) . ' ' . $place->name . ' ' . trans('gottashit.comment.updated_comment');
+        $status_message = trans('gottashit.comment.updated_comment', ['place' =>  $place->name]);
+
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
@@ -121,7 +122,7 @@ class CommentController extends Controller
 
         $comment = PlaceComment::findOrFail($id_comment);
 
-        $status_message = ucfirst(trans('gottashit.comment.comment_for')) . ' ' . $place->name . ' ' . trans('gottashit.comment.deleted_comment');
+        $status_message = trans('gottashit.comment.deleted_comment', ['place' =>  $place->name]);
 
         $comment->delete();
 

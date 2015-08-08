@@ -20,7 +20,7 @@
 
 <div>
     <label class="input-label" for="stars">
-        {{ ucfirst(trans('gottashit.place.stars')) }}
+        {{ ucfirst(trans('gottashit.star.stars')) }}
     </label>
     @include('place.partials.form_stars')
 </div>

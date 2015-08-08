@@ -33,7 +33,7 @@
                     {!! csrf_field() !!}
                     <input name="_method" type="hidden" value="PUT">
                     @include('place.partials.form_stars')
-                    <button class="button button-rate" type="submit">{{ ucfirst(trans('gottashit.place.rate_place')) }}</button>
+                    <button class="button button-rate" type="submit">{{ ucfirst(trans('gottashit.star.rate_place')) }}</button>
                 </form>
             </div>
         @endif
@@ -46,22 +46,16 @@
                 <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
                 </div>
             </div>
-            <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(trans('gottashit.place.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
+            <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(trans('gottashit.star.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
         </div>
         <div class="place-comments">
             <p class="place-comments-number">
-                @if($place->numberOfComments == 0)
-                {{ trans('gottashit.comment.no_comments') }}
-                @elseif($place->numberOfComments == 1)
-                {{ trans('gottashit.comment.one_comment') }}
-                @else
-                {{ $place->numberOfComments }} {{ trans('gottashit.comment.comments') }}
-                @endif
+                {{ trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]) }}
             </p>
 
             @foreach($place->comments as $comment)
                 <div class="place-comments-user">
-                    <p class="place-comments-user-name">{{ $comment->user->full_name }}</p>
+                    <p class="place-comments-user-name">{{ $comment->user->username }}</p>
                     @if($comment->isAuthor)
                         <div class="actions">
                             <ul>

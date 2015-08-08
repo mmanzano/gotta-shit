@@ -99,7 +99,8 @@ class StarController extends Controller
 
         $star->save();
 
-        $status_message = $place->name . ' ' . trans('gottashit.place.rated');
+        $status_message = trans('gottashit.star.rated', ['place' => $place->name]);
+
         return redirect('/place/' . $place->id)->with('status', $status_message);
 
     }

@@ -14,11 +14,9 @@ class CommentTest extends TestCase
     {
         $this->assertTrue(lang::has('gottashit.comment.create_comment_label'));
         $this->assertTrue(lang::has('gottashit.comment.create_comment'));
-        $this->assertTrue(lang::has('gottashit.comment.no_comments'));
-        $this->assertTrue(lang::has('gottashit.comment.one_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.comments'));
         $this->assertTrue(lang::has('gottashit.comment.created_comment'));
         $this->assertTrue(lang::has('gottashit.comment.edit_comment'));
-        $this->assertTrue(lang::has('gottashit.comment.comment_for'));
         $this->assertTrue(lang::has('gottashit.comment.update_comment'));
         $this->assertTrue(lang::has('gottashit.comment.updated_comment'));
         $this->assertTrue(lang::has('gottashit.comment.delete_comment'));
@@ -35,13 +33,13 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press(ucfirst(trans('gottashit.place.create_place')))
-          ->see(ucfirst(Lang::get('gottashit.comment.create_comment_label')))
-          ->see(ucfirst(Lang::get('gottashit.comment.no_comments')))
+          ->press(trans('gottashit.place.create_place'))
+          ->see(trans('gottashit.comment.create_comment_label'))
+          ->see(trans_choice('gottashit.comment.comments', 0, ['number_of_comments' => 0]))
           ->type('Hello! Great Site', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
-          ->see('Bar Pepe ' . Lang::get('gottashit.comment.created_comment'))
-          ->see(ucfirst(Lang::get('gottashit.comment.one_comment')))
+          ->press(trans('gottashit.comment.create_comment'))
+          ->see(trans('gottashit.comment.created_comment', ['place' => 'Bar Pepe']))
+          ->see(trans_choice('gottashit.comment.comments', 1, ['number_of_comments' => 1]))
           ->see('3.00')
           ->see('Hello! Great Site');
     }
@@ -56,16 +54,16 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->press(trans('gottashit.place.create_place'))
           ->type('Hello! Great Site', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
+          ->press(trans('gottashit.comment.create_comment'))
           ->see('3.00')
           ->see('Hello! Great Site')
-          ->click(ucfirst(Lang::get('gottashit.comment.edit_comment')))
+          ->click(trans('gottashit.comment.edit_comment'))
           ->dontSee('3.00')
           ->type('Adios', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.comment.update_comment')))
-          ->see(ucfirst(Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . Lang::get('gottashit.comment.updated_comment'))
+          ->press(trans('gottashit.comment.update_comment'))
+          ->see(trans('gottashit.comment.updated_comment', ['place' => 'Bar Pepe']))
           ->see('3.00')
           ->see('Adios');
     }
@@ -80,13 +78,13 @@ class CommentTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->press(trans('gottashit.place.create_place'))
           ->type('Hello! Great Site', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
+          ->press(trans('gottashit.comment.create_comment'))
           ->see('3.00')
           ->see('Hello! Great Site')
-          ->press(ucfirst(Lang::get('gottashit.comment.delete_comment')))
-          ->see(ucfirst(Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . Lang::get('gottashit.comment.deleted_comment'))
+          ->press(trans('gottashit.comment.delete_comment'))
+          ->see(trans('gottashit.comment.deleted_comment', ['place' => 'Bar Pepe']))
           ->see('3.00')
           ->dontSee('Hello! Great Site');
     }

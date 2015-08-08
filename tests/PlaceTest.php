@@ -31,8 +31,8 @@ class PlaceTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('4', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
-          ->see('Bar Pepe '. Lang::get('gottashit.place.created_place'))
+          ->press(trans('gottashit.place.create_place'))
+          ->see(trans('gottashit.place.created_place', ['place' => 'Bar Pepe']))
           ->see('4.00')
           ->dontSee('geo_lat')
           ->dontSee('geo_lng');
@@ -48,14 +48,14 @@ class PlaceTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('4', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
-          ->click(ucfirst(Lang::get('gottashit.place.edit_place')))
+          ->press(trans('gottashit.place.create_place'))
+          ->click(trans('gottashit.place.edit_place'))
           ->type('Bar Pepe 2', 'name')
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('5', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.update_place')))
-          ->see('Bar Pepe 2 ' . Lang::get('gottashit.place.updated_place'));
+          ->press(trans('gottashit.place.update_place'))
+          ->see(trans('gottashit.place.updated_place', ['place' => 'Bar Pepe 2']));
     }
     public function test_place_delete()
     {
@@ -67,11 +67,11 @@ class PlaceTest extends TestCase
           ->type('40.5', 'geo_lat')
           ->type('-3.4', 'geo_lng')
           ->select('4', 'stars')
-          ->press(ucfirst(Lang::get('gottashit.place.create_place')))
-          ->see('Bar Pepe ' . Lang::get('gottashit.place.created_place'))
+          ->press(trans('gottashit.place.create_place'))
+          ->see(trans('gottashit.place.created_place', ['place' => 'Bar Pepe']))
           ->see('4.00')
-          ->press(ucfirst(Lang::get('gottashit.place.delete_place')))
-          ->see('Bar Pepe ' . Lang::get('gottashit.place.deleted_place'))
+          ->press(trans('gottashit.place.delete_place'))
+          ->see(trans('gottashit.place.deleted_place', ['place' => 'Bar Pepe']))
           ->seePageIs('/');
     }
 

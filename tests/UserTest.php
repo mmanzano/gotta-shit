@@ -20,17 +20,17 @@ class UserTest extends TestCase
             ->type('secret', 'password_confirmation')
             ->press('Register');
 
-        $this->see(Lang::get('auth.confirm_email'))
+        $this->see(trans('auth.confirm_email'))
             ->seeInDatabase('users', ['username' => 'gottashit', 'verified' => 0]);
 
         $user = User::whereUsername('gottashit')->first();
 
         // You can't login until you confirm your email address.
-       $this->login($user)->see(Lang::get('auth.failed'));
+       $this->login($user)->see(trans('auth.failed'));
 
         // Like this...
         $this->visit("/register/confirm/{$user->token}")
-          ->see(Lang::get('auth.confirmed'))
+          ->see(trans('auth.confirmed'))
           ->seeInDatabase('users', ['username' => 'gottashit', 'verified' => 1]);
     }
 
