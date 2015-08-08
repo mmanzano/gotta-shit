@@ -13,6 +13,7 @@
 
 @yield('content')
 
+@include('sections.call_to_action')
 @include('sections.footer')
 
 @include('scripts.javascript')

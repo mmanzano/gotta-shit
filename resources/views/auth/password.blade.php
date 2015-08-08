@@ -1,4 +1,4 @@
-@extends('layout.layout_without_disclaimer')
+@extends('layout.layout_without_call_to_action')
 
 @section('content')
     @if (count($errors) > 0)
