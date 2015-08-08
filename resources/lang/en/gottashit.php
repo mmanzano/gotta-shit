@@ -96,6 +96,7 @@ return [
       'created_comment' => 'commented',
       'comment_for' => 'comment for',
       'updated_comment' => 'updated',
+      'deleted_comment' => 'deleted',
     )
 
 ];

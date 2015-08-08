@@ -89,7 +89,7 @@
                         {!! csrf_field() !!}
                         <div>
                             <label class="input-label" for="comment">
-                                {{ ucfirst(Lang::get('gottashit.comment.comment_label')) }}
+                                {{ ucfirst(Lang::get('gottashit.comment.create_comment_label')) }}
                             </label>
                             @if(old('comment') != "")
                                 <textarea class="textarea" name="comment" id="comment">{{ old('comment') }}</textarea>

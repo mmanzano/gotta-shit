@@ -105,7 +105,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $status_message = ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.comment.edited_comment');
+        $status_message = ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' ' . $place->name . ' ' . \Lang::get('gottashit.comment.updated_comment');
         return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 

@@ -10,6 +10,21 @@ class CommentTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public function test_comment_lang()
+    {
+        $this->assertTrue(lang::has('gottashit.comment.create_comment_label'));
+        $this->assertTrue(lang::has('gottashit.comment.create_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.no_comments'));
+        $this->assertTrue(lang::has('gottashit.comment.one_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.created_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.edit_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.comment_for'));
+        $this->assertTrue(lang::has('gottashit.comment.update_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.updated_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.delete_comment'));
+        $this->assertTrue(lang::has('gottashit.comment.deleted_comment'));
+    }
+
     public function test_comment_create()
     {
         $user = factory('GottaShit\Entities\User')->create();
@@ -21,9 +36,12 @@ class CommentTest extends TestCase
           ->type('-3.4', 'geo_lng')
           ->select('3', 'stars')
           ->press(ucfirst(Lang::get('gottashit.place.create_place')))
+          ->see(ucfirst(Lang::get('gottashit.comment.create_comment_label')))
+          ->see(ucfirst(Lang::get('gottashit.comment.no_comments')))
           ->type('Hello! Great Site', 'comment')
           ->press(ucfirst(Lang::get('gottashit.comment.create_comment')))
           ->see('Bar Pepe ' . Lang::get('gottashit.comment.created_comment'))
+          ->see(ucfirst(Lang::get('gottashit.comment.one_comment')))
           ->see('3.00')
           ->see('Hello! Great Site');
     }
@@ -46,8 +64,8 @@ class CommentTest extends TestCase
           ->click(ucfirst(Lang::get('gottashit.comment.edit_comment')))
           ->dontSee('3.00')
           ->type('Adios', 'comment')
-          ->press(ucfirst(Lang::get('gottashit.comment.edit_comment')))
-          ->see(ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . \Lang::get('gottashit.comment.edited_comment'))
+          ->press(ucfirst(Lang::get('gottashit.comment.update_comment')))
+          ->see(ucfirst(Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . Lang::get('gottashit.comment.updated_comment'))
           ->see('3.00')
           ->see('Adios');
     }
@@ -68,7 +86,7 @@ class CommentTest extends TestCase
           ->see('3.00')
           ->see('Hello! Great Site')
           ->press(ucfirst(Lang::get('gottashit.comment.delete_comment')))
-          ->see(ucfirst(\Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . \Lang::get('gottashit.comment.deleted_comment'))
+          ->see(ucfirst(Lang::get('gottashit.comment.comment_for')) . ' Bar Pepe ' . Lang::get('gottashit.comment.deleted_comment'))
           ->see('3.00')
           ->dontSee('Hello! Great Site');
     }
