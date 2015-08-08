@@ -1,6 +1,7 @@
 <?php namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
+use Illuminate\Support\Facades\Lang;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
@@ -42,9 +43,9 @@ class RegistrationController extends Controller
 
         $mailer->sendEmailConfirmationTo($user);
 
-        $status_message = 'Please confirm your email address';
+        $status_message = Lang::get('auth.confirm_email');
 
-        return redirect('/')->with('status', $status_message);
+        return redirect('/login')->with('status', $status_message);
     }
 
     /**
@@ -55,12 +56,10 @@ class RegistrationController extends Controller
      */
     public function confirmEmail($token)
     {
-        //return $token;
-
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
-        $status_message = 'You are now confirmed. Please login.';
+        $status_message = Lang::get('auth.confirmed') ;
 
-        return redirect('/')->with('status', $status_message);
+        return redirect('/login')->with('status', $status_message);
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use GottaShit\Entities\User;
+use Illuminate\Support\Facades\Lang;
 
 class UserTest extends TestCase
 {
@@ -19,17 +20,17 @@ class UserTest extends TestCase
             ->type('secret', 'password_confirmation')
             ->press('Register');
 
-        $this->see('Please confirm your email address')
+        $this->see(Lang::get('auth.confirm_email'))
             ->seeInDatabase('users', ['username' => 'gottashit', 'verified' => 0]);
 
         $user = User::whereUsername('gottashit')->first();
 
         // You can't login until you confirm your email address.
-       $this->login($user)->see('Could not sign you in.');
+       $this->login($user)->see(Lang::get('auth.failed'));
 
         // Like this...
         $this->visit("/register/confirm/{$user->token}")
-          ->see('You are now confirmed. Please login.')
+          ->see(Lang::get('auth.confirmed'))
           ->seeInDatabase('users', ['username' => 'gottashit', 'verified' => 1]);
     }
 

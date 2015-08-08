@@ -14,7 +14,6 @@ return [
     'site_name' => 'Gotta Shit',
     'welcome' => 'Welcome to Gotta Shit. You can start to evaluate the WC in your around when you',
     'footer_year' => '2015',
-    'start' => 'Start to evaluate others WC or add one. Welcome',
     'no_geolocation' => 'Geolocation is not supported by this browser.',
     'home' => '
         <p>Welcome to Gotta Shit!</p>
