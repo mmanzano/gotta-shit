@@ -97,6 +97,12 @@ return [
       'comment_for' => 'comment for',
       'updated_comment' => 'updated',
       'deleted_comment' => 'deleted',
+    ),
+
+    'exception' => array(
+        '503' => 'We have a litle problem',
+        '404' => "Sorry, I can't find it",
+        'token' => 'Try again',
     )
 
 ];
