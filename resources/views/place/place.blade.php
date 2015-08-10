@@ -67,6 +67,7 @@
             </p>
 
             @foreach($place->comments as $comment)
+                <a name="comment-{{ $comment->id }}"></a>
                 <div class="place-comments-user">
                     <p class="place-comments-user-name">
                         {{ $comment->user->username }}<br/>

@@ -56,7 +56,7 @@ class CommentController extends Controller
 
         $status_message = trans('gottashit.comment.created_comment', ['place' =>  $place->name]);
 
-        return redirect('/place/' . $place->id)->with('status', $status_message);
+        return redirect('/place/' . $place->id . '#comment-' . $comment->id)->with('status', $status_message);
     }
 
     /**
@@ -107,7 +107,7 @@ class CommentController extends Controller
 
         $status_message = trans('gottashit.comment.updated_comment', ['place' =>  $place->name]);
 
-        return redirect('/place/' . $place->id)->with('status', $status_message);
+        return redirect('/place/' . $place->id . '#comment-' . $comment->id)->with('status', $status_message);
     }
 
     /**
