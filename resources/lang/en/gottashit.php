@@ -60,8 +60,8 @@ return [
         'full_name' => 'Full name',
         'username' => 'Username',
         'confirm_password' => 'Confirm password',
-        'delete' => 'Delete',
-        'edit' => 'Edit',
+        'delete_user' => 'Delete User',
+        'edit_user' => 'Edit User',
         'sent_password_reset' => 'Send Password Reset Link',
         'forgot_password' => 'Forgot your password?',
         'reset_password' => 'Reset password',
@@ -69,6 +69,8 @@ return [
         'updated_user' => ':user updated',
         'edit_user_not_allowed' => 'You are not allowed for edit this user',
         'update_user_not_allowed' => 'You are not allowed for update this user',
+        'number_of_places' => 'Number of places',
+        'number_of_places_rated' => 'Number of places rated',
 
     ),
 

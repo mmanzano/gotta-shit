@@ -2,12 +2,24 @@
 
 @section('content')
 
-    @if($is_user)
-        <p><a class="button" href="/user/{{ $user->id }}/edit">{{ trans('gottashit.user.edit_user') }}</a></p>
-    @endif
-    <p>{{ $is_user }}</p>
-    <p>{{ trans('gottashit.user.full_name')}}: {{ $user->full_name }}</p>
-    <p>{{ trans('gottashit.user.places') }}: 5</p>
+    <div class="user-profile">
+        <p class="user-label">{{ trans('gottashit.user.full_name')}}: <span class="user-data">{{ $user->full_name }}</span></p>
+        <p class="user-label">{{ trans('gottashit.user.username') }}: <span class="user-data">{{ $user->username }}</span></p>
 
+        @if($is_user)
+            <a class="button edit-user" href="/user/{{ $user->id }}/edit">{{ trans('gottashit.user.edit_user') }}</a>
+        @endif
+
+        <p class="user-label">{{ trans('gottashit.user.number_of_places') }}: <span class="user-data">{{ $user->numberOfPlaces }}</span></p>
+
+        <div class="user-label">
+            @foreach($user->places as $place)
+                <a class="user-link" href="/place/{{ $place->id }}">{{ $place->name }}</a>
+            @endforeach
+        </div>
+
+        <p class="user-label">{{ trans('gottashit.user.number_of_places_rated') }}: <span class="user-data">{{ $user->numberOfPlacesRated }}</span></p>
+
+    </div>
 
 @endsection

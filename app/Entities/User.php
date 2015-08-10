@@ -81,6 +81,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $stars = $this->stars()->getResults();
     }
 
+    public function getNumberOfPlacesAttribute()
+    {
+        $numberOfPlaces= $this->places()->count();
+
+        return $numberOfPlaces;
+    }
+
+    public function getNumberOfPlacesRatedAttribute()
+    {
+        $numberOfPlaces= $this->stars()->count();
+
+        return $numberOfPlaces;
+    }
 
     /**
      * Confirm the user.
