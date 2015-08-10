@@ -72,7 +72,7 @@ class PlaceTest extends TestCase
           ->see('4.00')
           ->press(trans('gottashit.place.delete_place'))
           ->see(trans('gottashit.place.deleted_place', ['place' => 'Bar Pepe']))
-          ->seePageIs('/');
+          ->seePageIs('/place/user');
     }
 
     public function test_home_gotta_shit()
