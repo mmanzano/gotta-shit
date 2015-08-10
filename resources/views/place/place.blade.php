@@ -68,7 +68,10 @@
 
             @foreach($place->comments as $comment)
                 <div class="place-comments-user">
-                    <p class="place-comments-user-name">{{ $comment->user->username }}</p>
+                    <p class="place-comments-user-name">
+                        {{ $comment->user->username }}<br/>
+                        <span class="place-comments-date">{{ $comment->created_at->diffForHumans() }}</span>
+                    </p>
                     @if($comment->isAuthor)
                         <div class="actions">
                             <ul>
