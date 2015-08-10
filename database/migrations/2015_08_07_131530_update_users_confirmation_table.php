@@ -16,6 +16,10 @@ class UpdateUsersConfirmationTable extends Migration
             $table->boolean('verified')->default(false);
             $table->string('token')->nullable();
         });
+
+        DB::table('users')->update(array(
+          'verified' => true
+        ));
     }
 
     /**
