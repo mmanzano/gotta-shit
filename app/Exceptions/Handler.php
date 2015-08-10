@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as MethodNotAllowedHttpException;
 use Illuminate\Session\TokenMismatchException as TokenMismatchException;
+use BadMethodCallException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,10 @@ class Handler extends ExceptionHandler
             {
                 return response()->view('errors.token');
             }
+            if ($e instanceof BadMethodCallException )
+            {
+                return response()->view('errors.404');
+            }
             if ($e instanceof ModelNotFoundException)
             {
                 return response()->view('errors.404');
@@ -57,6 +62,7 @@ class Handler extends ExceptionHandler
             {
                 return response()->view('errors.404');
             }
+
         }
 
         return parent::render($request, $e);

@@ -113,6 +113,19 @@ class StarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $place = Place::findOrFail($id);
+
+        $idStar = $place->starForUser()['id'];
+
+        if ($idStar != 0)
+        {
+            $star = PlaceStar::findOrFail($idStar);
+        }
+
+        $status_message = trans('gottashit.star.deleted_star', ['place' =>  $place->name]);
+
+        $star->delete();
+
+        return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 }

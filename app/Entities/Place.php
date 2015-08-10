@@ -92,7 +92,7 @@ class Place extends Model
 
         $stars = array(
             'id' => 0,
-            'stars' => 0,
+            'stars' => -1,
         );
 
         foreach($starsForPlace as $star)

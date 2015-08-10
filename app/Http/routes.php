@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth']], function(){
 
     // Update Stars Rate for a place
     Route::put('place/{place}/stars', ['uses' => 'StarController@update']);
+    // Delete Stars Rate for a place
+    Route::delete('place/{place}/stars', ['uses' => 'StarController@destroy']);
 
     // Post a Comment
     Route::post('/place/{place}/comment', ['uses' => 'CommentController@store']);

@@ -97,6 +97,8 @@ return [
         'votes' => 'Votes',
         'rate_place' => 'Rate this',
         'rated' => ':place Rated',
+        'delete_star' => 'Delete rate',
+        'deleted_star' => 'Rate for :place deleted',
     ),
     'exception' => array(
         '503' => 'We have a litle problem',
