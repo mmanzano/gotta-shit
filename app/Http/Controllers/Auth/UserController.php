@@ -22,7 +22,7 @@ class UserController extends Controller
         $user = User::findOrFail($user_id);
 
         if ( ! $this->is_user($user_id)){
-            $status_message = trans('gottashit.user.update_user_not_allowed');
+            $status_message = trans('gottashit.user.edit_user_not_allowed');
             return redirect('/')->with('status', $status_message);
         }
 

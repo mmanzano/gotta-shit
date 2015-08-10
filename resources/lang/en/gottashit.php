@@ -47,6 +47,7 @@ return [
         'user_places' => 'Your places',
         'all' => 'All',
         'nearest' => 'Nearest',
+        'profile' => 'Profile',
     ),
 
     'user' => array (
@@ -66,6 +67,9 @@ return [
         'reset_password' => 'Reset password',
         'update_user' => 'Update user',
         'updated_user' => ':user updated',
+        'edit_user_not_allowed' => 'You are not allowed for edit this user',
+        'update_user_not_allowed' => 'You are not allowed for update this user',
+
     ),
 
     'place' => array(
