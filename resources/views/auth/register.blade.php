@@ -17,40 +17,40 @@
 
             <div>
                 <label class="input-label" for="full_name">
-                    {{ ucfirst(trans('gottashit.form.full_name')) }}
+                    {{ ucfirst(trans('gottashit.user.full_name')) }}
                 </label>
                 <input class="input" type="text" name="full_name" value="{{ old('full_name') }}" id="full_name">
             </div>
             <div>
                 <label class="input-label" for="username">
-                    {{ ucfirst(trans('gottashit.form.username')) }}
+                    {{ ucfirst(trans('gottashit.user.username')) }}
                 </label>
                 <input class="input" type="text" name="username" value="{{ old('username') }}" id="username">
             </div>
 
             <div>
                 <label class="input-label" for="email">
-                    {{ ucfirst(trans('gottashit.form.email')) }}
+                    {{ ucfirst(trans('gottashit.user.email')) }}
                 </label>
                 <input class="input" type="email" name="email" value="{{ old('email') }}" id="email">
             </div>
 
             <div>
                 <label class="input-label" for="password">
-                    {{ ucfirst(trans('gottashit.form.password')) }}
+                    {{ ucfirst(trans('gottashit.user.password')) }}
                 </label>
                 <input class="input" type="password" name="password" id="password">
             </div>
 
             <div>
                 <label class="input-label" for="password_confirmation">
-                    {{ ucfirst(trans('gottashit.form.confirm_password')) }}
+                    {{ ucfirst(trans('gottashit.user.confirm_password')) }}
                 </label>
                 <input class="input" type="password" name="password_confirmation" id="password_confirmation">
             </div>
 
             <div>
-                <button class="button" type="submit">{{ ucfirst(trans('gottashit.form.register')) }}</button>
+                <button class="button" type="submit">{{ ucfirst(trans('gottashit.user.register')) }}</button>
             </div>
         </form>
     </div>

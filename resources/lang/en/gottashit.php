@@ -49,7 +49,7 @@ return [
         'nearest' => 'Nearest',
     ),
 
-    'form' => array (
+    'user' => array (
         'login' => 'Login',
         'logout' => 'Logout',
         'register' => 'Register',

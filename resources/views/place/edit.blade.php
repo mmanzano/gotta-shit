@@ -11,6 +11,7 @@
             </ul>
         </div>
     @endif
+
     <div class="forms">
         <form method="POST" action="/place/{{ $place->id }}">
             {!! csrf_field() !!}
@@ -21,6 +22,7 @@
             </div>
         </form>
     </div>
+
 @endsection
 
 

@@ -17,13 +17,13 @@
 
             <div>
                 <label class="input-label" for="email">
-                    {{ ucfirst(trans('gottashit.form.email')) }}
+                    {{ ucfirst(trans('gottashit.user.email')) }}
                 </label>
                 <input class="input" type="email" name="email" value="{{ old('email') }}" id="email">
             </div>
 
             <div>
-                <button class="button" type="submit">{{ ucfirst(trans('gottashit.form.sent_password_reset')) }}</button>
+                <button class="button" type="submit">{{ ucfirst(trans('gottashit.user.sent_password_reset')) }}</button>
             </div>
         </form>
     </div>
