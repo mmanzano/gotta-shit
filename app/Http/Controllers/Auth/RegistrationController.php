@@ -1,7 +1,6 @@
 <?php namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
-use Illuminate\Support\Facades\Lang;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
@@ -29,7 +28,7 @@ class RegistrationController extends Controller
     {
         $this->validate($request, [
           'full_name' => 'required|max:255',
-          'username' => 'required|max:255',
+          'username' => 'required|max:255|unique:users',
           'email' => 'required|email|max:255|unique:users',
           'password' => 'required|confirmed|min:6',
         ]);

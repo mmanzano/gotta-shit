@@ -38,6 +38,14 @@ Route::group(['middleware' => ['guest']], function()
 
 // Routes for authenticate users
 Route::group(['middleware' => ['auth']], function(){
+    // Edit User
+    Route::get('/user/{user}/edit', ['as' => 'edit_user', 'uses' => 'Auth\UserController@edit']);
+    // Update User
+    Route::put('/user/{user}', ['as' => 'edit_user', 'uses' => 'Auth\UserController@update']);
+
+    //Show User
+    Route::get('user/{user}', ['as' => 'profile', 'uses' => 'Auth\UserController@show']);
+
     // Logout
     //Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\SessionsController@logout']);

@@ -42,7 +42,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        $capture = true;
+        $capture = ! env('APP_DEBUG');
 
         if($capture){
             if ($e instanceof TokenMismatchException )

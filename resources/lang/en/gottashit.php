@@ -44,7 +44,7 @@ return [
         'logout' => 'Logout',
         'register' => 'Register',
         'add_place' => 'Add',
-        'user_places' => 'Yours places',
+        'user_places' => 'Your places',
         'all' => 'All',
         'nearest' => 'Nearest',
     ),
@@ -64,6 +64,8 @@ return [
         'sent_password_reset' => 'Send Password Reset Link',
         'forgot_password' => 'Forgot your password?',
         'reset_password' => 'Reset password',
+        'update_user' => 'Update user',
+        'updated_user' => ':user updated',
     ),
 
     'place' => array(
