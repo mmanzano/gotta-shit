@@ -80,8 +80,14 @@ class CommentController extends Controller
     {
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
+        if ($place->isAuthor || $comment->isAuthor) {
+            return view('place.comment.edit', compact('place', 'comment'));
+        }
+        else {
+            $status_message = 'echo'; //trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
 
-        return view('place.comment.edit', compact('place', 'comment'));
+            return redirect('/place/' . $place->id)->with('status', $status_message);
+        }
     }
 
     /**

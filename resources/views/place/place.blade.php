@@ -73,12 +73,14 @@
                         {{ $comment->user->username }}<br/>
                         <span class="place-comments-date">{{ $comment->created_at->diffForHumans() }}</span>
                     </p>
-                    @if($comment->isAuthor)
+                    @if($comment->isAuthor || $place->isAuthor)
                         <div class="actions">
                             <ul>
-                                <li>
-                                    <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(trans('gottashit.comment.edit_comment')) }}</a>
-                                </li>
+                                @if($comment->isAuthor)
+                                    <li>
+                                        <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(trans('gottashit.comment.edit_comment')) }}</a>
+                                    </li>
+                                @endif
                                 <li>
                                     <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
                                         {!! csrf_field() !!}

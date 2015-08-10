@@ -91,6 +91,7 @@ return [
         'created_comment' => ':place commented',
         'updated_comment' => 'Comment for :place updated',
         'deleted_comment' => 'Comment for :place Deleted',
+        'edit_comment_not_allowed' => 'You are not allowed for edit this comment for :place',
     ),
     'star' => array(
         'stars' => 'Stars',

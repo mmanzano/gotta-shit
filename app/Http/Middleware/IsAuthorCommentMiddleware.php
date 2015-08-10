@@ -17,13 +17,17 @@ class IsAuthorCommentMiddleware
      */
     public function handle($request, Closure $next)
     {
+        $place = \GottaShit\Entities\Place::findOrFail($request->place);
         $comment = \GottaShit\Entities\PlaceComment::findOrFail($request->comment);
 
         $author_comment_id = $comment->user_id;
 
         if (\Auth::check()) {
-            if (\Auth::User()->id != $author_comment_id) {
-                return redirect('/place/' . $request->place);
+            $user_id = \Auth::User()->id;
+            if ($user_id != $author_comment_id) {
+                $status_message = trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
+
+                return redirect('/place/' . $request->place)->with('status', $status_message);
             }
         }
         else{
