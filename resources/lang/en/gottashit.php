@@ -78,6 +78,9 @@ return [
         'created_place' => ':place Created',
         'updated_place' => ':place Updated',
         'deleted_place' => ':place Deleted',
+        'edit_place_not_allowed' => 'You are not allowed for edit :place',
+        'update_place_not_allowed' => 'You are not allowed for update :place',
+        'delete_place_not_allowed' => 'You are not allowed for delete :place',
     ),
 
     'comment' => array(
@@ -92,6 +95,8 @@ return [
         'updated_comment' => 'Comment for :place updated',
         'deleted_comment' => 'Comment for :place Deleted',
         'edit_comment_not_allowed' => 'You are not allowed for edit this comment for :place',
+        'update_comment_not_allowed' => 'You are not allowed for update this comment for :place',
+        'delete_comment_not_allowed' => 'You are not allowed for delete this comment for :place',
     ),
     'star' => array(
         'stars' => 'Stars',

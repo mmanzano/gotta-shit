@@ -31,7 +31,9 @@ class IsAuthorCommentMiddleware
             }
         }
         else{
-            return redirect('/place/' . $request->place);
+            $status_message = trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
+
+            return redirect('/place/' . $request->place)->with('status', $status_message);
         }
 
         return $next($request);

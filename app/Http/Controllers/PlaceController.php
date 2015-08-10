@@ -118,34 +118,41 @@ class PlaceController extends Controller
 
         $place = Place::findOrFail($id);
 
-        $place->name = $request->input('name');
-        $place->geo_lat = number_format($request->input('geo_lat'), 6);
-        $place->geo_lng = number_format($request->input('geo_lng'), 6);
+        if($place->isAuthor) {
+            $place->name = $request->input('name');
+            $place->geo_lat = number_format($request->input('geo_lat'), 6);
+            $place->geo_lng = number_format($request->input('geo_lng'), 6);
 
-        $place->save();
+            $place->save();
 
-        $idStar = $place->starForUser()['id'];
+            $idStar = $place->starForUser()['id'];
 
-        if ($idStar == 0)
-        {
-            $star = new PlaceStar();
+            if ($idStar == 0)
+            {
+                $star = new PlaceStar();
 
-            $star->place_id = $place->id;
-            $star->user_id = \Auth::User()->id;
+                $star->place_id = $place->id;
+                $star->user_id = \Auth::User()->id;
+            }
+            else
+            {
+                $star = PlaceStar::findOrFail($idStar);
+            }
+
+
+            $star->stars = $request->input('stars');
+
+            $star->save();
+
+            $status_message = trans('gottashit.place.updated_place', ['place' =>  $place->name]);
+
+            return redirect('/place/' . $place->id)->with('status', $status_message);
         }
-        else
-        {
-            $star = PlaceStar::findOrFail($idStar);
+        else {
+            $status_message = trans('gottashit.place.update_place_not_allowed', ['place' =>  $place->name]);
+
+            return redirect('/')->with('status', $status_message);
         }
-
-
-        $star->stars = $request->input('stars');
-
-        $star->save();
-
-        $status_message = trans('gottashit.place.updated_place', ['place' =>  $place->name]);
-
-        return redirect('/place/' . $place->id)->with('status', $status_message);
     }
 
     /**
@@ -158,11 +165,20 @@ class PlaceController extends Controller
     {
         $place = Place::findOrFail($id);
 
-        $status_message = trans('gottashit.place.deleted_place', ['place' =>  $place->name]);
+        if($place->isAuthor)
+        {
+            $status_message = trans('gottashit.place.deleted_place', ['place' =>  $place->name]);
 
-        $place->delete();
+            $place->delete();
 
-        return redirect('/')->with('status', $status_message);
+            return redirect('/place/user')->with('status', $status_message);
+        }
+        else {
+            $status_message = trans('gottashit.place.delete_place_not_allowed', ['place' =>  $place->name]);
+
+            return redirect('/')->with('status', $status_message);
+        }
+
     }
 
     /**

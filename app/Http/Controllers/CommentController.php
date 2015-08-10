@@ -80,14 +80,8 @@ class CommentController extends Controller
     {
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
-        if ($place->isAuthor || $comment->isAuthor) {
-            return view('place.comment.edit', compact('place', 'comment'));
-        }
-        else {
-            $status_message = 'echo'; //trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
 
-            return redirect('/place/' . $place->id)->with('status', $status_message);
-        }
+        return view('place.comment.edit', compact('place', 'comment'));
     }
 
     /**
@@ -107,13 +101,23 @@ class CommentController extends Controller
 
         $comment = PlaceComment::findOrFail($id_comment);
 
-        $comment->comment = $request->input('comment');
+        if($comment->isAuthor) {
 
-        $comment->save();
+            $comment->comment = $request->input('comment');
 
-        $status_message = trans('gottashit.comment.updated_comment', ['place' =>  $place->name]);
+            $comment->save();
 
-        return redirect('/place/' . $place->id . '#comment-' . $comment->id)->with('status', $status_message);
+            $status_message = trans('gottashit.comment.updated_comment',
+              ['place' => $place->name]);
+
+            return redirect('/place/' . $place->id . '#comment-' . $comment->id)->with('status',
+              $status_message);
+        }
+        else {
+            $status_message = trans('gottashit.comment.update_comment_not_allowed', ['place' => $place->name]);
+
+            return redirect('/place/' . $place->id)->with('status', $status_message);
+        }
     }
 
     /**
@@ -128,10 +132,17 @@ class CommentController extends Controller
 
         $comment = PlaceComment::findOrFail($id_comment);
 
-        $status_message = trans('gottashit.comment.deleted_comment', ['place' =>  $place->name]);
+        if($comment->isAuthor || $place->isAuthor) {
+            $status_message = trans('gottashit.comment.deleted_comment', ['place' => $place->name]);
 
-        $comment->delete();
+            $comment->delete();
 
-        return redirect('/place/' . $place->id)->with('status', $status_message);
+            return redirect('/place/' . $place->id)->with('status', $status_message);
+        }
+        else {
+            $status_message = trans('gottashit.comment.delete_comment_not_allowed', ['place' => $place->name]);
+
+            return redirect('/place/' . $place->id)->with('status', $status_message);
+        }
     }
 }

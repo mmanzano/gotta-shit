@@ -21,12 +21,17 @@ class IsAuthorMiddleware
 
         $author_id = $place->user_id;
         if (\Auth::check()) {
-            if (\Auth::User()->id != $author_id) {
-                return redirect('/');
+            $user_id = \Auth::User()->id;
+            if ($user_id != $author_id) {
+                $status_message = trans('gottashit.place.edit_place_not_allowed', ['place' =>  $place->name]);
+
+                return redirect('/')->with('status', $status_message);
             }
         }
         else{
-            return redirect('/');
+            $status_message = trans('gottashit.place.edit_place_not_allowed', ['place' =>  $place->name]);
+
+            return redirect('/')->with('status', $status_message);
         }
 
         return $next($request);

@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth']], function(){
 // Edit, update, delete place
 Route::group(['middleware' => ['isAuthor']], function(){
     Route::get('/place/{place}/edit', ['uses' => 'PlaceController@edit']);
+});
+Route::group(['middleware' => ['auth']], function(){
     Route::put('/place/{place}', ['uses' => 'PlaceController@update']);
     Route::delete('/place/{place}', ['uses' => 'PlaceController@destroy']);
 });
