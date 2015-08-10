@@ -37,6 +37,7 @@ class UserController extends Controller
         }
 
         $status_message = "";
+        $path = "/place/user";
 
         $this->validate($request, [
           'full_name' => 'max:255',
@@ -66,6 +67,8 @@ class UserController extends Controller
             $mailer->sendEmailConfirmationTo($user);
 
             $status_message = trans('auth.confirm_email') . "<br/>";
+
+            $path="/";
         }
 
         if (trim($request->input('password')) != "")
@@ -79,9 +82,13 @@ class UserController extends Controller
 
         $user->save();
 
+        if ($path == "/") {
+            Auth::logout();
+        }
+
         $status_message .= trans('gottashit.user.updated_user', ['user' => $user->full_name]);
 
-        return redirect('/place/user')->with('status', $status_message);
+        return redirect($path)->with('status', $status_message);
     }
 
     public function is_user($user_id)
