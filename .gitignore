@@ -3,3 +3,4 @@
 .env
 .idea
 composer.lock
+/resources/views/js/analytics.blade.php

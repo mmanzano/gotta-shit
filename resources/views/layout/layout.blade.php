@@ -22,5 +22,6 @@
 
 @include('js.nearest')
 
+@include('js.analytics')
 </body>
 </html>
