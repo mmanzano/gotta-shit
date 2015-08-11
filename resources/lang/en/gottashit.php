@@ -12,7 +12,7 @@ return [
     */
 
     'site_name' => 'Gotta Shit',
-    'welcome' => 'Welcome to Gotta Shit. You can start to evaluate the WC in your around when you',
+    'welcome' => "Welcome to Gotta Shit. You can start to evaluate the WC in your around when you <a class='disclaimer-link' href=':path'>Register</a>",
     'footer_year' => '2015',
     'no_geolocation' => 'Geolocation is not supported by this browser.',
     'home' => '
@@ -39,7 +39,7 @@ return [
         <p>Register now and join us!</p>
     ',
 
-    'email' => array (
+    'email' => [
         'confirm_email_subject' => 'Confirm your email for GottaShit.com',
         'confirm_email_new_subject' => 'Confirm your new email for GottaShit.com',
         'reset_password_subject' => 'Reset your password for GottaShit.com',
@@ -47,9 +47,9 @@ return [
         'confirm_email_action' => "We just need you to <a href=':path'>confirm your email address</a> real quick!",
         'reset_password_thanks' => 'You can restart your password',
         'reset_password_action' => "<a href=':path'>Click here</a> to reset your password: <a href=':path'>Reset your password</a>",
-    ),
+    ],
 
-    'nav' => array (
+    'nav' => [
         'login' => 'Login',
         'logout' => 'Logout',
         'register' => 'Register',
@@ -59,9 +59,9 @@ return [
         'nearest' => 'Nearest',
         'best_places' => 'Best Places',
         'profile' => 'Profile',
-    ),
+    ],
 
-    'user' => array (
+    'user' => [
         'login' => 'Login',
         'logout' => 'Logout',
         'register' => 'Register',
@@ -76,17 +76,15 @@ return [
         'sent_password_reset' => 'Send Password Reset Link',
         'forgot_password' => 'Forgot your password?',
         'reset_password' => 'Reset password',
-
         'update_user' => 'Update user',
         'updated_user' => ':user updated',
         'edit_user_not_allowed' => 'You are not allowed for edit this user',
         'update_user_not_allowed' => 'You are not allowed for update this user',
         'number_of_places' => 'Number of places',
         'number_of_places_rated' => 'Number of places rated',
+    ],
 
-    ),
-
-    'place' => array(
+    'place' => [
         'name' => 'Name',
         'my_location' => 'Get my current location',
         'latitude' => 'Latitude',
@@ -101,9 +99,9 @@ return [
         'edit_place_not_allowed' => 'You are not allowed for edit :place',
         'update_place_not_allowed' => 'You are not allowed for update :place',
         'delete_place_not_allowed' => 'You are not allowed for delete :place',
-    ),
+    ],
 
-    'comment' => array(
+    'comment' => [
         'comments' => '{0} No comments. Be first in comment|{1} :number_of_comments Comment|[2,Inf] :number_of_comments Comments',
         'create_comment_label' => 'Leave a comment',
         'create_comment' => 'Send comment',
@@ -117,19 +115,21 @@ return [
         'edit_comment_not_allowed' => 'You are not allowed for edit this comment for :place',
         'update_comment_not_allowed' => 'You are not allowed for update this comment for :place',
         'delete_comment_not_allowed' => 'You are not allowed for delete this comment for :place',
-    ),
-    'star' => array(
+    ],
+
+    'star' => [
         'stars' => 'Stars',
         'votes' => 'Votes',
         'rate_place' => 'Rate this',
         'rated' => ':place Rated',
         'delete_star' => 'Delete rate',
         'deleted_star' => 'Rate for :place deleted',
-    ),
-    'exception' => array(
+    ],
+
+    'exception' => [
         '503' => 'We have a litle problem',
         '404' => "Sorry, I can't find it",
         'token' => 'Try again',
-    )
+    ],
 
 ];

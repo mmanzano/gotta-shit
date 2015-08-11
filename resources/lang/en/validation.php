@@ -102,6 +102,17 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+      'full_name' => 'Full Name',
+      'username' => 'Username',
+      'email' => 'Email address',
+      'password' => 'Password',
+      'password_confirmation' => 'Password Confirmation',
+      'geo_lat' => 'Place',
+      'geo_lng' => 'Place',
+      'name' => 'Name',
+      'stars' => 'Stars',
+      'comment' => 'Comment'
+    ],
 
 ];

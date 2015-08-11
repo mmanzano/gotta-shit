@@ -40,7 +40,7 @@ class UserController extends Controller
         $path = "/place/user";
 
         $this->validate($request, [
-          'full_name' => 'max:255',
+          'full_name' => 'required|max:255',
         ]);
 
         $user = User::findOrFail($user_id);
@@ -49,7 +49,7 @@ class UserController extends Controller
         if ($request->input('username') != $user->username)
         {
             $this->validate($request, [
-              'username' => 'max:255|unique:users',
+              'username' => 'required|max:255|unique:users',
             ]);
 
             $user->username = $request->input('username');
@@ -58,7 +58,7 @@ class UserController extends Controller
         if ($request->input('email') != $user->email)
         {
             $this->validate($request, [
-              'email' => 'email|max:255|unique:users',
+              'email' => 'required|email|max:255|unique:users',
             ]);
 
             $user->email = $request->input('email');
