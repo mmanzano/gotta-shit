@@ -1,13 +1,15 @@
 @extends('layout.layout_email')
 
 @section('email_title')
-    Reset Your Password
+    {{ trans('gottashit.email.reset_password_subject') }}
 @endsection
 
 @section('email_content')
 
+    <h1>{{ trans('gottashit.email.reset_password_thanks') }}</h1>
+
     <p>
-        Click here to reset your password: {{ url('password/reset/'.$token) }}
+        {!! trans('gottashit.email.reset_password_action', ['path' => url('password/reset/'.$token)]) !!}
     </p>
 
 @endsection

@@ -40,9 +40,13 @@ return [
     ',
 
     'email' => array (
-      'confirm_email_subject' => 'Confirm your email for GottaShit.com',
-      'confirm_email_new_subject' => 'Confirm your new email for GottaShit.com',
-      'reset_password_subject' => 'Reset your password for GottaShit.com',
+        'confirm_email_subject' => 'Confirm your email for GottaShit.com',
+        'confirm_email_new_subject' => 'Confirm your new email for GottaShit.com',
+        'reset_password_subject' => 'Reset your password for GottaShit.com',
+        'confirm_email_thanks'  => 'Thanks for signing up!',
+        'confirm_email_action' => "We just need you to <a href=':path'>confirm your email address</a> real quick!",
+        'reset_password_thanks' => 'You can restart your password',
+        'reset_password_action' => "<a href=':path'>Click here</a> to reset your password: <a href=':path'>Reset your password</a>",
     ),
 
     'nav' => array (
