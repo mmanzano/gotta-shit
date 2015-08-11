@@ -5,6 +5,7 @@ use Illuminate\Auth;
 
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
@@ -200,6 +201,16 @@ class PlaceController extends Controller
         return view('places', compact('places'));
     }
 
+    public function bestPlaces()
+    {
+        $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=', 'places.id')
+          ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
+          ->groupBy('places.id')
+          ->orderBy('star_average', 'desc')
+          ->paginate(8);
+
+        return view('places', compact('places'));
+    }
 
     /**
      * @param \Illuminate\Http\Request $request

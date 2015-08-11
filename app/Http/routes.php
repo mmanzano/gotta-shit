@@ -93,6 +93,9 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 // All places
 Route::get('/place', ['as' => 'all_places', 'uses' => 'PlaceController@index']);
 
+// Best Places
+Route::get('/place/best', ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
+
 // Nearest Places
 Route::get('place/{lat}/{lng}/{distance}',['uses' => 'PlaceController@nearest']);
 

@@ -57,6 +57,7 @@ return [
         'user_places' => 'Your places',
         'all' => 'All',
         'nearest' => 'Nearest',
+        'best_places' => 'Best Places',
         'profile' => 'Profile',
     ),
 
