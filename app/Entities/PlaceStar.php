@@ -3,9 +3,12 @@
 namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlaceStar extends Model
 {
+    use SoftDeletes;
+
     /**
      * The database table used by the model.
      *
@@ -26,6 +29,8 @@ class PlaceStar extends Model
      * @var array
      */
     protected $hidden = [];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * One Star belongs to User.

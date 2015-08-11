@@ -20,6 +20,13 @@
 
         <p class="user-label">{{ trans('gottashit.user.number_of_places_rated') }}: <span class="user-data">{{ $user->numberOfPlacesRated }}</span></p>
 
+        <div class="user-label">
+            @foreach($user->stars as $star)
+                <a class="user-link" href="/place/{{ $star->place->id }}">{{ $star->place->name }}</a>
+            @endforeach
+        </div>
+
+
     </div>
 
 @endsection

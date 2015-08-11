@@ -60,6 +60,21 @@ class Place extends Model
         return $this->hasMany('GottaShit\Entities\PlaceComment');
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($place) {
+            $place->stars()->delete();
+            $place->comments()->delete();
+        });
+
+        static::restored(function ($place) {
+            $place->stars()->withTrashed()->restore();
+            $place->comments()->withTrashed()->restore();
+        });
+    }
+
     public function starForPlace()
     {
         $starsForPlace = $this->stars()->getResults();

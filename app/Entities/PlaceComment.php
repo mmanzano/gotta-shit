@@ -3,10 +3,14 @@
 namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Auth;
 
 class PlaceComment extends Model
 {
+    use SoftDeletes;
+
     /**
      * The database table used by the model.
      *
@@ -28,6 +32,7 @@ class PlaceComment extends Model
      */
     protected $hidden = [];
 
+    protected $dates = ['deleted_at'];
     /**
      * One Comment belongs to User.
      *
