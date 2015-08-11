@@ -39,6 +39,12 @@ return [
         <p>Register now and join us!</p>
     ',
 
+    'email' => array (
+      'confirm_email_subject' => 'Confirm your email for GottaShit.com',
+      'confirm_email_new_subject' => 'Confirm your new email for GottaShit.com',
+      'reset_password_subject' => 'Reset your password for GottaShit.com',
+    ),
+
     'nav' => array (
         'login' => 'Login',
         'logout' => 'Logout',
@@ -65,6 +71,7 @@ return [
         'sent_password_reset' => 'Send Password Reset Link',
         'forgot_password' => 'Forgot your password?',
         'reset_password' => 'Reset password',
+
         'update_user' => 'Update user',
         'updated_user' => ':user updated',
         'edit_user_not_allowed' => 'You are not allowed for edit this user',

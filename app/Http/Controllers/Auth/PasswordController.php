@@ -21,6 +21,8 @@ class PasswordController extends Controller
     use ResetsPasswords;
 
     protected $redirectTo = '/';
+
+    protected $subject;
     /**
      * Create a new password controller instance.
      *
@@ -29,5 +31,6 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->subject = trans('gottashit.email.reset_password_subject');
     }
 }

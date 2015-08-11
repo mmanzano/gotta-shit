@@ -29,6 +29,7 @@ class AppMailer
      */
     protected $to;
 
+    protected $subject;
     /**
      * The view for the email.
      *
@@ -59,12 +60,13 @@ class AppMailer
      * @param  User $user
      * @return void
      */
-    public function sendEmailConfirmationTo(User $user)
+    public function sendEmailConfirmationTo(User $user, $subject)
     {
         $this->from = env('SES_EMAIL');
         $this->to = $user->email;
         $this->view = 'emails.confirm';
         $this->data = compact('user');
+        $this->subject = $subject;
 
         $this->deliver();
     }
@@ -78,7 +80,7 @@ class AppMailer
     {
         $this->mailer->send($this->view, $this->data, function ($message) {
             $message->from($this->from, 'GottaShit')
-              ->to($this->to);
+              ->to($this->to)->subject($this->subject);
         });
     }
 }

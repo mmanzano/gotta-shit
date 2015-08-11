@@ -40,7 +40,7 @@ class RegistrationController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        $mailer->sendEmailConfirmationTo($user);
+        $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
 
         $status_message = trans('auth.confirm_email');
 
