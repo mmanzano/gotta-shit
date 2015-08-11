@@ -1,8 +1,9 @@
 <nav>
     <ul class="navigation">
 
+        <li><a href="/place/40.5/-3.7/1000" id="nearest-place" style="display:none">{{ ucfirst(trans('gottashit.nav.nearest')) }}</a></li>
         <li><a href="{{ route('all_places') }}">{{ ucfirst(trans('gottashit.nav.all')) }}</a></li>
-        <li><a href="/place/40.5/-3.7/1000" id="nearest-place">{{ ucfirst(trans('gottashit.nav.nearest')) }}</a></li>
+
 
         @if(Auth::check())
 

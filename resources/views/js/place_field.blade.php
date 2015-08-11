@@ -248,6 +248,7 @@
     function showPosition(position){
         $('#get-my-location').attr("data-latitude", position.coords.latitude );
         $('#get-my-location').attr("data-longitude", position.coords.longitude);
+        $('#get-my-location').show()
     }
 
     getLocation();
