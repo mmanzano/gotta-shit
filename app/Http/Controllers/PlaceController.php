@@ -6,11 +6,14 @@ use Illuminate\Auth;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Carbon\Carbon;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\User;
+
 
 class PlaceController extends Controller
 {
@@ -83,6 +86,8 @@ class PlaceController extends Controller
     public function show($id)
     {
         $place = Place::findOrFail($id);
+
+        Carbon::setLocale(App::getLocale());
 
         return view('place', compact('place'));
     }
