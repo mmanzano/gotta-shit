@@ -12,7 +12,7 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('user_login', ['language' => App::getLocale()]) }}">
             {!! csrf_field() !!}
 
             <div>
@@ -38,7 +38,7 @@
             </div>
 
             <div>
-                <a class="forgot-password" href="{{ route('password_email') }}">{{ ucfirst(trans('gottashit.user.forgot_password')) }}</a>
+                <a class="forgot-password" href="{{ route('user_password_email', ['language' => App::getLocale()]) }}">{{ ucfirst(trans('gottashit.user.forgot_password')) }}</a>
             </div>
         </form>
     </div>

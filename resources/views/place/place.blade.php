@@ -14,10 +14,10 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a  class="button button-action" href="/place/{{ $place->id }}/edit">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
+                        <a  class="button button-action" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
                     </li>
                     <li>
-                        <form method="post" action="/place/{{ $place->id }}">
+                        <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="button button-action" type="submit">{{ ucfirst(trans('gottashit.place.delete_place')) }}</button>
@@ -31,7 +31,7 @@
             <div class="star-rate actions-rate">
                 <ul>
                     <li>
-                        <form method="POST" action="/place/{{ $place->id }}/stars">
+                        <form method="POST" action="{{ route('place_stars_edit', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="PUT">
                             @include('place.partials.form_stars')
@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         @if($place->starForUser()['id'])
-                            <form method="POST" action="/place/{{ $place->id }}/stars">
+                            <form method="POST" action="{{ route('place_stars_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button class="button button-rate" type="submit">{{ ucfirst(trans('gottashit.star.delete_star')) }}</button>
@@ -78,11 +78,11 @@
                             <ul>
                                 @if($comment->isAuthor)
                                     <li>
-                                        <a  class="button button-action" href="/place/{{ $place->id }}/comment/{{ $comment->id }}/edit">{{ ucfirst(trans('gottashit.comment.edit_comment')) }}</a>
+                                        <a  class="button button-action" href="{{ route('place_comment_edit_form', ['language' => App::getLocale(), 'place' => $place->id, 'comment' => $comment->id]) }}">{{ ucfirst(trans('gottashit.comment.edit_comment')) }}</a>
                                     </li>
                                 @endif
                                 <li>
-                                    <form method="post" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
+                                    <form method="post" action="{{ route('place_comment_delete', ['language' => App::getLocale(), 'place' => $place->id, 'comment' => $comment->id]) }}">
                                         {!! csrf_field() !!}
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button class="button button-action" type="submit">{{ ucfirst(trans('gottashit.comment.delete_comment')) }}</button>
@@ -98,7 +98,7 @@
             @endforeach
             @if(Auth::check())
                 <div class="forms">
-                    <form method="POST" action="/place/{{ $place->id }}/comment">
+                    <form method="POST" action="{{ route('place_comment_create', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                         {!! csrf_field() !!}
                         <div>
                             <label class="input-label" for="comment">

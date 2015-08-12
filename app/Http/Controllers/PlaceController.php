@@ -22,8 +22,10 @@ class PlaceController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($language)
     {
+        App::setLocale($language);
+
         $places = Place::paginate(8);
 
         return view('places', compact('places'));
@@ -34,8 +36,10 @@ class PlaceController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create($language)
     {
+        App::setLocale($language);
+
         return view('place.create');
     }
 
@@ -45,8 +49,10 @@ class PlaceController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $language)
     {
+        App::setLocale($language);
+
         $this->validate($request, [
           'name' => 'required|max:255',
           'geo_lat' => 'required|numeric|between:-90,90',
@@ -73,7 +79,7 @@ class PlaceController extends Controller
 
         $status_message = trans('gottashit.place.created_place', ['place' =>  $place->name]);
 
-        return redirect('/place/' . $place->id)->with('status', $status_message);
+        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
 
     }
 
@@ -83,8 +89,10 @@ class PlaceController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($language, $id)
     {
+        App::setLocale($language);
+
         $place = Place::findOrFail($id);
 
         Carbon::setLocale(App::getLocale());
@@ -98,8 +106,10 @@ class PlaceController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($language, $id)
     {
+        App::setLocale($language);
+
         $place = Place::findOrFail($id);
 
         return view('place.edit', compact('place'));
@@ -112,8 +122,9 @@ class PlaceController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $language, $id)
     {
+        App::setLocale($language);
 
         $this->validate($request, [
           'name' => 'required|max:255',
@@ -152,12 +163,12 @@ class PlaceController extends Controller
 
             $status_message = trans('gottashit.place.updated_place', ['place' =>  $place->name]);
 
-            return redirect('/place/' . $place->id)->with('status', $status_message);
+            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
         }
         else {
             $status_message = trans('gottashit.place.update_place_not_allowed', ['place' =>  $place->name]);
 
-            return redirect('/')->with('status', $status_message);
+            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
         }
     }
 
@@ -167,8 +178,10 @@ class PlaceController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($language, $id)
     {
+        App::setLocale($language);
+
         $place = Place::findOrFail($id);
 
         if($place->isAuthor)
@@ -177,12 +190,12 @@ class PlaceController extends Controller
 
             $place->delete();
 
-            return redirect('/place/user')->with('status', $status_message);
+            return redirect(route('user_places', ['language' => $language]))->with('status', $status_message);
         }
         else {
             $status_message = trans('gottashit.place.delete_place_not_allowed', ['place' =>  $place->name]);
 
-            return redirect('/')->with('status', $status_message);
+            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
         }
 
     }
@@ -192,8 +205,10 @@ class PlaceController extends Controller
      *
      * @return Response
      */
-    public function placesForUser()
+    public function placesForUser($language)
     {
+        App::setLocale($language);
+
         if(\Auth::check())
         {
             $places = Place::where('user_id', \Auth::User()->id)->paginate(8);
@@ -206,8 +221,10 @@ class PlaceController extends Controller
         return view('places', compact('places'));
     }
 
-    public function bestPlaces()
+    public function bestPlaces($language)
     {
+        App::setLocale($language);
+
         $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=', 'places.id')
           ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
           ->groupBy('places.id')
@@ -223,8 +240,10 @@ class PlaceController extends Controller
      * @param $longitude
      * @param int $distance in meters
      */
-    public function nearest(Request $request, $latitude, $longitude, $distance)
+    public function nearest(Request $request, $language, $latitude, $longitude, $distance)
     {
+        App::setLocale($language);
+
         $totalLat = 180;
         $totalLng = 360;
         $radius = 6371000;

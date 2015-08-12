@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\App;
+
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
 
@@ -72,8 +74,10 @@ class StarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id_place)
+    public function update(Request $request, $language, $id_place)
     {
+        App::setLocale($language);
+
         $this->validate($request, [
           'stars' => 'required|numeric|between:0,5',
         ]);
@@ -101,7 +105,7 @@ class StarController extends Controller
 
         $status_message = trans('gottashit.star.rated', ['place' => $place->name]);
 
-        return redirect('/place/' . $place->id)->with('status', $status_message);
+        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
 
     }
 
@@ -111,8 +115,10 @@ class StarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($language, $id)
     {
+        App::setLocale($language);
+
         $place = Place::findOrFail($id);
 
         $idStar = $place->starForUser()['id'];
@@ -126,6 +132,6 @@ class StarController extends Controller
 
         $star->delete();
 
-        return redirect('/place/' . $place->id)->with('status', $status_message);
+        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
     }
 }

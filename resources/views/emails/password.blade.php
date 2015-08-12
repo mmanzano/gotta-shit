@@ -9,7 +9,7 @@
     <h1>{{ trans('gottashit.email.reset_password_thanks') }}</h1>
 
     <p>
-        {!! trans('gottashit.email.reset_password_action', ['path' => url('password/reset/'.$token)]) !!}
+        {!! trans('gottashit.email.reset_password_action', ['path' => url(App::getLocale() . '/password/reset/'.$token)]) !!}
     </p>
 
 @endsection

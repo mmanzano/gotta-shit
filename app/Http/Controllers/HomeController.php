@@ -2,6 +2,8 @@
 
 namespace GottaShit\Http\Controllers;
 
+use Illuminate\Support\Facades\App;
+
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\PlaceComment;
@@ -25,6 +27,19 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $places = Place::paginate(1);
+
+        return view('home', compact('places'));
+    }
+
+    /**
+     * Show the application dashboard to the user.
+     *
+     * @return Response
+     */
+    public function index_locale($language)
+    {
+        App::setLocale($language);
 
         $places = Place::paginate(1);
 

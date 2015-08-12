@@ -12,7 +12,7 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="/register">
+        <form method="POST" action="{{ route('user_register', ['language' => App::getLocale()]) }}">
             {!! csrf_field() !!}
 
             @include('auth.partials.user_form')

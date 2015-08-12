@@ -9,7 +9,7 @@
         @if($is_user)
             <p class="user-label">{{ trans('gottashit.user.full_name')}}: <span class="user-data">{{ $user->full_name }}</span></p>
             <p class="user-label">{{ trans('gottashit.user.email')}}: <span class="user-data">{{ $user->email }}</span></p>
-            <a class="button edit-user" href="/user/{{ $user->id }}/edit">{{ trans('gottashit.user.edit_user') }}</a>
+            <a class="button edit-user" href="{{ route('user_edit_form', ['language' => App::getLocale(), 'user' => $user->id]) }}">{{ trans('gottashit.user.edit_user') }}</a>
         @endif
 
         <p class="user-label">{{ trans('gottashit.user.number_of_places') }}: <span class="user-data">{{ $user->numberOfPlaces }}</span></p>
@@ -17,7 +17,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->places as $place)
-                    <a class="user-link" href="/place/{{ $place->id }}">{{ $place->name }}</a>
+                    <a class="user-link" href="{{ route('place', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ $place->name }}</a>
                 @endforeach
             </div>
         @endif
@@ -27,7 +27,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->stars as $star)
-                    <a class="user-link" href="/place/{{ $star->place->id }}">{{ $star->place->name }}</a>
+                    <a class="user-link" href="{{ route('place', ['language' => App::getLocale(), 'place' => $star->place->id]) }}">{{ $star->place->name }}</a>
                 @endforeach
             </div>
         @endif

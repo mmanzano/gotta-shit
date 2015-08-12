@@ -12,7 +12,7 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="{{ route('password_email') }}">
+        <form method="POST" action="{{ route('user_password_email',  ['language' => App::getLocale()]) }}">
             {!! csrf_field() !!}
 
             <div>

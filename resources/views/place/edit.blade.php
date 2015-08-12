@@ -13,7 +13,7 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="/place/{{ $place->id }}">
+        <form method="POST" action="{{ route('place_edit', ['language' => App::getLocale(), 'place' => $place->id]) }}">
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PUT">
             @include('place.partials.form_place')

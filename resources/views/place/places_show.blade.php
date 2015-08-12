@@ -2,15 +2,15 @@
 @foreach($places as $place)
     <div class="place-card">
         <div class="place-title-card" id="place-title-card-{{ $place->id }}">
-            <h2><a class="place-title-link-card" href="{{ route('place', [$place->id]) }}" id="place-title-link-card-{{ $place->id }}">{{ str_limit($place->name, 14) }}</a></h2>
+            <h2><a class="place-title-link-card" href="{{ route('place', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="place-title-link-card-{{ $place->id }}">{{ str_limit($place->name, 14) }}</a></h2>
             @if($place->isAuthor)
                 <div class="card actions actions-card">
                     <ul>
                         <li>
-                            <a class="button button-card" href="/place/{{ $place->id }}/edit" id="button-edit-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
+                            <a class="button button-card" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="button-edit-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
                         </li>
                         <li>
-                            <form method="post" action="/place/{{ $place->id }}">
+                            <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button class="button button-card" type="submit" id="button-delete-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.delete_place')) }}</button>

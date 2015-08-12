@@ -4,6 +4,7 @@ namespace GottaShit\Mailers;
 
 use GottaShit\Entities\User;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Support\Facades\App;
 
 class AppMailer
 {
@@ -65,7 +66,8 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = $user->email;
         $this->view = 'emails.confirm';
-        $this->data = compact('user');
+        $path = route('user_register_confirm', ['language' => App::getLocale(), 'token' => $user->token]);
+        $this->data = compact('user', 'path');
         $this->subject = $subject;
 
         $this->deliver();

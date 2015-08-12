@@ -4,6 +4,8 @@ namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class PasswordController extends Controller
 {
@@ -20,7 +22,7 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
-    protected $redirectTo = '/';
+    protected $redirectTo;
 
     protected $subject;
     /**
@@ -31,6 +33,37 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->subject = trans('gottashit.email.reset_password_subject');
     }
+
+    public function getLocaleEmail($language)
+    {
+        App::setLocale($language);
+
+        return $this->getEmail();
+    }
+
+    public function postLocaleEmail(Request $request, $language)
+    {
+        App::setLocale($language);
+
+        $this->subject = trans('gottashit.email.reset_password_subject');
+
+        return $this->postEmail($request);
+    }
+
+    public function getLocaleReset($language, $token)
+    {
+        App::setLocale($language);
+
+        return $this->getReset($token);
+    }
+    public function postLocaleReset(Request $request, $language)
+    {
+        App::setLocale($language);
+
+        $this->redirectTo = route('home', ['language' => $language]);
+
+        return $this->postReset($request);
+    }
+
 }

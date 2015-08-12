@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="forms">
-        <form method="POST" action="/place/{{ $place->id }}/comment/{{ $comment->id }}">
+        <form method="POST" action="{{ route('place_comment_edit', ['language' => App::getLocale(), 'place' => $place->id, 'comment' => $comment->id]) }}">
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PUT">
             @include('place.partials.comments')

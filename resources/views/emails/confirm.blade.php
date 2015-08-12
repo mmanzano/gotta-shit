@@ -9,7 +9,7 @@
     <h1>{{ trans('gottashit.email.confirm_email_thanks') }}</h1>
 
     <p>
-        {!! trans('gottashit.email.confirm_email_action', ['path' => url("register/confirm/{$user->token}")]) !!}
+        {!! trans('gottashit.email.confirm_email_action', ['path' => url("$path")]) !!}
     </p>
 
 @endsection

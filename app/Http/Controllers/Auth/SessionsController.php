@@ -5,19 +5,23 @@ use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use GottaShit\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\App;
 
 class SessionsController extends Controller
 {
     use ThrottlesLogins;
+
+    protected $loginPath;
 
     /**
      * Show the login page.
      *
      * @return \Response
      */
-    public function login()
+    public function login($language)
     {
+        App::setLocale($language);
+
         return view('auth.login');
     }
 
@@ -27,8 +31,12 @@ class SessionsController extends Controller
      * @param  Request  $request
      * @return \Redirect
      */
-    public function postLogin(Request $request)
+    public function postLogin(Request $request, $language)
     {
+        App::setLocale($language);
+
+        $this->loginPath = route('user_login', ['language' => App::getLocale()]);
+
         $this->validate($request, [
           'email' => 'required|email',
           'password' => 'required'
@@ -37,7 +45,7 @@ class SessionsController extends Controller
         if ($this->signIn($request)) {
             $status_message = trans('auth.login');
 
-            return redirect('/')->with('status', $status_message);
+            return redirect(route('home', ['language' => App::getLocale()]))->with('status', $status_message);
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -74,13 +82,15 @@ class SessionsController extends Controller
      *
      * @return \Redirect
      */
-    public function logout()
+    public function logout($language)
     {
+        App::setLocale($language);
+
         Auth::logout();
 
         $status_message = trans('auth.logout');
 
-        return redirect('/')->with('status', $status_message);
+        return redirect(route('home', ['language' => App::getLocale()]))->with('status', $status_message);
     }
 
     /**

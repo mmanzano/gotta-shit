@@ -4,6 +4,7 @@ use GottaShit\Entities\User;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 
 class RegistrationController extends Controller
 {
@@ -12,8 +13,10 @@ class RegistrationController extends Controller
      *
      * @return \Response
      */
-    public function register()
+    public function register($language)
     {
+        App::setLocale($language);
+
         return view('auth.register');
     }
 
@@ -24,8 +27,10 @@ class RegistrationController extends Controller
      * @param  AppMailer $mailer
      * @return \Redirect
      */
-    public function postRegister(Request $request, AppMailer $mailer)
+    public function postRegister(Request $request, AppMailer $mailer, $language)
     {
+        App::setLocale($language);
+
         $this->validate($request, [
           'full_name' => 'required|max:255',
           'username' => 'required|max:255|unique:users',
@@ -44,7 +49,7 @@ class RegistrationController extends Controller
 
         $status_message = trans('auth.confirm_email');
 
-        return redirect('/login')->with('status', $status_message);
+        return redirect(route('user_login', ['language' => App::getLocale()]))->with('status', $status_message);
     }
 
     /**
@@ -53,12 +58,14 @@ class RegistrationController extends Controller
      * @param  string $token
      * @return mixed
      */
-    public function confirmEmail($token)
+    public function confirmEmail($language, $token)
     {
+        App::setLocale($language);
+
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
         $status_message = trans('auth.confirmed') ;
 
-        return redirect('/login')->with('status', $status_message);
+        return redirect(route('user_login', ['language' => App::getLocale()]))->with('status', $status_message);
     }
 }

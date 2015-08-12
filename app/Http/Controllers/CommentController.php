@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 
+Use Illuminate\Support\Facades\App;
+
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Place;
 
@@ -38,8 +40,10 @@ class CommentController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request, $id_place)
+    public function store(Request $request, $language, $id_place)
     {
+        App::setLocale($language);
+
         $this->validate($request, [
           'comment' => 'required',
         ]);
@@ -56,7 +60,7 @@ class CommentController extends Controller
 
         $status_message = trans('gottashit.comment.created_comment', ['place' =>  $place->name]);
 
-        return redirect('/place/' . $place->id . '#comment-' . $comment->id)->with('status', $status_message);
+        return redirect(route('place', ['language' => $language, 'place' => $place->id]) . '#comment-' . $comment->id)->with('status', $status_message);
     }
 
     /**
@@ -76,8 +80,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Request $request, $id_place, $id_comment)
+    public function edit(Request $request, $language, $id_place, $id_comment)
     {
+        App::setLocale($language);
+
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
 
@@ -91,8 +97,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id_place, $id_comment)
+    public function update(Request $request, $language, $id_place, $id_comment)
     {
+        App::setLocale($language);
+
         $this->validate($request, [
           'comment' => 'required',
         ]);
@@ -109,15 +117,13 @@ class CommentController extends Controller
 
             $status_message = trans('gottashit.comment.updated_comment',
               ['place' => $place->name]);
-
-            return redirect('/place/' . $place->id . '#comment-' . $comment->id)->with('status',
-              $status_message);
         }
         else {
             $status_message = trans('gottashit.comment.update_comment_not_allowed', ['place' => $place->name]);
-
-            return redirect('/place/' . $place->id)->with('status', $status_message);
         }
+
+        return redirect(route('place', ['language' => $language, 'place' => $place->id]) . '#comment-' . $comment->id)->with('status',
+          $status_message);
     }
 
     /**
@@ -126,8 +132,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request, $id_place, $id_comment)
+    public function destroy(Request $request, $language, $id_place, $id_comment)
     {
+        App::setLocale($language);
+
         $place = Place::findOrFail($id_place);
 
         $comment = PlaceComment::findOrFail($id_comment);
@@ -136,13 +144,12 @@ class CommentController extends Controller
             $status_message = trans('gottashit.comment.deleted_comment', ['place' => $place->name]);
 
             $comment->delete();
-
-            return redirect('/place/' . $place->id)->with('status', $status_message);
         }
         else {
             $status_message = trans('gottashit.comment.delete_comment_not_allowed', ['place' => $place->name]);
 
-            return redirect('/place/' . $place->id)->with('status', $status_message);
         }
+
+        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
     }
 }

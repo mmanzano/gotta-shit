@@ -12,7 +12,7 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="{{ route('password_reset') }}">
+        <form method="POST" action="{{ route('user_password_reset', ['language' => App::getLocale()]) }}">
             {!! csrf_field() !!}
 
             <input type="hidden" name="token" value="{{ $token }}">
