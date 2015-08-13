@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect('/');
+            return redirect(route('home', ['language' => $request->language]));
         }
 
         return $next($request);

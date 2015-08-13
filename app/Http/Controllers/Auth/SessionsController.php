@@ -1,6 +1,6 @@
 <?php namespace GottaShit\Http\Controllers\Auth;
 
-use Auth;
+use Illuminate\Auth;
 use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;

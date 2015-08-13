@@ -1,6 +1,6 @@
 <?php namespace GottaShit\Http\Controllers\Auth;
 
-use Auth;
+use Illuminate\Auth;
 use GottaShit\Entities\User;
 use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;

@@ -3,7 +3,7 @@
 namespace GottaShit\Http\Middleware;
 
 use Illuminate\Auth;
-
+use Illuminate\Support\Facades\App;
 use Closure;
 
 class IsAuthorCommentMiddleware
@@ -27,13 +27,13 @@ class IsAuthorCommentMiddleware
             if ($user_id != $author_comment_id) {
                 $status_message = trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
 
-                return redirect('/place/' . $request->place)->with('status', $status_message);
+                return redirect(route('place', ['language' => $request->language, 'place' => $request->place]))->with('status', $status_message);
             }
         }
         else{
             $status_message = trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
 
-            return redirect('/place/' . $request->place)->with('status', $status_message);
+            return redirect(route('place', ['language' => $request->language, 'place' => $request->place]))->with('status', $status_message);
         }
 
         return $next($request);

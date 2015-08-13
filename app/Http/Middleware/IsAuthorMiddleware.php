@@ -4,6 +4,8 @@ namespace GottaShit\Http\Middleware;
 
 use Illuminate\Auth;
 
+use Illuminate\Support\Facades\App;
+
 use Closure;
 
 class IsAuthorMiddleware
@@ -25,13 +27,13 @@ class IsAuthorMiddleware
             if ($user_id != $author_id) {
                 $status_message = trans('gottashit.place.edit_place_not_allowed', ['place' =>  $place->name]);
 
-                return redirect('/')->with('status', $status_message);
+                return redirect(route('home', ['language' => $request->language]))->with('status', $status_message);
             }
         }
         else{
             $status_message = trans('gottashit.place.edit_place_not_allowed', ['place' =>  $place->name]);
 
-            return redirect('/')->with('status', $status_message);
+            return redirect(route('home', ['language' => $request->language]))->with('status', $status_message);
         }
 
         return $next($request);
