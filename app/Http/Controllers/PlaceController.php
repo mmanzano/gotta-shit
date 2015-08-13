@@ -94,7 +94,12 @@ class PlaceController extends Controller
     {
         App::setLocale(Session::get('language', $language));
 
-        $place = Place::findOrFail($id);
+        $place = Place::withTrashed()->findOrFail($id);
+
+        if($place->trashed() && ! $place->isAuthor)
+        {
+            return redirect(route('home', ['language'=> $language]));
+        }
 
         Carbon::setLocale(App::getLocale());
 
@@ -183,13 +188,19 @@ class PlaceController extends Controller
     {
         App::setLocale(Session::get('language', $language));
 
-        $place = Place::findOrFail($id);
+        $place = Place::withTrashed()->findOrFail($id);
 
         if($place->isAuthor)
         {
             $status_message = trans('gottashit.place.deleted_place', ['place' =>  $place->name]);
 
-            $place->delete();
+            if($place->trashed()){
+                $status_message = trans('gottashit.place.deleted_place_permanently', ['place' =>  $place->name]);
+                $place->forceDelete();
+            }
+            else{
+                $place->delete();
+            }
 
             return redirect(route('user_places', ['language' => $language]))->with('status', $status_message);
         }

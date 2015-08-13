@@ -22,6 +22,17 @@
             </div>
         @endif
 
+        <p class="user-label">{{ trans('gottashit.user.number_of_places_deleted') }}: <span class="user-data">{{ $user->numberOfPlacesTrashed }}</span></p>
+
+        @if($is_user)
+            <div class="user-label">
+                @foreach($user->placesTrashed as $place)
+                    <a class="user-link" href="{{ route('place', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ $place->name }}</a>
+                @endforeach
+            </div>
+        @endif
+
+
         <p class="user-label">{{ trans('gottashit.user.number_of_places_rated') }}: <span class="user-data">{{ $user->numberOfPlacesRated }}</span></p>
 
         @if($is_user)

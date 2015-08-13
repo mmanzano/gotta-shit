@@ -7,13 +7,19 @@
                 <div class="card actions actions-card">
                     <ul>
                         <li>
-                            <a class="button button-card" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="button-edit-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.edit_place')) }}</a>
+                            <a class="button button-card" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="button-edit-card-{{ $place->id }}">{{ trans('gottashit.place.edit_place') }}</a>
                         </li>
                         <li>
                             <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button class="button button-card" type="submit" id="button-delete-card-{{ $place->id }}">{{ ucfirst(trans('gottashit.place.delete_place')) }}</button>
+                                <button class="button button-card" type="submit" id="button-delete-card-{{ $place->id }}">
+                                    @if($place->trashed())
+                                        {{ trans('gottashit.place.delete_place_permanently') }}
+                                    @else
+                                        {{ trans('gottashit.place.delete_place') }}
+                                    @endif
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -27,7 +33,7 @@
                     <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
                     </div>
                 </div>
-                <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ ucfirst(trans('gottashit.star.votes')) }}: {{ $place->starForPlace()['votes'] }}</div>
+                <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ trans('gottashit.star.votes') }}: {{ $place->starForPlace()['votes'] }}</div>
             </div>
             <div class="place-comments card-comments">
                 <p>

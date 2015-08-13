@@ -95,6 +95,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $numberOfPlaces;
     }
 
+    public function placesTrashed() {
+        return $this->places()->onlyTrashed();
+    }
+
+    public function getNumberOfPlacesTrashedAttribute()
+    {
+        $numberOfPlacesTrashed= $this->placesTrashed()->count();
+
+        return $numberOfPlacesTrashed;
+    }
     /**
      * Confirm the user.
      *
