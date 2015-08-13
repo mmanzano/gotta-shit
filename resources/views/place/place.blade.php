@@ -13,9 +13,11 @@
         @if($place->isAuthor)
             <div class="actions">
                 <ul>
-                    <li>
-                        <a  class="button button-action" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ trans('gottashit.place.edit_place') }}</a>
-                    </li>
+                    @if(! $place->trashed())
+                        <li>
+                            <a  class="button button-action" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ trans('gottashit.place.edit_place') }}</a>
+                        </li>
+                    @endif
                     <li>
                         <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                             {!! csrf_field() !!}

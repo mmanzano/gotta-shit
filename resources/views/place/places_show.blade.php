@@ -6,9 +6,11 @@
             @if($place->isAuthor)
                 <div class="card actions actions-card">
                     <ul>
-                        <li>
-                            <a class="button button-card" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="button-edit-card-{{ $place->id }}">{{ trans('gottashit.place.edit_place') }}</a>
-                        </li>
+                        @if(! $place->trashed())
+                            <li>
+                                <a class="button button-card" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="button-edit-card-{{ $place->id }}">{{ trans('gottashit.place.edit_place') }}</a>
+                            </li>
+                        @endif
                         <li>
                             <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
