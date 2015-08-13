@@ -96,13 +96,16 @@ return [
         'delete_place' => 'Delete Place',
         'delete_place_confirm' => 'Are you sure?',
         'delete_place_permanently' => 'Delete Place Permanently',
+        'restore_place' => 'Restore Place',
         'created_place' => ':place Created',
         'updated_place' => ':place Updated',
         'deleted_place' => ':place Deleted',
+        'restored_place' => ':place Restored',
         'deleted_place_permanently' => ':place Deleted Permanently',
         'edit_place_not_allowed' => 'You are not allowed for edit :place',
         'update_place_not_allowed' => 'You are not allowed for update :place',
         'delete_place_not_allowed' => 'You are not allowed for delete :place',
+        'restore_place_not_allowed' => 'You are not allowed for restore :place',
     ],
 
     'comment' => [

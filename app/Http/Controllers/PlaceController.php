@@ -212,6 +212,26 @@ class PlaceController extends Controller
 
     }
 
+    public function restorePlace($language, $place_id)
+    {
+        App::setLocale(Session::get('language', $language));
+
+        $place = Place::withTrashed()->findOrFail($place_id);
+
+        if ($place->isAuthor) {
+            $place->restore();
+
+            $status_message = trans('gottashit.place.restored_place', ['place' =>  $place->name]);
+
+            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
+        }
+        else{
+            $status_message = trans('gottashit.place.restore_place_not_allowed', ['place' =>  $place->name]);
+
+            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
+        }
+    }
+
     /**
      * Display a listing of the resource for the user
      *

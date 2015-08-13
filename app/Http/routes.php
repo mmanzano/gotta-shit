@@ -61,13 +61,14 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('/{language}/place/{place}/comment', ['as' => 'place_comment_create', 'uses' => 'CommentController@store']);
 });
 
-// Edit, update, delete place
+// Edit, update, delete, restore place
 Route::group(['middleware' => ['isAuthor']], function(){
     Route::get('/{language}/place/{place}/edit', ['as' => 'place_edit_form', 'uses' => 'PlaceController@edit']);
 });
 Route::group(['middleware' => ['auth']], function(){
     Route::put('/{language}/place/{place}', ['as' => 'place_edit', 'uses' => 'PlaceController@update']);
     Route::delete('/{language}/place/{place}', ['as' => 'place_delete', 'uses' => 'PlaceController@destroy']);
+    Route::post('/{language}/place/{place}/restore', ['as' => 'place_restore', 'uses' => 'PlaceController@restorePlace']);
 });
 
 // Comments

@@ -17,6 +17,16 @@
                         <li>
                             <a  class="button button-action" href="{{ route('place_edit_form', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ trans('gottashit.place.edit_place') }}</a>
                         </li>
+                    @else
+                        <li>
+                            <form method="post" action="{{ route('place_restore', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                                {!! csrf_field() !!}
+                                <input name="_method" type="hidden" value="POST">
+                                <button class="button button-action" type="submit">
+                                        {{ trans('gottashit.place.restore_place') }}
+                                </button>
+                            </form>
+                        </li>
                     @endif
                     <li>
                         <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">

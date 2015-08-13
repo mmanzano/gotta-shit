@@ -98,13 +98,16 @@ return [
         'delete_place' => 'Borrar Sitio',
         'delete_place_confirm' => '¿Está seguro?',
         'delete_place_permanently' => 'Borrar Sitio Permanentemente',
+        'restore_place' => 'Recuperar Sitio',
         'created_place' => ':place Creado',
         'updated_place' => ':place Actualizado',
         'deleted_place' => ':place Borrado',
+        'restored_place' => ':place Recuperado',
         'deleted_place_permanently' => ':place Borrado Permanentemente',
         'edit_place_not_allowed' => 'No puedes editar :place',
         'update_place_not_allowed' => 'No puedes actualizar :place',
         'delete_place_not_allowed' => 'No puedes borrar :place',
+        'restore_place_not_allowed' => 'No puedes recuperar :place',
     ],
 
     'comment' => [
