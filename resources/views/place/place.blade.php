@@ -45,28 +45,30 @@
             </div>
         @endif
         <h2>{{ $place->name }}</h2>
-        @if(Auth::check())
-            <div class="star-rate actions-rate">
-                <ul>
-                    <li>
-                        <form method="POST" action="{{ route('place_stars_edit', ['language' => App::getLocale(), 'place' => $place->id]) }}">
-                            {!! csrf_field() !!}
-                            <input name="_method" type="hidden" value="PUT">
-                            @include('place.partials.form_stars')
-                            <button class="button button-rate" type="submit">{{ trans('gottashit.star.rate_place') }}</button>
-                        </form>
-                    </li>
-                    <li>
-                        @if($place->starForUser()['id'])
-                            <form method="POST" action="{{ route('place_stars_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+        @if(! $place->trashed())
+            @if(Auth::check())
+                <div class="star-rate actions-rate">
+                    <ul>
+                        <li>
+                            <form method="POST" action="{{ route('place_stars_edit', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
-                                <input name="_method" type="hidden" value="DELETE">
-                                <button class="button button-rate" type="submit">{{ trans('gottashit.star.delete_star') }}</button>
+                                <input name="_method" type="hidden" value="PUT">
+                                @include('place.partials.form_stars')
+                                <button class="button button-rate" type="submit">{{ trans('gottashit.star.rate_place') }}</button>
                             </form>
-                        @endif
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                        <li>
+                            @if($place->starForUser()['id'])
+                                <form method="POST" action="{{ route('place_stars_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                                    {!! csrf_field() !!}
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <button class="button button-rate" type="submit">{{ trans('gottashit.star.delete_star') }}</button>
+                                </form>
+                            @endif
+                        </li>
+                    </ul>
+                </div>
+            @endif
         @endif
     </div>
 
@@ -84,14 +86,14 @@
                 {{ trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]) }}
             </p>
 
-            @foreach($place->comments as $comment)
+            @foreach($place->commentsWithTrashed as $comment)
                 <a name="comment-{{ $comment->id }}"></a>
                 <div class="place-comments-user">
                     <p class="place-comments-user-name">
                         {{ $comment->user->username }}<br/>
                         <span class="place-comments-date">{{ $comment->created_at->diffForHumans() }}</span>
                     </p>
-                    @if($comment->isAuthor || $place->isAuthor)
+                    @if(($comment->isAuthor || $place->isAuthor) && ! $place->trashed())
                         <div class="actions">
                             <ul>
                                 @if($comment->isAuthor)
@@ -114,26 +116,28 @@
                     {{ $comment->comment }}
                 </p>
             @endforeach
-            @if(Auth::check())
-                <div class="forms">
-                    <form method="POST" action="{{ route('place_comment_create', ['language' => App::getLocale(), 'place' => $place->id]) }}">
-                        {!! csrf_field() !!}
-                        <div>
-                            <label class="input-label" for="comment">
-                                {{ trans('gottashit.comment.create_comment_label') }}
-                            </label>
-                            @if(old('comment') != "")
-                                <textarea class="textarea" name="comment" id="comment">{{ old('comment') }}</textarea>
-                            @else
-                                <textarea class="textarea" name="comment" id="comment"></textarea>
-                            @endif
-                        </div>
+            @if(! $place->trashed())
+                @if(Auth::check())
+                    <div class="forms">
+                        <form method="POST" action="{{ route('place_comment_create', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                            {!! csrf_field() !!}
+                            <div>
+                                <label class="input-label" for="comment">
+                                    {{ trans('gottashit.comment.create_comment_label') }}
+                                </label>
+                                @if(old('comment') != "")
+                                    <textarea class="textarea" name="comment" id="comment">{{ old('comment') }}</textarea>
+                                @else
+                                    <textarea class="textarea" name="comment" id="comment"></textarea>
+                                @endif
+                            </div>
 
-                        <div>
-                            <button class="button" type="submit">{{ trans('gottashit.comment.create_comment') }}</button>
-                        </div>
-                    </form>
-                </div>
+                            <div>
+                                <button class="button" type="submit">{{ trans('gottashit.comment.create_comment') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                @endif
             @endif
         </div>
     </div>

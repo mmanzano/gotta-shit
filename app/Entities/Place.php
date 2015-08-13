@@ -77,7 +77,7 @@ class Place extends Model
 
     public function starForPlace()
     {
-        $starsForPlace = $this->stars()->getResults();
+        $starsForPlace = $this->starsWithTrashed()->getResults();
 
         $starResult = array(
           'votes' => 0,
@@ -103,7 +103,7 @@ class Place extends Model
 
     public function starForUser()
     {
-        $starsForPlace = $this->stars()->getResults();
+        $starsForPlace = $this->starsWithTrashed()->getResults();
 
         $stars = array(
             'id' => 0,
@@ -126,7 +126,7 @@ class Place extends Model
 
     public function getNumberOfCommentsAttribute()
     {
-        $allComments = $this->comments()->getResults();
+        $allComments = $this->commentsWithTrashed()->getResults();
 
         $countComments = 0;
 
@@ -151,5 +151,23 @@ class Place extends Model
         }
         return $isAuthor;
 
+    }
+
+    public function starsWithTrashed(){
+        if ($this->trashed()) {
+            return $this->stars()->onlyTrashed();
+        }
+        else{
+            return $this->stars();
+        }
+    }
+
+    public function commentsWithTrashed(){
+        if ($this->trashed()) {
+            return $this->comments()->onlyTrashed();
+        }
+        else{
+            return $this->comments();
+        }
     }
 }
