@@ -3,6 +3,7 @@
 namespace GottaShit\Http\Controllers;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
@@ -27,6 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(Session::get('language')){
+            App::setLocale(Session::get('language'));
+        }
+
         $places = Place::paginate(1);
 
         return view('home', compact('places'));
@@ -39,7 +44,7 @@ class HomeController extends Controller
      */
     public function index_locale($language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $places = Place::paginate(1);
 

@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 
-Use Illuminate\Support\Facades\App;
-
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Place;
+
+Use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class CommentController extends Controller
 {
@@ -42,7 +43,7 @@ class CommentController extends Controller
      */
     public function store(Request $request, $language, $id_place)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->validate($request, [
           'comment' => 'required',
@@ -82,7 +83,7 @@ class CommentController extends Controller
      */
     public function edit(Request $request, $language, $id_place, $id_comment)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
@@ -99,7 +100,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $language, $id_place, $id_comment)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->validate($request, [
           'comment' => 'required',
@@ -134,7 +135,7 @@ class CommentController extends Controller
      */
     public function destroy(Request $request, $language, $id_place, $id_comment)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $place = Place::findOrFail($id_place);
 

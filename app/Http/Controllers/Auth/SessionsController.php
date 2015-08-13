@@ -1,11 +1,13 @@
 <?php namespace GottaShit\Http\Controllers\Auth;
 
-use Illuminate\Auth;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use GottaShit\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class SessionsController extends Controller
 {
@@ -20,7 +22,7 @@ class SessionsController extends Controller
      */
     public function login($language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         return view('auth.login');
     }
@@ -33,7 +35,7 @@ class SessionsController extends Controller
      */
     public function postLogin(Request $request, $language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->loginPath = route('user_login', ['language' => App::getLocale()]);
 
@@ -84,7 +86,7 @@ class SessionsController extends Controller
      */
     public function logout($language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         Auth::logout();
 

@@ -4,7 +4,9 @@ use Illuminate\Auth;
 use GottaShit\Entities\User;
 use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 use GottaShit\Mailers\AppMailer;
 
@@ -12,7 +14,7 @@ class UserController extends Controller
 {
     public function show($language, $user_id)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $user = User::findOrFail($user_id);
         $is_user =  $this->is_user($user_id);
@@ -22,7 +24,7 @@ class UserController extends Controller
 
     public function edit($language, $user_id)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $user = User::findOrFail($user_id);
 
@@ -36,7 +38,7 @@ class UserController extends Controller
 
     public function update(Request $request, AppMailer $mailer, $language, $user_id)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $logout = false;
         $status_message = "";

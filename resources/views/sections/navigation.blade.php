@@ -5,9 +5,9 @@
         <li><a href="{{ App::getLocale() }}/place/40.5/-3.7/1000" id="nearest-place" style="display:none">{{ trans('gottashit.nav.nearest') }}</a></li>
 
         @if(App::getLocale() == 'es')
-            <li><a href="/en">English</a></li>
+            <li><a href="{{ route('language', ['language' => 'en']) }}">English</a></li>
         @else
-            <li><a href="/es">Español</a></li>
+            <li><a href="{{ route('language', ['language' => 'es']) }}">Español</a></li>
         @endif
 
         <li><a href="{{ route('all_places', ['language' => App::getLocale()]) }}">{{ trans('gottashit.nav.all') }}</a></li>

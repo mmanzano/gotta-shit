@@ -98,3 +98,6 @@ Route::get('/{language}/place/{lat}/{lng}/{distance}',['as' => 'nearest_places',
 
 // Display a place
 Route::get('/{language}/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
+
+//language change
+Route::get('/{language}/change', ['as' => 'language', 'uses' => 'LanguageController@change']);

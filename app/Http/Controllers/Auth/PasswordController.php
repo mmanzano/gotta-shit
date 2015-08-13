@@ -5,7 +5,9 @@ namespace GottaShit\Http\Controllers\Auth;
 use GottaShit\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class PasswordController extends Controller
 {
@@ -37,14 +39,14 @@ class PasswordController extends Controller
 
     public function getLocaleEmail($language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         return $this->getEmail();
     }
 
     public function postLocaleEmail(Request $request, $language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->subject = trans('gottashit.email.reset_password_subject');
 
@@ -53,13 +55,13 @@ class PasswordController extends Controller
 
     public function getLocaleReset($language, $token)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         return $this->getReset($token);
     }
     public function postLocaleReset(Request $request, $language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->redirectTo = route('home', ['language' => $language]);
 

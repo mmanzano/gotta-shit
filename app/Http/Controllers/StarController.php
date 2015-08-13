@@ -8,6 +8,7 @@ use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
@@ -76,7 +77,7 @@ class StarController extends Controller
      */
     public function update(Request $request, $language, $id_place)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->validate($request, [
           'stars' => 'required|numeric|between:0,5',
@@ -117,7 +118,7 @@ class StarController extends Controller
      */
     public function destroy($language, $id)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $place = Place::findOrFail($id);
 

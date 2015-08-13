@@ -4,7 +4,9 @@ use GottaShit\Entities\User;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class RegistrationController extends Controller
 {
@@ -15,7 +17,7 @@ class RegistrationController extends Controller
      */
     public function register($language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         return view('auth.register');
     }
@@ -29,7 +31,7 @@ class RegistrationController extends Controller
      */
     public function postRegister(Request $request, AppMailer $mailer, $language)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         $this->validate($request, [
           'full_name' => 'required|max:255',
@@ -60,7 +62,7 @@ class RegistrationController extends Controller
      */
     public function confirmEmail($language, $token)
     {
-        App::setLocale($language);
+        App::setLocale(Session::get('language', $language));
 
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
