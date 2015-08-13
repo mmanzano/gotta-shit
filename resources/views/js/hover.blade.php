@@ -8,5 +8,6 @@
             function mouseleave(){
                 $('#place-title-card-{{ $place->id }}').removeClass('place-title-card-hover');
                 $('#place-title-link-card-{{ $place->id }}').removeClass('place-title-card-hover');
-            });
+            }
+        );
 </script>

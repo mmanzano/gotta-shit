@@ -131,7 +131,7 @@ class StarController extends Controller
 
         $status_message = trans('gottashit.star.deleted_star', ['place' =>  $place->name]);
 
-        $star->delete();
+        $star->forceDelete();
 
         return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
     }

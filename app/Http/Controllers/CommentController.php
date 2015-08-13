@@ -144,7 +144,7 @@ class CommentController extends Controller
         if($comment->isAuthor || $place->isAuthor) {
             $status_message = trans('gottashit.comment.deleted_comment', ['place' => $place->name]);
 
-            $comment->delete();
+            $comment->forceDelete();
         }
         else {
             $status_message = trans('gottashit.comment.delete_comment_not_allowed', ['place' => $place->name]);
