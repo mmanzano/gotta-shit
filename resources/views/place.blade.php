@@ -7,4 +7,6 @@
 @section('javascript')
     @include('js.place')
     @include('js.hover')
+
+    @include('js.place_experience')
 @endsection

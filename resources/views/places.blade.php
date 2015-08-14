@@ -12,4 +12,6 @@
         @include('js.place')
         @include('js.hover')
     @endforeach
+
+    @include('js.place_experience')
 @endsection

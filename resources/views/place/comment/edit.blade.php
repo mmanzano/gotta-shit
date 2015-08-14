@@ -22,7 +22,3 @@
         </form>
     </div>
 @endsection
-
-
-@section('javascript')
-@endsection

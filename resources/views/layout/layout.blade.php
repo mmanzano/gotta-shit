@@ -18,10 +18,14 @@
 
 @include('scripts.javascript')
 
-@yield('javascript')
+<script>
 
-@include('js.nearest')
-@include('js.analytics')
+    @yield('javascript')
+
+    @include('js.nearest')
+    @include('js.analytics')
+
+</script>
 
 </body>
 </html>
