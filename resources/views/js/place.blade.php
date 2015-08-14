@@ -15,7 +15,8 @@ function initialize_{{ $place->id }}() {
         mapTypeControl: false,
         //panControl: false,
         streetViewControl: false,
-        scrollwheel: false
+        scrollwheel: false,
+        draggable: false
     };
 
 
@@ -29,7 +30,8 @@ function initialize_{{ $place->id }}() {
     // event triggered when map is clicked
     google.maps.event.addListener(map_{{ $place->id }}, 'click', function (event) {
         map_{{ $place->id }}.setOptions({
-            scrollwheel: true
+            scrollwheel: true,
+            draggable: true
         });
     });
 }
