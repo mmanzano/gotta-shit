@@ -151,6 +151,18 @@ class CommentController extends Controller
 
         }
 
-        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
+        if ($request->ajax()) {
+
+            $number_of_comments = trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]);
+
+            return response()->json([
+              'status' => 200,
+              'status_message' => $status_message,
+              'number_of_comments' => $number_of_comments,
+            ]);
+        }
+        else{
+            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
+        }
     }
 }
