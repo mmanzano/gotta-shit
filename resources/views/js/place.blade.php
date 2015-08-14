@@ -14,16 +14,27 @@ function initialize_{{ $place->id }}() {
         },
         mapTypeControl: false,
         //panControl: false,
-        //zoomControl: false,
-        streetViewControl: false
+        streetViewControl: false,
+        scrollwheel: false
     };
+
+
     map_{{ $place->id }} = new google.maps.Map(element_{{ $place->id }}, mapOptions_{{ $place->id }})
 
     var marker_{{ $place->id }} = new google.maps.Marker({
         position: myLatlng_{{ $place->id }},
         map: map_{{ $place->id }},
     });
+
+    // event triggered when map is clicked
+    google.maps.event.addListener(map_{{ $place->id }}, 'click', function (event) {
+        map_{{ $place->id }}.setOptions({
+            scrollwheel: true
+        });
+    });
 }
+
+google.maps.event.addDomListener(window, 'load', initialize_{{ $place->id }});
 
 google.maps.event.addDomListener(window, 'load', initialize_{{ $place->id }});
 
