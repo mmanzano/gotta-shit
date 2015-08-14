@@ -1,3 +1,7 @@
+$('#place-comments-list').on('click', '.button-delete-comment', delete_comment_confirm);
+
+$("#create-comment").click(create_comment);
+
 function delete_place_confirm(e){
     if ($(this).html() !== "{!! trans('gottashit.place.delete_place_confirm') !!}") {
         e.preventDefault();
@@ -29,4 +33,21 @@ function delete_comment_confirm(e){
             $(that).parents('.place-comments-user').text(result.status_message);
         });
     }
+}
+
+function create_comment(e){
+    e.preventDefault();
+    var that = this;
+    var form_name = '#create-comment-form';
+    var form = $(form_name);
+    var url = form.attr('action');
+    var data = form.serialize();
+
+    $.post(url, data, function (result) {
+            $('#comment').val("")
+            $('#place-comments-list').append(result.comment);
+            $('.place-comments-number').text(result.number_of_comments);
+        }).fail(function (result) {
+            $('#place-comments-list').append(result.status_message);
+        });
 }

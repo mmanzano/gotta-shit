@@ -31,6 +31,3 @@ $("#place-stars-points-{{ $place->id }}").width("{{ $place->starForPlace()['widt
 
 $("#delete-place-{{ $place->id }}").click(delete_place_confirm);
 
-@foreach($place->comments as $comment)
-    $("#delete-comment-{{ $comment->id }}").click(delete_comment_confirm);
-@endforeach
