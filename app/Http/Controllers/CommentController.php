@@ -100,7 +100,14 @@ class CommentController extends Controller
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
 
-        return view('place.comment.edit', compact('place', 'comment'));
+        if ($request->ajax()){
+            return response()->json([
+                'edit_box' => view('place.comment.partials.edit', compact('place', 'comment'))->render(),
+            ]);
+        }
+        else {
+            return view('place.comment.edit', compact('place', 'comment'));
+        }
     }
 
     /**
@@ -135,8 +142,22 @@ class CommentController extends Controller
             $status_message = trans('gottashit.comment.update_comment_not_allowed', ['place' => $place->name]);
         }
 
-        return redirect(route('place', ['language' => $language, 'place' => $place->id]) . '#comment-' . $comment->id)->with('status',
-          $status_message);
+        if($request->ajax()){
+            $number_of_comments = trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]);
+
+            return response()->json([
+              'status' => 200,
+              'status_message' => $status_message,
+              'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
+              'number_of_comments' => $number_of_comments,
+            ]);
+        }
+        else{
+            return redirect(route('place', ['language' => $language, 'place' => $place->id]) . '#comment-' . $comment->id)->with('status',
+              $status_message);
+        }
+
+
     }
 
     /**

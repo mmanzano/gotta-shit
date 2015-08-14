@@ -11,7 +11,7 @@
 
                 @if($comment->isAuthor)
                 <li>
-                    <a  class="button button-action" href="{{ route('place_comment_edit_form', ['language' => App::getLocale(), 'place' => $place->id, 'comment' => $comment->id]) }}">{{ trans('gottashit.comment.edit_comment') }}</a>
+                    <a  class="button button-action button-edit-comment" href="{{ route('place_comment_edit_form', ['language' => App::getLocale(), 'place' => $place->id, 'comment' => $comment->id]) }}">{{ trans('gottashit.comment.edit_comment') }}</a>
                 </li>
                 @endif
 

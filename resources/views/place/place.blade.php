@@ -94,21 +94,21 @@
             @if(! $place->trashed())
                 @if(Auth::check())
                     <div class="forms">
-                        <form method="POST" action="{{ route('place_comment_create', ['language' => App::getLocale(), 'place' => $place->id]) }}" id="create-comment-form">
+                        <form method="POST" action="{{ route('place_comment_create', ['language' => App::getLocale(), 'place' => $place->id]) }}" class="create-comment-form">
                             {!! csrf_field() !!}
                             <div>
                                 <label class="input-label" for="comment">
                                     {{ trans('gottashit.comment.create_comment_label') }}
                                 </label>
                                 @if(old('comment') != "")
-                                    <textarea class="textarea" name="comment" id="comment">{{ old('comment') }}</textarea>
+                                    <textarea class="textarea" name="comment" id="comment-textarea">{{ old('comment') }}</textarea>
                                 @else
-                                    <textarea class="textarea" name="comment" id="comment"></textarea>
+                                    <textarea class="textarea" name="comment" id="comment-textarea"></textarea>
                                 @endif
                             </div>
 
                             <div>
-                                <button class="button" type="submit" id="create-comment">{{ trans('gottashit.comment.create_comment') }}</button>
+                                <button class="button button-create-comment" type="submit">{{ trans('gottashit.comment.create_comment') }}</button>
                             </div>
                         </form>
                     </div>

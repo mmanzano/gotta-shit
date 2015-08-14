@@ -1,6 +1,6 @@
 $('#place-comments-list').on('click', '.button-delete-comment', delete_comment_confirm);
-
-$("#create-comment").click(create_comment);
+$('#place-comments-list').on('click', '.button-edit-comment', edit_comment);
+$('.place-comments').on('click', '.button-create-comment', create_update_comment);
 
 function delete_place_confirm(e){
     if ($(this).html() !== "{!! trans('gottashit.place.delete_place_confirm') !!}") {
@@ -35,18 +35,36 @@ function delete_comment_confirm(e){
     }
 }
 
-function create_comment(e){
+function edit_comment(e){
     e.preventDefault();
     var that = this;
-    var form_name = '#create-comment-form';
-    var form = $(form_name);
+    var url = $(this).attr("href");
+    $.get(url, function (result) {
+        $(that).parents('.place-comments-user').parent().html(result.edit_box);
+    }).fail(function (result) {
+        console.log("Wrong");
+    });
+}
+
+function create_update_comment(e){
+    e.preventDefault();
+    var that = this;
+    var form_name = '.create-comment-form';
+    var form = $(this).parents(form_name);
     var url = form.attr('action');
     var data = form.serialize();
 
     $.post(url, data, function (result) {
-            $('#comment').val("")
-            $('#place-comments-list').append(result.comment);
-            $('.place-comments-number').text(result.number_of_comments);
+            if($(that).parents('.comment-edit-box').val() !== undefined)
+            {
+                $(that).parents('.comment-edit-box').html(result.comment);
+            }
+            else
+            {
+                $('#comment-textarea').val("")
+                $('#place-comments-list').append(result.comment);
+                $('.place-comments-number').text(result.number_of_comments);
+            }
         }).fail(function (result) {
             $('#place-comments-list').append(result.status_message);
         });
