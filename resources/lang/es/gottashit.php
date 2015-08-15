@@ -73,9 +73,9 @@ return [
         'confirm_password' => 'Confirma tu clave',
         'delete_user' => 'Borrar Usuario',
         'edit_user' => 'Editar Usuario',
-        'sent_password_reset' => 'Mandar Enlace de Resetea de Clave',
+        'sent_password_reset' => 'Mandar enlace para resetear mi clave',
         'forgot_password' => '¿Olvidaste tu contraseña?',
-        'reset_password' => 'Resetea tu clave',
+        'reset_password' => 'Resetear mi clave',
 
         'update_user' => 'Actualizar usuario',
         'updated_user' => ':user actualizado',
