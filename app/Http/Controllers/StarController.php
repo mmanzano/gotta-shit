@@ -2,16 +2,15 @@
 
 namespace GottaShit\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use GottaShit\Entities\Place;
+use GottaShit\Entities\PlaceStar;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
-
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceStar;
 
 class StarController extends Controller
 {
@@ -92,7 +91,7 @@ class StarController extends Controller
             $star = new PlaceStar();
 
             $star->place_id = $place->id;
-            $star->user_id = \Auth::User()->id;
+            $star->user_id = Auth::user()->id;
         }
         else
         {

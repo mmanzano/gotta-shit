@@ -4,6 +4,7 @@ namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class Place extends Model
 {
@@ -112,7 +113,7 @@ class Place extends Model
 
         foreach($starsForPlace as $star)
         {
-            if ($star->user->id == \Auth::User()->id)
+            if ($star->user->id == Auth::user()->id)
             {
                 $stars = array(
                     'id' => $star->id,
@@ -143,8 +144,8 @@ class Place extends Model
     {
         $isAuthor = false;
         
-        if(\Auth::check()){
-            if (\Auth::User()->id == $this->user_id)
+        if(Auth::check()){
+            if (Auth::user()->id == $this->user_id)
             {
                 $isAuthor = true;
             }

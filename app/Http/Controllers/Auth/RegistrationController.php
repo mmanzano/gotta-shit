@@ -1,11 +1,14 @@
-<?php namespace GottaShit\Http\Controllers\Auth;
+<?php
+
+namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
-use GottaShit\Mailers\AppMailer;
-use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
+use GottaShit\Mailers\AppMailer;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
 
 class RegistrationController extends Controller

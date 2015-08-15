@@ -2,8 +2,9 @@
 
 namespace GottaShit\Http\Middleware;
 
-use Illuminate\Auth;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
+
 use Closure;
 
 class IsAuthorCommentMiddleware
@@ -22,8 +23,8 @@ class IsAuthorCommentMiddleware
 
         $author_comment_id = $comment->user_id;
 
-        if (\Auth::check()) {
-            $user_id = \Auth::User()->id;
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
             if ($user_id != $author_comment_id) {
                 $status_message = trans('gottashit.comment.edit_comment_not_allowed', ['place' =>  $place->name]);
 

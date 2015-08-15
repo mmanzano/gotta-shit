@@ -1,14 +1,15 @@
-<?php namespace GottaShit\Http\Controllers\Auth;
+<?php
 
-use Illuminate\Auth;
+namespace GottaShit\Http\Controllers\Auth;
+
 use GottaShit\Entities\User;
-use Illuminate\Http\Request;
 use GottaShit\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
-
 use GottaShit\Mailers\AppMailer;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -30,7 +31,7 @@ class UserController extends Controller
 
         if ( ! $this->is_user($user_id)){
             $status_message = trans('gottashit.user.edit_user_not_allowed');
-            return redirect(route('user_profile', ['language' => $language, 'user' => \Auth::User()->id]))->with('status', $status_message);
+            return redirect(route('user_profile', ['language' => $language, 'user' => Auth::user()->id]))->with('status', $status_message);
         }
 
         return view('auth.edit', compact('user'));
@@ -96,16 +97,16 @@ class UserController extends Controller
         if ($logout) {
             Auth::logout();
 
-            redirect(route('home', ['language' => $language]))->with('status', $status_message);
+            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
         }
 
-        return redirect(route('user_profile', ['language' => $language, 'user' => \Auth::User()->id]))->with('status', $status_message);
+        return redirect(route('user_profile', ['language' => $language, 'user' => Auth::user()->id]))->with('status', $status_message);
     }
 
     public function is_user($user_id)
     {
-        if (\Auth::check()){
-            $current_user_id = \Auth::User()->id;
+        if (Auth::check()){
+            $current_user_id = Auth::user()->id;
             if ($current_user_id == $user_id){
                 return true;
             }

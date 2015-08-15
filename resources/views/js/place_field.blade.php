@@ -236,18 +236,16 @@
 
 //var disclaimer_notice = document.getElementById("disclaimer-notice");
 
-function getLocation() {
+function getLocation_field() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        //disclaimer_notice.innerHTML = '{{ trans('gottashit.no_geolocation') }}';
+        navigator.geolocation.getCurrentPosition(showPosition_field);
     }
 }
 
-function showPosition(position){
+function showPosition_field(position){
     $('#get-my-location').attr("data-latitude", position.coords.latitude );
     $('#get-my-location').attr("data-longitude", position.coords.longitude);
     $('#get-my-location').show()
 }
 
-getLocation();
+getLocation_field();

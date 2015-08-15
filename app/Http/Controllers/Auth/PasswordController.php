@@ -3,10 +3,11 @@
 namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Http\Controllers\Controller;
+
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
 
 class PasswordController extends Controller

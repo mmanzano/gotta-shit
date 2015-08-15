@@ -4,8 +4,7 @@ namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-use Illuminate\Auth;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class PlaceComment extends Model
 {
@@ -56,8 +55,8 @@ class PlaceComment extends Model
     public function getIsAuthorAttribute()
     {
         $isAuthor = false;
-        if (\Auth::Check()) {
-            if ($this->user_id == \Auth::User()->id) {
+        if (Auth::check()) {
+            if ($this->user_id == Auth::user()->id) {
                 $isAuthor = true;
             }
         }

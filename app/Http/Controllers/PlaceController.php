@@ -1,19 +1,21 @@
-<?php namespace GottaShit\Http\Controllers;
+<?php
 
-use Illuminate\Http\Request;
-use Illuminate\Auth;
-
-use GottaShit\Http\Requests;
-use GottaShit\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
-use Carbon\Carbon;
+namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\PlaceComment;
+use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\User;
+use GottaShit\Http\Requests;
+use GottaShit\Http\Controllers\Controller;
+
+use Carbon\Carbon;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 
 class PlaceController extends Controller
@@ -66,14 +68,14 @@ class PlaceController extends Controller
         $place->name = $request->input('name');
         $place->geo_lat = number_format($request->input('geo_lat'), 6);
         $place->geo_lng = number_format($request->input('geo_lng'), 6);
-        $place->user_id = \Auth::User()->id;
+        $place->user_id = Auth::user()->id;
         
         $place->save();
 
         $star = new PlaceStar();
 
         $star->place_id = $place->id;
-        $star->user_id = \Auth::User()->id;
+        $star->user_id = Auth::user()->id;
         $star->stars = $request->input('stars');
 
         $star->save();
@@ -155,7 +157,7 @@ class PlaceController extends Controller
                 $star = new PlaceStar();
 
                 $star->place_id = $place->id;
-                $star->user_id = \Auth::User()->id;
+                $star->user_id = Auth::user()->id;
             }
             else
             {
@@ -241,9 +243,9 @@ class PlaceController extends Controller
     {
         App::setLocale(Session::get('language', $language));
 
-        if(\Auth::check())
+        if(Auth::check())
         {
-            $places = Place::where('user_id', \Auth::User()->id)->paginate(8);
+            $places = Place::where('user_id', Auth::user()->id)->paginate(8);
         }
         else
         {

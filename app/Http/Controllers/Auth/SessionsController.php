@@ -1,12 +1,13 @@
-<?php namespace GottaShit\Http\Controllers\Auth;
+<?php
 
-use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Http\Request;
+namespace GottaShit\Http\Controllers\Auth;
 
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use GottaShit\Http\Controllers\Controller;
 
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
 
 class SessionsController extends Controller

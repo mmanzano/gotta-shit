@@ -2,15 +2,14 @@
 
 namespace GottaShit\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use GottaShit\Entities\PlaceComment;
+use GottaShit\Entities\Place;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 
-use GottaShit\Entities\PlaceComment;
-use GottaShit\Entities\Place;
-
-Use Illuminate\Support\Facades\App;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
 
 class CommentController extends Controller
@@ -54,7 +53,7 @@ class CommentController extends Controller
         $comment = new PlaceComment();
 
         $comment->place_id = $place->id;
-        $comment->user_id = \Auth::User()->id;
+        $comment->user_id = Auth::user()->id;
         $comment->comment = $request->input('comment');
 
         $comment->save();
