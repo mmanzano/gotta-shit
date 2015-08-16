@@ -3,5 +3,6 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', '{{ env('GOOGLE_ANALYTICS') }}', 'auto');
+ga('create', GottaShit.analytics, 'auto');
 ga('send', 'pageview');
+//# sourceMappingURL=gottashit.js.map

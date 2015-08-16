@@ -21,7 +21,6 @@
     @yield('javascript')
 
     @include('js.nearest')
-    @include('js.analytics')
 </script>
 
 </body>
