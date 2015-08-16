@@ -18,9 +18,9 @@
 @include('scripts.javascript')
 
 <script>
+
     @yield('javascript')
 
-    @include('js.nearest')
 </script>
 
 </body>
