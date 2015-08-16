@@ -2,7 +2,8 @@
 <script>
     var GottaShit = {
         'analytics': '{{ env('GOOGLE_ANALYTICS') !== "" ? env('GOOGLE_ANALYTICS') : 'WithoutIdForGoogleAnalytics' }}',
-        'locale': '{{ App::getLocale() }}'
+        'locale': '{{ App::getLocale() }}',
+        'places': {{ isset($places_json) ? $places_json : 'undefined' }}
     }
 </script>
 <script src="{{ asset('/js/gottashit.js') }}"></script>

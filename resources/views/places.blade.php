@@ -10,7 +10,6 @@
 @section('javascript')
     @foreach($places as $place)
         @include('js.place')
-        @include('js.hover')
     @endforeach
 
     @include('js.place_experience')
