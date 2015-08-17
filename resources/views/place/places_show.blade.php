@@ -15,7 +15,7 @@
                             <form method="post" action="{{ route('place_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="DELETE">
-                                <button class="button button-card" type="submit" id="delete-place-{{ $place->id }}">
+                                <button class="button button-card button-delete-place" type="submit" id="delete-place-{{ $place->id }}">
                                     @if($place->trashed())
                                         {{ trans('gottashit.place.delete_place_permanently') }}
                                     @else

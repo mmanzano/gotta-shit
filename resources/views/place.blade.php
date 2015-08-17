@@ -6,6 +6,4 @@
 
 @section('javascript')
     @include('js.place')
-
-    @include('js.place_experience')
 @endsection

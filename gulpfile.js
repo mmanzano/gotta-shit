@@ -12,5 +12,5 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
- mix.scripts(['analytics.js', 'nearest.js', 'hover.js'], 'public/js/gottashit.js');
+ mix.scripts(['analytics.js', 'nearest.js', 'hover.js', 'place_experience.js'], 'public/js/gottashit.js');
 });

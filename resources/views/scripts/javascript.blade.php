@@ -28,6 +28,10 @@
                 },
             'places': undefined,
         @endif
+        'messages': {
+            delete_place_confirm: "{!! trans('gottashit.place.delete_place_confirm') !!}",
+            delete_comment_confirm: "{!! trans('gottashit.comment.delete_comment_confirm') !!}",
+        },
     }
 </script>
 <script src="{{ asset('/js/gottashit.js') }}"></script>

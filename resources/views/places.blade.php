@@ -11,6 +11,4 @@
     @foreach($places as $place)
         @include('js.place')
     @endforeach
-
-    @include('js.place_experience')
 @endsection

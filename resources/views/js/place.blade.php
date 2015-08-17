@@ -42,5 +42,3 @@ google.maps.event.addDomListener(window, 'load', initialize_{{ $place->id }});
 
 $("#place-stars-points-{{ $place->id }}").width("{{ $place->starForPlace()['width'] }}");
 
-$("#delete-place-{{ $place->id }}").click(delete_place_confirm);
-
