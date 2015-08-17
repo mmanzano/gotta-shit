@@ -5,5 +5,5 @@
 @endsection
 
 @section('javascript')
-    @include('js.place')
+    <script src="{{ asset('/js/gottashit_place.js') }}"></script>
 @endsection

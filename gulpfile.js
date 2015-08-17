@@ -13,5 +13,6 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
  mix.scripts(['analytics.js', 'nearest.js', 'hover.js', 'place_experience.js'], 'public/js/gottashit.js')
-     .scripts(['place_field.js'], 'public/js/gottashit_place_field.js');
+     .scripts(['place_field.js'], 'public/js/gottashit_place_field.js')
+     .scripts(['place.js'], 'public/js/gottashit_place.js');
 });

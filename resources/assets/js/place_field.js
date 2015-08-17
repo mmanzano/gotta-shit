@@ -8,9 +8,9 @@
     function gmaps_init() {
         // center of the universe
 
-        var lat = GottaShit.lat
-        var lon = GottaShit.lon
-        var latLonInitial = GottaShit.latLonInitial
+        var lat = GottaShit.lat;
+        var lon = GottaShit.lon;
+        var latLonInitial = GottaShit.latLonInitial;
 
         var latlng = new google.maps.LatLng(lat,lon);
 

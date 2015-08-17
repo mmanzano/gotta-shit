@@ -12,7 +12,5 @@
 @endsection
 
 @section('javascript')
-        @foreach($places as $place)
-            @include('js.place')
-        @endforeach
+    <script src="{{ asset('/js/gottashit_place.js') }}"></script>
 @endsection
