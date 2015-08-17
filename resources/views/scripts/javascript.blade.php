@@ -3,7 +3,31 @@
     var GottaShit = {
         'analytics': '{{ env('GOOGLE_ANALYTICS') !== "" ? env('GOOGLE_ANALYTICS') : 'WithoutIdForGoogleAnalytics' }}',
         'locale': '{{ App::getLocale() }}',
-        'places': {{ isset($places_json) ? $places_json : 'undefined' }}
+
+        @if( ! isset($places) && ! isset($place))
+            'places': undefined,
+            'place': undefined,
+        @elseif(isset($places))
+            'place': undefined,
+            'places': [
+                @foreach($places as $place)
+                    {
+                        id: "{{ $place->id }}",
+                        name: "{{$place->name}}",
+                        geo_lat: "{{ $place->geo_lat }}",
+                        geo_lng: "{{ $place->geo_lng }}",
+                    },
+                @endforeach
+                ],
+        @else
+            'place': {
+                id: "{{ $place->id }}",
+                name: "{{$place->name}}",
+                geo_lat: "{{ $place->geo_lat }}",
+                geo_lng: "{{ $place->geo_lng }}",
+                },
+            'places': undefined,
+        @endif
     }
 </script>
 <script src="{{ asset('/js/gottashit.js') }}"></script>
