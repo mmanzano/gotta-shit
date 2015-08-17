@@ -8,6 +8,7 @@ use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\User;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
+use GottaShit\Mailers\AppMailer;
 
 use Carbon\Carbon;
 
@@ -52,7 +53,7 @@ class PlaceController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request, $language)
+    public function store(Request $request, AppMailer $mailer, $language)
     {
         App::setLocale(Session::get('language', $language));
 
@@ -79,6 +80,8 @@ class PlaceController extends Controller
         $star->stars = $request->input('stars');
 
         $star->save();
+
+        $mailer->sendPlaceAddNotification(Auth::user(), $place, trans('gottashit.email.new_place_add'));
 
         $status_message = trans('gottashit.place.created_place', ['place' =>  $place->name]);
 

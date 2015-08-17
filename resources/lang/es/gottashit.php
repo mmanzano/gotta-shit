@@ -47,6 +47,10 @@ return [
         'confirm_email_action' => "Un último paso. Necesitamos que <a href=':path'>confirmes tu dirección de correo electrónico</a>.",
         'reset_password_thanks' => 'Nos has pedido resetear tu clave',
         'reset_password_action' => "<a href=':path'>Haz click aquí</a> para resetear tu clave: <a href=':path'>Resetear mi clave</a>",
+        'new_place_add' => "Añadieron un nuevo sitio",
+        'new_place_action' => "<a href=':path'>Haz click aquí</a> para ver el nuevo sitio: <a href=':path'>:place</a> creado por <a href=':path_user'>:username</a>",
+        'new_comment_add' => "Añadieron un nuevo comentario a uno de sus sitios",
+        'new_comment_action' => "<a href=':path'>Haz click aquí</a> para ver el nuevo comentario para <a href=':path'>:place</a> creado por <a href=':path_user'>:username</a>",
     ],
 
     'nav' => [

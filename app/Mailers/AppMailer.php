@@ -3,6 +3,9 @@
 namespace GottaShit\Mailers;
 
 use GottaShit\Entities\User;
+use GottaShit\Entities\Place;
+use GottaShit\Entities\PlaceComment;
+
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\App;
 
@@ -68,6 +71,44 @@ class AppMailer
         $this->view = 'emails.confirm';
         $path = route('user_register_confirm', ['language' => App::getLocale(), 'token' => $user->token]);
         $this->data = compact('user', 'path');
+        $this->subject = $subject;
+
+        $this->deliver();
+    }
+
+    /**
+     * Deliver the email confirmation.
+     *
+     * @param  User $user
+     * @return void
+     */
+    public function sendPlaceAddNotification(User $user, Place $place, $subject)
+    {
+        $this->from = env('SES_EMAIL');
+        $this->to = env('SES_EMAIL');
+        $this->view = 'emails.notification.place';
+        $path = route('place', ['language' => App::getLocale(), 'place' => $place->id]);
+        $path_user = route('user_profile', ['language' => App::getLocale(), 'user' => $user->id]);
+        $this->data = compact('path', 'place', 'user', 'path_user');
+        $this->subject = $subject;
+
+        $this->deliver();
+    }
+
+    /**
+     * Deliver the email confirmation.
+     *
+     * @param  User $user
+     * @return void
+     */
+    public function sendCommentAddNotification(User $user, User $author, Place $place, PlaceComment $comment, $subject)
+    {
+        $this->from = env('SES_EMAIL');
+        $this->to = $author->email;
+        $this->view = 'emails.notification.comment';
+        $path = route('place', ['language' => App::getLocale(), 'place' => $place->id]) . '#comment-' . $comment->id;
+        $path_user = route('user_profile', ['language' => App::getLocale(), 'user' => $user->id]);
+        $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;
 
         $this->deliver();

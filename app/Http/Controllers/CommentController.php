@@ -4,8 +4,10 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Place;
+use GottaShit\Entities\User;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
+use GottaShit\Mailers\AppMailer;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -40,7 +42,7 @@ class CommentController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request, $language, $id_place)
+    public function store(Request $request, AppMailer $mailer, $language, $id_place)
     {
         App::setLocale(Session::get('language', $language));
 
@@ -57,6 +59,12 @@ class CommentController extends Controller
         $comment->comment = $request->input('comment');
 
         $comment->save();
+
+        $author = User::findOrFail($place->user_id);
+
+        if ($author->id != Auth::user()->id) {
+            $mailer->sendCommentAddNotification(Auth::user(), $author, $place, $comment, trans('gottashit.email.new_comment_add'));
+        }
 
         $status_message = trans('gottashit.comment.created_comment', ['place' =>  $place->name]);
 
