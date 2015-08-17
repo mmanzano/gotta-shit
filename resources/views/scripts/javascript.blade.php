@@ -28,7 +28,21 @@
                 },
             'places': undefined,
         @endif
-        'messages': {
+
+        @if(old('geo_lat') != "")
+            'lat': parseFloat({{ number_format(old('geo_lat'), 6) }}),
+            'lon': parseFloat({{ number_format(old('geo_lng'), 6) }}),
+            'latLonInitial': 1,
+        @elseif(isset($place))
+            'lat': parseFloat({{ number_format($place->geo_lat, 6) }}),
+            'lon': parseFloat({{ number_format($place->geo_lng, 6) }}),
+            'latLonInitial': 1,
+        @else
+            'lat': 40,
+            'lon': -3,
+            'latLonInitial': 0,
+        @endif
+    'messages': {
             delete_place_confirm: "{!! trans('gottashit.place.delete_place_confirm') !!}",
             delete_comment_confirm: "{!! trans('gottashit.comment.delete_comment_confirm') !!}",
         },

@@ -18,11 +18,7 @@
 
 @include('scripts.javascript')
 
-<script>
-
-    @yield('javascript')
-
-</script>
+@yield('javascript')
 
 </body>
 </html>

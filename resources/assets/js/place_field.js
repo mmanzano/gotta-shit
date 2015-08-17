@@ -8,19 +8,9 @@
     function gmaps_init() {
         // center of the universe
 
-        @if(old('geo_lat') != "")
-            var lat = parseFloat({{ number_format(old('geo_lat'), 6) }});
-            var lon = parseFloat({{ number_format(old('geo_lng'), 6) }});
-            var latLonInitial = 1;
-        @elseif(isset($place))
-            var lat = parseFloat({{ number_format($place->geo_lat, 6) }});
-            var lon = parseFloat({{ number_format($place->geo_lng, 6) }});
-            var latLonInitial = 1;
-        @else
-            var lat = 40;
-            var lon = -3;
-            var latLonInitial = 0;
-        @endif
+        var lat = GottaShit.lat
+        var lon = GottaShit.lon
+        var latLonInitial = GottaShit.latLonInitial
 
         var latlng = new google.maps.LatLng(lat,lon);
 

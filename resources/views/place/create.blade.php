@@ -22,7 +22,6 @@
     </div>
 @endsection
 
-
 @section('javascript')
-    @include('js.place_field')
+    <script src="{{ asset('/js/gottashit_place_field.js') }}"></script>
 @endsection
