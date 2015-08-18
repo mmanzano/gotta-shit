@@ -5,6 +5,7 @@ namespace GottaShit\Http\Controllers;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\PlaceStar;
+use GottaShit\Entities\Subscription;
 use GottaShit\Entities\User;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
@@ -81,6 +82,12 @@ class PlaceController extends Controller
 
         $star->save();
 
+        $subscription = new Subscription;
+        $subscription->user_id = Auth::user()->id;
+        $subscription->place_id = $place->id;
+        $subscription->comment_id = null;
+        $subscription->save();
+
         $mailer->sendPlaceAddNotification(Auth::user(), $place, trans('gottashit.email.new_place_add'));
 
         $status_message = trans('gottashit.place.created_place', ['place' =>  $place->name]);
@@ -107,6 +114,19 @@ class PlaceController extends Controller
         }
 
         Carbon::setLocale(App::getLocale());
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $subscriptions = $user->subscriptions()->getResults();
+
+            foreach($subscriptions as $subscription)
+            {
+                if(($subscription->user_id == $user->id) && (! $subscription->comment)) {
+                    $subscription->comment_id = null;
+                    $subscription->save();
+                }
+            }
+        }
 
         return view('place', compact('place'));
     }

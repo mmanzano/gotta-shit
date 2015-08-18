@@ -31,6 +31,7 @@ class Place extends Model
     protected $hidden = [];
 
     protected $dates = ['deleted_at'];
+
     /**
      * One Place has one User.
      *
@@ -61,6 +62,16 @@ class Place extends Model
         return $this->hasMany('GottaShit\Entities\PlaceComment');
     }
 
+    /**
+     * One Place has many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany('GottaShit\Entities\Subscription');
+    }
+
     public static function boot()
     {
         parent::boot();
@@ -68,11 +79,13 @@ class Place extends Model
         static::deleted(function ($place) {
             $place->stars()->delete();
             $place->comments()->delete();
+            $place->subscriptions()->delete();
         });
 
         static::restored(function ($place) {
             $place->stars()->withTrashed()->restore();
             $place->comments()->withTrashed()->restore();
+            $place->subscriptions()->withTrashed()->restore();
         });
     }
 

@@ -49,8 +49,8 @@ return [
         'reset_password_action' => "<a href=':path'>Click here</a> to reset your password: <a href=':path'>Reset your password</a>",
         'new_place_add' => 'New place Added',
         'new_place_action' => "<a href=':path'>Click here</a> to view new place: <a href=':path'>:place</a> created by <a href=':path_user'>:username</a>",
-        'new_comment_add' => 'New comment Added',
-        'new_comment_action' => "<a href=':path'>Click here</a> to view new comment for <a href=':path'>:place</a> created by <a href=':path_user'>:username</a>",
+        'new_comment_add' => 'New comment added for :place',
+        'new_comment_action' => "<a href=':path'>Click here</a> to view new comment for <a href=':path'>:place</a> created by <a href=':path_author_of_comment'>:username_author_of_comment</a>",
     ],
 
     'nav' => [

@@ -76,6 +76,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('GottaShit\Entities\PlaceComment');
     }
 
+    /**
+     * One User has many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany('GottaShit\Entities\Subscription');
+    }
+
     public function StarsForThisPlace()
     {
         $stars = $this->stars()->getResults();

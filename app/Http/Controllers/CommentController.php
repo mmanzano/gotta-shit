@@ -2,8 +2,9 @@
 
 namespace GottaShit\Http\Controllers;
 
-use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Place;
+use GottaShit\Entities\PlaceComment;
+use GottaShit\Entities\Subscription;
 use GottaShit\Entities\User;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
@@ -60,10 +61,32 @@ class CommentController extends Controller
 
         $comment->save();
 
-        $author = User::findOrFail($place->user_id);
+        $author_of_comment = Auth::user();
 
-        if ($author->id != Auth::user()->id) {
-            $mailer->sendCommentAddNotification(Auth::user(), $author, $place, $comment, trans('gottashit.email.new_comment_add'));
+        $subscriptions = $place->subscriptions()->getResults();
+
+        $subscription_number = Subscription::where('user_id', Auth::user()->id)->where('place_id', $place->id)->count();
+
+        if (! $subscription_number) {
+            $subscription_new = new Subscription;
+            $subscription_new->user_id = Auth::user()->id;
+            $subscription_new->place_id = $place->id;
+            $subscription_new->comment_id = null;
+            $subscription_new->save();
+        }
+
+        foreach($subscriptions as $subscription)
+        {
+            if($subscription->user_id == $author_of_comment->id){
+                $subscription->comment_id = null;
+                $subscription->save();
+            }
+            else if(is_null($subscription->comment_id)) {
+                $subscriber = User::findOrFail($subscription->user_id);
+                $mailer->sendCommentAddNotification($author_of_comment, $subscriber, $place, $comment, trans('gottashit.email.new_comment_add', ['place' => $place->name]));
+                $subscription->comment_id = $comment->id;
+                $subscription->save();
+            }
         }
 
         $status_message = trans('gottashit.comment.created_comment', ['place' =>  $place->name]);
