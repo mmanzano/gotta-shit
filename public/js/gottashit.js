@@ -103,6 +103,7 @@ function create_update_comment(e){
                 $('#comment-textarea').val("")
                 $('#place-comments-list').append(result.comment);
                 $('.place-comments-number p').text(result.number_of_comments);
+                $('.button-subscribe').parents('form').parent().html(result.button_box);
             }
         }).fail(function (result) {
             console.log("Wrong update or create comment");

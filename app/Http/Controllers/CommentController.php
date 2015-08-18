@@ -99,6 +99,7 @@ class CommentController extends Controller
               'status_message' => $status_message,
               'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
               'number_of_comments' => $number_of_comments,
+              'button_box' => view('place.subscription.remove', compact('place'))->render(),
             ]);
         }
         else{
