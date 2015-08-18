@@ -82,40 +82,28 @@
             <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ trans('gottashit.star.votes') }}: {{ $place->starForPlace()['votes'] }}</div>
         </div>
         <div class="place-comments">
-            <p class="place-comments-number">
-                {{ trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]) }}
-            </p>
-
-            <div id="place-comments-list">
+             <div class="place-comments-number">
                 @if (! $place->trashed())
                     @if(Auth::check())
-                        <div class="actions">
+                        <div class="actions actions-subscribe">
                             <ul>
                                 @if(! $place->isSubscribed)
                                     <li>
-                                        <form method="post" action="{{ route('place_subscribe', ['language' => App::getLocale(), 'place' => $place->id]) }}">
-                                            {!! csrf_field() !!}
-                                            <input name="_method" type="hidden" value="POST">
-                                            <button class="button button-action" type="submit">
-                                                {{ trans('gottashit.subscription.add') }}
-                                            </button>
-                                        </form>
+                                        @include('place.subscription.add')
                                     </li>
                                 @else
                                     <li>
-                                        <form method="post" action="{{ route('place_unsubscribe', ['language' => App::getLocale(), 'place' => $place->id]) }}">
-                                            {!! csrf_field() !!}
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button class="button button-action" type="submit">
-                                                {{ trans('gottashit.subscription.delete') }}
-                                            </button>
-                                        </form>
+                                        @include('place.subscription.remove')
                                     </li>
                                 @endif
                             </ul>
                         </div>
                     @endif
                 @endif
+                <p>{{ trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]) }}</p>
+            </div>
+
+            <div id="place-comments-list">
                 @foreach($place->commentsWithTrashed as $comment)
                     @include('place.comment.view')
                 @endforeach

@@ -2,6 +2,7 @@
 
 namespace GottaShit\Http\Controllers;
 
+use GottaShit\Entities\Place;
 use GottaShit\Entities\Subscription;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
@@ -14,26 +15,20 @@ use Illuminate\Support\Facades\Session;
 class SubscriptionController extends Controller
 {
 
-    public function store($language, $place_id){
+    public function store(Request $request, $language, $place_id){
         App::setLocale(Session::get('language', $language));
-        $language = App::getLocale();
 
         $this->subscribe($place_id);
 
-        $status_message = trans('gottashit.subscription.subscribed_place');
-
-        return $this->responseView($language, $place_id, $status_message);
+        return $this->responseView($request, $place_id);
     }
 
-    public function destroy($language, $place_id){
+    public function destroy(Request $request, $language, $place_id){
         App::setLocale(Session::get('language', $language));
-        $language = App::getLocale();
 
         $this->unsubscribe($place_id);
 
-        $status_message = trans('gottashit.subscription.unsubscribed_place');
-
-        return $this->responseView($language, $place_id, $status_message);
+        return $this->responseView($request, $place_id);
     }
 
     protected function subscribe($place_id)
@@ -51,8 +46,32 @@ class SubscriptionController extends Controller
         $subscription->forceDelete();
     }
 
-    public function responseView($language, $place_id, $status_message) {
-        return redirect(route('place', ['language' => $language, 'place' => $place_id]))->with('status', $status_message);
+    public function responseView(Request $request, $place_id) {
+        $language = App::getLocale();
+        $status_message = "";
+        $view = "";
+        $place = Place::findOrFail($place_id);
+
+        if($request->getMethod() == "POST") {
+            $status_message = trans('gottashit.subscription.subscribed_place');
+            $view = "place.subscription.remove";
+        }
+        else if($request->getMethod() == "DELETE") {
+            $status_message = trans('gottashit.subscription.unsubscribed_place');
+            $view = "place.subscription.add";
+        }
+
+        if($request->ajax()){
+            return response()->json([
+              'status' => 200,
+              'status_message' => $status_message,
+              'button_box' => view($view, compact('place'))->render(),
+              'request' => $request->getMethod(),
+            ]);
+        }
+        else {
+            return redirect(route('place', ['language' => $language, 'place' => $place_id]))->with('status', $status_message);
+        }
     }
 
 }

@@ -85,7 +85,7 @@ Route::group(['middleware' => ['auth']], function()
 
 // Subscriptions
 Route::group(['middleware' => ['auth']], function(){
-    Route::post('/{language}/place/{place}/susbcribe', ['as' => 'place_subscribe', 'uses' => 'SubscriptionController@store']);
+    Route::post('/{language}/place/{place}/subscribe', ['as' => 'place_subscribe', 'uses' => 'SubscriptionController@store']);
     Route::delete('/{language}/place/{place}/unsubscribe', ['as' => 'place_unsubscribe', 'uses' => 'SubscriptionController@destroy']);
 });
 
