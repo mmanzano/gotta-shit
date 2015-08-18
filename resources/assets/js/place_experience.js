@@ -2,7 +2,7 @@ $('.places').on('click', '.button-delete-place', delete_place_confirm);
 $('.place').on('click', '.button-delete-place', delete_place_confirm);
 $('#place-comments-list').on('click', '.button-delete-comment', delete_comment_confirm);
 $('#place-comments-list').on('click', '.button-edit-comment', edit_comment);
-$('#place-comments-list').on('click', '.button-subscribe', subscribe);
+$('.place-comments-number').on('click', '.button-subscribe', subscribe);
 $('.place-comments').on('click', '.button-create-comment', create_update_comment);
 
 function delete_place_confirm(e){
@@ -33,7 +33,7 @@ function delete_comment_confirm(e){
 
             $.post(url, data, function (result) {
                 $(that).parents('.place-comments-user').text(result.status_message);
-                $('.place-comments-number').text(result.number_of_comments);
+                $('.place-comments-number p').text(result.number_of_comments);
                 comment.fadeOut(3000);
             }).fail(function (result) {
                 console.log("Wrong delete comment")
@@ -71,7 +71,7 @@ function create_update_comment(e){
             else {
                 $('#comment-textarea').val("")
                 $('#place-comments-list').append(result.comment);
-                $('.place-comments-number').text(result.number_of_comments);
+                $('.place-comments-number p').text(result.number_of_comments);
             }
         }).fail(function (result) {
             console.log("Wrong update or create comment");
@@ -80,7 +80,7 @@ function create_update_comment(e){
 }
 
 function subscribe(e){
-    if(jQuery!==undefined) {
+    if(jQuery !== undefined) {
         e.preventDefault();
         var that = this;
         var form = $(this).parents(form);
