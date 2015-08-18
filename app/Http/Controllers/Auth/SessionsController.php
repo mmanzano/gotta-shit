@@ -23,7 +23,7 @@ class SessionsController extends Controller
      */
     public function login($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         return view('auth.login');
     }
@@ -36,7 +36,7 @@ class SessionsController extends Controller
      */
     public function postLogin(Request $request, $language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->loginPath = route('user_login', ['language' => App::getLocale()]);
 
@@ -46,6 +46,9 @@ class SessionsController extends Controller
         ]);
 
         if ($this->signIn($request)) {
+
+            $this->setLanguage($language);
+
             $status_message = trans('auth.login');
 
             return redirect(route('home', ['language' => App::getLocale()]))->with('status', $status_message);
@@ -87,7 +90,7 @@ class SessionsController extends Controller
      */
     public function logout($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         Auth::logout();
 

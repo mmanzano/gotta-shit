@@ -29,7 +29,7 @@ class PlaceController extends Controller
      */
     public function index($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $places = Place::paginate(8);
 
@@ -43,7 +43,7 @@ class PlaceController extends Controller
      */
     public function create($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         return view('place.create');
     }
@@ -56,7 +56,7 @@ class PlaceController extends Controller
      */
     public function store(Request $request, AppMailer $mailer, $language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->validate($request, [
           'name' => 'required|max:255',
@@ -104,7 +104,7 @@ class PlaceController extends Controller
      */
     public function show($language, $id)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::withTrashed()->findOrFail($id);
 
@@ -139,7 +139,7 @@ class PlaceController extends Controller
      */
     public function edit($language, $id)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::findOrFail($id);
 
@@ -155,7 +155,7 @@ class PlaceController extends Controller
      */
     public function update(Request $request, $language, $id)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->validate($request, [
           'name' => 'required|max:255',
@@ -211,7 +211,7 @@ class PlaceController extends Controller
      */
     public function destroy($language, $id)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::withTrashed()->findOrFail($id);
 
@@ -239,7 +239,7 @@ class PlaceController extends Controller
 
     public function restorePlace($language, $place_id)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::withTrashed()->findOrFail($place_id);
 
@@ -264,7 +264,7 @@ class PlaceController extends Controller
      */
     public function placesForUser($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         if(Auth::check())
         {
@@ -280,7 +280,7 @@ class PlaceController extends Controller
 
     public function bestPlaces($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=', 'places.id')
           ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
@@ -299,7 +299,7 @@ class PlaceController extends Controller
      */
     public function nearest(Request $request, $language, $latitude, $longitude, $distance)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $totalLat = 180;
         $totalLng = 360;

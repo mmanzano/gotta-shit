@@ -20,7 +20,7 @@ class RegistrationController extends Controller
      */
     public function register($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         return view('auth.register');
     }
@@ -34,7 +34,7 @@ class RegistrationController extends Controller
      */
     public function postRegister(Request $request, AppMailer $mailer, $language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->validate($request, [
           'full_name' => 'required|max:255',
@@ -48,6 +48,7 @@ class RegistrationController extends Controller
             'username' => $request->input('username'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'language' => App::getLocale(),
         ]);
 
         $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
@@ -65,7 +66,7 @@ class RegistrationController extends Controller
      */
     public function confirmEmail($language, $token)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         User::where('token', $token)->firstOrFail()->confirmEmail();
 

@@ -40,14 +40,14 @@ class PasswordController extends Controller
 
     public function getLocaleEmail($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         return $this->getEmail();
     }
 
     public function postLocaleEmail(Request $request, $language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->subject = trans('gottashit.email.reset_password_subject');
 
@@ -56,13 +56,13 @@ class PasswordController extends Controller
 
     public function getLocaleReset($language, $token)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         return $this->getReset($token);
     }
     public function postLocaleReset(Request $request, $language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->redirectTo = route('home', ['language' => $language]);
 

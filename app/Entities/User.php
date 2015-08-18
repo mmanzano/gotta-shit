@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['full_name', 'username', 'email', 'password'];
+    protected $fillable = ['full_name', 'username', 'email', 'password', 'language'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -124,6 +124,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->verified = true;
         $this->token = null;
+        $this->save();
+    }
+
+    public function setLanguage($language) {
+        $this->language = $language;
         $this->save();
     }
 }

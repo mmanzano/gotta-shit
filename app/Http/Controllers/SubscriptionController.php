@@ -10,13 +10,12 @@ use GottaShit\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
 
 class SubscriptionController extends Controller
 {
 
     public function store(Request $request, $language, $place_id){
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->subscribe($place_id);
 
@@ -24,7 +23,7 @@ class SubscriptionController extends Controller
     }
 
     public function destroy(Request $request, $language, $place_id){
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->unsubscribe($place_id);
 

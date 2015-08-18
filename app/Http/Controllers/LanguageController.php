@@ -33,6 +33,10 @@ class LanguageController extends Controller
 
         Session::put('language', $language);
 
+        if(Auth::check()){
+            Auth::user()->setLanguage($language);
+        }
+
         return redirect()->back();
     }
 }

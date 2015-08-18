@@ -76,7 +76,7 @@ class StarController extends Controller
      */
     public function update(Request $request, $language, $id_place)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->validate($request, [
           'stars' => 'required|numeric|between:0,5',
@@ -117,7 +117,7 @@ class StarController extends Controller
      */
     public function destroy($language, $id)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::findOrFail($id);
 

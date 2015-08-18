@@ -45,7 +45,7 @@ class CommentController extends Controller
      */
     public function store(Request $request, AppMailer $mailer, $language, $id_place)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->validate($request, [
           'comment' => 'required',
@@ -77,17 +77,20 @@ class CommentController extends Controller
 
         foreach($subscriptions as $subscription)
         {
-            if($subscription->user_id == $author_of_comment->id){
+            if($subscription->user_id == $author_of_comment->id) {
                 $subscription->comment_id = null;
                 $subscription->save();
             }
             else if(is_null($subscription->comment_id)) {
                 $subscriber = User::findOrFail($subscription->user_id);
+                $this->setLanguageUser($subscriber);
                 $mailer->sendCommentAddNotification($author_of_comment, $subscriber, $place, $comment, trans('gottashit.email.new_comment_add', ['place' => $place->name]));
                 $subscription->comment_id = $comment->id;
                 $subscription->save();
             }
         }
+
+        $this->setLanguage($language);
 
         $status_message = trans('gottashit.comment.created_comment', ['place' =>  $place->name]);
 
@@ -126,7 +129,7 @@ class CommentController extends Controller
      */
     public function edit(Request $request, $language, $id_place, $id_comment)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
@@ -150,7 +153,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $language, $id_place, $id_comment)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $this->validate($request, [
           'comment' => 'required',
@@ -199,7 +202,7 @@ class CommentController extends Controller
      */
     public function destroy(Request $request, $language, $id_place, $id_comment)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $place = Place::findOrFail($id_place);
 

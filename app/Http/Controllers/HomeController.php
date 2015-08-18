@@ -29,9 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Session::get('language')){
-            App::setLocale(Session::get('language'));
-        }
+        $this->setLanguage();
 
         $places = Place::paginate(1);
 
@@ -45,7 +43,7 @@ class HomeController extends Controller
      */
     public function index_locale($language)
     {
-        App::setLocale(Session::get('language', $language));
+        $this->setLanguage($language);
 
         $places = Place::paginate(1);
 
