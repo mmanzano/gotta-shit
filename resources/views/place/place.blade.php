@@ -87,6 +87,35 @@
             </p>
 
             <div id="place-comments-list">
+                @if (! $place->trashed())
+                    @if(Auth::check())
+                        <div class="actions">
+                            <ul>
+                                @if(! $place->isSubscribed)
+                                    <li>
+                                        <form method="post" action="{{ route('place_subscribe', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                                            {!! csrf_field() !!}
+                                            <input name="_method" type="hidden" value="POST">
+                                            <button class="button button-action" type="submit">
+                                                {{ trans('gottashit.subscription.add') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                @else
+                                    <li>
+                                        <form method="post" action="{{ route('place_unsubscribe', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                                            {!! csrf_field() !!}
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button class="button button-action" type="submit">
+                                                {{ trans('gottashit.subscription.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    @endif
+                @endif
                 @foreach($place->commentsWithTrashed as $comment)
                     @include('place.comment.view')
                 @endforeach

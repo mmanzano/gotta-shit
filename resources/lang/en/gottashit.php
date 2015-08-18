@@ -138,6 +138,12 @@ return [
         'deleted_star' => 'Rate for :place deleted',
     ],
 
+    'subscription' => [
+        'add' => 'I want subscribe to this place',
+        'delete' => 'I want unsubscribe to this place',
+        'subscribed_place' => 'You will receive emails when someone comment this place',
+        'unsubscribed_place' => 'You will not receive emails when someone comment this place',
+    ],
     'exception' => [
         '503' => 'We have a litle problem',
         '404' => "Sorry, I can't find it",

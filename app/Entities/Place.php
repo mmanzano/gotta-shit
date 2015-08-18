@@ -184,4 +184,19 @@ class Place extends Model
             return $this->comments();
         }
     }
+
+    public function getIsSubscribedAttribute()
+    {
+        $isSubscribed = false;
+
+        if(Auth::check()){
+            $subscription_number = Subscription::where('user_id', Auth::user()->id)->where('place_id', $this->id)->count();
+
+            if ($subscription_number) {
+                $isSubscribed = true;
+            }
+        }
+
+        return $isSubscribed;
+    }
 }

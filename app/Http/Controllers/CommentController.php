@@ -68,7 +68,7 @@ class CommentController extends Controller
         $subscription_number = Subscription::where('user_id', Auth::user()->id)->where('place_id', $place->id)->count();
 
         if (! $subscription_number) {
-            $subscription_new = new Subscription;
+            $subscription_new = new Subscription();
             $subscription_new->user_id = Auth::user()->id;
             $subscription_new->place_id = $place->id;
             $subscription_new->comment_id = null;

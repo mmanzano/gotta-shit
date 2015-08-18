@@ -82,7 +82,7 @@ class PlaceController extends Controller
 
         $star->save();
 
-        $subscription = new Subscription;
+        $subscription = new Subscription();
         $subscription->user_id = Auth::user()->id;
         $subscription->place_id = $place->id;
         $subscription->comment_id = null;

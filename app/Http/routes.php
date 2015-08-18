@@ -83,6 +83,11 @@ Route::group(['middleware' => ['auth']], function()
     Route::delete('/{language}/place/{place}/comment/{comment}', ['as' => 'place_comment_delete', 'uses' => 'CommentController@destroy']);
 });
 
+// Subscriptions
+Route::group(['middleware' => ['auth']], function(){
+    Route::post('/{language}/place/{place}/susbcribe', ['as' => 'place_subscribe', 'uses' => 'SubscriptionController@store']);
+    Route::delete('/{language}/place/{place}/unsubscribe', ['as' => 'place_unsubscribe', 'uses' => 'SubscriptionController@destroy']);
+});
 
 Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 // Home

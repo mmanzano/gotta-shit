@@ -139,7 +139,12 @@ return [
         'delete_star' => 'Borrar Puntuación',
         'deleted_star' => 'Puntuación para :place borrada',
     ],
-
+    'subscription' => [
+        'add' => 'Quiero suscribirme a este lugar',
+        'delete' => 'Quiero desuscribirme de este lugar',
+        'subscribed_place' => 'Recibirás correos cuando alguien comente este lugar',
+        'unsubscribed_place' => 'No recibirás correos cuando alguien comente este lugar',
+    ],
     'exception' => [
         '503' => 'Tenemos un pequeño problema',
         '404' => "Perdona, no podemos encontrar eso.",
