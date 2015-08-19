@@ -29,13 +29,33 @@
   color form_label_color
   font-weight bold
   margin-left .3em
-.radio
-  height 2em
-  vertical-align middle
-  width 4em
-.radio-label
-  color form_label_color
+//.radio
+//  height 2em
+//  vertical-align middle
+//  width 4em
+//.radio-label
+//  color form_label_color
+//  font-weight bold
+input[type=radio]
+  display none
+  margin 10px
+.radio + label
+  display inline-block
+  padding 1em 2em
+  margin-top 4px
+  background-color button_background_color
+  color button_color
   font-weight bold
+  cursor pointer
+.radio:checked + label
+  background-image none
+  background-color button_color
+  color button_background_color
+.input-checked + label
+  background-image none
+  background-color button_color
+  color button_background_color
+
 .forgot-password
   font-weight bold
   text-decoration none
