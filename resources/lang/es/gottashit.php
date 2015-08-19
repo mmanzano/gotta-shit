@@ -58,11 +58,25 @@ return [
         'logout' => 'Desconecta',
         'register' => 'Regístrate',
         'add_place' => 'Añadir',
-        'user_places' => 'Tus sitios',
+        'user_places' => 'Tus baños',
         'all' => 'Todos',
         'nearest' => 'Cercanos',
-        'best_places' => 'Mejores Sitios',
+        'best_places' => 'Mejores baños',
         'profile' => 'Perfil',
+    ],
+
+    'title' => [
+        'create_place' => 'Añade un baño',
+        'edit_place' => 'Editar :place',
+        'user_places' => 'Tus Baños',
+        'best_places' => 'Mejores baños',
+        'nearest_places' => 'Baños más cercanos',
+        'all_places' => 'Todos los baños',
+        'welcome' => 'Bienvenido',
+        'register' => 'Regístrate',
+        'login' => 'Entra',
+        'edit_user' => 'Editar :user',
+        'user_profile' => 'Perfíl de :user',
     ],
 
     'user' => [

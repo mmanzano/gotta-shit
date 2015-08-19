@@ -25,7 +25,9 @@ class SessionsController extends Controller
     {
         $this->setLanguage($language);
 
-        return view('auth.login');
+        $title = trans('gottashit.title.login');
+
+        return view('auth.login', compact('title'));
     }
 
     /**

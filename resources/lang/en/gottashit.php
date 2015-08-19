@@ -65,6 +65,20 @@ return [
         'profile' => 'Profile',
     ],
 
+    'title' => [
+        'create_place' => 'Add a Place for shit',
+        'edit_place' => 'Edit :place',
+        'user_places' => 'Your Places',
+        'best_places' => 'Best Places',
+        'nearest_places' => 'Nearest Places',
+        'all_places' => 'All Places',
+        'welcome' => 'Welcome and enjoy it',
+        'register' => 'Register',
+        'login' => 'Login',
+        'edit_user' => 'Edit :user',
+        'user_profile' => ':user profile',
+    ],
+
     'user' => [
         'login' => 'Login',
         'logout' => 'Logout',

@@ -22,7 +22,9 @@ class RegistrationController extends Controller
     {
         $this->setLanguage($language);
 
-        return view('auth.register');
+        $title = trans('gottashit.title.register');
+
+        return view('auth.register', compact('title'));
     }
 
     /**

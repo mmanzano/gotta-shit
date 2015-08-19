@@ -20,7 +20,9 @@ class UserController extends Controller
         $user = User::findOrFail($user_id);
         $is_user =  $this->is_user($user_id);
 
-        return view('auth.view', compact('user', 'is_user' ));
+        $title = trans('gottashit.title.user_profile', ['user' => $user->username]);
+
+        return view('auth.view', compact('title', 'user', 'is_user' ));
     }
 
     public function edit($language, $user_id)
@@ -34,7 +36,9 @@ class UserController extends Controller
             return redirect(route('user_profile', ['language' => $language, 'user' => Auth::user()->id]))->with('status', $status_message);
         }
 
-        return view('auth.edit', compact('user'));
+        $title = trans('gottashit.title.edit_user', ['user' => $user->username]);
+
+        return view('auth.edit', compact('title', 'user'));
     }
 
     public function update(Request $request, AppMailer $mailer, $language, $user_id)

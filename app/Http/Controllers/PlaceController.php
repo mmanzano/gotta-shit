@@ -33,7 +33,9 @@ class PlaceController extends Controller
 
         $places = Place::paginate(8);
 
-        return view('places', compact('places'));
+        $title = trans('gottashit.title.all_places');
+
+        return view('places', compact('title', 'places'));
     }
 
     /**
@@ -45,7 +47,9 @@ class PlaceController extends Controller
     {
         $this->setLanguage($language);
 
-        return view('place.create');
+        $title = trans('gottashit.title.create_place');
+
+        return view('place.create', compact('title'));
     }
 
     /**
@@ -108,6 +112,8 @@ class PlaceController extends Controller
 
         $place = Place::withTrashed()->findOrFail($id);
 
+        $title = $place->name;
+
         if($place->trashed() && ! $place->isAuthor)
         {
             return redirect(route('home', ['language'=> $language]));
@@ -128,7 +134,7 @@ class PlaceController extends Controller
             }
         }
 
-        return view('place', compact('place'));
+        return view('place', compact('title', 'place'));
     }
 
     /**
@@ -143,7 +149,9 @@ class PlaceController extends Controller
 
         $place = Place::findOrFail($id);
 
-        return view('place.edit', compact('place'));
+        $title = trans('gottashit.title.edit_place', ['place' => $place->name]);
+
+        return view('place.edit', compact('title', 'place'));
     }
 
     /**
@@ -275,7 +283,9 @@ class PlaceController extends Controller
             $places = Place::paginate(8);
         }
 
-        return view('places', compact('places'));
+        $title = trans('gottashit.title.user_places');
+
+        return view('places', compact('title', 'places'));
     }
 
     public function bestPlaces($language)
@@ -288,7 +298,9 @@ class PlaceController extends Controller
           ->orderBy('star_average', 'desc')
           ->paginate(8);
 
-        return view('places', compact('places'));
+        $title = trans('gottashit.title.best_places');
+
+        return view('places', compact('title', 'places'));
     }
 
     /**
@@ -314,7 +326,9 @@ class PlaceController extends Controller
                         ->whereBetween('geo_lng', array($longitude - $deltaLng, $longitude + $deltaLng))
                         ->paginate(8);
 
-        return view('places', compact('places'));
+        $title = trans('gottashit.title.nearest_places');
+
+        return view('places', compact('title', 'places'));
     }
 
 }

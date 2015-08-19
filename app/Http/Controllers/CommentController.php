@@ -134,13 +134,15 @@ class CommentController extends Controller
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
 
+        $title = trans('gottashit.nav.edit') . $place->name;
+
         if ($request->ajax()){
             return response()->json([
                 'edit_box' => view('place.comment.partials.edit', compact('place', 'comment'))->render(),
             ]);
         }
         else {
-            return view('place.comment.edit', compact('place', 'comment'));
+            return view('place.comment.edit', compact('title', 'place', 'comment'));
         }
     }
 

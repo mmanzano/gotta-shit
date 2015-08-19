@@ -33,7 +33,9 @@ class HomeController extends Controller
 
         $places = Place::paginate(1);
 
-        return view('home', compact('places'));
+        $title = trans('gottashit.title.welcome');
+
+        return view('home', compact('title', 'places'));
     }
 
     /**
@@ -47,6 +49,8 @@ class HomeController extends Controller
 
         $places = Place::paginate(1);
 
-        return view('home', compact('places'));
+        $title = trans('gottashit.title.welcome');
+
+        return view('home', compact('title', 'places'));
     }
 }
