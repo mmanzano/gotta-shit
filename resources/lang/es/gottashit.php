@@ -63,6 +63,10 @@ return [
         'nearest' => 'Cercanos',
         'best_places' => 'Mejores baños',
         'profile' => 'Perfil',
+        'es' => 'ES',
+        'en' => 'EN',
+        'menu' => 'Menú',
+        'menu_user' => 'Menú de usuario'
     ],
 
     'title' => [

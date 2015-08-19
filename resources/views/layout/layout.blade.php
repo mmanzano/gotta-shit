@@ -5,6 +5,8 @@
 </head>
 <body>
 
+@include('sections.navigation_user')
+
 @include('sections.header')
 
 @include('sections.navigation')

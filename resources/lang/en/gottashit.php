@@ -63,6 +63,10 @@ return [
         'nearest' => 'Nearest',
         'best_places' => 'Best Places',
         'profile' => 'Profile',
+        'es' => 'ES',
+        'en' => 'EN',
+        'menu' => 'Menu',
+        'menu_user' => 'User menu',
     ],
 
     'title' => [
