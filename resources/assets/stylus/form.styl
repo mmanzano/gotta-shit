@@ -40,21 +40,24 @@ input[type=radio]
   display none
   margin 10px
 .radio + label
+  font-size 0
   display inline-block
-  padding 1em 2em
+  height 43px
+  width 40px
   margin-top 4px
-  background-color button_background_color
-  color button_color
+  background-image url(/img/rate-0.png)
+  background-repeat no-repeat
+  background-position top center
   font-weight bold
   cursor pointer
 .radio:checked + label
-  background-image none
-  background-color button_color
-  color button_background_color
+  background-image url(/img/rate-1.png)
+  background-repeat no-repeat
+  background-position top center
 .input-checked + label
-  background-image none
-  background-color button_color
-  color button_background_color
+  background-image url(/img/rate-1.png)
+  background-repeat no-repeat
+  background-position top center
 
 .forgot-password
   font-weight bold
