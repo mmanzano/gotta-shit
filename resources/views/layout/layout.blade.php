@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ App::getLocale() }}">
 <head>
     @include('scripts.head')
 </head>
