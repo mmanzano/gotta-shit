@@ -1,7 +1,7 @@
 <nav>
 
     <ul class="navigation">
-        <li><a class="menu-button">{{ trans('gottashit.nav.menu') }}</a></li>
+        <li><a href="#" class="menu-button">{{ trans('gottashit.nav.menu') }}</a></li>
 
         <li><a href="{{ App::getLocale() }}/place/40.5/-3.7/1000" id="nearest-place" style="display:none">{{ trans('gottashit.nav.nearest') }}</a></li>
 
