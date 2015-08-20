@@ -150,7 +150,6 @@ class StarController extends Controller
               'status_message' => $status_message,
               'star_width' => $place->starForPlace()['width'],
               'star_text' => $place->starForPlace()['average'] . ' / ' . trans('gottashit.star.votes') . ': ' . $place->starForPlace()['votes'],
-              'button_delete_rate' => view('place.partials.delete_rate', compact('place'))->render(),
             ]);
         }
         else {
