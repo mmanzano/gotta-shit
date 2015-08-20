@@ -207,7 +207,7 @@ function delete_rate(e){
 
     $('.rate-star').each(
         function () {
-            $(this).addClass('input-checked-hover-no');
+            //$(this).addClass('input-checked-hover-no');
             $(this).removeClass('input-checked');
             this.checked = false;
         }
