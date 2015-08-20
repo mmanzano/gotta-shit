@@ -105,7 +105,19 @@ class StarController extends Controller
 
         $status_message = trans('gottashit.star.rated', ['place' => $place->name]);
 
-        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
+        if ($request->ajax()){
+            return response()->json([
+              'status' => 200,
+              'status_message' => $status_message,
+              'star_width' => $place->starForPlace()['width'],
+              'star_text' => $place->starForPlace()['average'] . ' / ' . trans('gottashit.star.votes') . ': ' . $place->starForPlace()['votes'],
+              'button_delete_rate' => view('place.partials.delete_rate', compact('place'))->render(),
+            ]);
+        }
+        else {
+            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
+        }
+
 
     }
 
@@ -115,7 +127,7 @@ class StarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($language, $id)
+    public function destroy(Request $request, $language, $id)
     {
         $this->setLanguage($language);
 
@@ -131,6 +143,19 @@ class StarController extends Controller
         $status_message = trans('gottashit.star.deleted_star', ['place' =>  $place->name]);
 
         $star->forceDelete();
+
+        if ($request->ajax()){
+            return response()->json([
+              'status' => 200,
+              'status_message' => $status_message,
+              'star_width' => $place->starForPlace()['width'],
+              'star_text' => $place->starForPlace()['average'] . ' / ' . trans('gottashit.star.votes') . ': ' . $place->starForPlace()['votes'],
+              'button_delete_rate' => view('place.partials.delete_rate', compact('place'))->render(),
+            ]);
+        }
+        else {
+            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
+        }
 
         return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
     }

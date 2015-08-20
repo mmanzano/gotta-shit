@@ -54,18 +54,14 @@
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="PUT">
                                 @include('place.partials.form_stars')
-                                <button class="button button-rate" type="submit">{{ trans('gottashit.star.rate_place') }}</button>
+                                <button class="button button-rate button-rate-this" type="submit">{{ trans('gottashit.star.rate_place') }}</button>
                             </form>
                         </li>
-                        <li>
-                            @if($place->starForUser()['id'])
-                                <form method="POST" action="{{ route('place_stars_delete', ['language' => App::getLocale(), 'place' => $place->id]) }}">
-                                    {!! csrf_field() !!}
-                                    <input name="_method" type="hidden" value="DELETE">
-                                    <button class="button button-rate" type="submit">{{ trans('gottashit.star.delete_star') }}</button>
-                                </form>
-                            @endif
-                        </li>
+
+                        @if($place->starForUser()['id'])
+                            @include('place.partials.delete_rate')
+                        @endif
+
                     </ul>
                 </div>
             @endif

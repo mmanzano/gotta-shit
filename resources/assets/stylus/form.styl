@@ -29,33 +29,30 @@
   color form_label_color
   font-weight bold
   margin-left .3em
-//.radio
-//  height 2em
-//  vertical-align middle
-//  width 4em
-//.radio-label
-//  color form_label_color
-//  font-weight bold
-input[type=radio]
+.radio
   display none
   margin 10px
 .radio + label
+  vertical-align middle
   font-size 0
   display inline-block
   height 43px
   width 40px
-  margin-top 4px
   background-image url(/img/rate-0.png)
   background-repeat no-repeat
   background-position top center
   font-weight bold
   cursor pointer
-.radio:checked + label
+  margin-left -4px
+.radio:checked + label,
+.input-checked + label,
+.input-checked-hover + label
   background-image url(/img/rate-1.png)
   background-repeat no-repeat
   background-position top center
-.input-checked + label
-  background-image url(/img/rate-1.png)
+.input-checked-hover-no + label,
+.input-checked-hover-no:checked + label
+  background-image url(/img/rate-0.png)
   background-repeat no-repeat
   background-position top center
 
@@ -85,7 +82,7 @@ input[type=radio]
     display inline-block
 .actions-rate ul
   font-size 1rem
-  margin 0
+  margin-bottom .5em
   padding 0
   background-color inherit
   li
