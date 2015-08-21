@@ -65,10 +65,9 @@ function delete_comment_confirm(e){
         var data = form.serialize();
 
         $.post(url, data, function (result) {
-            $(that).parents('.place-comments-user').text(result.status_message);
             $('.place-comments-number p').text(result.number_of_comments);
             status_message(result.status_message);
-            comment.fadeOut(3000);
+            comment.fadeOut(1000);
         }).fail(function (result) {
             console.log("Wrong delete comment")
         });
