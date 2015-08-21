@@ -43,6 +43,7 @@ function ratethis() {
 
     if (location.pathname.split('/')[3] !== 'create'){
         $.post(url, data, function (result) {
+            status_message(result.status_message);
             $('.place-stars-points').width(result.star_width);
             $('.place-stars-text').text(result.star_text);
             $('.button-rate-delete').show();
@@ -73,6 +74,7 @@ function delete_rate(e){
     $('.button-rate-delete').hide();
 
     $.post(url, data, function (result) {
+        status_message(result.status_message);
         $('.place-stars-points').width(result.star_width);
         $('.place-stars-text').text(result.star_text);
     }).fail(function (result) {

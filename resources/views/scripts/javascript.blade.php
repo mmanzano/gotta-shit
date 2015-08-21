@@ -1,3 +1,8 @@
+<div class="status-message">
+    <ul>
+    </ul>
+</div>
+
 <script>
     var GottaShit = {
         'analytics': '{{ env('GOOGLE_ANALYTICS') !== "" ? env('GOOGLE_ANALYTICS') : 'WithoutIdForGoogleAnalytics' }}',
