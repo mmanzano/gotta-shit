@@ -24,7 +24,7 @@ class CommentTest extends TestCase
         $this->assertTrue(lang::has('gottashit.comment.deleted_comment'));
     }
 
-    public function old_test_comment_create()
+    public function test_comment_create()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -45,7 +45,7 @@ class CommentTest extends TestCase
           ->see('Hello! Great Site');
     }
 
-    public function old_test_comment_edit()
+    public function test_comment_edit()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -69,7 +69,7 @@ class CommentTest extends TestCase
           ->see('Adios');
     }
 
-    public function old_test_comment_delete()
+    public function test_comment_delete()
     {
         $user = factory('GottaShit\Entities\User')->create();
 

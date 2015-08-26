@@ -3,7 +3,7 @@
     <ul class="navigation">
         <li><a href="#" class="menu-button">{{ trans('gottashit.nav.menu') }}</a></li>
 
-        <li><a href="{{ App::getLocale() }}/place/40.5/-3.7/1000" id="nearest-place" style="display:none">{{ trans('gottashit.nav.nearest') }}</a></li>
+        <li><a href="{{ route('nearest_places', ['language' => App::getLocale(), 'lat' => 40.5, 'lng' => -3.7, 'distance' => 1000]) }}" id="nearest-place" style="display:none">{{ trans('gottashit.nav.nearest') }}</a></li>
 
         <li><a href="{{ route('all_places', ['language' => App::getLocale()]) }}">{{ trans('gottashit.nav.all') }}</a></li>
         <li><a href="{{ route('best_places', ['language' => App::getLocale()]) }}">{{ trans('gottashit.nav.best_places') }}</a></li>

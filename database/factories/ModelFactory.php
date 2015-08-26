@@ -19,6 +19,7 @@ $factory->define(GottaShit\Entities\User::class, function ($faker) {
         'password' => bcrypt('123456'),
         'verified' => true,
         'remember_token' => str_random(10),
+        'language' => 'en',
     ];
 });
 
@@ -30,6 +31,7 @@ $factory->defineAs(GottaShit\Entities\User::class, 'admin', function ($faker) {
         'password' => bcrypt('secret'),
         'verified' => true,
         'remember_token' => str_random(10),
+        'language' => 'en',
     ];
 });
 
