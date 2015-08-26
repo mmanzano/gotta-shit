@@ -10,31 +10,31 @@ class HomeTest extends TestCase
 
     public function test_home_gotta_shit()
     {
-        $this->visit('/')
+        $this->visit('/en')
             ->see('Gotta Shit');
     }
 
     public function test_home_login()
     {
-        $this->visit('/')
+        $this->visit('/en')
           ->click('Login');
     }
 
     public function test_home_register()
     {
-        $this->visit('/')
+        $this->visit('/en')
           ->click('Register');
     }
 
     public function test_home_all_guest()
     {
-        $this->visit('/')
+        $this->visit('/en')
           ->click('All');
     }
 
     public function test_home_nearest_guest()
     {
-        $this->visit('/')
+        $this->visit('/en')
           ->click('Nearest');
     }
 
@@ -43,26 +43,28 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/')
+          ->visit('/en')
           ->click('All');
     }
 
     public function test_home_nearest_user()
     {
+        App::setLocale('en');
+
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/')
+          ->visit('/en')
           ->click('Nearest');
     }
 
-    public function test_home_yours_places()
+    public function test_home_your_places()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/')
-          ->click('Yours places');
+          ->visit('/en')
+          ->click('Your places');
     }
 
     public function test_home_add()
@@ -70,7 +72,7 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/')
+          ->visit('/en')
           ->click('Add');
     }
 
@@ -79,7 +81,7 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/')
+          ->visit('/en')
           ->click('Logout');
     }
 }

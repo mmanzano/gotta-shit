@@ -7,22 +7,20 @@ php:
   - 7.0
   - hhvm
 
-env:
-  global:
-    - setup=basic
+before_script:
+ - mv .travis.env .env
+ - mysql -e 'create database gottashit_travis;'
+ - composer self-update
+ - composer install --dev --prefer-source --no-interaction
+ - chmod -R 777 storage
+ - php artisan key:generate
+ - php artisan migrate:install --env=testing --no-interaction -vvv
+
+script:
+ - php artisan migrate --env=testing --no-interaction -vvv
+ - php artisan db:seed --env=testing --no-interaction -vvv
+ - vendor/bin/phpunit
+ - php artisan migrate:rollback --env=testing --no-interaction -vvv
 
 matrix:
-  include:
-    - php: 5.5.9
-      env: setup=lowest
-    - php: 5.5.9
-      env: setup=stable
-
-sudo: false
-
-install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-source; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-lowest --prefer-stable; fi
-
-script: vendor/bin/phpunit
+ fast_finish: true
