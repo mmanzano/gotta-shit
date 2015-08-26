@@ -1,13 +1,18 @@
-## Shit Guide
+## GottaShit
+
+[![Build Status](https://travis-ci.org/mmanzano/gotta-shit.svg?branch=development)](https://travis-ci.org/mmanzano/gotta-shit)
 
 A little aplication in Laravel to mark the best sites to shit.
 
 Technologies:
-Laravel
-Html
-Css
-Jquery
-Backbone.js
+
+- Laravel 5.1
+
+- Html
+
+- Css
+
+- Javascript/Jquery
 
 ## Laravel PHP Framework
 
