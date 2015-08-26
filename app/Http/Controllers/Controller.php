@@ -15,13 +15,16 @@ abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
-    public function setLanguage($language='en') {
+    public function setLanguage($language = NULL) {
         if(Auth::check()) {
             App::setLocale(Auth::user()->language);
         } else {
             if(Session::get('language')){
                 App::setLocale(Session::get('language'));
+            } else if(! is_null($language)) {
+                App::setLocale($language);
             } else {
+                $language = $this->getLanguageFromBrowser();
                 App::setLocale($language);
             }
         }
@@ -29,5 +32,18 @@ abstract class Controller extends BaseController
 
     public function setLanguageUser(User $user) {
         App::setLocale($user->language);
+    }
+
+    private function getLanguageFromBrowser(){
+        $accept = strtolower($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+        $lang = explode( ",", $accept);
+        $primary_language = explode('-', $lang[0]);
+        $language = $primary_language[0];
+
+        if ($language != 'en' && $language != 'es') {
+            $language = 'en';
+        }
+
+        return $language;
     }
 }
