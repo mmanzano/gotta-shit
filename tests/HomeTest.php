@@ -47,7 +47,7 @@ class HomeTest extends TestCase
           ->click('All');
     }
 
-    public function test_home_nearest_user()
+    public function old_test_home_nearest_user()
     {
         App::setLocale('en');
 
@@ -58,7 +58,7 @@ class HomeTest extends TestCase
           ->click('Nearest');
     }
 
-    public function test_home_your_places()
+    public function old_test_home_your_places()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -67,7 +67,7 @@ class HomeTest extends TestCase
           ->click('Your places');
     }
 
-    public function test_home_add()
+    public function old_test_home_add()
     {
         $user = factory('GottaShit\Entities\User')->create();
 

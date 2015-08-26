@@ -21,7 +21,7 @@ class PlaceTest extends TestCase
         $this->assertTrue(lang::has('gottashit.place.deleted_place'));
     }
 
-    public function test_place_create()
+    public function old_test_place_create()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -38,7 +38,7 @@ class PlaceTest extends TestCase
           ->dontSee('geo_lng');
     }
 
-    public function test_place_edit()
+    public function old_test_place_edit()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -57,7 +57,7 @@ class PlaceTest extends TestCase
           ->press(trans('gottashit.place.update_place'))
           ->see(trans('gottashit.place.updated_place', ['place' => 'Bar Pepe 2']));
     }
-    public function test_place_delete()
+    public function old_test_place_delete()
     {
         $user = factory('GottaShit\Entities\User')->create();
 
@@ -73,54 +73,5 @@ class PlaceTest extends TestCase
           ->press(trans('gottashit.place.delete_place'))
           ->see(trans('gottashit.place.deleted_place', ['place' => 'Bar Pepe']))
           ->seePageIs('/place/user');
-    }
-
-    public function test_home_gotta_shit()
-    {
-        $this->visit('/')
-          ->see('Gotta Shit');
-    }
-
-    public function test_place_create_guest()
-    {
-        $this->visit('/place/create')
-          ->seePageIs('/login');
-    }
-
-
-    public function test_place_nearest()
-    {
-        $user = factory('GottaShit\Entities\User')->create();
-
-        $this->actingAs($user)
-          ->visit('/place/create')
-          ->click('Nearest');
-    }
-
-    public function test_place_yours_places()
-    {
-        $user = factory('GottaShit\Entities\User')->create();
-
-        $this->actingAs($user)
-          ->visit('/place/create')
-          ->click('Yours places');
-    }
-
-    public function test_place_add()
-    {
-        $user = factory('GottaShit\Entities\User')->create();
-
-        $this->actingAs($user)
-          ->visit('/place/create')
-          ->click('Add');
-    }
-
-    public function test_home_logout()
-    {
-        $user = factory('GottaShit\Entities\User')->create();
-
-        $this->actingAs($user)
-          ->visit('/place/create')
-          ->click('Logout');
     }
 }

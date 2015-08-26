@@ -10,9 +10,15 @@ class UserTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_a_user_may_register_for_an_account_but_must_confirm_their_email_address()
+    public function test_home_gotta_shit()
     {
-        $this->visit('/register')
+        $this->visit('/en')
+          ->see('Gotta Shit');
+    }
+
+    public function old_test_a_user_may_register_for_an_account_but_must_confirm_their_email_address()
+    {
+        $this->visit('/en/register')
             ->type('Got to shit', 'full_name')
             ->type('gottashit', 'username')
             ->type('got2shit@gmail.com', 'email')
@@ -38,7 +44,7 @@ class UserTest extends TestCase
     {
         $user = $user ?: $this->factory->create('GottaShit\Entities\User', ['password' => 'secret']);
 
-        return $this->visit('/login')
+        return $this->visit('/en/login')
           ->type($user->email, 'email')
           ->type('secret', 'password') // You might want to change this.
           ->press('Login');
