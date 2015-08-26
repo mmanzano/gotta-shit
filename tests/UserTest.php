@@ -10,13 +10,7 @@ class UserTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_home_gotta_shit()
-    {
-        $this->visit('/en')
-          ->see('Gotta Shit');
-    }
-
-    public function old_test_a_user_may_register_for_an_account_but_must_confirm_their_email_address()
+    public function test_a_user_may_register_for_an_account_but_must_confirm_their_email_address()
     {
         $this->visit('/en/register')
             ->type('Got to shit', 'full_name')
@@ -35,7 +29,7 @@ class UserTest extends TestCase
        $this->login($user)->see(trans('auth.failed'));
 
         // Like this...
-        $this->visit("/register/confirm/{$user->token}")
+        $this->visit("/en/register/confirm/{$user->token}")
           ->see(trans('auth.confirmed'))
           ->seeInDatabase('users', ['username' => 'gottashit', 'verified' => 1]);
     }
