@@ -1,6 +1,6 @@
 ## GottaShit
 
-[![Build Status](https://travis-ci.org/mmanzano/gotta-shit.svg?branch=development)](https://travis-ci.org/mmanzano/gotta-shit)
+[![Build Status](https://travis-ci.org/mmanzano/gotta-shit.svg?branch=master)](https://travis-ci.org/mmanzano/gotta-shit)
 
 A little aplication in Laravel to mark the best sites to shit.
 
