@@ -1,8 +1,16 @@
 ## GottaShit
 
+# Travis for Master Branch
+
 [![Build Status](https://travis-ci.org/mmanzano/gotta-shit.svg?branch=master)](https://travis-ci.org/mmanzano/gotta-shit)
 
-A little aplication in Laravel to mark the best sites to shit.
+# Travis for Development Branch
+
+[![Build Status](https://travis-ci.org/mmanzano/gotta-shit.svg?branch=development)](https://travis-ci.org/mmanzano/gotta-shit)
+
+# Description
+
+A little application in Laravel to mark the best sites to shit.
 
 Technologies:
 
