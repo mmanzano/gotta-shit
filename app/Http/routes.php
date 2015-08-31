@@ -105,5 +105,14 @@ Route::get('/{language}/place/{lat}/{lng}/{distance}',['as' => 'nearest_places',
 // Display a place
 Route::get('/{language}/place/{place}', ['as' => 'place', 'uses' => 'PlaceController@show']);
 
-//language change
+// Language change
 Route::get('/{language}/change', ['as' => 'language', 'uses' => 'LanguageController@change']);
+
+// Github Authentication
+Route::get('/auth/github', 'Auth\AuthController@redirectToGithub');
+Route::get('/auth/github/callback', 'Auth\AuthController@handleGithubCallback');
+
+
+// Facebook Authentication
+Route::get('/auth/facebook', 'Auth\AuthController@redirectToFacebook');
+Route::get('/auth/facebook/callback', 'Auth\AuthController@handleFacebookCallback');

@@ -30,9 +30,20 @@ return [
     ],
 
     'stripe' => [
-        'model'  => GottaShit\User::class,
+        'model'  => GottaShit\Entities\User::class,
         'key' => '',
         'secret' => '',
     ],
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_URL_CALLBACK'),
+    ],
+
+    'facebook' => [
+        'client_id' => env('FB_APP_ID'),
+        'client_secret' => env('FB_APP_SECRET'),
+        'redirect' => env('FB_URL_CALLBACK'),
+    ],
 ];

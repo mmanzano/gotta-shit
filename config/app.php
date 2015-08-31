@@ -144,6 +144,11 @@ return [
         GottaShit\Providers\EventServiceProvider::class,
         GottaShit\Providers\RouteServiceProvider::class,
 
+        /*
+         * Third Party Providers
+         */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
     /*
@@ -191,6 +196,11 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Third Party Aliases
+         */
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

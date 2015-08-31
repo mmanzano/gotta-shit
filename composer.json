@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "aws/aws-sdk-php": "~3.0",
-        "doctrine/dbal": "2.5.1"
+        "doctrine/dbal": "2.5.1",
+        "laravel/socialite": "^3.0@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
