@@ -108,11 +108,6 @@ Route::get('/{language}/place/{place}', ['as' => 'place', 'uses' => 'PlaceContro
 // Language change
 Route::get('/{language}/change', ['as' => 'language', 'uses' => 'LanguageController@change']);
 
-// Github Authentication
-Route::get('/auth/github', 'Auth\AuthController@redirectToGithub');
-Route::get('/auth/github/callback', 'Auth\AuthController@handleGithubCallback');
-
-
-// Facebook Authentication
-Route::get('/auth/facebook', 'Auth\AuthController@redirectToFacebook');
-Route::get('/auth/facebook/callback', 'Auth\AuthController@handleFacebookCallback');
+// Social Authentication
+Route::get('/auth/{provider}', 'Auth\AuthController@redirectToProvider')->where('provider', 'facebook|github');
+Route::get('/auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback')->where('provider', 'facebook|github');

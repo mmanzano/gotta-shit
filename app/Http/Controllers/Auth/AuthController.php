@@ -7,94 +7,76 @@ use GottaShit\Entities\User;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\App;
 
 class AuthController extends Controller
 {
     /**
-     * Redirect the user to the GitHub authentication page.
+     * Redirect the user to the Social authentication page.
      *
      * @return Response
      */
-    public function redirectToGithub()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from Social.
      *
      * @return Response
      */
-    public function handleGithubCallback()
+    public function handleProviderCallback($provider)
     {
-        $user = Socialite::driver('github')->user();
+        $user = Socialite::driver($provider)->user();
 
-        $authUser = $this->findOrCreateUser('github', $user);
+        return $this->findOrCreateUser($provider, $user);
 
-        Auth::login($authUser, true);
-
-        return redirect(route('root'));
-
-    }
-
-    /**
-     * Redirect the user to the Facebook authentication page.
-     *
-     * @return Response
-     */
-    public function redirectToFacebook()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
-
-    /**
-     * Obtain the user information from Facebook.
-     *
-     * @return Response
-     */
-    public function handleFacebookCallback()
-    {
-        $user = Socialite::driver('facebook')->user();
-
-        $authUser = $this->findOrCreateUser('facebook', $user);
-
-        Auth::login($authUser, true);
-
-        return redirect(route('root'));
 
     }
 
 
     private function findOrCreateUser($provider, $user)
     {
-        if($provider = "github"){
+        $userExists = false;
+
+        if($provider == "github"){
+
             if ($authUser = User::where('github_id', $user->getId())->first()) {
-                return $authUser;
+                $userExists = true;
             } else if ($authUser = User::where('email', $user->getEmail())->first()) {
-                return $authUser;
+                $userExists = true;
             }
+
         }
 
-        if($provider = "facebook"){
+        else if($provider == "facebook"){
             if ($authUser = User::where('facebook_id', $user->getId())->first()) {
-                return $authUser;
+                $userExists = true;
             } else if ($authUser = User::where('email', $user->getEmail())->first()) {
-                return $authUser;
+                $userExists = true;
             }
         }
 
-        return $this->createUser($provider, $user);
+        if($userExists) {
+            Auth::login($authUser, true);
+
+            return redirect(route('root'));
+        }
+
+        return $this->createUserAndRouteToProfile($provider, $user);
+
     }
 
-    private function createUser($provider, $user){
+    private function createUserAndRouteToProfile($provider, $user){
 
-        $authUser = User::create([
-          'full_name' => $user->getName(),
-          'username' => $user->getNickname() != "" ? $user->getNickname() : $this->camelCase($user->getName()),
-          'email' => $user->getEmail(),
-          'avatar' => $user->getAvatar()
-        ]);
+        $authUser = new User();
+
+        $authUser->full_name = $user->getName();
+        $authUser->username = $this->username($user);
+        $authUser->email = $user->getEmail();
+        $authUser->avatar = $user->getAvatar();
+        $authUser->verified = true;
 
         if($provider == 'github'){
             $authUser->github_id = $user->getId();
@@ -104,26 +86,32 @@ class AuthController extends Controller
             $authUser->facebook_id = $user->getId();
         }
 
-
-        $authUser->verified = true;
-
         $authUser->save();
 
-        return $authUser;
+        Auth::login($authUser, true);
+
+        return redirect(route('user_edit_form', ['language' => App::getLocale(), 'user' => Auth::user()->id]));
 
     }
-
-    public function camelCase($str, array $noStrip = [])
+    private function username($user)
     {
-        // non-alpha and non-numeric characters become spaces
-        $str = preg_replace('/[^a-z0-9' . implode("", $noStrip) . ']+/i', ' ', $str);
-        $str = trim($str);
-        // uppercase the first character of each word
-        $str = ucwords($str);
-        $str = str_replace(" ", "", $str);
-        $str = lcfirst($str);
+        $name = $user->getName();
 
-        return $str;
+        $nick = $user->getNickname();
+
+        $anexo = 1;
+
+        if(trim($nick) != "") {
+            $username = $nick;
+        }
+        else {
+            $username = str_slug($name);
+            while(User::where('username', $username)->count() != 0) {
+                $username = $username . $anexo;
+                $anexo++;
+            }
+        }
+        return $username;
     }
 
 }
