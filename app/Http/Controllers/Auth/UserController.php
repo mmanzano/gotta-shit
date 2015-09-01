@@ -77,12 +77,10 @@ class UserController extends Controller
 
             $user->email = $request->input('email');
             $user->token = str_random(30);
-            $user->verified = false;
+            $user->modified = true;
             $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_new_subject'));
 
             $status_message = trans('auth.confirm_email') . "<br/>";
-
-            $logout = true;
         }
 
         if (trim($request->input('password')) != "")

@@ -84,9 +84,8 @@ class CommentController extends Controller
             else if(is_null($subscription->comment_id)) {
                 $subscriber = User::findOrFail($subscription->user_id);
                 $this->setLanguageUser($subscriber);
-                $mailer->sendCommentAddNotification($author_of_comment, $subscriber, $place, $comment, trans('gottashit.email.new_comment_add', ['place' => $place->name]));
-                $subscription->comment_id = $comment->id;
-                $subscription->save();
+                $mailer->sendCommentAddNotification($author_of_comment, $subscriber, $place, $comment, $subscription, trans('gottashit.email.new_comment_add', ['place' => $place->name]));
+
             }
         }
 

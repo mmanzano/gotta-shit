@@ -2,9 +2,10 @@
 
 namespace GottaShit\Mailers;
 
-use GottaShit\Entities\User;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
+use GottaShit\Entities\Subscription;
+use GottaShit\Entities\User;
 
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\App;
@@ -101,17 +102,22 @@ class AppMailer
      * @param  User $user
      * @return void
      */
-    public function sendCommentAddNotification(User $author_of_comment, User $subscriber, Place $place, PlaceComment $comment, $subject)
+    public function sendCommentAddNotification(User $author_of_comment, User $subscriber, Place $place, PlaceComment $comment, Subscription $subscription, $subject)
     {
-        $this->from = env('SES_EMAIL');
-        $this->to = $subscriber->email;
-        $this->view = 'emails.notification.comment';
-        $path = route('place', ['language' => App::getLocale(), 'place' => $place->id]) . '#comment-' . $comment->id;
-        $path_author_of_comment = route('user_profile', ['language' => App::getLocale(), 'user' => $author_of_comment->id]);
-        $this->data = compact('path', 'place', 'subscriber', 'author_of_comment', 'path_author_of_comment');
-        $this->subject = $subject;
+        if(! $subscriber->modified) {
+            $this->from = env('SES_EMAIL');
+            $this->to = $subscriber->email;
+            $this->view = 'emails.notification.comment';
+            $path = route('place', ['language' => App::getLocale(), 'place' => $place->id]) . '#comment-' . $comment->id;
+            $path_author_of_comment = route('user_profile', ['language' => App::getLocale(), 'user' => $author_of_comment->id]);
+            $this->data = compact('path', 'place', 'subscriber', 'author_of_comment', 'path_author_of_comment');
+            $this->subject = $subject;
 
-        $this->deliver();
+            $this->deliver();
+
+            $subscription->comment_id = $comment->id;
+            $subscription->save();
+        }
     }
 
     /**

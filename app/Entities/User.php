@@ -123,6 +123,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function confirmEmail()
     {
         $this->verified = true;
+        $this->modified = false;
         $this->token = null;
         $this->save();
     }

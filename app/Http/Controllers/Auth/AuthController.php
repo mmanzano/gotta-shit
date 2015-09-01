@@ -89,8 +89,9 @@ class AuthController extends Controller
 
         if($userExists) {
 
-            if(! $authUser->email){
+            if(is_null($authUser->email) && ! is_null($user->getEmail())){
                 $authUser->email = $user->getEmail();
+                $authUser->modified = false;
                 $authUser->save();
             }
 
@@ -129,6 +130,7 @@ class AuthController extends Controller
         }
         if($provider == 'twitter'){
             $authUser->twitter_id = $user->getId();
+            $authUser->modified = true;
         }
         $authUser->save();
 

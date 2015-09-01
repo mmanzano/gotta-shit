@@ -111,7 +111,7 @@ return [
         'number_of_places' => 'Number of places',
         'number_of_places_deleted' => 'Number of places deleted',
         'number_of_places_rated' => 'Number of places rated',
-
+        'no_notifications_warning' => 'You will not receive more email notifications until confirm or defined your email',
     ],
 
     'place' => [
