@@ -109,5 +109,5 @@ Route::get('/{language}/place/{place}', ['as' => 'place', 'uses' => 'PlaceContro
 Route::get('/{language}/change', ['as' => 'language', 'uses' => 'LanguageController@change']);
 
 // Social Authentication
-Route::get('/auth/{provider}', 'Auth\AuthController@redirectToProvider')->where('provider', 'facebook|github');
-Route::get('/auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback')->where('provider', 'facebook|github');
+Route::get('/auth/{provider}', 'Auth\AuthController@redirectToProvider')->where('provider', 'facebook|github|twitter');
+Route::get('/auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback')->where('provider', 'facebook|github|twitter');

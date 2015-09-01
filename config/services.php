@@ -46,4 +46,10 @@ return [
         'client_secret' => env('FB_APP_SECRET'),
         'redirect' => env('FB_URL_CALLBACK'),
     ],
+
+    'twitter' => [
+        'client_id' => env('TW_CONSUMER_ID'),
+        'client_secret' => env('TW_CONSUMER_SECRET'),
+        'redirect' => env('TW_URL_CALLBACK'),
+    ],
 ];

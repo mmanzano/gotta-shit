@@ -20,6 +20,7 @@ class UpdateUsersSocialite extends Migration
             $table->string('full_name')->nullable()->change();
             $table->string('password', 60)->nullable()->change();
             $table->string('username')->unique()->nullable()->change();
+            $table->string('email')->nullable()->change();
         });
 
     }

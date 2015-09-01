@@ -50,7 +50,7 @@ class AuthController extends Controller
 
         }
 
-        else if($provider == "facebook"){
+        if($provider == "facebook"){
             if ($authUser = User::where('facebook_id', $user->getId())->first()) {
                 $userExists = true;
             } else if ($authUser = User::where('email', $user->getEmail())->first()) {
@@ -58,6 +58,13 @@ class AuthController extends Controller
             }
         }
 
+        if($provider == "twitter"){
+            if ($authUser = User::where('twitter_id', $user->getId())->first()) {
+                $userExists = true;
+            } else if ($authUser = User::where('email', $user->getEmail())->first()) {
+                $userExists = true;
+            }
+        }
         if($userExists) {
             Auth::login($authUser, true);
 
@@ -85,7 +92,9 @@ class AuthController extends Controller
         if($provider == 'facebook'){
             $authUser->facebook_id = $user->getId();
         }
-
+        if($provider == 'twitter'){
+            $authUser->twitter_id = $user->getId();
+        }
         $authUser->save();
 
         Auth::login($authUser, true);
@@ -106,11 +115,13 @@ class AuthController extends Controller
         }
         else {
             $username = str_slug($name);
-            while(User::where('username', $username)->count() != 0) {
-                $username = $username . $anexo;
-                $anexo++;
-            }
         }
+
+        while(User::where('username', $username)->count() != 0) {
+            $username = $username . $anexo;
+            $anexo++;
+        }
+
         return $username;
     }
 
