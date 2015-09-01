@@ -85,6 +85,12 @@ return [
 
     'user' => [
         'login' => 'Entra',
+        'login_facebook' => 'Entra con Facebook',
+        'login_twitter' => 'Entra con Twitter',
+        'login_github' => 'Entra con Github',
+        'add_facebook' => 'Añade tu Facebook',
+        'add_twitter' => 'Añade tu Twitter',
+        'add_github' => 'Añade tu Github',
         'logout' => 'Desconecta',
         'register' => 'Regístrate',
         'email' => 'Correo Electrónico',

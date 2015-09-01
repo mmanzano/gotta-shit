@@ -17,6 +17,7 @@ class UpdateUsersSocialite extends Migration
             $table->string('facebook_id')->unique()->nullable();
             $table->string('twitter_id')->unique()->nullable();
             $table->string('avatar')->nullable();
+            $table->string('email_modified')->nullable();
             $table->string('full_name')->nullable()->change();
             $table->string('password', 60)->nullable()->change();
             $table->string('username')->unique()->nullable()->change();

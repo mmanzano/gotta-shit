@@ -85,6 +85,12 @@ return [
 
     'user' => [
         'login' => 'Login',
+        'login_facebook' => 'Login with Facebook',
+        'login_twitter' => 'Login with Twitter',
+        'login_github' => 'Login with Github',
+        'add_facebook' => 'Add your Facebook',
+        'add_twitter' => 'Add your Twitter',
+        'add_github' => 'Add your Github',
         'logout' => 'Logout',
         'register' => 'Register',
         'email' => 'Email',
@@ -105,6 +111,7 @@ return [
         'number_of_places' => 'Number of places',
         'number_of_places_deleted' => 'Number of places deleted',
         'number_of_places_rated' => 'Number of places rated',
+
     ],
 
     'place' => [

@@ -41,31 +41,66 @@ class AuthController extends Controller
         $userExists = false;
 
         if($provider == "github"){
-
             if ($authUser = User::where('github_id', $user->getId())->first()) {
+                $userExists = true;
+            } else if (Auth::check()) {
+                $authUser = Auth::user();
                 $userExists = true;
             } else if ($authUser = User::where('email', $user->getEmail())->first()) {
                 $userExists = true;
             }
-
+            if($userExists) {
+                $authUser->github_id = $user->getId();
+                $authUser->save();
+            }
         }
 
         if($provider == "facebook"){
             if ($authUser = User::where('facebook_id', $user->getId())->first()) {
                 $userExists = true;
+            } else if (Auth::check()) {
+                $authUser = Auth::user();
+                $userExists = true;
             } else if ($authUser = User::where('email', $user->getEmail())->first()) {
                 $userExists = true;
             }
+
+            if($userExists){
+                $authUser->facebook_id = $user->getId();
+                $authUser->save();
+            }
+
         }
 
         if($provider == "twitter"){
             if ($authUser = User::where('twitter_id', $user->getId())->first()) {
                 $userExists = true;
+            } else if (Auth::check()) {
+                $authUser = Auth::user();
+                $userExists = true;
             } else if ($authUser = User::where('email', $user->getEmail())->first()) {
                 $userExists = true;
             }
+            if($userExists){
+                $authUser->twitter_id = $user->getId();
+                $authUser->save();
+            }
         }
+
         if($userExists) {
+
+            if(! $authUser->email){
+                $authUser->email = $user->getEmail();
+                $authUser->save();
+            }
+
+            if(! $authUser->avatar){
+                $authUser->avatar = $user->getAvatar();
+                $authUser->save();
+            }
+
+            $authUser->avatar = $user->getAvatar();
+
             Auth::login($authUser, true);
 
             return redirect(route('root'));
