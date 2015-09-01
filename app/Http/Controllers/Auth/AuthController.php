@@ -88,11 +88,16 @@ class AuthController extends Controller
         }
 
         if($userExists) {
+            $status_message = "";
 
             if(is_null($authUser->email) && ! is_null($user->getEmail())){
-                $authUser->email = $user->getEmail();
-                $authUser->modified = false;
-                $authUser->save();
+                if(User::where('email', $user->getEmail())->count() == 0) {
+                    $authUser->email = $user->getEmail();
+                    $authUser->modified = false;
+                    $authUser->save();
+                } else {
+                    $status_message = "Sorry, send a email to got2shit@gmail.com with subject: I can't add email from facebook or github to my twitter account";
+                }
             }
 
             if(! $authUser->avatar){
@@ -104,7 +109,7 @@ class AuthController extends Controller
 
             Auth::login($authUser, true);
 
-            return redirect(route('root'));
+            return redirect(route('root'))->with('status', $status_message);
         }
 
         return $this->createUserAndRouteToProfile($provider, $user);

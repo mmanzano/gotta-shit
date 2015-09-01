@@ -21,8 +21,6 @@ Route::group(['middleware' => ['guest']], function()
     // Registration routes
     Route::get('/{language}/register', ['as' => 'user_register', 'uses' => 'Auth\RegistrationController@register']);
     Route::post('/{language}/register', ['as' => 'user_register', 'uses' => 'Auth\RegistrationController@postRegister']);
-    Route::get('/{language}/register/confirm/{token}', ['as' => 'user_register_confirm', 'uses' => 'Auth\RegistrationController@confirmEmail']);
-
     // Password reset link request routes
     Route::get('/{language}/password/email', ['as' => 'user_password_email', 'uses' => 'Auth\PasswordController@getLocaleEmail']);
     Route::post('/{language}/password/email', ['as' => 'user_password_email', 'uses' => 'Auth\PasswordController@postLocaleEmail']);
@@ -31,6 +29,9 @@ Route::group(['middleware' => ['guest']], function()
     Route::get('/{language}/password/reset/{token}', ['as' => 'user_password_reset', 'uses' => 'Auth\PasswordController@getLocaleReset']);
     Route::post('/{language}/password/reset', ['as' => 'user_password_reset', 'uses' => 'Auth\PasswordController@postLocaleReset']);
 });
+
+// Confirm email for guess and logged user
+Route::get('/{language}/register/confirm/{token}', ['as' => 'user_register_confirm', 'uses' => 'Auth\RegistrationController@confirmEmail']);
 
 // Routes for authenticate users
 Route::group(['middleware' => ['auth']], function(){

@@ -74,6 +74,11 @@ class RegistrationController extends Controller
 
         $status_message = trans('auth.confirmed') ;
 
-        return redirect(route('user_login', ['language' => App::getLocale()]))->with('status', $status_message);
+        if(Auth::check()) {
+            return redirect(route('root'));
+        }
+        else {
+            return redirect(route('user_login', ['language' => App::getLocale()]))->with('status', $status_message);
+        }
     }
 }
