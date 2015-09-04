@@ -3,7 +3,6 @@
 namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Http\Controllers\Controller;
-
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -28,6 +27,7 @@ class PasswordController extends Controller
     protected $redirectTo;
 
     protected $subject;
+
     /**
      * Create a new password controller instance.
      *
@@ -60,6 +60,7 @@ class PasswordController extends Controller
 
         return $this->getReset($token);
     }
+
     public function postLocaleReset(Request $request, $language)
     {
         $this->setLanguage($language);
@@ -68,5 +69,4 @@ class PasswordController extends Controller
 
         return $this->postReset($request);
     }
-
 }

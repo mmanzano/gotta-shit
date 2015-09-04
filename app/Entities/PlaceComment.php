@@ -32,8 +32,9 @@ class PlaceComment extends Model
     protected $hidden = [];
 
     protected $dates = ['deleted_at'];
+
     /**
-     * One Comment belongs to User.
+     * A Comment belongs to User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -43,7 +44,7 @@ class PlaceComment extends Model
     }
 
     /**
-     * One Comment belongs to Place.
+     * A Comment belongs to Place.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -60,6 +61,7 @@ class PlaceComment extends Model
                 $isAuthor = true;
             }
         }
+
         return $isAuthor;
     }
 }

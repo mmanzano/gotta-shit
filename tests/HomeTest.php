@@ -17,25 +17,25 @@ class HomeTest extends TestCase
     public function test_home_login()
     {
         $this->visit('/en')
-          ->click('Login');
+            ->click('Login');
     }
 
     public function test_home_register()
     {
         $this->visit('/en')
-          ->click('Register');
+            ->click('Register');
     }
 
     public function test_home_all_guest()
     {
         $this->visit('/en')
-          ->click('All');
+            ->click('All');
     }
 
     public function test_home_nearest_guest()
     {
         $this->visit('/en')
-          ->click('Nearest');
+            ->click('Nearest');
     }
 
     public function test_home_all_user()
@@ -43,8 +43,8 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/en')
-          ->click('All');
+            ->visit('/en')
+            ->click('All');
     }
 
     public function test_home_nearest_user()
@@ -52,8 +52,8 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/en')
-          ->click('Nearest');
+            ->visit('/en')
+            ->click('Nearest');
     }
 
     public function test_home_your_places()
@@ -61,8 +61,8 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/en')
-          ->click('Your places');
+            ->visit('/en')
+            ->click('Your places');
     }
 
     public function test_home_add()
@@ -70,8 +70,8 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/en')
-          ->click('Add');
+            ->visit('/en')
+            ->click('Add');
     }
 
     public function test_home_logout()
@@ -79,7 +79,7 @@ class HomeTest extends TestCase
         $user = factory('GottaShit\Entities\User')->create();
 
         $this->actingAs($user)
-          ->visit('/en')
-          ->click('Logout');
+            ->visit('/en')
+            ->click('Logout');
     }
 }

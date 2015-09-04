@@ -33,7 +33,7 @@ class Place extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * One Place has one User.
+     * A Place has an User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -43,7 +43,7 @@ class Place extends Model
     }
 
     /**
-     * One Place has many Stars.
+     * A Place has many Stars.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -53,7 +53,7 @@ class Place extends Model
     }
 
     /**
-     * One Place has many Comments.
+     * A Place has many Comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -63,7 +63,7 @@ class Place extends Model
     }
 
     /**
-     * One Place has many Subscriptions.
+     * A Place has many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -94,22 +94,22 @@ class Place extends Model
         $starsForPlace = $this->starsWithTrashed()->getResults();
 
         $starResult = array(
-          'votes' => 0,
-          'totalStar' => 0,
-          'average' => 0,
-          'width' => '0%',
+            'votes' => 0,
+            'totalStar' => 0,
+            'average' => 0,
+            'width' => '0%',
         );
 
-        foreach($starsForPlace as $star)
-        {
+        foreach ($starsForPlace as $star) {
             $starResult['votes']++;
             $starResult['totalStar'] += $star->stars;
         }
 
-        if ($starResult['votes'] != 0)
-        {
-            $starResult['average'] = number_format($starResult['totalStar'] / $starResult['votes'], 2);
-            $starResult['width'] = number_format(($starResult['average'] / 5) * 100, 0) . '%';
+        if ($starResult['votes'] != 0) {
+            $starResult['average'] = number_format($starResult['totalStar'] / $starResult['votes'],
+                2);
+            $starResult['width'] = number_format(($starResult['average'] / 5) * 100,
+                    0) . '%';
         }
 
         return $starResult;
@@ -124,13 +124,11 @@ class Place extends Model
             'stars' => -1,
         );
 
-        foreach($starsForPlace as $star)
-        {
-            if ($star->user->id == Auth::user()->id)
-            {
+        foreach ($starsForPlace as $star) {
+            if ($star->user->id == Auth::user()->id) {
                 $stars = array(
                     'id' => $star->id,
-                    'stars' =>  number_format($star->stars, 0),
+                    'stars' => number_format($star->stars, 0),
                 );
             }
         }
@@ -144,43 +142,40 @@ class Place extends Model
 
         $countComments = 0;
 
-        foreach($allComments as $comments)
-        {
+        foreach ($allComments as $comments) {
             $countComments++;
         }
 
         return $countComments;
-
     }
 
     public function getIsAuthorAttribute()
     {
         $isAuthor = false;
-        
-        if(Auth::check()){
-            if (Auth::user()->id == $this->user_id)
-            {
+
+        if (Auth::check()) {
+            if (Auth::user()->id == $this->user_id) {
                 $isAuthor = true;
             }
         }
-        return $isAuthor;
 
+        return $isAuthor;
     }
 
-    public function starsWithTrashed(){
+    public function starsWithTrashed()
+    {
         if ($this->trashed()) {
             return $this->stars()->onlyTrashed();
-        }
-        else{
+        } else {
             return $this->stars();
         }
     }
 
-    public function commentsWithTrashed(){
+    public function commentsWithTrashed()
+    {
         if ($this->trashed()) {
             return $this->comments()->onlyTrashed();
-        }
-        else{
+        } else {
             return $this->comments();
         }
     }
@@ -189,8 +184,9 @@ class Place extends Model
     {
         $isSubscribed = false;
 
-        if(Auth::check()){
-            $subscription_number = Subscription::where('user_id', Auth::user()->id)->where('place_id', $this->id)->count();
+        if (Auth::check()) {
+            $subscription_number = Subscription::where('user_id',
+                Auth::user()->id)->where('place_id', $this->id)->count();
 
             if ($subscription_number) {
                 $isSubscribed = true;

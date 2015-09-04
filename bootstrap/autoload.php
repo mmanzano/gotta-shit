@@ -13,8 +13,7 @@ define('LARAVEL_START', microtime(true));
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +25,7 @@ require __DIR__.'/../vendor/autoload.php';
 | by a request. The Artisan "optimize" is used to create this file.
 |
 */
-
-$compiledPath = __DIR__.'/cache/compiled.php';
+$compiledPath = __DIR__ . '/cache/compiled.php';
 
 if (file_exists($compiledPath)) {
     require $compiledPath;

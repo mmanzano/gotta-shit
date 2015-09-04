@@ -33,7 +33,7 @@ class PlaceStar extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * One Star belongs to User.
+     * A Star belongs to User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -43,7 +43,7 @@ class PlaceStar extends Model
     }
 
     /**
-     * One Star belongs to Place.
+     * A Star belongs to Place.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

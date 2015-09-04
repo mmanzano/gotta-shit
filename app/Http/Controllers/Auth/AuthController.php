@@ -3,7 +3,6 @@
 namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
-
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +13,8 @@ class AuthController extends Controller
     /**
      * Redirect the user to the Social authentication page.
      *
-     * @return Response
+     * @param $provider
+     * @return \GottaShit\Http\Controllers\Auth\Response
      */
     public function redirectToProvider($provider)
     {
@@ -24,15 +24,14 @@ class AuthController extends Controller
     /**
      * Obtain the user information from Social.
      *
-     * @return Response
+     * @param $provider
+     * @return \GottaShit\Http\Controllers\Auth\Response
      */
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
 
         return $this->findOrCreateUser($provider, $user);
-
-
     }
 
 
@@ -40,58 +39,79 @@ class AuthController extends Controller
     {
         $userExists = false;
 
-        if($provider == "github"){
+        if ($provider == "github") {
             if ($authUser = User::where('github_id', $user->getId())->first()) {
                 $userExists = true;
-            } else if (Auth::check()) {
-                $authUser = Auth::user();
-                $userExists = true;
-            } else if ($authUser = User::where('email', $user->getEmail())->first()) {
-                $userExists = true;
+            } else {
+                if (Auth::check()) {
+                    $authUser = Auth::user();
+                    $userExists = true;
+                } else {
+                    if ($authUser = User::where('email', $user->getEmail())
+                        ->first()
+                    ) {
+                        $userExists = true;
+                    }
+                }
             }
-            if($userExists) {
+            if ($userExists) {
                 $authUser->github_id = $user->getId();
                 $authUser->save();
             }
         }
 
-        if($provider == "facebook"){
-            if ($authUser = User::where('facebook_id', $user->getId())->first()) {
+        if ($provider == "facebook") {
+            if ($authUser = User::where('facebook_id', $user->getId())
+                ->first()
+            ) {
                 $userExists = true;
-            } else if (Auth::check()) {
-                $authUser = Auth::user();
-                $userExists = true;
-            } else if ($authUser = User::where('email', $user->getEmail())->first()) {
-                $userExists = true;
+            } else {
+                if (Auth::check()) {
+                    $authUser = Auth::user();
+                    $userExists = true;
+                } else {
+                    if ($authUser = User::where('email', $user->getEmail())
+                        ->first()
+                    ) {
+                        $userExists = true;
+                    }
+                }
             }
 
-            if($userExists){
+            if ($userExists) {
                 $authUser->facebook_id = $user->getId();
                 $authUser->save();
             }
-
         }
 
-        if($provider == "twitter"){
-            if ($authUser = User::where('twitter_id', $user->getId())->first()) {
+        if ($provider == "twitter") {
+            if ($authUser = User::where('twitter_id', $user->getId())
+                ->first()
+            ) {
                 $userExists = true;
-            } else if (Auth::check()) {
-                $authUser = Auth::user();
-                $userExists = true;
-            } else if ($authUser = User::where('email', $user->getEmail())->first()) {
-                $userExists = true;
+            } else {
+                if (Auth::check()) {
+                    $authUser = Auth::user();
+                    $userExists = true;
+                } else {
+                    if ($authUser = User::where('email', $user->getEmail())
+                        ->first()
+                    ) {
+                        $userExists = true;
+                    }
+                }
             }
-            if($userExists){
+            if ($userExists) {
                 $authUser->twitter_id = $user->getId();
                 $authUser->save();
             }
         }
 
-        if($userExists) {
+        if ($userExists) {
             $status_message = "";
 
-            if(is_null($authUser->email) && ! is_null($user->getEmail())){
-                if(User::where('email', $user->getEmail())->count() == 0) {
+            if (is_null($authUser->email) && !is_null($user->getEmail())) {
+                if (User::where('email', $user->getEmail())->count() == 0) {
                     $authUser->email = $user->getEmail();
                     $authUser->modified = false;
                     $authUser->save();
@@ -100,7 +120,7 @@ class AuthController extends Controller
                 }
             }
 
-            if(! $authUser->avatar){
+            if (!$authUser->avatar) {
                 $authUser->avatar = $user->getAvatar();
                 $authUser->save();
             }
@@ -113,11 +133,10 @@ class AuthController extends Controller
         }
 
         return $this->createUserAndRouteToProfile($provider, $user);
-
     }
 
-    private function createUserAndRouteToProfile($provider, $user){
-
+    private function createUserAndRouteToProfile($provider, $user)
+    {
         $authUser = new User();
 
         $authUser->full_name = $user->getName();
@@ -126,14 +145,14 @@ class AuthController extends Controller
         $authUser->avatar = $user->getAvatar();
         $authUser->verified = true;
 
-        if($provider == 'github'){
+        if ($provider == 'github') {
             $authUser->github_id = $user->getId();
         }
 
-        if($provider == 'facebook'){
+        if ($provider == 'facebook') {
             $authUser->facebook_id = $user->getId();
         }
-        if($provider == 'twitter'){
+        if ($provider == 'twitter') {
             $authUser->twitter_id = $user->getId();
             $authUser->modified = true;
         }
@@ -141,30 +160,29 @@ class AuthController extends Controller
 
         Auth::login($authUser, true);
 
-        return redirect(route('user_profile', ['language' => App::getLocale(), 'user' => Auth::user()->id]));
-
+        return redirect(route('user_profile',
+            ['language' => App::getLocale(), 'user' => Auth::user()->id]));
     }
+
     private function username($user)
     {
         $name = $user->getName();
 
         $nick = $user->getNickname();
 
-        $anexo = 1;
+        $append = 1;
 
-        if(trim($nick) != "") {
+        if (trim($nick) != "") {
             $username = $nick;
-        }
-        else {
+        } else {
             $username = str_slug($name);
         }
 
-        while(User::where('username', $username)->count() != 0) {
-            $username = $username . $anexo;
-            $anexo++;
+        while (User::where('username', $username)->count() != 0) {
+            $username = $username . $append;
+            $append++;
         }
 
         return $username;
     }
-
 }

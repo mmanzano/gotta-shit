@@ -17,7 +17,7 @@ class CreateLanguageUserColumn extends Migration
         });
 
         DB::table('users')->update(array(
-          'language' => 'en'
+            'language' => 'en'
         ));
     }
 

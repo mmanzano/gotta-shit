@@ -51,5 +51,4 @@ class Subscription extends Model
     {
         return $this->belongsTo('GottaShit\Entities\Place');
     }
-
 }

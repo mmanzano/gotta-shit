@@ -10,15 +10,12 @@ use GottaShit\Entities\User;
 use GottaShit\Http\Requests;
 use GottaShit\Http\Controllers\Controller;
 use GottaShit\Mailers\AppMailer;
-
 use Carbon\Carbon;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
 
 class PlaceController extends Controller
 {
@@ -55,7 +52,7 @@ class PlaceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function store(Request $request, AppMailer $mailer, $language)
@@ -63,10 +60,10 @@ class PlaceController extends Controller
         $this->setLanguage($language);
 
         $this->validate($request, [
-          'name' => 'required|max:255',
-          'geo_lat' => 'required|numeric|between:-90,90',
-          'geo_lng' => 'required|numeric|between:-180,180',
-          'stars' => 'required|numeric|between:0,5',
+            'name' => 'required|max:255',
+            'geo_lat' => 'required|numeric|between:-90,90',
+            'geo_lng' => 'required|numeric|between:-180,180',
+            'stars' => 'required|numeric|between:0,5',
         ]);
 
         $place = new Place();
@@ -75,7 +72,7 @@ class PlaceController extends Controller
         $place->geo_lat = number_format($request->input('geo_lat'), 6);
         $place->geo_lng = number_format($request->input('geo_lng'), 6);
         $place->user_id = Auth::user()->id;
-        
+
         $place->save();
 
         $star = new PlaceStar();
@@ -92,18 +89,21 @@ class PlaceController extends Controller
         $subscription->comment_id = null;
         $subscription->save();
 
-        $mailer->sendPlaceAddNotification(Auth::user(), $place, trans('gottashit.email.new_place_add'));
+        $mailer->sendPlaceAddNotification(Auth::user(), $place,
+            trans('gottashit.email.new_place_add'));
 
-        $status_message = trans('gottashit.place.created_place', ['place' =>  $place->name]);
+        $status_message = trans('gottashit.place.created_place',
+            ['place' => $place->name]);
 
-        return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
-
+        return redirect(route('place',
+            ['language' => $language, 'place' => $place->id]))->with('status',
+            $status_message);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($language, $id)
@@ -114,9 +114,8 @@ class PlaceController extends Controller
 
         $title = $place->name;
 
-        if($place->trashed() && ! $place->isAuthor)
-        {
-            return redirect(route('home', ['language'=> $language]));
+        if ($place->trashed() && !$place->isAuthor) {
+            return redirect(route('home', ['language' => $language]));
         }
 
         Carbon::setLocale(App::getLocale());
@@ -125,9 +124,8 @@ class PlaceController extends Controller
             $user = Auth::user();
             $subscriptions = $user->subscriptions()->getResults();
 
-            foreach($subscriptions as $subscription)
-            {
-                if(($subscription->user_id == $user->id) && (! $subscription->comment)) {
+            foreach ($subscriptions as $subscription) {
+                if (($subscription->user_id == $user->id) && (!$subscription->comment)) {
                     $subscription->comment_id = null;
                     $subscription->save();
                 }
@@ -140,7 +138,7 @@ class PlaceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($language, $id)
@@ -157,8 +155,8 @@ class PlaceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param  Request $request
+     * @param  int $id
      * @return Response
      */
     public function update(Request $request, $language, $id)
@@ -166,15 +164,15 @@ class PlaceController extends Controller
         $this->setLanguage($language);
 
         $this->validate($request, [
-          'name' => 'required|max:255',
-          'geo_lat' => 'required|numeric|between:-90,90',
-          'geo_lng' => 'required|numeric|between:-180,180',
-          'stars' => 'required|numeric|between:0,5',
+            'name' => 'required|max:255',
+            'geo_lat' => 'required|numeric|between:-90,90',
+            'geo_lng' => 'required|numeric|between:-180,180',
+            'stars' => 'required|numeric|between:0,5',
         ]);
 
         $place = Place::findOrFail($id);
 
-        if($place->isAuthor) {
+        if ($place->isAuthor) {
             $place->name = $request->input('name');
             $place->geo_lat = number_format($request->input('geo_lat'), 6);
             $place->geo_lng = number_format($request->input('geo_lng'), 6);
@@ -183,15 +181,12 @@ class PlaceController extends Controller
 
             $idStar = $place->starForUser()['id'];
 
-            if ($idStar == 0)
-            {
+            if ($idStar == 0) {
                 $star = new PlaceStar();
 
                 $star->place_id = $place->id;
                 $star->user_id = Auth::user()->id;
-            }
-            else
-            {
+            } else {
                 $star = PlaceStar::findOrFail($idStar);
             }
 
@@ -200,21 +195,28 @@ class PlaceController extends Controller
 
             $star->save();
 
-            $status_message = trans('gottashit.place.updated_place', ['place' =>  $place->name]);
+            $status_message = trans('gottashit.place.updated_place',
+                ['place' => $place->name]);
 
-            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
-        }
-        else {
-            $status_message = trans('gottashit.place.update_place_not_allowed', ['place' =>  $place->name]);
+            return redirect(route('place',
+                [
+                    'language' => $language,
+                    'place' => $place->id
+                ]))->with('status',
+                $status_message);
+        } else {
+            $status_message = trans('gottashit.place.update_place_not_allowed',
+                ['place' => $place->name]);
 
-            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
+            return redirect(route('home',
+                ['language' => $language]))->with('status', $status_message);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy($language, $id)
@@ -223,26 +225,27 @@ class PlaceController extends Controller
 
         $place = Place::withTrashed()->findOrFail($id);
 
-        if($place->isAuthor)
-        {
-            $status_message = trans('gottashit.place.deleted_place', ['place' =>  $place->name]);
+        if ($place->isAuthor) {
+            $status_message = trans('gottashit.place.deleted_place',
+                ['place' => $place->name]);
 
-            if($place->trashed()){
-                $status_message = trans('gottashit.place.deleted_place_permanently', ['place' =>  $place->name]);
+            if ($place->trashed()) {
+                $status_message = trans('gottashit.place.deleted_place_permanently',
+                    ['place' => $place->name]);
                 $place->forceDelete();
-            }
-            else{
+            } else {
                 $place->delete();
             }
 
-            return redirect(route('user_places', ['language' => $language]))->with('status', $status_message);
-        }
-        else {
-            $status_message = trans('gottashit.place.delete_place_not_allowed', ['place' =>  $place->name]);
+            return redirect(route('user_places',
+                ['language' => $language]))->with('status', $status_message);
+        } else {
+            $status_message = trans('gottashit.place.delete_place_not_allowed',
+                ['place' => $place->name]);
 
-            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
+            return redirect(route('home',
+                ['language' => $language]))->with('status', $status_message);
         }
-
     }
 
     public function restorePlace($language, $place_id)
@@ -254,14 +257,21 @@ class PlaceController extends Controller
         if ($place->isAuthor) {
             $place->restore();
 
-            $status_message = trans('gottashit.place.restored_place', ['place' =>  $place->name]);
+            $status_message = trans('gottashit.place.restored_place',
+                ['place' => $place->name]);
 
-            return redirect(route('place', ['language' => $language, 'place' => $place->id]))->with('status', $status_message);
-        }
-        else{
-            $status_message = trans('gottashit.place.restore_place_not_allowed', ['place' =>  $place->name]);
+            return redirect(route('place',
+                [
+                    'language' => $language,
+                    'place' => $place->id
+                ]))->with('status',
+                $status_message);
+        } else {
+            $status_message = trans('gottashit.place.restore_place_not_allowed',
+                ['place' => $place->name]);
 
-            return redirect(route('home', ['language' => $language]))->with('status', $status_message);
+            return redirect(route('home',
+                ['language' => $language]))->with('status', $status_message);
         }
     }
 
@@ -274,12 +284,9 @@ class PlaceController extends Controller
     {
         $this->setLanguage($language);
 
-        if(Auth::check())
-        {
+        if (Auth::check()) {
             $places = Place::where('user_id', Auth::user()->id)->paginate(8);
-        }
-        else
-        {
+        } else {
             $places = Place::paginate(8);
         }
 
@@ -292,11 +299,12 @@ class PlaceController extends Controller
     {
         $this->setLanguage($language);
 
-        $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=', 'places.id')
-          ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
-          ->groupBy('places.id')
-          ->orderBy('star_average', 'desc')
-          ->paginate(8);
+        $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=',
+            'places.id')
+            ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
+            ->groupBy('places.id')
+            ->orderBy('star_average', 'desc')
+            ->paginate(8);
 
         $title = trans('gottashit.title.best_places');
 
@@ -308,9 +316,16 @@ class PlaceController extends Controller
      * @param $latitude
      * @param $longitude
      * @param int $distance in meters
+     *
+     * @return Response
      */
-    public function nearest(Request $request, $language, $latitude, $longitude, $distance)
-    {
+    public function nearest(
+        Request $request,
+        $language,
+        $latitude,
+        $longitude,
+        $distance
+    ) {
         $this->setLanguage($language);
 
         $totalLat = 180;
@@ -322,13 +337,14 @@ class PlaceController extends Controller
         $deltaLat = ($totalLat * $distance) / ($totalMeters / 2);
         $deltaLng = ($totalLng * $distance) / ($totalMeters);
 
-        $places = Place::whereBetween('geo_lat', array($latitude - $deltaLat, $latitude + $deltaLat))
-                        ->whereBetween('geo_lng', array($longitude - $deltaLng, $longitude + $deltaLng))
-                        ->paginate(8);
+        $places = Place::whereBetween('geo_lat',
+            array($latitude - $deltaLat, $latitude + $deltaLat))
+            ->whereBetween('geo_lng',
+                array($longitude - $deltaLng, $longitude + $deltaLng))
+            ->paginate(8);
 
         $title = trans('gottashit.title.nearest_places');
 
         return view('places', compact('title', 'places'));
     }
-
 }

@@ -18,7 +18,7 @@ class UpdateUsersConfirmationTable extends Migration
         });
 
         DB::table('users')->update(array(
-          'verified' => true
+            'verified' => true
         ));
     }
 

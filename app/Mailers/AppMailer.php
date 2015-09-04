@@ -6,13 +6,11 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Subscription;
 use GottaShit\Entities\User;
-
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\App;
 
 class AppMailer
 {
-
     /**
      * The Laravel Mailer instance.
      *
@@ -70,7 +68,8 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = $user->email;
         $this->view = 'emails.confirm';
-        $path = route('user_register_confirm', ['language' => App::getLocale(), 'token' => $user->token]);
+        $path = route('user_register_confirm',
+            ['language' => App::getLocale(), 'token' => $user->token]);
         $this->data = compact('user', 'path');
         $this->subject = $subject;
 
@@ -88,8 +87,10 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = env('SES_EMAIL');
         $this->view = 'emails.notification.place';
-        $path = route('place', ['language' => App::getLocale(), 'place' => $place->id]);
-        $path_user = route('user_profile', ['language' => App::getLocale(), 'user' => $user->id]);
+        $path = route('place',
+            ['language' => App::getLocale(), 'place' => $place->id]);
+        $path_user = route('user_profile',
+            ['language' => App::getLocale(), 'user' => $user->id]);
         $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;
 
@@ -102,15 +103,28 @@ class AppMailer
      * @param  User $user
      * @return void
      */
-    public function sendCommentAddNotification(User $author_of_comment, User $subscriber, Place $place, PlaceComment $comment, Subscription $subscription, $subject)
-    {
-        if(! $subscriber->modified) {
+    public function sendCommentAddNotification(
+        User $author_of_comment,
+        User $subscriber,
+        Place $place,
+        PlaceComment $comment,
+        Subscription $subscription,
+        $subject
+    ) {
+        if (!$subscriber->modified) {
             $this->from = env('SES_EMAIL');
             $this->to = $subscriber->email;
             $this->view = 'emails.notification.comment';
-            $path = route('place', ['language' => App::getLocale(), 'place' => $place->id]) . '#comment-' . $comment->id;
-            $path_author_of_comment = route('user_profile', ['language' => App::getLocale(), 'user' => $author_of_comment->id]);
-            $this->data = compact('path', 'place', 'subscriber', 'author_of_comment', 'path_author_of_comment');
+            $path = route('place', [
+                    'language' => App::getLocale(),
+                    'place' => $place->id
+                ]) . '#comment-' . $comment->id;
+            $path_author_of_comment = route('user_profile', [
+                'language' => App::getLocale(),
+                'user' => $author_of_comment->id
+            ]);
+            $this->data = compact('path', 'place', 'subscriber',
+                'author_of_comment', 'path_author_of_comment');
             $this->subject = $subject;
 
             $this->deliver();
@@ -129,7 +143,7 @@ class AppMailer
     {
         $this->mailer->send($this->view, $this->data, function ($message) {
             $message->from($this->from, 'GottaShit')
-              ->to($this->to)->subject($this->subject);
+                ->to($this->to)->subject($this->subject);
         });
     }
 }

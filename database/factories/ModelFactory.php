@@ -13,7 +13,7 @@
 
 $factory->define(GottaShit\Entities\User::class, function ($faker) {
     return [
-        'full_name' => $faker->firstName.' '.$faker->lastName,
+        'full_name' => $faker->firstName . ' ' . $faker->lastName,
         'username' => $faker->userName,
         'email' => $faker->unique()->email,
         'password' => bcrypt('123456'),
@@ -40,14 +40,16 @@ $factory->define(GottaShit\Entities\Place::class, function ($faker) {
     $initialLng = -3.7;
     $deltaMin = -4000;
     $deltaMax = 3000;
-    $latitude = $initialLat + $faker->numberBetween($deltaMin, $deltaMax) / 1000;
-    $longitude = $initialLng + $faker->numberBetween($deltaMin, $deltaMax) / 1000;
+    $latitude = $initialLat + $faker->numberBetween($deltaMin,
+            $deltaMax) / 1000;
+    $longitude = $initialLng + $faker->numberBetween($deltaMin,
+            $deltaMax) / 1000;
 
     return [
-      'name' => $faker->company,
-      'geo_lat' => $latitude,
-      'geo_lng' => $longitude,
-      'user_id' => GottaShit\Entities\User::All()->random()->id,
+        'name' => $faker->company,
+        'geo_lat' => $latitude,
+        'geo_lng' => $longitude,
+        'user_id' => GottaShit\Entities\User::All()->random()->id,
     ];
 });
 

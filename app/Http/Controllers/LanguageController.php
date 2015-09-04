@@ -6,7 +6,6 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\User;
-
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
@@ -33,7 +32,7 @@ class LanguageController extends Controller
 
         Session::put('language', $language);
 
-        if(Auth::check()){
+        if (Auth::check()) {
             Auth::user()->setLanguage($language);
         }
 

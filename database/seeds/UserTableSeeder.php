@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
 {
-
     private $databaseSeeder;
 
     public function __construct(DatabaseSeeder $databaseSeeder)

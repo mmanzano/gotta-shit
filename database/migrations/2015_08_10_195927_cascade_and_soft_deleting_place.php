@@ -18,8 +18,8 @@ class CascadeAndSoftDeletingPlace extends Migration
             $table->dropForeign('place_comments_place_id_foreign');
 
             $table->foreign('place_id')
-              ->references('id')->on('places')
-              ->onDelete('cascade')->change();
+                ->references('id')->on('places')
+                ->onDelete('cascade')->change();
         });
 
         Schema::table('place_stars', function ($table) {
@@ -28,8 +28,8 @@ class CascadeAndSoftDeletingPlace extends Migration
             $table->dropForeign('place_stars_place_id_foreign');
 
             $table->foreign('place_id')
-              ->references('id')->on('places')
-              ->onDelete('cascade')->change();
+                ->references('id')->on('places')
+                ->onDelete('cascade')->change();
         });
     }
 
@@ -46,8 +46,8 @@ class CascadeAndSoftDeletingPlace extends Migration
             $table->dropForeign('place_comments_place_id_foreign');
 
             $table->foreign('place_id')
-              ->references('id')->on('places')
-              ->change();
+                ->references('id')->on('places')
+                ->change();
         });
 
         Schema::table('place_stars', function ($table) {
@@ -56,8 +56,8 @@ class CascadeAndSoftDeletingPlace extends Migration
             $table->dropForeign('place_stars_place_id_foreign');
 
             $table->foreign('place_id')
-              ->references('id')->on('places')
-              ->change();
+                ->references('id')->on('places')
+                ->change();
         });
     }
 }

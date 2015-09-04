@@ -25,7 +25,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
      * @return void
      */
     public function report(Exception $e)
@@ -36,33 +36,28 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $e
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
     {
-        $capture = ! env('APP_DEBUG');
+        $capture = !env('APP_DEBUG');
 
-        if($capture){
-            if ($e instanceof TokenMismatchException )
-            {
+        if ($capture) {
+            if ($e instanceof TokenMismatchException) {
                 return response()->view('errors.token');
             }
-            if ($e instanceof BadMethodCallException )
-            {
+            if ($e instanceof BadMethodCallException) {
                 return response()->view('errors.404');
             }
-            if ($e instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.404');
-            }
-
-            if ($e instanceof MethodNotAllowedHttpException)
-            {
+            if ($e instanceof ModelNotFoundException) {
                 return response()->view('errors.404');
             }
 
+            if ($e instanceof MethodNotAllowedHttpException) {
+                return response()->view('errors.404');
+            }
         }
 
         return parent::render($request, $e);

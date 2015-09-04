@@ -6,7 +6,6 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\User;
-
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
@@ -41,7 +40,8 @@ class HomeController extends Controller
     /**
      * Show the application dashboard to the user.
      *
-     * @return Response
+     * @param $language
+     * @return \GottaShit\Http\Controllers\Response
      */
     public function index_locale($language)
     {

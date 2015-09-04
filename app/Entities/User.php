@@ -24,7 +24,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['full_name', 'username', 'email', 'password', 'language', 'github_id', 'facebook_id', 'twitter_id', 'avatar'];
+    protected $fillable = [
+        'full_name',
+        'username',
+        'email',
+        'password',
+        'language',
+        'github_id',
+        'facebook_id',
+        'twitter_id',
+        'avatar'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -46,8 +56,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             $user->token = str_random(30);
         });
     }
+
     /**
-     * One User has many Places.
+     * An User has many Places.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -57,7 +68,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * One User has many Stars.
+     * An User has many Stars.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -67,7 +78,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * One User has many Comments.
+     * An User has many Comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -77,7 +88,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * One User has many Subscriptions.
+     * An User has many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -93,28 +104,30 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getNumberOfPlacesAttribute()
     {
-        $numberOfPlaces= $this->places()->count();
+        $numberOfPlaces = $this->places()->count();
 
         return $numberOfPlaces;
     }
 
     public function getNumberOfPlacesRatedAttribute()
     {
-        $numberOfPlaces= $this->stars()->count();
+        $numberOfPlaces = $this->stars()->count();
 
         return $numberOfPlaces;
     }
 
-    public function placesTrashed() {
+    public function placesTrashed()
+    {
         return $this->places()->onlyTrashed();
     }
 
     public function getNumberOfPlacesTrashedAttribute()
     {
-        $numberOfPlacesTrashed= $this->placesTrashed()->count();
+        $numberOfPlacesTrashed = $this->placesTrashed()->count();
 
         return $numberOfPlacesTrashed;
     }
+
     /**
      * Confirm the user.
      *
@@ -128,7 +141,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->save();
     }
 
-    public function setLanguage($language) {
+    public function setLanguage($language)
+    {
         $this->language = $language;
         $this->save();
     }

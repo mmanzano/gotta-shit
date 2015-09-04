@@ -5,7 +5,6 @@ namespace GottaShit\Http\Controllers\Auth;
 use GottaShit\Entities\User;
 use GottaShit\Http\Controllers\Controller;
 use GottaShit\Mailers\AppMailer;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
@@ -16,6 +15,7 @@ class RegistrationController extends Controller
     /**
      * Show the register page.
      *
+     * @param $language
      * @return \Response
      */
     public function register($language)
@@ -30,8 +30,9 @@ class RegistrationController extends Controller
     /**
      * Perform the registration.
      *
-     * @param  Request   $request
+     * @param  Request $request
      * @param  AppMailer $mailer
+     * @param $language
      * @return \Redirect
      */
     public function postRegister(Request $request, AppMailer $mailer, $language)
@@ -39,10 +40,10 @@ class RegistrationController extends Controller
         $this->setLanguage($language);
 
         $this->validate($request, [
-          'full_name' => 'required|max:255',
-          'username' => 'required|max:255|unique:users',
-          'email' => 'required|email|max:255|unique:users',
-          'password' => 'required|confirmed|min:6',
+            'full_name' => 'required|max:255',
+            'username' => 'required|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         $user = User::create([
@@ -53,16 +54,19 @@ class RegistrationController extends Controller
             'language' => App::getLocale(),
         ]);
 
-        $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
+        $mailer->sendEmailConfirmationTo($user,
+            trans('gottashit.email.confirm_email_subject'));
 
         $status_message = trans('auth.confirm_email');
 
-        return redirect(route('user_login', ['language' => App::getLocale()]))->with('status', $status_message);
+        return redirect(route('user_login',
+            ['language' => App::getLocale()]))->with('status', $status_message);
     }
 
     /**
      * Confirm a user's email address.
      *
+     * @param $language
      * @param  string $token
      * @return mixed
      */
@@ -72,13 +76,14 @@ class RegistrationController extends Controller
 
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
-        $status_message = trans('auth.confirmed') ;
+        $status_message = trans('auth.confirmed');
 
-        if(Auth::check()) {
+        if (Auth::check()) {
             return redirect(route('root'));
-        }
-        else {
-            return redirect(route('user_login', ['language' => App::getLocale()]))->with('status', $status_message);
+        } else {
+            return redirect(route('user_login',
+                ['language' => App::getLocale()]))->with('status',
+                $status_message);
         }
     }
 }

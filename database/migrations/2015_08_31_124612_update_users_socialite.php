@@ -23,7 +23,6 @@ class UpdateUsersSocialite extends Migration
             $table->string('username')->unique()->nullable()->change();
             $table->string('email')->nullable()->change();
         });
-
     }
 
     /**
@@ -34,7 +33,12 @@ class UpdateUsersSocialite extends Migration
     public function down()
     {
         Schema::table('users', function ($table) {
-            $table->dropColumn(['github_id', 'facebook_id', 'twitter_id', 'avatar']);
+            $table->dropColumn([
+                'github_id',
+                'facebook_id',
+                'twitter_id',
+                'avatar'
+            ]);
         });
     }
 }
