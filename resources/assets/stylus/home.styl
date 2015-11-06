@@ -1,22 +1,28 @@
-.home
-  font-size 0
-  background-color background_content
-.home-help
-  background-color home_help_background
-  display inline-block
-  vertical-align top
-  width 58%
-  font-size 2rem
-  padding 1%
-  color home_help_color
-.home-places
-  display inline-block
-  width 40%
-  font-size 1rem
-  .place-card
-    width 80%
-    margin 2em 0 0 0
-@media screen and (max-width 980px)
-  .home-help, .home-places
-    width 90%
-    padding 5%
+.home {
+  font-size: 0;
+  background-color: background_content;
+}
+.home-help {
+  background-color: home_help_background;
+  display: inline-block;
+  vertical-align: top;
+  width: 58%;
+  font-size: 2rem;
+  padding: 1%;
+  color: home_help_color;
+}
+.home-places {
+  display: inline-block;
+  width: 40%;
+  font-size: 1rem;
+  .place-card {
+    width: 80%;
+    margin: 2em 0 0 0;
+  }
+}
+@media screen and (max-width 980px) {
+  .home-help, .home-places {
+    width: 90%;
+    padding: 5%;
+  }
+}

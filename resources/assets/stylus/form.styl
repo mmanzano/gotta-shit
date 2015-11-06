@@ -1,141 +1,172 @@
-.forms
-  padding 2em
-  background form_background
-.input
-  border 0
-  border-bottom 1px solid form_input_border
-  background-color #FFF
-  background-color rgba(255, 255, 255, .8)
-  color #000
-  font-weight bolder
-  height 2em
-  padding .2em 1em
-  margin-bottom .5em
-  width 90%
-.input:focus
-  background-color #FFF
-.input-label
-  color form_label_color
-  display block
-  font-size 1em
-  font-weight bold
-  padding .5em 0
-.checkbox-margin-top
-  margin-top .5em
-.checkbox
-  vertical-align middle
-  width 2em
-.checkbox-label
-  color form_label_color
-  font-weight bold
-  margin-left .3em
-.radio
-  display none
-  margin 10px
-.radio + label
-  vertical-align middle
-  font-size 0
-  display inline-block
-  height 43px
-  width 40px
-  background-image url(/img/rate-0.png)
-  background-repeat no-repeat
-  background-position top center
-  font-weight bold
-  cursor pointer
-  margin-left -4px
+.forms {
+  padding: 2em;
+  background: form_background;
+}
+.input {
+  border: 0;
+  border-bottom: 1px solid form_input_border;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, .8);
+  color: #000;
+  font-weight: bolder;
+  height: 2em;
+  padding: .2em 1em;
+  margin-bottom: .5em;
+  width: 90%;
+}
+.input:focus {
+  background-color: #FFF;
+}
+.input-label {
+  color: form_label_color;
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  padding: .5em 0;
+}
+.checkbox-margin-top {
+  margin-top: .5em;
+}
+.checkbox {
+  vertical-align: middle;
+  width: 2em;
+}
+.checkbox-label {
+  color: form_label_color;
+  font-weight: bold;
+  margin-left: .3em;
+}
+.radio {
+  display: none;
+  margin: 10px;
+}
+.radio + label {
+  vertical-align: middle;
+  font-size: 0;
+  display: inline-block;
+  height: 43px;
+  width: 40px;
+  background-image: url(/img/rate-0.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: -4px;
+}
 .radio:checked + label,
 .input-checked + label,
-.input-checked-hover + label
-  background-image url(/img/rate-1.png)
-  background-repeat no-repeat
-  background-position top center
+.input-checked-hover + label {
+  background-image: url(/img/rate-1.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+}
 .input-checked-hover-no + label,
-.input-checked-hover-no:checked + label
-  background-image url(/img/rate-0.png)
-  background-repeat no-repeat
-  background-position top center
-
-.forgot-password
-  font-weight bold
-  text-decoration none
-  color form_label_color
-
-.actions
-  position absolute
-  right 1em
-  display inline-block
-@media screen and (max-width 750px)
-  .actions
-    position initial
-.actions-card
-  position static
-  display block
-.actions ul
-  font-size 0
-  margin 0
-  padding 0
-  text-align right
-  background-color inherit
-  li
-    vertical-align top
-    display inline-block
-.actions-rate ul
-  font-size 1rem
-  margin-bottom .5em
-  padding 0
-  background-color inherit
-  li
-    display inline-block
-.actions-subscribe ul
-  position auto
-  li
-    display block
-.button
-  background-color button_background_color
-  border 0
-  border-radius .5em
-  color button_color
-  display block
-  font-size 1rem
-  font-weight bold
-  margin 1.5em 1.5em .8em 0
-  padding .8em 2em
-  text-align center
-  text-decoration none
-.button:hover
-  background-color button_color
-  color button_background_color
-.button-rate
-  margin-left 1em
-  margin-right 0
-  font-size 1rem
-  display inline-block
-.button-card
-  margin 0
-  font-size 1rem
-  margin-left 1px
-  border-radius 0
-  padding 5px 15px
-.button-action
-  margin .2em 0 .2em .5em
-  font-size 1rem
-  padding 5px 15px
-.textarea
-  width 100%
-  height 100px
-  padding .5em
-.place-map
-  position relative
-.place-map-form-map
-  width 100%
-  height 300px
-.place-map-form-city
-  width 70%
-  position absolute
-  top 10px
-  left 10px
-  input
-    padding 2px 10px
-.place-map-form-error
-  display none
+.input-checked-hover-no:checked + label {
+  background-image: url(/img/rate-0.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+.forgot-password {
+  font-weight: bold;
+  text-decoration: none;
+  color: form_label_color;
+}
+.actions {
+  position: absolute;
+  right: 1em;
+  display: inline-block;
+}
+@media screen and (max-width 750px) {
+  .actions {
+    position: initial;
+  }
+}
+.actions-card {
+  position: static;
+  display: block;
+}
+.actions ul {
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  background-color: inherit;
+  li {
+    vertical-align: top;
+    display: inline-block;
+  }
+}
+.actions-rate ul {
+  font-size: 1rem;
+  margin-bottom: .5em;
+  padding: 0;
+  background-color: inherit;
+  li {
+    display: inline-block;
+  }
+}
+.actions-subscribe ul {
+  position: auto;
+  li {
+    display: block;
+  }
+}
+.button {
+  background-color: button_background_color;
+  border: 0;
+  border-radius: .5em;
+  color: button_color;
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 1.5em 1.5em .8em 0;
+  padding: .8em 2em;
+  text-align: center;
+  text-decoration: none;
+}
+.button:hover {
+  background-color: button_color;
+  color: button_background_color;
+}
+.button-rate {
+  margin-left: 1em;
+  margin-right: 0;
+  font-size: 1rem;
+  display: inline-block;
+}
+.button-card {
+  margin: 0;
+  font-size: 1rem;
+  margin-left: 1px;
+  border-radius: 0;
+  padding: 5px 15px;
+}
+.button-action {
+  margin: .2em 0 .2em .5em;
+  font-size: 1rem;
+  padding: 5px 15px;
+}
+.textarea {
+  width: 100%;
+  height: 100px;
+  padding: .5em;
+}
+.place-map {
+  position: relative;
+}
+.place-map-form-map {
+  width: 100%;
+  height: 300px;
+}
+.place-map-form-city {
+  width: 70%;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  input {
+    padding: 2px 10px;
+  }
+}
+.place-map-form-error {
+  display: none;
+}
