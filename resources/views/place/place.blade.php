@@ -58,7 +58,7 @@
                             </form>
                         </li>
 
-                        @if($place->starForUser()['id'])
+                        @if($place->user_has_voted)
                             @include('place.partials.delete_rate')
                         @endif
 
@@ -75,7 +75,7 @@
                 <div class="place-stars-points" id="place-stars-points-{{ $place->id }}">
                 </div>
             </div>
-            <div class="place-stars-text">{{ $place->starForPlace()['average'] }} / {{ trans('gottashit.star.votes') }}: {{ $place->starForPlace()['votes'] }}</div>
+            <div class="place-stars-text">{{ $place->stars_average }} / {{ trans('gottashit.star.votes') }}: {{ $place->stars_amount }}</div>
         </div>
         <div class="place-comments">
              <div class="place-comments-number">

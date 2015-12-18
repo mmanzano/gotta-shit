@@ -20,7 +20,7 @@
                         name: "{{$place->name}}",
                         geo_lat: "{{ $place->geo_lat }}",
                         geo_lng: "{{ $place->geo_lng }}",
-                        stars_width: "{{ $place->starForPlace()['width'] }}",
+                        stars_width: "{{ $place->stars_progress_bar }}",
                     },
                 @endforeach
                 ],
@@ -30,7 +30,7 @@
                 name: "{{$place->name}}",
                 geo_lat: "{{ $place->geo_lat }}",
                 geo_lng: "{{ $place->geo_lng }}",
-                stars_width: "{{ $place->starForPlace()['width'] }}",
+                stars_width: "{{ $place->stars_progress_bar }}",
                 },
             'places': undefined,
         @endif

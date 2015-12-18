@@ -83,7 +83,7 @@ class StarController extends Controller
 
         $place = Place::findOrFail($id_place);
 
-        $idStar = $place->starForUser()['id'];
+        $idStar = $place->id_of_user_star;
 
         if ($idStar == 0) {
             $star = new PlaceStar();
@@ -106,8 +106,8 @@ class StarController extends Controller
             return response()->json([
                 'status' => 200,
                 'status_message' => $status_message,
-                'star_width' => $place->starForPlace()['width'],
-                'star_text' => $place->starForPlace()['average'] . ' / ' . trans('gottashit.star.votes') . ': ' . $place->starForPlace()['votes'],
+                'star_width' => $place->stars_progress_bar,
+                'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': ' . $place->stars_amount,
                 'button_delete_rate' => view('place.partials.delete_rate',
                     compact('place'))->render(),
             ]);
@@ -133,7 +133,7 @@ class StarController extends Controller
 
         $place = Place::findOrFail($id);
 
-        $idStar = $place->starForUser()['id'];
+        $idStar = $place->id_of_user_star;
 
         if ($idStar != 0) {
             $star = PlaceStar::findOrFail($idStar);
@@ -148,8 +148,8 @@ class StarController extends Controller
             return response()->json([
                 'status' => 200,
                 'status_message' => $status_message,
-                'star_width' => $place->starForPlace()['width'],
-                'star_text' => $place->starForPlace()['average'] . ' / ' . trans('gottashit.star.votes') . ': ' . $place->starForPlace()['votes'],
+                'star_width' => $place->stars_progress_bar,
+                'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': ' . $place->stars_amount,
             ]);
         } else {
             return redirect(route('place',

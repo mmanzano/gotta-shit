@@ -89,52 +89,81 @@ class Place extends Model
         });
     }
 
-    public function starForPlace()
+    public function getStarsAmountAttribute()
     {
         $starsForPlace = $this->starsWithTrashed()->getResults();
 
-        $starResult = array(
-            'votes' => 0,
-            'totalStar' => 0,
-            'average' => 0,
-            'width' => '0%',
-        );
-
-        foreach ($starsForPlace as $star) {
-            $starResult['votes']++;
-            $starResult['totalStar'] += $star->stars;
-        }
-
-        if ($starResult['votes'] != 0) {
-            $starResult['average'] = number_format($starResult['totalStar'] / $starResult['votes'],
-                2);
-            $starResult['width'] = number_format(($starResult['average'] / 5) * 100,
-                    0) . '%';
-        }
-
-        return $starResult;
+        return $starsForPlace->count();
     }
 
-    public function starForUser()
+    public function getStarsAverageAttribute()
     {
         $starsForPlace = $this->starsWithTrashed()->getResults();
 
-        $stars = array(
-            'id' => 0,
-            'stars' => -1,
-        );
+        if($starsForPlace->count() == 0) {
+            return 0.00;
+        }
+
+        $average = $starsForPlace->sum('stars') / $starsForPlace->count();
+
+        return number_format($average, 2);
+    }
+
+    public function getStarsProgressBarAttribute()
+    {
+        $starsForPlace = $this->starsWithTrashed()->getResults();
+
+        if($starsForPlace->count() == 0) {
+            return '0%';
+        }
+
+        $average = $starsForPlace->sum('stars') / $starsForPlace->count();
+        $averagePercent = ($average / 5) * 100;
+
+        return number_format($averagePercent, 0) . '%';
+    }
+
+    public function getUserHasVotedAttribute()
+    {
+        $starsForPlace = $this->starsWithTrashed()->getResults();
 
         foreach ($starsForPlace as $star) {
             if ($star->user->id == Auth::user()->id) {
-                $stars = array(
-                    'id' => $star->id,
-                    'stars' => number_format($star->stars, 0),
-                );
+                return $star->id;
             }
         }
 
-        return $stars;
+        return false;
     }
+
+
+    public function getIdOfUserStarAttribute()
+    {
+        $starsForPlace = $this->starsWithTrashed()->getResults();
+
+        foreach ($starsForPlace as $star) {
+            if ($star->user->id == Auth::user()->id) {
+                return $star->id;
+            }
+        }
+
+        return false;
+    }
+
+    public function getCurrentUserVoteAttribute()
+    {
+        $starsForPlace = $this->starsWithTrashed()->getResults();
+
+        foreach ($starsForPlace as $star) {
+            if ($star->user->id == Auth::user()->id) {
+                return number_format($star->stars, 0);
+            }
+        }
+
+        return -1;
+    }
+
+
 
     public function getNumberOfCommentsAttribute()
     {

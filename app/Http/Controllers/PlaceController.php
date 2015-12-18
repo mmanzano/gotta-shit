@@ -179,7 +179,7 @@ class PlaceController extends Controller
 
             $place->save();
 
-            $idStar = $place->starForUser()['id'];
+            $idStar = $place->id_of_user_star;
 
             if ($idStar == 0) {
                 $star = new PlaceStar();
