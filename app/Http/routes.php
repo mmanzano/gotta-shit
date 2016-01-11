@@ -79,14 +79,15 @@ Route::group(['prefix' => '{language}'], function () {
     ]);
 
     Route::resource('user', 'Auth/UserController', [
+      'only' => [
+        'show',
+        'edit',
+        'update',
+      ],
       'names' => [
-        'index'   => 'user.index',
-        'create'  => 'user.create',
-        'store'   => 'user.store',
         'show'    => 'user.show',
         'edit'    => 'user.edit',
         'update'  => 'user.update',
-        'destroy' => 'user.destroy',
       ]
     ]);
 
