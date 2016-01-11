@@ -112,7 +112,7 @@ class StarController extends Controller
                     compact('place'))->render(),
             ]);
         } else {
-            return redirect(route('place',
+            return redirect(route('place.show',
                 [
                     'language' => $language,
                     'place' => $place->id
@@ -152,7 +152,7 @@ class StarController extends Controller
                 'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': ' . $place->stars_amount,
             ]);
         } else {
-            return redirect(route('place',
+            return redirect(route('place.show',
                 [
                     'language' => $language,
                     'place' => $place->id

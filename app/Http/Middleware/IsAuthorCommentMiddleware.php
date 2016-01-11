@@ -30,7 +30,7 @@ class IsAuthorCommentMiddleware
                 $status_message = trans('gottashit.comment.edit_comment_not_allowed',
                     ['place' => $place->name]);
 
-                return redirect(route('place', [
+                return redirect(route('place.show', [
                     'language' => $request->language,
                     'place' => $request->place
                 ]))->with('status', $status_message);
@@ -39,7 +39,7 @@ class IsAuthorCommentMiddleware
             $status_message = trans('gottashit.comment.edit_comment_not_allowed',
                 ['place' => $place->name]);
 
-            return redirect(route('place', [
+            return redirect(route('place.show', [
                 'language' => $request->language,
                 'place' => $request->place
             ]))->with('status', $status_message);

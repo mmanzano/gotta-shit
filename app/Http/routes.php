@@ -11,6 +11,37 @@
 |
 */
 
+Route::group(['prefix' => '{language}'], function () {
+    // Best Places
+    Route::get('place/best',
+      ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
+
+    // Place for a user
+    Route::get('place/user',
+      ['as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
+
+    // Nearest Places
+    Route::get('place/{lat}/{lng}/{distance}',
+      ['as' => 'nearest_places', 'uses' => 'PlaceController@nearest']);
+
+    Route::resource('place', 'PlaceController', [
+      'names' => [
+        'index'   => 'place.index',
+        'create'  => 'place.create',
+        'store'   => 'place.store',
+        'show'    => 'place.show',
+        'edit'    => 'place.edit',
+        'update'  => 'place.update',
+        'destroy' => 'place.destroy',
+      ]
+    ]);
+
+    Route::post('place/{place}/restore',
+      ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
+});
+
+
+
 // Authentication and Registration routes
 Route::group(['middleware' => ['guest']], function () {
     // Authentication routes
@@ -72,16 +103,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/{language}/logout',
         ['as' => 'user_logout', 'uses' => 'Auth\SessionsController@logout']);
 
-    // Place for a user
-    Route::get('/{language}/place/user',
-        ['as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
-
-    // Create a place
-    Route::get('/{language}/place/create',
-        ['as' => 'place_create_form', 'uses' => 'PlaceController@create']);
-    Route::post('/{language}/place',
-        ['as' => 'place_create', 'uses' => 'PlaceController@store']);
-
     // Update Stars Rate for a place
     Route::put('/{language}/place/{place}/stars',
         ['as' => 'place_stars_edit', 'uses' => 'StarController@update']);
@@ -92,20 +113,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Post a Comment
     Route::post('/{language}/place/{place}/comment',
         ['as' => 'place_comment_create', 'uses' => 'CommentController@store']);
-});
-
-// Edit, update, delete, restore place
-Route::group(['middleware' => ['isAuthor']], function () {
-    Route::get('/{language}/place/{place}/edit',
-        ['as' => 'place_edit_form', 'uses' => 'PlaceController@edit']);
-});
-Route::group(['middleware' => ['auth']], function () {
-    Route::put('/{language}/place/{place}',
-        ['as' => 'place_edit', 'uses' => 'PlaceController@update']);
-    Route::delete('/{language}/place/{place}',
-        ['as' => 'place_delete', 'uses' => 'PlaceController@destroy']);
-    Route::post('/{language}/place/{place}/restore',
-        ['as' => 'place_restore', 'uses' => 'PlaceController@restorePlace']);
 });
 
 // Comments
@@ -141,22 +148,6 @@ Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 // Home
 Route::get('/{language}',
     ['as' => 'home', 'uses' => 'HomeController@index_locale']);
-
-// All places
-Route::get('/{language}/place',
-    ['as' => 'all_places', 'uses' => 'PlaceController@index']);
-
-// Best Places
-Route::get('/{language}/place/best',
-    ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
-
-// Nearest Places
-Route::get('/{language}/place/{lat}/{lng}/{distance}',
-    ['as' => 'nearest_places', 'uses' => 'PlaceController@nearest']);
-
-// Display a place
-Route::get('/{language}/place/{place}',
-    ['as' => 'place', 'uses' => 'PlaceController@show']);
 
 // Language change
 Route::get('/{language}/change',

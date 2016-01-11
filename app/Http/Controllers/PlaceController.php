@@ -19,6 +19,15 @@ use Illuminate\Support\Facades\Session;
 
 class PlaceController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth', ['only' => ['create', 'store', 'update', 'destroy', 'restore', 'placesForUser']]);
+
+        $this->middleware('isAuthor', ['only' => ['edit']]);
+
+        //$this->middleware('subscribed', ['except' => ['fooAction', 'barAction']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -95,7 +104,7 @@ class PlaceController extends Controller
         $status_message = trans('gottashit.place.created_place',
             ['place' => $place->name]);
 
-        return redirect(route('place',
+        return redirect(route('place.show',
             ['language' => $language, 'place' => $place->id]))->with('status',
             $status_message);
     }
@@ -198,7 +207,7 @@ class PlaceController extends Controller
             $status_message = trans('gottashit.place.updated_place',
                 ['place' => $place->name]);
 
-            return redirect(route('place',
+            return redirect(route('place.show',
                 [
                     'language' => $language,
                     'place' => $place->id
@@ -248,7 +257,7 @@ class PlaceController extends Controller
         }
     }
 
-    public function restorePlace($language, $place_id)
+    public function restore($language, $place_id)
     {
         $this->setLanguage($language);
 
@@ -260,7 +269,7 @@ class PlaceController extends Controller
             $status_message = trans('gottashit.place.restored_place',
                 ['place' => $place->name]);
 
-            return redirect(route('place',
+            return redirect(route('place.show',
                 [
                     'language' => $language,
                     'place' => $place->id

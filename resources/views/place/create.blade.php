@@ -12,7 +12,7 @@
         </div>
     @endif
     <div class="forms">
-        <form method="POST" action="{{ route('place_create', ['language' => App::getLocale()]) }}">
+        <form method="POST" action="{{ route('place.store', ['language' => App::getLocale()]) }}">
             {!! csrf_field() !!}
             @include('place.partials.form_place')
             <div>

@@ -87,7 +87,7 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = env('SES_EMAIL');
         $this->view = 'emails.notification.place';
-        $path = route('place',
+        $path = route('place.show',
             ['language' => App::getLocale(), 'place' => $place->id]);
         $path_user = route('user_profile',
             ['language' => App::getLocale(), 'user' => $user->id]);
@@ -115,7 +115,7 @@ class AppMailer
             $this->from = env('SES_EMAIL');
             $this->to = $subscriber->email;
             $this->view = 'emails.notification.comment';
-            $path = route('place', [
+            $path = route('place.show', [
                     'language' => App::getLocale(),
                     'place' => $place->id
                 ]) . '#comment-' . $comment->id;

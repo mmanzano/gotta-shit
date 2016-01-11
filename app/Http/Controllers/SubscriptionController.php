@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
                 'request' => $request->getMethod(),
             ]);
         } else {
-            return redirect(route('place',
+            return redirect(route('place.show',
                 [
                     'language' => $language,
                     'place' => $place_id

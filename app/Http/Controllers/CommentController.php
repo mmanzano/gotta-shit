@@ -119,7 +119,7 @@ class CommentController extends Controller
                     compact('place'))->render(),
             ]);
         } else {
-            return redirect(route('place', [
+            return redirect(route('place.show', [
                     'language' => $language,
                     'place' => $place->id
                 ]) . '#comment-' . $comment->id)->with('status',
@@ -208,7 +208,7 @@ class CommentController extends Controller
                 'number_of_comments' => $number_of_comments,
             ]);
         } else {
-            return redirect(route('place', [
+            return redirect(route('place.show', [
                     'language' => $language,
                     'place' => $place->id
                 ]) . '#comment-' . $comment->id)->with('status',
@@ -251,7 +251,7 @@ class CommentController extends Controller
                 'number_of_comments' => $number_of_comments,
             ]);
         } else {
-            return redirect(route('place',
+            return redirect(route('place.show',
                 [
                     'language' => $language,
                     'place' => $place->id
