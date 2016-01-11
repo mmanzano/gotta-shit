@@ -68,6 +68,10 @@ Route::group(['prefix' => '{language}'], function () {
     ]);
 
     Route::resource('place.subscribe', 'SubscriptionController', [
+      'only' => [
+        'store',
+        'destroy',
+      ],
       'names' => [
         'store'   => 'place.subscribe.store',
         'destroy' => 'place.subscribe.destroy',
