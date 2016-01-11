@@ -62,17 +62,22 @@ Route::group(['prefix' => '{language}'], function () {
         'destroy' => 'place.stars.destroy',
       ]
     ]);
+
+    // Authentication routes
+    Route::get('login',
+      ['as' => 'user_login', 'uses' => 'Auth\SessionsController@login']);
+    Route::post('login',
+      ['as' => 'user_login', 'uses' => 'Auth\SessionsController@postLogin']);
+    Route::get('logout',
+      ['as' => 'user_logout', 'uses' => 'Auth\SessionsController@logout']);
+
+
 });
 
 
 
 // Authentication and Registration routes
 Route::group(['middleware' => ['guest']], function () {
-    // Authentication routes
-    Route::get('/{language}/login',
-        ['as' => 'user_login', 'uses' => 'Auth\SessionsController@login']);
-    Route::post('/{language}/login',
-        ['as' => 'user_login', 'uses' => 'Auth\SessionsController@postLogin']);
 
     // Registration routes
     Route::get('/{language}/register', [
@@ -122,10 +127,6 @@ Route::group(['middleware' => ['auth']], function () {
     //Show User
     Route::get('/{language}/user/{user}',
         ['as' => 'user_profile', 'uses' => 'Auth\UserController@show']);
-
-    // Logout
-    Route::get('/{language}/logout',
-        ['as' => 'user_logout', 'uses' => 'Auth\SessionsController@logout']);
 });
 
 // Subscriptions

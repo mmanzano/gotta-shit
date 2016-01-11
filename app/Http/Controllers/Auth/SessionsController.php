@@ -15,6 +15,12 @@ class SessionsController extends Controller
 
     protected $loginPath;
 
+    public function __construct(){
+        $this->middleware('guest', ['only' => ['login', 'postLogin']]);
+
+        $this->middleware('auth', ['only' => ['logout']]);
+    }
+
     /**
      * Show the login page.
      *
