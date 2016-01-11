@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Session;
 
 class RegistrationController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('guest', ['only' => ['register', 'postRegister']]);
+    }
     /**
      * Show the register page.
      *
