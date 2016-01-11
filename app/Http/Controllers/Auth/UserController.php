@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function show($language, $user_id)
     {
         $this->setLanguage($language);
@@ -34,7 +39,7 @@ class UserController extends Controller
         if (!$this->is_user($user_id)) {
             $status_message = trans('gottashit.user.edit_user_not_allowed');
 
-            return redirect(route('user_profile', [
+            return redirect(route('user.show', [
                 'language' => $language,
                 'user' => Auth::user()->id
             ]))->with('status', $status_message);
@@ -113,7 +118,7 @@ class UserController extends Controller
                 ['language' => $language]))->with('status', $status_message);
         }
 
-        return redirect(route('user_profile', [
+        return redirect(route('user.show', [
             'language' => $language,
             'user' => Auth::user()->id
         ]))->with('status', $status_message);

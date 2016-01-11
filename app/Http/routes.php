@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
+
 Route::group(['prefix' => '{language}'], function () {
     // Best Places
     Route::get('place/best',
@@ -63,6 +65,25 @@ Route::group(['prefix' => '{language}'], function () {
       ]
     ]);
 
+    Route::resource('place.subscribe', 'SubscriptionController', [
+      'names' => [
+        'store'   => 'place.subscribe.store',
+        'destroy' => 'place.subscribe.destroy',
+      ]
+    ]);
+
+    Route::resource('user', 'Auth/UserController', [
+      'names' => [
+        'index'   => 'user.index',
+        'create'  => 'user.create',
+        'store'   => 'user.store',
+        'show'    => 'user.show',
+        'edit'    => 'user.edit',
+        'update'  => 'user.update',
+        'destroy' => 'user.destroy',
+      ]
+    ]);
+
     // Authentication
     Route::get('login',
       ['as' => 'user_login', 'uses' => 'Auth\SessionsController@login']);
@@ -110,33 +131,9 @@ Route::group(['prefix' => '{language}'], function () {
       'uses' => 'Auth\PasswordController@postLocaleReset'
     ]);
 
+
 });
 
-// Routes for authenticate users
-Route::group(['middleware' => ['auth']], function () {
-    // Edit User
-    Route::get('/{language}/user/{user}/edit',
-        ['as' => 'user_edit_form', 'uses' => 'Auth\UserController@edit']);
-    // Update User
-    Route::put('/{language}/user/{user}',
-        ['as' => 'user_edit', 'uses' => 'Auth\UserController@update']);
-
-    //Show User
-    Route::get('/{language}/user/{user}',
-        ['as' => 'user_profile', 'uses' => 'Auth\UserController@show']);
-});
-
-// Subscriptions
-Route::group(['middleware' => ['auth']], function () {
-    Route::post('/{language}/place/{place}/subscribe',
-        ['as' => 'place_subscribe', 'uses' => 'SubscriptionController@store']);
-    Route::delete('/{language}/place/{place}/unsubscribe', [
-        'as' => 'place_unsubscribe',
-        'uses' => 'SubscriptionController@destroy'
-    ]);
-});
-
-Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 // Home
 Route::get('/{language}',
     ['as' => 'home', 'uses' => 'HomeController@index_locale']);

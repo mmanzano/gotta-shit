@@ -160,7 +160,7 @@ class AuthController extends Controller
 
         Auth::login($authUser, true);
 
-        return redirect(route('user_profile',
+        return redirect(route('user.show',
             ['language' => App::getLocale(), 'user' => Auth::user()->id]));
     }
 

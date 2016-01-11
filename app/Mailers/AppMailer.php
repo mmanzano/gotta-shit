@@ -89,7 +89,7 @@ class AppMailer
         $this->view = 'emails.notification.place';
         $path = route('place.show',
             ['language' => App::getLocale(), 'place' => $place->id]);
-        $path_user = route('user_profile',
+        $path_user = route('user.show',
             ['language' => App::getLocale(), 'user' => $user->id]);
         $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;
@@ -119,7 +119,7 @@ class AppMailer
                     'language' => App::getLocale(),
                     'place' => $place->id
                 ]) . '#comment-' . $comment->id;
-            $path_author_of_comment = route('user_profile', [
+            $path_author_of_comment = route('user.show', [
                 'language' => App::getLocale(),
                 'user' => $author_of_comment->id
             ]);

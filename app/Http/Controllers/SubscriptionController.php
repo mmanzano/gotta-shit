@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth as Auth;
 
 class SubscriptionController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function store(Request $request, $language, $place_id)
     {
         $this->setLanguage($language);
