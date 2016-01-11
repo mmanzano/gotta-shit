@@ -14,6 +14,13 @@
 Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 
 Route::group(['prefix' => '{language}'], function () {
+    // Home
+    Route::get('', ['as' => 'home', 'uses' => 'HomeController@index_locale']);
+
+    // Language change
+    Route::get('change',
+      ['as' => 'language', 'uses' => 'LanguageController@change']);
+
     // Best Places
     Route::get('place/best',
       ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
@@ -137,17 +144,7 @@ Route::group(['prefix' => '{language}'], function () {
       'as' => 'user_password_reset',
       'uses' => 'Auth\PasswordController@postLocaleReset'
     ]);
-
-
 });
-
-// Home
-Route::get('/{language}',
-    ['as' => 'home', 'uses' => 'HomeController@index_locale']);
-
-// Language change
-Route::get('/{language}/change',
-    ['as' => 'language', 'uses' => 'LanguageController@change']);
 
 // Social Authentication
 Route::get('/auth/{provider}',
@@ -156,6 +153,7 @@ Route::get('/auth/{provider}',
         'uses' => 'Auth\AuthController@redirectToProvider'
     ])
     ->where('provider', 'facebook|github|twitter');
+
 Route::get('/auth/{provider}/callback', [
     'as' => 'social_callback',
     'uses' => 'Auth\AuthController@handleProviderCallback'
