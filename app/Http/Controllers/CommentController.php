@@ -16,6 +16,13 @@ use Illuminate\Support\Facades\Session;
 
 class CommentController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth', ['only' => ['store', 'update', 'destroy']]);
+
+        $this->middleware('isAuthorComment', ['only' => ['edit']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -107,7 +107,7 @@
             @if(! $place->trashed())
                 @if(Auth::check())
                     <div class="forms">
-                        <form method="POST" action="{{ route('place_comment_create', ['language' => App::getLocale(), 'place' => $place->id]) }}" class="create-comment-form">
+                        <form method="POST" action="{{ route('place.comment.store', ['language' => App::getLocale(), 'place' => $place->id]) }}" class="create-comment-form">
                             {!! csrf_field() !!}
                             <div>
                                 <label class="input-label" for="comment">

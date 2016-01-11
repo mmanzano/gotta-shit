@@ -38,6 +38,18 @@ Route::group(['prefix' => '{language}'], function () {
 
     Route::post('place/{place}/restore',
       ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
+
+    Route::resource('place.comment', 'CommentController', [
+      'names' => [
+        'index'   => 'place.comment.index',
+        'create'  => 'place.comment.create',
+        'store'   => 'place.comment.store',
+        'show'    => 'place.comment.show',
+        'edit'    => 'place.comment.edit',
+        'update'  => 'place.comment.update',
+        'destroy' => 'place.comment.destroy',
+      ]
+    ]);
 });
 
 
@@ -109,29 +121,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Delete Stars Rate for a place
     Route::delete('/{language}/place/{place}/stars',
         ['as' => 'place_stars_delete', 'uses' => 'StarController@destroy']);
-
-    // Post a Comment
-    Route::post('/{language}/place/{place}/comment',
-        ['as' => 'place_comment_create', 'uses' => 'CommentController@store']);
-});
-
-// Comments
-Route::group(['middleware' => ['isAuthorComment']], function () {
-    Route::get('/{language}/place/{place}/comment/{comment}/edit',
-        [
-            'as' => 'place_comment_edit_form',
-            'uses' => 'CommentController@edit'
-        ]);
-});
-
-Route::group(['middleware' => ['auth']], function () {
-    Route::put('/{language}/place/{place}/comment/{comment}',
-        ['as' => 'place_comment_edit', 'uses' => 'CommentController@update']);
-    Route::delete('/{language}/place/{place}/comment/{comment}',
-        [
-            'as' => 'place_comment_delete',
-            'uses' => 'CommentController@destroy'
-        ]);
 });
 
 // Subscriptions
