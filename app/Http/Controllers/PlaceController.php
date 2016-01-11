@@ -24,9 +24,7 @@ class PlaceController extends Controller
         $this->middleware('auth', ['only' => ['create', 'store', 'update', 'destroy', 'restore', 'placesForUser']]);
 
         $this->middleware('isAuthor', ['only' => ['edit']]);
-
-        //$this->middleware('subscribed', ['except' => ['fooAction', 'barAction']]);
-    }
+   }
 
     /**
      * Display a listing of the resource.
