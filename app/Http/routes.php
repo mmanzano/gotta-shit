@@ -57,12 +57,11 @@ Route::group(['prefix' => '{language}'], function () {
     ]);
 
     Route::resource('place.stars', 'StarController', [
+      'only' => [
+        'update',
+        'destroy',
+      ],
       'names' => [
-        'index'   => 'place.stars.index',
-        'create'  => 'place.stars.create',
-        'store'   => 'place.stars.store',
-        'show'    => 'place.stars.show',
-        'edit'    => 'place.stars.edit',
         'update'  => 'place.stars.update',
         'destroy' => 'place.stars.destroy',
       ]
