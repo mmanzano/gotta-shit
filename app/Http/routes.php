@@ -50,6 +50,18 @@ Route::group(['prefix' => '{language}'], function () {
         'destroy' => 'place.comment.destroy',
       ]
     ]);
+
+    Route::resource('place.stars', 'StarController', [
+      'names' => [
+        'index'   => 'place.stars.index',
+        'create'  => 'place.stars.create',
+        'store'   => 'place.stars.store',
+        'show'    => 'place.stars.show',
+        'edit'    => 'place.stars.edit',
+        'update'  => 'place.stars.update',
+        'destroy' => 'place.stars.destroy',
+      ]
+    ]);
 });
 
 
@@ -114,13 +126,6 @@ Route::group(['middleware' => ['auth']], function () {
     // Logout
     Route::get('/{language}/logout',
         ['as' => 'user_logout', 'uses' => 'Auth\SessionsController@logout']);
-
-    // Update Stars Rate for a place
-    Route::put('/{language}/place/{place}/stars',
-        ['as' => 'place_stars_edit', 'uses' => 'StarController@update']);
-    // Delete Stars Rate for a place
-    Route::delete('/{language}/place/{place}/stars',
-        ['as' => 'place_stars_delete', 'uses' => 'StarController@destroy']);
 });
 
 // Subscriptions

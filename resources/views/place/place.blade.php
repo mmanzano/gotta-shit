@@ -50,7 +50,7 @@
                 <div class="star-rate actions-rate">
                     <ul>
                         <li>
-                            <form method="POST" action="{{ route('place_stars_edit', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                            <form method="POST" action="{{ route('place.stars.update', ['language' => App::getLocale(), 'place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="PUT">
                                 @include('place.partials.form_stars')
