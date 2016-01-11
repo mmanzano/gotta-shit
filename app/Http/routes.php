@@ -42,11 +42,14 @@ Route::group(['prefix' => '{language}'], function () {
       ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
 
     Route::resource('place.comment', 'CommentController', [
+      'only' => [
+        'store',
+        'edit',
+        'update',
+        'destroy',
+      ],
       'names' => [
-        'index'   => 'place.comment.index',
-        'create'  => 'place.comment.create',
         'store'   => 'place.comment.store',
-        'show'    => 'place.comment.show',
         'edit'    => 'place.comment.edit',
         'update'  => 'place.comment.update',
         'destroy' => 'place.comment.destroy',
