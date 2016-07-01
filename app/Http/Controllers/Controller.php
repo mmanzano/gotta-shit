@@ -16,20 +16,25 @@ abstract class Controller extends BaseController
 
     public function setLanguage($language = null)
     {
+        $locale = [
+            'en' => '',
+            'es' => 'es_ES.UTF-8',
+        ];
+
         if (Auth::check()) {
-            App::setLocale(Auth::user()->language);
+            $language = Auth::user()->language;
         } else {
             if (Session::get('language')) {
-                App::setLocale(Session::get('language'));
+                $language = Session::get('language');
             } else {
-                if (!is_null($language)) {
-                    App::setLocale($language);
-                } else {
+                if (is_null($language)) {
                     $language = $this->getLanguageFromBrowser();
-                    App::setLocale($language);
                 }
             }
         }
+
+        App::setLocale($language);
+        setlocale(LC_TIME, $locale[$language]);
     }
 
     public function setLanguageUser(User $user)
