@@ -1,0 +1,66 @@
+$background_header: #39BCA4;
+$background_header_color: #F1EEDA;
+$background_nav: #41868F;
+$background_nav_link: #91D4DA;
+$background_nav_color: #FFFFFF;
+
+$header_background: $background_header;
+$header_title: $background_header_color;
+
+$background_content: $background_nav_link;
+$background_place: $background_nav;
+$background_place_body: $background_header;
+$background_footer: #CADDCF;
+
+$button_background_color: $background_nav_link;
+$button_color: $background_nav_color;
+
+$nav_background: $background_nav;
+$nav_link_background: $background_nav_link;
+$nav_link: $background_nav_color;
+
+$disclaimer_background: $background_content - 100;
+$disclaimer_color: #F5F5F5;
+
+$errors_background: gray;
+$error_color: #a94442;
+$error_background: #f2dede;
+
+$home_help_background: $background_content + 50;
+$home_help_color: $background_content - 100;
+
+$pagination_background: $background_content;
+$pagination_color: whitesmoke;
+$pagination_border: whitesmoke;
+$pagination_link_background: $background_place;
+$pagination_link_background_active: $background_header;
+$pagination_link_background_disabled: $background_place;
+
+$place_background: $background_content;
+$place_title_background: $background_place;
+$place_title_color: whitesmoke;
+$place_stars_background: #41868F;
+$place_stars_points_background: #FF7335;
+$place_stars_text_color: #FFFFFF;
+
+$place_comments_background: $background_place_body;
+$place_card_comments_color: $background_header_color;
+$place-comments-number-color: $background_header_color;
+$place_comments_user_background: $background_header_color;
+$place_comments_user_color: $background_header;
+$place_comments_user_body: $background_nav_color;
+$place_comments_user_body_color: $background_nav;
+
+$places_background: $background_content;
+$place_card_background: saddlebrown;
+$place_card_color: whitesmoke;
+$place_card_title_color: whitesmoke;
+$place_card_footer_background: red;
+$place_card_footer_color: gray;
+$place_card_comments_background: #DB495E;
+
+$form_background: $background_place;
+$form_label_color: #F1EEDA;
+$form_input_border: greenyellow;
+
+$footer_background: $background_footer;

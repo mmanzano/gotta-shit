@@ -1,15 +1,15 @@
 .home {
   font-size: 0;
-  background-color: background_content;
+  background-color: $background_content;
 }
 .home-help {
-  background-color: home_help_background;
+  background-color: $home_help_background;
   display: inline-block;
   vertical-align: top;
   width: 58%;
   font-size: 2rem;
   padding: 1%;
-  color: home_help_color;
+  color: $home_help_color;
 }
 .home-places {
   display: inline-block;
@@ -20,7 +20,7 @@
     margin: 2em 0 0 0;
   }
 }
-@media screen and (max-width 980px) {
+@media screen and (max-width: 980px) {
   .home-help, .home-places {
     width: 90%;
     padding: 5%;

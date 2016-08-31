@@ -1,10 +1,10 @@
 .forms {
   padding: 2em;
-  background: form_background;
+  background: $form_background;
 }
 .input {
   border: 0;
-  border-bottom: 1px solid form_input_border;
+  border-bottom: 1px solid $form_input_border;
   background-color: #FFF;
   background-color: rgba(255, 255, 255, .8);
   color: #000;
@@ -18,7 +18,7 @@
   background-color: #FFF;
 }
 .input-label {
-  color: form_label_color;
+  color: $form_label_color;
   display: block;
   font-size: 1em;
   font-weight: bold;
@@ -32,7 +32,7 @@
   width: 2em;
 }
 .checkbox-label {
-  color: form_label_color;
+  color: $form_label_color;
   font-weight: bold;
   margin-left: .3em;
 }
@@ -69,14 +69,14 @@
 .forgot-password {
   font-weight: bold;
   text-decoration: none;
-  color: form_label_color;
+  color: $form_label_color;
 }
 .actions {
   position: absolute;
   right: 1em;
   display: inline-block;
 }
-@media screen and (max-width 750px) {
+@media screen and (max-width: 750px) {
   .actions {
     position: initial;
   }
@@ -112,10 +112,10 @@
   }
 }
 .button {
-  background-color: button_background_color;
+  background-color: $button_background_color;
   border: 0;
   border-radius: .5em;
-  color: button_color;
+  color: $button_color;
   display: block;
   font-size: 1rem;
   font-weight: bold;
@@ -125,8 +125,8 @@
   text-decoration: none;
 }
 .button:hover {
-  background-color: button_color;
-  color: button_background_color;
+  background-color: $button_color;
+  color: $button_background_color;
 }
 .button-rate {
   margin-left: 1em;

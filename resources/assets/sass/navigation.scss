@@ -2,7 +2,7 @@
   font-size: 0;
   margin: 0;
   padding: 0;
-  background-color: nav_background;
+  background-color: $nav_background;
   text-align: right;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
@@ -10,8 +10,8 @@
     display: inline-block;
   }
   a {
-    background-color: nav_link_background;
-    color: nav_link;
+    background-color: $nav_link_background;
+    color: $nav_link;
     display: block;
     font-size: 1.5rem;
     height: 30px;
@@ -21,30 +21,29 @@
     text-align: center;
     text-decoration: none;
     &:hover {
-      background-color: nav_link;
-      color: nav_link_background;
-      mouse-pointer;
+      background-color: $nav_link;
+      color: $nav_link_background;
     }
   }
 }
 .navigation-user {
-  background-color: nav_link_background;
+  background-color: $nav_link_background;
   li a {
     font-size: 1.2rem;
     height: 20px;
     line-height: 20px;
     margin-left: 5px;
-    background-color: nav_background;
+    background-color: $nav_background;
   }
   &:hover {
-    background-color: nav_link_background;
-    color: nav_link;
+    background-color: $nav_link_background;
+    color: $nav_link;
   }
 }
 a.menu-button {
   display: none;
 }
-@media screen and (max-width 750px) {
+@media screen and (max-width: 750px) {
   .navigation {
     height: 51px;
     overflow: hidden;

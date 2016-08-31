@@ -1,13 +1,13 @@
 .place {
   padding: 1em;
-  background-color: place_background;
+  background-color: $place_background;
 }
 .places {
   text-align: center;
-  background-color: places_background;
+  background-color: $places_background;
 }
 .place-card {
-  color: place_card_color;
+  color: $place_card_color;
   margin: 1em 5em 3em 5em;
   width: 30em;
   display: inline-block;
@@ -17,38 +17,38 @@
     margin: 0;
   }
 }
-@media screen and (max-width 1200px) {
+@media screen and (max-width: 1200px) {
   .place-card {
     width: 25em;
     margin: 1em 1em 1em 1em;
   }
 }
-@media screen and (max-width 890px) {
+@media screen and (max-width: 890px) {
   .place-card {
     width: 35em;
   }
 }
-@media screen and (max-width 600px) {
+@media screen and (max-width: 600px) {
   .place-card {
     width: 15em;
   }
 }
 .place-title, .place-title-card {
-  background-color: place_title_background;
+  background-color: $place_title_background;
   border-radius: .8em .8em 0 0;
-  color: place_title_color;
+  color: $place_title_color;
   padding: .3em;
   position: relative;
 }
 .place-title-link, .place-title-link-card {
-  color: place_title_color;
+  color: $place_title_color;
   text-decoration: none;
   display: block;
 }
 .place-title-card-hover {
-  background-color: place_title_color;
-  color: place_title_background;
-  border-color: place_title_color;
+  background-color: $place_title_color;
+  color: $place_title_background;
+  border-color: $place_title_color;
 }
 .place-map-render {
   width: 100%;
@@ -73,31 +73,31 @@
   left: 0;
 }
 .place-stars-background {
-  background-color: place_stars_background;
+  background-color: $place_stars_background;
   width: 100%;
   height: 52px;
 }
 .place-stars-points {
-  background: place_stars_points_background;
+  background: $place_stars_points_background;
   overflow: hidden;
   height: 52px;
 }
 .place-stars-text {
   font-size: 1rem;
   font-weight: bold;
-  color: place_stars_text_color;
+  color: $place_stars_text_color;
   position: absolute;
   top: 1em;
   width: 100%;
 }
 .place-comments {
   padding: 1em;
-  background-color: place_comments_background;
+  background-color: $place_comments_background;
 }
 .card-comments {
   width: 20%;
-  background-color: place_card_comments_background;
-  color: place_card_comments_color;
+  background-color: $place_card_comments_background;
+  color: $place_card_comments_color;
   font-weight: bold;
   font-size: 1rem;
   position: absolute;
@@ -109,14 +109,14 @@
 .place-comments-number {
   font-weight: bold;
   font-size: 1.5em;
-  color: place-comments-number-color;
+  color: $place-comments-number-color;
   margin: .5em;
 }
 .place-comments-user {
   border-radius: 10px 10px 0 0;
   position: relative;
-  background-color: place_comments_user_background;
-  color: place_comments_user_body_color;
+  background-color: $place_comments_user_background;
+  color: $place_comments_user_body_color;
   font-weight: bold;
   font-size: 1.5em;
   padding: .3em .8em;
@@ -130,9 +130,9 @@
   font-size: .6em;
 }
 .place-comments-body {
-  background-color: place_comments_user_body;
+  background-color: $place_comments_user_body;
   border-radius: 0 0 10px 10px;
-  color: place_comments_user_body_color;
+  color: $place_comments_user_body_color;
   font-size: 1.2em;
   padding: .3em .8em;
   margin-top: 0;

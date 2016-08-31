@@ -12,7 +12,8 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
- mix.scripts(['jquery.min.js', 'analytics.js', 'nearest.js', 'hover.js', 'place_experience.js', 'menu_experience.js', 'rate.js', 'helpers.js'], 'public/js/gottashit.js')
+ mix.sass('gottashit.scss', 'public/css/gottashit.css')
+     .scripts(['jquery.min.js', 'analytics.js', 'nearest.js', 'hover.js', 'place_experience.js', 'menu_experience.js', 'rate.js', 'helpers.js'], 'public/js/gottashit.js')
      .scripts(['place_field.js'], 'public/js/gottashit_place_field.js')
      .scripts(['place.js'], 'public/js/gottashit_place.js');
 });

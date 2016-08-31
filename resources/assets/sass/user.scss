@@ -1,5 +1,5 @@
 .user-profile {
-  background-color: background_content;
+  background-color: $background_content;
 }
 .user-profile p {
   margin: 0;
@@ -7,10 +7,10 @@
 }
 .edit-user {
   margin: 2em;
-  background-color: background_nav;
+  background-color: $background_nav;
 }
 .user-profile p {
-  color: background_nav;
+  color: $background_nav;
   font-weight: bold;
 }
 .user-label {
@@ -21,7 +21,7 @@
 }
 .user-link {
   margin: 1em;
-  color: background_nav;
+  color: $background_nav;
   font-weight: bold;
   display: inline-block;
 }

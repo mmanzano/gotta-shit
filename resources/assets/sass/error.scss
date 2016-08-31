@@ -2,7 +2,7 @@
   font-size: 0;
   margin: 0;
   padding: 0;
-  background-color: errors_background;
+  background-color: $errors_background;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   li {
@@ -13,11 +13,11 @@
     padding: 10px 30px;
     text-align: left;
     text-decoration: none;
-    color: error_color;
-    background-color: error_background;
+    color: $error_color;
+    background-color: $error_background;
     &:hover {
-      background-color: error_color;
-      color: error_background;
+      background-color: $error_color;
+      color: $error_background;
     }
   }
 }

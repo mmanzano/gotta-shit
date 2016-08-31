@@ -1,6 +1,6 @@
 .header {
-  background: header_background;
-  color: header_title;
+  background: $header_background;
+  color: $header_title;
   font-size: 2em;
   height: 150px;
   line-height: 75px;
@@ -8,6 +8,6 @@
   text-align: center;
 }
 .header-link {
-  color: header_title;
+  color: $header_title;
   text-decoration: none;
 }

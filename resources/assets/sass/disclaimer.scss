@@ -1,7 +1,7 @@
 .disclaimer {
   padding: 10px;
-  background: disclaimer_background;
-  color: disclaimer_color;
+  background: $disclaimer_background;
+  color: $disclaimer_color;
   line-height: 2.5em;
   font-size: 1.2em;
   font-weight: bold;
@@ -9,15 +9,15 @@
   margin: 0 auto;
 }
 .disclaimer-link {
-  color: disclaimer_background;
+  color: $disclaimer_background;
   text-decoration: none;
-  background: disclaimer_color;
+  background: $disclaimer_color;
   padding: 10px;
   border-radius: 5px;
   margin-left: .5em;
   &:hover {
-    color: disclaimer_color - 100;
-    background: disclaimer_background - 100;
+    color: $disclaimer_color - 100;
+    background: $disclaimer_background - 100;
   }
 }
 .status-message ul {
@@ -31,9 +31,9 @@
     margin-top: .8em;
     width: 10em;
     font-weigh: bold;
-    background: disclaimer_background;
-    color: disclaimer_color;
+    background: $disclaimer_background;
+    color: $disclaimer_color;
     padding: .5em;
-    border: 1px solid disclaimer_background - 100;
+    border: 1px solid $disclaimer_background - 100;
   }
 }
