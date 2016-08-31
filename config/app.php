@@ -148,8 +148,6 @@ return [
          * Third Party Providers
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Dingo\Api\Provider\LaravelServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -203,10 +201,6 @@ return [
          * Third Party Aliases
          */
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'ApiDispatcher' => Dingo\Api\Facade\API::class,
-        'ApiRoute' => Dingo\Api\Facade\Route::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

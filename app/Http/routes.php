@@ -85,7 +85,7 @@ Route::group(['prefix' => '{language}'], function () {
       ]
     ]);
 
-    Route::resource('user', 'Auth/UserController', [
+    Route::resource('user', 'Auth\UserController', [
       'only' => [
         'show',
         'edit',
