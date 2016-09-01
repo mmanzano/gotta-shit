@@ -63,27 +63,11 @@ Route::group(['prefix' => '{language}'], function () {
       ]
     ]);
 
-    Route::resource('place.stars', 'StarController', [
-      'only' => [
-        'update',
-        'destroy',
-      ],
-      'names' => [
-        'update'  => 'place.stars.update',
-        'destroy' => 'place.stars.destroy',
-      ]
-    ]);
+    Route::put('place/{place_id}/stars', ['as' => 'place.stars.update','uses' => 'StarController@update']);
+    Route::delete('place/{place_id}/stars', ['as' => 'place.stars.destroy', 'uses' => 'StarController@destroy']);
 
-    Route::resource('place.subscribe', 'SubscriptionController', [
-      'only' => [
-        'store',
-        'destroy',
-      ],
-      'names' => [
-        'store'   => 'place.subscribe.store',
-        'destroy' => 'place.subscribe.destroy',
-      ]
-    ]);
+    Route::post('place/{place_id}/subscribe', ['as' => 'place.subscribe.store','uses' => 'SubscriptionController@store']);
+    Route::delete('place/{place_id}/subscribe', ['as' => 'place.subscribe.destroy', 'uses' => 'SubscriptionController@destroy']);
 
     Route::resource('user', 'Auth\UserController', [
       'only' => [

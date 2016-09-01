@@ -33,13 +33,13 @@ class Place extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * A Place has an User.
+     * A Place belongs to an User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->hasOne('GottaShit\Entities\User');
+        return $this->belongsTo('GottaShit\Entities\User');
     }
 
     /**
