@@ -89,7 +89,8 @@ return [
             'rule-name' => 'custom-message',
         ],
         'geo_lat' => [
-            'distinct_place' => 'El sitio ya está definido en nuestra plataforma. Mire en cercanos.',
+            'distinct_place_store' => 'El sitio ya está definido en nuestra plataforma. Mire en cercanos.',
+            'distinct_place_update' => 'El sitio ya está definido en nuestra plataforma. Mire en cercanos.',
         ],
     ],
 

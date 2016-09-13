@@ -90,7 +90,8 @@ return [
             'rule-name' => 'custom-message',
         ],
         'geo_lat' => [
-            'distinct_place' => 'The place is already defined in our platform. See near sites.',
+            'distinct_place_store' => 'The place is already defined in our platform. See near sites.',
+            'distinct_place_update' => 'The place is already defined in our platform. See near sites.',
         ],
     ],
 
