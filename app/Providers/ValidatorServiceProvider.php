@@ -2,6 +2,8 @@
 
 namespace GottaShit\Providers;
 
+use GottaShit\Entities\Place;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class ValidatorServiceProvider extends ServiceProvider
