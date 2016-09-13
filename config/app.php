@@ -143,6 +143,7 @@ return [
         GottaShit\Providers\AppServiceProvider::class,
         GottaShit\Providers\EventServiceProvider::class,
         GottaShit\Providers\RouteServiceProvider::class,
+        \GottaShit\Providers\ValidatorServiceProvider::class,
 
         /*
          * Third Party Providers

@@ -89,6 +89,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'geo_lat' => [
+            'distinct_place' => 'The place is already defined in our platform. See near sites.',
+        ],
     ],
 
     /*
