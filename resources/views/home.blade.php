@@ -4,7 +4,6 @@
     <div class="home">
         <div class="home-help">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/NmemOdsMtcg" frameborder="0" allowfullscreen></iframe>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/W2DAxnl2ppA" frameborder="0" allowfullscreen></iframe>
             {!! trans('gottashit.home') !!}
         </div>
         <div class='home-places'>
