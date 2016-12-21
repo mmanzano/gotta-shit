@@ -24,7 +24,7 @@
         "classmap": [
             "database"
         ],
-        "psr-4": {pp
+        "psr-4": {
             "GottaShit\\": "app/"
         }
     },
