@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundExceptio
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as MethodNotAllowedHttpException;
 use Illuminate\Session\TokenMismatchException as TokenMismatchException;
 use BadMethodCallException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -17,7 +21,10 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        AuthorizationException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
+        ValidationException::class,
     ];
 
     /**
