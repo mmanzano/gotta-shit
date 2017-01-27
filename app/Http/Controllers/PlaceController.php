@@ -69,7 +69,7 @@ class PlaceController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'geo_lat' => 'required|numeric|between:-90,90|distinct_place_store',
-            'geo_lng' => 'required|numeric|between:-180,180',
+            'geo_lng' => 'required_with:geo_lat|numeric|between:-180,180',
             'stars' => 'required|numeric|between:0,5',
         ]);
 
@@ -173,7 +173,7 @@ class PlaceController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255',
             'geo_lat' => 'required|numeric|between:-90,90|distinct_place_update',
-            'geo_lng' => 'required|numeric|between:-180,180',
+            'geo_lng' => 'required_with:geo_lat|numeric|between:-180,180',
             'stars' => 'required|numeric|between:0,5',
         ]);
 
