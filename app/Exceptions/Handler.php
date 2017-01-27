@@ -4,7 +4,6 @@ namespace GottaShit\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as MethodNotAllowedHttpException;
 use Illuminate\Session\TokenMismatchException as TokenMismatchException;
 use BadMethodCallException;
