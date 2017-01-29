@@ -2,6 +2,8 @@
 
 return [
 
+    'name' => 'GottaShit',
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -127,6 +129,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -141,6 +144,8 @@ return [
          * Application Service Providers...
          */
         GottaShit\Providers\AppServiceProvider::class,
+        GottaShit\Providers\AuthServiceProvider::class,
+        GottaShit\Providers\BroadcastServiceProvider::class,
         GottaShit\Providers\EventServiceProvider::class,
         GottaShit\Providers\RouteServiceProvider::class,
         \GottaShit\Providers\ValidatorServiceProvider::class,
@@ -184,6 +189,7 @@ return [
         'Lang'      => Illuminate\Support\Facades\Lang::class,
         'Log'       => Illuminate\Support\Facades\Log::class,
         'Mail'      => Illuminate\Support\Facades\Mail::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password'  => Illuminate\Support\Facades\Password::class,
         'Queue'     => Illuminate\Support\Facades\Queue::class,
         'Redirect'  => Illuminate\Support\Facades\Redirect::class,

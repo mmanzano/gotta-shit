@@ -2,15 +2,14 @@
 
 namespace GottaShit\Entities;
 
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
 {
-    use Authenticatable, CanResetPassword;
+    use Notifiable;
 
     /**
      * The database table used by the model.

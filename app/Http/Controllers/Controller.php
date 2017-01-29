@@ -3,22 +3,23 @@
 namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\Session;
 
 abstract class Controller extends BaseController
 {
-    use DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function setLanguage($language = null)
     {
         $locale = [
-            'en' => '',
-            'es' => 'es_ES.UTF-8',
+          'en' => '',
+          'es' => 'es_ES.UTF-8',
         ];
 
         if (Auth::check()) {
