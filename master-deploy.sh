@@ -1,6 +1,6 @@
 #!/bin/sh
 chmod -R 777 storage
-composer update
+composer install
 if [ ! -f key_generate ]; then
     php artisan key:generate
     touch key_generate
