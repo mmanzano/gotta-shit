@@ -139,7 +139,7 @@ return [
     ],
 
     'comment' => [
-        'comments' => '{0} No hay comentarios. Anímate.|{1} :number_of_comments Comentario|[2,Inf] :number_of_comments Comentarios',
+        'comments' => '{0} No hay comentarios. Anímate.|{1} :number_of_comments Comentario|[2,*] :number_of_comments Comentarios',
         'create_comment_label' => 'Deja un comentario',
         'create_comment' => 'Enviar comentario',
         'edit_comment' => 'Editar comentario',

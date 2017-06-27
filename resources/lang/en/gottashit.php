@@ -138,7 +138,7 @@ return [
     ],
 
     'comment' => [
-        'comments' => '{0} No comments. Be first in comment|{1} :number_of_comments Comment|[2,Inf] :number_of_comments Comments',
+        'comments' => '{0} No comments. Be first in comment|{1} :number_of_comments Comment|[2,*] :number_of_comments Comments',
         'create_comment_label' => 'Leave a comment',
         'create_comment' => 'Send comment',
         'edit_comment' => 'Edit comment',

@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -139,6 +139,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
+        Laravel\Dusk\DuskServiceProvider::class,
 
         /*
          * Application Service Providers...

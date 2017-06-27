@@ -3,6 +3,7 @@
 namespace GottaShit\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (in_array($this->app->environment(), ['local','testing'])) {
+            $this->app->register(DuskServiceProvider::class);
+        }
     }
 }
