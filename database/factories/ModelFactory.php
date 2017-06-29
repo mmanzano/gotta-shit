@@ -13,25 +13,25 @@
 
 $factory->define(GottaShit\Entities\User::class, function ($faker) {
     return [
-        'full_name' => $faker->firstName . ' ' . $faker->lastName,
-        'username' => $faker->userName,
-        'email' => $faker->unique()->email,
-        'password' => bcrypt('123456'),
-        'verified' => true,
+        'full_name'      => $faker->firstName . ' ' . $faker->lastName,
+        'username'       => $faker->userName,
+        'email'          => $faker->unique()->email,
+        'password'       => bcrypt('123456'),
+        'verified'       => true,
         'remember_token' => str_random(10),
-        'language' => 'en',
+        'language'       => 'en',
     ];
 });
 
 $factory->defineAs(GottaShit\Entities\User::class, 'admin', function ($faker) {
     return [
-        'full_name' => 'Miguel Manzano',
-        'username' => 'mmanzano',
-        'email' => 'mmanzano@gmail.com',
-        'password' => bcrypt('secret'),
-        'verified' => true,
+        'full_name'      => 'Miguel Manzano',
+        'username'       => 'mmanzano',
+        'email'          => 'mmanzano@gmail.com',
+        'password'       => bcrypt('secret'),
+        'verified'       => true,
         'remember_token' => str_random(10),
-        'language' => 'en',
+        'language'       => 'en',
     ];
 });
 
@@ -46,25 +46,35 @@ $factory->define(GottaShit\Entities\Place::class, function ($faker) {
             $deltaMax) / 1000;
 
     return [
-        'name' => $faker->company,
+        'name'    => $faker->company,
         'geo_lat' => $latitude,
         'geo_lng' => $longitude,
-        'user_id' => GottaShit\Entities\User::All()->random()->id,
+        'user_id' => function () {
+            return factory(\GottaShit\Entities\User::class)->create()->id;
+        },
     ];
 });
 
 $factory->define(GottaShit\Entities\PlaceStar::class, function ($faker) {
     return [
-        'user_id' => GottaShit\Entities\User::All()->random()->id,
-        'place_id' => GottaShit\Entities\Place::All()->random()->id,
-        'stars' => $faker->numberBetween(1, 5),
+        'user_id'  => function () {
+            return factory(GottaShit\Entities\User::class)->create()->id;
+        },
+        'place_id' => function () {
+            return factory(GottaShit\Entities\Place::class)->create()->id;
+        },
+        'stars'    => $faker->numberBetween(1, 5),
     ];
 });
 
 $factory->define(GottaShit\Entities\PlaceComment::class, function ($faker) {
     return [
-        'user_id' => GottaShit\Entities\User::All()->random()->id,
-        'place_id' => GottaShit\Entities\Place::All()->random()->id,
-        'comment' => $faker->realText(300),
+        'user_id'  => function () {
+            return factory(GottaShit\Entities\User::class)->create()->id;
+        },
+        'place_id' => function () {
+            return factory(GottaShit\Entities\Place::class)->create()->id;
+        },
+        'comment'  => $faker->realText(300),
     ];
 });
