@@ -15,8 +15,7 @@
         "guzzlehttp/guzzle": "~6.0",
         "aws/aws-sdk-php": "~3.0",
         "doctrine/dbal": "2.5.1",
-        "laravel/socialite": "^3.0",
-        "laravel/dusk": "^2.0"
+        "laravel/socialite": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -26,7 +25,8 @@
         "phpspec/phpspec": "~2.1",
         "symfony/dom-crawler": "3.1.*",
         "symfony/css-selector": "3.1.*",
-        "symfony/thanks": "^1.0"
+        "symfony/thanks": "^1.0",
+        "laravel/dusk": "^2.0"
     },
     "autoload": {
         "classmap": [
