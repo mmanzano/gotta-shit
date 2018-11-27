@@ -1,18 +1,20 @@
 <?php
 
+namespace Tests\Feature;
+
 use GottaShit\Entities\Place;
 use GottaShit\Entities\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class HomeTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
+
         factory(Place::class)->create();
     }
 

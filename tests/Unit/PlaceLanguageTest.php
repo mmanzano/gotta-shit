@@ -9,12 +9,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PlaceLanguageTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_place_lang()
+    /**  @test */
+    public function place_lang()
     {
         $this->assertTrue(Lang::has('gottashit.place.create_place'));
         $this->assertTrue(Lang::has('gottashit.place.created_place'));

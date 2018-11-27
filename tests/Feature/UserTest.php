@@ -1,18 +1,23 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+namespace Tests\Feature;
+
 use GottaShit\Entities\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
-    public function a_user_may_register_for_an_account_but_must_confirm_their_email_address() {
-        $this->post('en/register', [
+    public function a_user_may_register_for_an_account_but_must_confirm_their_email_address()
+    {
+        $registerRoute = route('user_register', [
+            'language' => 'en',
+        ]);
+
+        $this->post($registerRoute, [
             'full_name' => 'Got to shit',
             'username' => 'gottashit',
             'email' => 'got2shit@gmail.com',
@@ -27,7 +32,12 @@ class UserTest extends TestCase
 
         $user = User::whereUsername('gottashit')->first();
 
-        $this->get("/en/register/confirm/{$user->token}");
+        $registerConfirmRoute = route('user_register_confirm', [
+            'language' => 'en',
+            'token' => $user->token,
+        ]);
+
+        $this->get($registerConfirmRoute);
 
         $this->assertDatabaseHas('users', [
             'username' => 'gottashit',

@@ -16,6 +16,14 @@ Technologies:
 
 - Javascript/Jquery
 
+### Next Steps
+
+[] Say Goodbye to Google Maps - [leafletjs](https://leafletjs.com)
+
+[] Embrace the backend - [VueJS](https://vuejs.org) under Laravel Mix
+
+[] Improve the css part - [Tailwind](https://tailwindcss.com)
+
 ### License
 
 GottaShit is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

@@ -9,12 +9,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CommentLanguageTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_comment_lang()
+    /** @test */
+    public function comment_lang()
     {
         $this->assertTrue(Lang::has('gottashit.comment.create_comment_label'));
         $this->assertTrue(Lang::has('gottashit.comment.create_comment'));
