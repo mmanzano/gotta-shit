@@ -6,41 +6,19 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Subscription;
 use GottaShit\Entities\User;
-use GottaShit\Http\Requests;
-use GottaShit\Http\Controllers\Controller;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
 
 class CommentController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth', ['only' => ['store', 'update', 'destroy']]);
 
         $this->middleware('isAuthorComment', ['only' => ['edit']]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -50,7 +28,8 @@ class CommentController extends Controller
      * @param \GottaShit\Mailers\AppMailer $mailer
      * @param $language
      * @param $id_place
-     * @return \GottaShit\Http\Controllers\Response
+     * @return Response
+     * @throws \Throwable
      */
     public function store(
         Request $request,
@@ -128,28 +107,21 @@ class CommentController extends Controller
         } else {
             return redirect(route('place.show', [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]) . '#comment-' . $comment->id)->with('status',
                 $status_message);
         }
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Request $request
+     * @param $language
+     * @param $id_place
+     * @param $id_comment
      * @return Response
+     * @throws \Throwable
      */
     public function edit(Request $request, $language, $id_place, $id_comment)
     {
@@ -174,9 +146,12 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $request
-     * @param  int $id
+     * @param Request $request
+     * @param $language
+     * @param $id_place
+     * @param $id_comment
      * @return Response
+     * @throws \Throwable
      */
     public function update(Request $request, $language, $id_place, $id_comment)
     {
@@ -217,7 +192,7 @@ class CommentController extends Controller
         } else {
             return redirect(route('place.show', [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]) . '#comment-' . $comment->id)->with('status',
                 $status_message);
         }
@@ -226,7 +201,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Request $request
+     * @param $language
+     * @param $id_place
+     * @param $id_comment
      * @return Response
      */
     public function destroy(Request $request, $language, $id_place, $id_comment)
@@ -261,7 +239,7 @@ class CommentController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]))->with('status',
                 $status_message);
         }

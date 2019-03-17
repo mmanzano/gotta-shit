@@ -2,36 +2,34 @@
 
 namespace GottaShit\Http\Controllers;
 
+use Carbon\Carbon;
 use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\PlaceStar;
 use GottaShit\Entities\Subscription;
-use GottaShit\Entities\User;
-use GottaShit\Http\Requests;
-use GottaShit\Http\Controllers\Controller;
 use GottaShit\Mailers\AppMailer;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class PlaceController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth', ['only' => ['create', 'store', 'update', 'destroy', 'restore', 'placesForUser']]);
 
         $this->middleware('isAuthor', ['only' => ['edit']]);
-   }
+    }
 
     /**
      * Display a listing of the resource.
      *
+     * @param string $language
      * @return Response
      */
-    public function index($language)
+    public function index(string $language)
     {
         $this->setLanguage($language);
 
@@ -45,9 +43,10 @@ class PlaceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param string $language
      * @return Response
      */
-    public function create($language)
+    public function create(string $language)
     {
         $this->setLanguage($language);
 
@@ -60,6 +59,8 @@ class PlaceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  Request $request
+     * @param AppMailer $mailer
+     * @param $language
      * @return Response
      */
     public function store(Request $request, AppMailer $mailer, $language)
@@ -96,15 +97,21 @@ class PlaceController extends Controller
         $subscription->comment_id = null;
         $subscription->save();
 
-        $mailer->sendPlaceAddNotification(Auth::user(), $place,
-            trans('gottashit.email.new_place_add'));
+        $mailer->sendPlaceAddNotification(
+            Auth::user(),
+            $place,
+            trans('gottashit.email.new_place_add')
+        );
 
         $status_message = trans('gottashit.place.created_place',
             ['place' => $place->name]);
 
-        return redirect(route('place.show',
-            ['language' => $language, 'place' => $place->id]))->with('status',
-            $status_message);
+        return redirect(
+            route(
+                'place.show',
+                ['language' => $language, 'place' => $place->id]
+            )
+        )->with('status', $status_message);
     }
 
     /**
@@ -208,7 +215,7 @@ class PlaceController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]))->with('status',
                 $status_message);
         } else {
@@ -270,7 +277,7 @@ class PlaceController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]))->with('status',
                 $status_message);
         } else {
@@ -345,9 +352,9 @@ class PlaceController extends Controller
         $deltaLng = ($totalLng * $distance) / ($totalMeters);
 
         $places = Place::whereBetween('geo_lat',
-            array($latitude - $deltaLat, $latitude + $deltaLat))
+            [$latitude - $deltaLat, $latitude + $deltaLat])
             ->whereBetween('geo_lng',
-                array($longitude - $deltaLng, $longitude + $deltaLng))
+                [$longitude - $deltaLng, $longitude + $deltaLng])
             ->paginate(8);
 
         $title = trans('gottashit.title.nearest_places');

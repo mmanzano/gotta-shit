@@ -4,15 +4,14 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\Subscription;
-use GottaShit\Http\Requests;
-use GottaShit\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class SubscriptionController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -78,7 +77,7 @@ class SubscriptionController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place_id
+                    'place' => $place_id,
                 ]))->with('status',
                 $status_message);
         }

@@ -3,12 +3,7 @@
 namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
-use GottaShit\Entities\PlaceStar;
-use GottaShit\Entities\User;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -41,7 +36,7 @@ class HomeController extends Controller
      * Show the application dashboard to the user.
      *
      * @param $language
-     * @return \GottaShit\Http\Controllers\Response
+     * @return Response
      */
     public function index_locale($language)
     {

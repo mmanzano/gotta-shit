@@ -57,13 +57,7 @@ class AppMailer
         $this->mailer = $mailer;
     }
 
-    /**
-     * Deliver the email confirmation.
-     *
-     * @param  User $user
-     * @return void
-     */
-    public function sendEmailConfirmationTo(User $user, $subject)
+    public function sendEmailConfirmationTo(User $user, string $subject)
     {
         $this->from = env('SES_EMAIL');
         $this->to = $user->email;
@@ -76,13 +70,7 @@ class AppMailer
         $this->deliver();
     }
 
-    /**
-     * Deliver the email confirmation.
-     *
-     * @param  User $user
-     * @return void
-     */
-    public function sendPlaceAddNotification(User $user, Place $place, $subject)
+    public function sendPlaceAddNotification(User $user, Place $place, string $subject)
     {
         $this->from = env('SES_EMAIL');
         $this->to = env('SES_EMAIL');
@@ -97,19 +85,13 @@ class AppMailer
         $this->deliver();
     }
 
-    /**
-     * Deliver the email confirmation.
-     *
-     * @param  User $user
-     * @return void
-     */
     public function sendCommentAddNotification(
         User $author_of_comment,
         User $subscriber,
         Place $place,
         PlaceComment $comment,
         Subscription $subscription,
-        $subject
+        string $subject
     ) {
         if (!$subscriber->modified) {
             $this->from = env('SES_EMAIL');
@@ -134,6 +116,17 @@ class AppMailer
         }
     }
 
+    public function sendContactNotification(string $email, string $subject, string $body)
+    {
+        $this->from = env('SES_EMAIL');
+        $this->to = env('SES_EMAIL');
+        $this->view = 'emails.notification.contact';
+        $this->data = compact('email', 'body');
+        $this->subject = $subject;
+
+        $this->deliver();
+    }
+
     /**
      * Deliver the email.
      *
@@ -141,9 +134,10 @@ class AppMailer
      */
     public function deliver()
     {
-        $this->mailer->send($this->view, $this->data, function ($message) {
-            $message->from($this->from, 'GottaShit')
-                ->to($this->to)->subject($this->subject);
-        });
+        $this->mailer
+            ->send($this->view, $this->data, function ($message) {
+                $message->from($this->from, 'GottaShit')
+                    ->to($this->to)->subject($this->subject);
+            });
     }
 }

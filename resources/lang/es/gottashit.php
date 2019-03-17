@@ -51,6 +51,7 @@ return [
         'new_place_action' => "<a href=':path'>Haz click aquí</a> para ver el nuevo sitio: <a href=':path'>:place</a> creado por <a href=':path_user'>:username</a>",
         'new_comment_add' => "Añadieron un nuevo comentario a :place",
         'new_comment_action' => "<a href=':path'>Haz click aquí</a> para ver el nuevo comentario para <a href=':path'>:place</a> creado por <a href=':path_author_of_comment'>:username_author_of_comment</a>",
+        'new_contact_form' => "Nuevo contacto desde el sitio web",
     ],
 
     'nav' => [

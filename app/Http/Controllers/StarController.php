@@ -4,79 +4,26 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
-use GottaShit\Http\Requests;
-use GottaShit\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
 
 class StarController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $request
-     * @param  int $id
+     * @param Request $request
+     * @param $language
+     * @param $id_place
      * @return Response
+     * @throws \Throwable
      */
     public function update(Request $request, $language, $id_place)
     {
@@ -120,7 +67,7 @@ class StarController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]))->with('status',
                 $status_message);
         }
@@ -129,7 +76,9 @@ class StarController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Request $request
+     * @param $language
+     * @param int $id
      * @return Response
      */
     public function destroy(Request $request, $language, $id)
@@ -160,7 +109,7 @@ class StarController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place->id
+                    'place' => $place->id,
                 ]))->with('status',
                 $status_message);
         }
