@@ -13,6 +13,8 @@
 
 Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 
+Route::post('/contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
+
 Route::group(['prefix' => '{language}'], function () {
     // Home
     Route::get('', ['as' => 'home', 'uses' => 'HomeController@index_locale']);

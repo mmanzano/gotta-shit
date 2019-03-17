@@ -170,6 +170,14 @@ return [
         'subscribed_place' => 'You will receive emails when someone comment this place',
         'unsubscribed_place' => 'You will not receive emails when someone comment this place',
     ],
+
+    'contact_form' => [
+        'email' => 'email',
+        'subject' => 'subject',
+        'body' => 'message',
+        'send' => 'send contact',
+    ],
+
     'exception' => [
         '503' => 'We have a litle problem',
         '404' => "Sorry, I can't find it",
