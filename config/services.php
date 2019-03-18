@@ -52,4 +52,10 @@ return [
         'client_secret' => env('TW_CONSUMER_SECRET'),
         'redirect' => env('TW_URL_CALLBACK'),
     ],
+
+    'recaptcha' => [
+        'client_secret' => env('SERVICES_RECAPTCHA_CLIENT_SECRET'),
+        'server_secret' => env('SERVICES_RECAPTCHA_SERVER_SECRET'),
+    ],
+
 ];

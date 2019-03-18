@@ -2,6 +2,7 @@
 <html lang="{{ App::getLocale() }}">
 <head>
     @include('scripts.head')
+    @yield('scripts_head_section')
 </head>
 <body>
 
