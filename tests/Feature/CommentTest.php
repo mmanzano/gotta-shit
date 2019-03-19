@@ -15,6 +15,7 @@ class CommentTest extends TestCase
     /** @test */
     public function comment_create()
     {
+        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
 
         $place = factory(Place::class)->create([
@@ -48,6 +49,12 @@ class CommentTest extends TestCase
             'place_id' => $place->id,
             'user_id' => $user->id,
             'comment' => 'Hello! Great Site',
+        ]);
+
+        $this->assertDatabaseHas('subscriptions', [
+            'place_id' => $place->id,
+            'user_id' => $user->id,
+            'comment_id' => null,
         ]);
     }
 

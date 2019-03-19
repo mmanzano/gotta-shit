@@ -4,7 +4,6 @@ namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth as Auth;
 
 class Subscription extends Model
 {
@@ -35,20 +34,20 @@ class Subscription extends Model
     /**
      * A Subscription belongs to User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo('GottaShit\Entities\User');
+        return $this->belongsTo(User::class);
     }
 
     /**
      * A Subscription belongs to Place.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function place()
     {
-        return $this->belongsTo('GottaShit\Entities\Place');
+        return $this->belongsTo(Place::class);
     }
 }

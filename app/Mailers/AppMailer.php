@@ -6,6 +6,7 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Subscription;
 use GottaShit\Entities\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\App;
 
@@ -86,7 +87,7 @@ class AppMailer
     }
 
     public function sendCommentAddNotification(
-        User $author_of_comment,
+        Authenticatable $author_of_comment,
         User $subscriber,
         Place $place,
         PlaceComment $comment,

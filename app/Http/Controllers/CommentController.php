@@ -5,7 +5,7 @@ namespace GottaShit\Http\Controllers;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Subscription;
-use GottaShit\Entities\User;
+use GottaShit\Http\Requests\CommentStoreRequest;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,7 +25,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CommentStoreRequest $request
      * @param AppMailer $mailer
      * @param string $language
      * @param Place $place
@@ -33,81 +33,76 @@ class CommentController extends Controller
      * @throws \Throwable
      */
     public function store(
-        Request $request,
+        CommentStoreRequest $request,
         AppMailer $mailer,
         string $language,
         Place $place
     ) {
-        $this->validate($request, [
-            'comment' => 'required',
+        $comment = PlaceComment::create([
+            'place_id' => $place->id,
+            'user_id' => Auth::id(),
+            'comment' => $request->input('comment'),
         ]);
 
-        $comment = new PlaceComment();
-
-        $comment->place_id = $place->id;
-        $comment->user_id = Auth::user()->id;
-        $comment->comment = $request->input('comment');
-
-        $comment->save();
-
-        $author_of_comment = Auth::user();
-
-        $subscriptions = $place->subscriptions()->getResults();
-
-        $subscription_number = Subscription::where('user_id', Auth::user()->id)
+        $subscription_number = Subscription::where('user_id', Auth::id())
             ->where('place_id', $place->id)
             ->count();
 
         if (!$subscription_number) {
-            $subscription_new = new Subscription();
-            $subscription_new->user_id = Auth::user()->id;
-            $subscription_new->place_id = $place->id;
-            $subscription_new->comment_id = null;
-            $subscription_new->save();
+            Subscription::create([
+                'user_id' => Auth::id(),
+                'place_id' => $place->id,
+                'comment_id' => null,
+            ]);
         }
 
-        foreach ($subscriptions as $subscription) {
-            if ($subscription->user_id == $author_of_comment->id) {
-                $subscription->comment_id = null;
-                $subscription->save();
-            } else {
-                if (is_null($subscription->comment_id)) {
-                    $subscriber = User::findOrFail($subscription->user_id);
-                    $mailer->sendCommentAddNotification(
-                        $author_of_comment,
-                        $subscriber,
-                        $place,
-                        $comment,
-                        $subscription,
-                        trans('gottashit.email.new_comment_add', ['place' => $place->name], $subscriber->language)
-                    );
-                }
-            }
-        }
+        $place->subscriptions->filter(function ($subscription) {
+            return $subscription->user_id != Auth::id() && is_null($subscription->comment_id);
+        })->each(function ($subscription) use ($mailer, $place, $comment) {
+            $mailer->sendCommentAddNotification(
+                Auth::user(),
+                $subscription->user,
+                $place,
+                $comment,
+                $subscription,
+                trans('gottashit.email.new_comment_add', ['place' => $place->name], $subscription->user->language)
+            );
+        });
 
-        $status_message = trans('gottashit.comment.created_comment',
-            ['place' => $place->name]);
+        $place->subscriptions()
+            ->where('user_id', Auth::id())
+            ->update([
+                'comment_id' => null,
+            ]);
+
+        $statusMessage = trans('gottashit.comment.created_comment', ['place' => $place->name]);
 
         if ($request->ajax()) {
-            $number_of_comments = trans_choice('gottashit.comment.comments',
+            $numberOfComments = trans_choice(
+                'gottashit.comment.comments',
                 $place->numberOfComments,
-                ['number_of_comments' => $place->numberOfComments]);
+                ['number_of_comments' => $place->numberOfComments]
+            );
 
             return response()->json([
                 'status' => 200,
-                'status_message' => $status_message,
+                'status_message' => $statusMessage,
                 'comment' => view('place.comment.view',
                     compact('place', 'comment'))->render(),
-                'number_of_comments' => $number_of_comments,
+                'number_of_comments' => $numberOfComments,
                 'button_box' => view('place.subscription.remove',
                     compact('place'))->render(),
             ]);
         } else {
-            return redirect(route('place.show', [
-                    'language' => App::getLocale(),
-                    'place' => $place->id,
-                ]) . '#comment-' . $comment->id)->with('status',
-                $status_message);
+            $route = route('place.show', [
+                'language' => App::getLocale(),
+                'place' => $place->id,
+            ]);
+
+            $routeWithAnchor = $route . '#comment-' . $comment->id;
+
+            return redirect($routeWithAnchor)
+                ->with('status', $statusMessage);
         }
     }
 
