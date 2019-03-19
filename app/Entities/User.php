@@ -2,8 +2,6 @@
 
 namespace GottaShit\Entities;
 
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -96,23 +94,14 @@ class User extends Authenticatable
         return $this->hasMany('GottaShit\Entities\Subscription');
     }
 
-    public function StarsForThisPlace()
-    {
-        $stars = $this->stars()->getResults();
-    }
-
     public function getNumberOfPlacesAttribute()
     {
-        $numberOfPlaces = $this->places()->count();
-
-        return $numberOfPlaces;
+        return $this->places()->count();
     }
 
     public function getNumberOfPlacesRatedAttribute()
     {
-        $numberOfPlaces = $this->stars()->count();
-
-        return $numberOfPlaces;
+        return $this->stars()->count();
     }
 
     public function placesTrashed()
@@ -122,9 +111,7 @@ class User extends Authenticatable
 
     public function getNumberOfPlacesTrashedAttribute()
     {
-        $numberOfPlacesTrashed = $this->placesTrashed()->count();
-
-        return $numberOfPlacesTrashed;
+        return $this->placesTrashed()->count();
     }
 
     /**

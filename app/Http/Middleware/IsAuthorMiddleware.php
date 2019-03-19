@@ -2,8 +2,6 @@
 
 namespace GottaShit\Http\Middleware;
 
-use GottaShit\Entities\Place;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Closure;
 
@@ -20,24 +18,13 @@ class IsAuthorMiddleware
     {
         $place = $request->route('place');
 
-        $author_id = $place->user_id;
-        if (Auth::check()) {
-            $user_id = Auth::user()->id;
-            if ($user_id != $author_id) {
-                $status_message = trans('gottashit.place.edit_place_not_allowed',
-                    ['place' => $place->name]);
+        if (Auth::id() != $place->user_id) {
+            $statusMessage = trans('gottashit.place.edit_place_not_allowed', ['place' => $place->name]);
 
-                return redirect(route('home',
-                    ['language' => $request->language]))->with('status',
-                    $status_message);
-            }
-        } else {
-            $status_message = trans('gottashit.place.edit_place_not_allowed',
-                ['place' => $place->name]);
+            $homeRoute = route('home', ['language' => $request->language]);
 
-            return redirect(route('home',
-                ['language' => $request->language]))->with('status',
-                $status_message);
+            return redirect($homeRoute)
+                ->with('status', $statusMessage);
         }
 
         return $next($request);

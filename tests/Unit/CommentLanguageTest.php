@@ -4,13 +4,11 @@ namespace Tests\Unit;
 
 use Illuminate\Support\Facades\Lang;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CommentLanguageTest extends TestCase
 {
     /** @test */
-    public function comment_lang()
+    public function commentLang()
     {
         $this->assertTrue(Lang::has('gottashit.comment.create_comment_label'));
         $this->assertTrue(Lang::has('gottashit.comment.create_comment'));

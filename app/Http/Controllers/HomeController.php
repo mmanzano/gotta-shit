@@ -36,7 +36,7 @@ class HomeController extends Controller
      * @param string $language
      * @return Response
      */
-    public function index_locale(string $language)
+    public function indexLocale(string $language)
     {
         $places = Place::paginate(1);
 

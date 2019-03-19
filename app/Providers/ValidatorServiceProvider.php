@@ -15,7 +15,7 @@ class ValidatorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('distinct_place_store', function($attribute, $value, $parameters, $validator) {
+        Validator::extend('distinct_place_store', function ($attribute, $value, $parameters, $validator) {
             $latitude = $value;
             $longitude = $validator->getData()['geo_lng'];
             $totalLat = 180;
@@ -27,16 +27,14 @@ class ValidatorServiceProvider extends ServiceProvider
             $deltaLat = ($totalLat * 10) / ($totalMeters / 2);
             $deltaLng = ($totalLng * 10) / ($totalMeters);
 
-            $places = Place::whereBetween('geo_lat',
-                array($latitude - $deltaLat, $latitude + $deltaLat))
-                ->whereBetween('geo_lng',
-                    array($longitude - $deltaLng, $longitude + $deltaLng))
+            $places = Place::whereBetween('geo_lat', [$latitude - $deltaLat, $latitude + $deltaLat])
+                ->whereBetween('geo_lng', [$longitude - $deltaLng, $longitude + $deltaLng])
                 ->paginate(8);
 
             return $places->count() == 0;
         });
 
-        Validator::extend('distinct_place_update', function($attribute, $value, $parameters, $validator) {
+        Validator::extend('distinct_place_update', function ($attribute, $value, $parameters, $validator) {
             $latitude = $value;
             $longitude = $validator->getData()['geo_lng'];
             $totalLat = 180;
@@ -48,10 +46,8 @@ class ValidatorServiceProvider extends ServiceProvider
             $deltaLat = ($totalLat * 10) / ($totalMeters / 2);
             $deltaLng = ($totalLng * 10) / ($totalMeters);
 
-            $places = Place::whereBetween('geo_lat',
-                array($latitude - $deltaLat, $latitude + $deltaLat))
-                ->whereBetween('geo_lng',
-                    array($longitude - $deltaLng, $longitude + $deltaLng))
+            $places = Place::whereBetween('geo_lat', [$latitude - $deltaLat, $latitude + $deltaLat])
+                ->whereBetween('geo_lng', [$longitude - $deltaLng, $longitude + $deltaLng])
                 ->paginate(8);
 
             return $places->count() <= 1;

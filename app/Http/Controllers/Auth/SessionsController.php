@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
 
 class SessionsController extends Controller
 {
@@ -15,7 +14,8 @@ class SessionsController extends Controller
 
     protected $loginPath;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('guest', ['only' => ['login', 'postLogin']]);
 
         $this->middleware('auth', ['only' => ['logout']]);
@@ -43,20 +43,20 @@ class SessionsController extends Controller
      */
     public function postLogin(Request $request, string $language)
     {
-        $this->loginPath = route('user_login',
-            ['language' => App::getLocale()]);
+        $this->loginPath = route('user_login', ['language' => App::getLocale()]);
 
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($this->signIn($request)) {
-            $status_message = trans('auth.login');
+            $statusMessage = trans('auth.login');
 
-            return redirect(route('home',
-                ['language' => App::getLocale()]))->with('status',
-                $status_message);
+            $homeRoute = route('home', ['language' => App::getLocale()]);
+
+            return redirect($homeRoute)
+                ->with('status', $statusMessage);
         }
 
         return redirect($this->loginPath())
@@ -76,10 +76,12 @@ class SessionsController extends Controller
     {
         Auth::logout();
 
-        $status_message = trans('auth.logout');
+        $statusMessage = trans('auth.logout');
 
-        return redirect(route('home',
-            ['language' => App::getLocale()]))->with('status', $status_message);
+        $homeRoute = route('home', ['language' => App::getLocale()]);
+
+        return redirect($homeRoute)
+            ->with('status', $statusMessage);
     }
 
     /**
@@ -90,8 +92,10 @@ class SessionsController extends Controller
      */
     protected function signIn(Request $request)
     {
-        return Auth::attempt($this->getCredentials($request),
-            $request->has('remember'));
+        return Auth::attempt(
+            $this->getCredentials($request),
+            $request->has('remember')
+        );
     }
 
     /**
@@ -105,7 +109,7 @@ class SessionsController extends Controller
         return [
             'email' => $request->input('email'),
             'password' => $request->input('password'),
-            'verified' => true
+            'verified' => true,
         ];
     }
 
@@ -117,7 +121,8 @@ class SessionsController extends Controller
     protected function isUsingThrottlesLoginsTrait()
     {
         return in_array(
-            ThrottlesLogins::class, class_uses_recursive(get_class($this))
+            ThrottlesLogins::class,
+            class_uses_recursive(get_class($this))
         );
     }
 
@@ -138,8 +143,7 @@ class SessionsController extends Controller
      */
     public function loginPath()
     {
-        return property_exists($this,
-            'loginPath') ? $this->loginPath : '/login';
+        return property_exists($this, 'loginPath') ? $this->loginPath : '/login';
     }
 
     /**

@@ -2,11 +2,8 @@
 
 namespace GottaShit\Http\Middleware;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth as Auth;
 use Closure;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class IsAuthorCommentMiddleware
 {
@@ -22,27 +19,19 @@ class IsAuthorCommentMiddleware
         $place = $request->route('place');
         $comment = $request->route('comment');
 
-        $author_comment_id = $comment->user_id;
+        if (Auth::id() != $comment->user_id) {
+            $statusMessage = trans(
+                'gottashit.comment.edit_comment_not_allowed',
+                ['place' => $place->name]
+            );
 
-        if (Auth::check()) {
-            $user_id = Auth::user()->id;
-            if ($user_id != $author_comment_id) {
-                $status_message = trans('gottashit.comment.edit_comment_not_allowed',
-                    ['place' => $place->name]);
-
-                return redirect(route('place.show', [
-                    'language' => $request->language,
-                    'place' => $request->place
-                ]))->with('status', $status_message);
-            }
-        } else {
-            $status_message = trans('gottashit.comment.edit_comment_not_allowed',
-                ['place' => $place->name]);
-
-            return redirect(route('place.show', [
+            $placeRoute = route('place.show', [
                 'language' => $request->language,
-                'place' => $request->place
-            ]))->with('status', $status_message);
+                'place' => $request->place,
+            ]);
+
+            return redirect($placeRoute)
+                ->with('status', $statusMessage);
         }
 
         return $next($request);

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth as Auth;
 
 class StarController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -42,30 +41,32 @@ class StarController extends Controller
             $star = PlaceStar::findOrFail($idStar);
         }
 
-
         $star->stars = $request->input('stars');
 
         $star->save();
 
-        $status_message = trans('gottashit.star.rated',
-            ['place' => $place->name]);
+        $statusMessage = trans('gottashit.star.rated', ['place' => $place->name]);
 
         if ($request->ajax()) {
             return response()->json([
                 'status' => 200,
-                'status_message' => $status_message,
+                'status_message' => $statusMessage,
                 'star_width' => $place->stars_progress_bar,
-                'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': ' . $place->stars_amount,
-                'button_delete_rate' => view('place.partials.delete_rate',
-                    compact('place'))->render(),
+                'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': '
+                    . $place->stars_amount,
+                'button_delete_rate' => view('place.partials.delete_rate', compact('place'))->render(),
             ]);
         } else {
-            return redirect(route('place.show',
+            $placeRoute = route(
+                'place.show',
                 [
                     'language' => App::getLocale(),
                     'place' => $place->id,
-                ]))->with('status',
-                $status_message);
+                ]
+            );
+
+            return redirect($placeRoute)
+                ->with('status', $statusMessage);
         }
     }
 
@@ -85,25 +86,29 @@ class StarController extends Controller
             $star = PlaceStar::findOrFail($idStar);
         }
 
-        $status_message = trans('gottashit.star.deleted_star',
-            ['place' => $place->name]);
+        $statusMessage = trans('gottashit.star.deleted_star', ['place' => $place->name]);
 
         $star->forceDelete();
 
         if ($request->ajax()) {
             return response()->json([
                 'status' => 200,
-                'status_message' => $status_message,
+                'status_message' => $statusMessage,
                 'star_width' => $place->stars_progress_bar,
-                'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': ' . $place->stars_amount,
+                'star_text' => $place->stars_average . ' / ' . trans('gottashit.star.votes') . ': '
+                    . $place->stars_amount,
             ]);
         } else {
-            return redirect(route('place.show',
+            $placeRoute = route(
+                'place.show',
                 [
                     'language' => App::getLocale(),
                     'place' => $place->id,
-                ]))->with('status',
-                $status_message);
+                ]
+            );
+
+            return redirect($placeRoute)
+                ->with('status', $statusMessage);
         }
     }
 }

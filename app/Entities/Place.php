@@ -91,16 +91,14 @@ class Place extends Model
 
     public function getStarsAmountAttribute()
     {
-        $starsForPlace = $this->starsWithTrashed()->getResults();
-
-        return $starsForPlace->count();
+        return $this->starsWithTrashed()->count();
     }
 
     public function getStarsAverageAttribute()
     {
-        $starsForPlace = $this->starsWithTrashed()->getResults();
+        $starsForPlace = $this->starsWithTrashed()->get();
 
-        if($starsForPlace->count() == 0) {
+        if ($starsForPlace->count() == 0) {
             return 0.00;
         }
 
@@ -111,13 +109,14 @@ class Place extends Model
 
     public function getStarsProgressBarAttribute()
     {
-        $starsForPlace = $this->starsWithTrashed()->getResults();
+        $starsForPlace = $this->starsWithTrashed()->get();
 
-        if($starsForPlace->count() == 0) {
+        if ($starsForPlace->count() == 0) {
             return '0%';
         }
 
         $average = $starsForPlace->sum('stars') / $starsForPlace->count();
+
         $averagePercent = ($average / 5) * 100;
 
         return number_format($averagePercent, 0) . '%';
@@ -125,70 +124,36 @@ class Place extends Model
 
     public function getUserHasVotedAttribute()
     {
-        $starsForPlace = $this->starsWithTrashed()->getResults();
-
-        foreach ($starsForPlace as $star) {
-            if ($star->user->id == Auth::user()->id) {
-                return $star->id;
-            }
-        }
-
-        return false;
+        return (bool)$this->starsWithTrashed()
+                ->where('user_id', Auth::id())
+                ->first()->id ?? false;
     }
-
 
     public function getIdOfUserStarAttribute()
     {
-        $starsForPlace = $this->starsWithTrashed()->getResults();
-
-        foreach ($starsForPlace as $star) {
-            if ($star->user->id == Auth::user()->id) {
-                return $star->id;
-            }
-        }
-
-        return false;
+        return $this->starsWithTrashed()
+            ->where('user_id', Auth::id())
+            ->first()->id ?? false;
     }
 
     public function getCurrentUserVoteAttribute()
     {
-        $starsForPlace = $this->starsWithTrashed()->getResults();
-
-        foreach ($starsForPlace as $star) {
-            if ($star->user->id == Auth::user()->id) {
-                return number_format($star->stars, 0);
-            }
-        }
-
-        return -1;
+        return number_format(
+            $this->starsWithTrashed()
+                ->where('user_id', Auth::id())
+                ->first()
+                ->stars ?? -1
+        );
     }
-
-
 
     public function getNumberOfCommentsAttribute()
     {
-        $allComments = $this->commentsWithTrashed()->getResults();
-
-        $countComments = 0;
-
-        foreach ($allComments as $comments) {
-            $countComments++;
-        }
-
-        return $countComments;
+        return $this->commentsWithTrashed()->count();
     }
 
     public function getIsAuthorAttribute()
     {
-        $isAuthor = false;
-
-        if (Auth::check()) {
-            if (Auth::user()->id == $this->user_id) {
-                $isAuthor = true;
-            }
-        }
-
-        return $isAuthor;
+        return Auth::id() == $this->user_id;
     }
 
     public function starsWithTrashed()
@@ -211,17 +176,8 @@ class Place extends Model
 
     public function getIsSubscribedAttribute()
     {
-        $isSubscribed = false;
-
-        if (Auth::check()) {
-            $subscription_number = Subscription::where('user_id',
-                Auth::user()->id)->where('place_id', $this->id)->count();
-
-            if ($subscription_number) {
-                $isSubscribed = true;
-            }
-        }
-
-        return $isSubscribed;
+        return $this->subscriptions()
+            ->where('user_id', Auth::id())
+            ->exists();
     }
 }

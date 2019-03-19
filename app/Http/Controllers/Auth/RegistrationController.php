@@ -8,14 +8,14 @@ use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
 
 class RegistrationController extends Controller
 {
-
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('guest', ['only' => ['register', 'postRegister']]);
     }
+
     /**
      * Show the register page.
      *
@@ -54,13 +54,13 @@ class RegistrationController extends Controller
             'language' => App::getLocale(),
         ]);
 
-        $mailer->sendEmailConfirmationTo($user,
-            trans('gottashit.email.confirm_email_subject'));
+        $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
 
-        $status_message = trans('auth.confirm_email');
+        $statusMessage = trans('auth.confirm_email');
 
-        return redirect(route('user_login',
-            ['language' => App::getLocale()]))->with('status', $status_message);
+        $userLoginRoute = route('user_login', ['language' => App::getLocale()]);
+
+        return redirect($userLoginRoute)->with('status', $statusMessage);
     }
 
     /**
@@ -74,14 +74,15 @@ class RegistrationController extends Controller
     {
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
-        $status_message = trans('auth.confirmed');
+        $statusMessage = trans('auth.confirmed');
 
         if (Auth::check()) {
             return redirect(route('root'));
         } else {
-            return redirect(route('user_login',
-                ['language' => App::getLocale()]))->with('status',
-                $status_message);
+            $userLoginRoute = route('user_login', ['language' => App::getLocale()]);
+
+            return redirect($userLoginRoute)
+                ->with('status', $statusMessage);
         }
     }
 }

@@ -3,10 +3,10 @@
 namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
-use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -108,7 +108,7 @@ class AuthController extends Controller
         }
 
         if ($userExists) {
-            $status_message = "";
+            $statusMessage = "";
 
             if (is_null($authUser->email) && !is_null($user->getEmail())) {
                 if (User::where('email', $user->getEmail())->count() == 0) {
@@ -116,7 +116,8 @@ class AuthController extends Controller
                     $authUser->modified = false;
                     $authUser->save();
                 } else {
-                    $status_message = "Sorry, send a email to got2shit@gmail.com with subject: I can't add email from facebook or github to my twitter account";
+                    $statusMessage = "Sorry, send a email to got2shit@gmail.com with subject: "
+                        . "I can't add email from facebook or github to my twitter account";
                 }
             }
 
@@ -129,7 +130,7 @@ class AuthController extends Controller
 
             Auth::login($authUser, true);
 
-            return redirect(route('root'))->with('status', $status_message);
+            return redirect(route('root'))->with('status', $statusMessage);
         }
 
         return $this->createUserAndRouteToProfile($provider, $user);
@@ -160,8 +161,15 @@ class AuthController extends Controller
 
         Auth::login($authUser, true);
 
-        return redirect(route('user.show',
-            ['language' => App::getLocale(), 'user' => Auth::user()->id]));
+        $userRoute = route(
+            'user.show',
+            [
+                'language' => App::getLocale(),
+                'user' => Auth::id(),
+            ]
+        );
+
+        return redirect($userRoute);
     }
 
     private function username($user)

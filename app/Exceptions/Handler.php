@@ -22,10 +22,10 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-      AuthorizationException::class,
-      HttpException::class,
-      ModelNotFoundException::class,
-      ValidationException::class,
+        AuthorizationException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
+        ValidationException::class,
     ];
 
     /**
@@ -35,6 +35,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Exception $e
      * @return void
+     * @throws Exception
      */
     public function report(Exception $e)
     {
@@ -82,8 +83,8 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     protected function unauthenticated(
-      $request,
-      AuthenticationException $exception
+        $request,
+        AuthenticationException $exception
     ) {
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);

@@ -12,7 +12,7 @@ class PlaceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function place_create()
+    public function placeCreate()
     {
         $user = factory(User::class)->create();
 
@@ -44,7 +44,7 @@ class PlaceTest extends TestCase
     }
 
     /** @test */
-    public function place_edit()
+    public function placeEdit()
     {
         $user = factory(User::class)->create();
 
@@ -87,7 +87,7 @@ class PlaceTest extends TestCase
     }
 
     /** @test */
-    public function place_delete()
+    public function placeDelete()
     {
         $user = factory(User::class)->create();
 

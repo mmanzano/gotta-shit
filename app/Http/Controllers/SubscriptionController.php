@@ -48,33 +48,34 @@ class SubscriptionController extends Controller
 
     public function responseView(Request $request, Place $place)
     {
-        $status_message = "";
-        $view = "";
-
         if ($request->getMethod() == "POST") {
-            $status_message = trans('gottashit.subscription.subscribed_place');
+            $statusMessage = trans('gottashit.subscription.subscribed_place');
             $view = "place.subscription.remove";
-        } else {
-            if ($request->getMethod() == "DELETE") {
-                $status_message = trans('gottashit.subscription.unsubscribed_place');
-                $view = "place.subscription.add";
-            }
+        }
+
+        if ($request->getMethod() == "DELETE") {
+            $statusMessage = trans('gottashit.subscription.unsubscribed_place');
+            $view = "place.subscription.add";
         }
 
         if ($request->ajax()) {
             return response()->json([
                 'status' => 200,
-                'status_message' => $status_message,
-                'button_box' => view($view, compact('place'))->render(),
+                'status_message' => $statusMessage ?? '',
+                'button_box' => view($view ?? '', compact('place'))->render(),
                 'request' => $request->getMethod(),
             ]);
         } else {
-            return redirect(route('place.show',
+            $placeRoute = route(
+                'place.show',
                 [
                     'language' => App::getLocale(),
                     'place' => $place->id,
-                ]))->with('status',
-                $status_message);
+                ]
+            );
+
+            return redirect($placeRoute)
+                ->with('status', $statusMessage);
         }
     }
 }

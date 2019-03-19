@@ -19,130 +19,132 @@ Route::group(['middleware' => ['lang']], function () {
 
 Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
     // Home
-    Route::get('', ['as' => 'home', 'uses' => 'HomeController@index_locale']);
+    Route::get('', ['as' => 'home', 'uses' => 'HomeController@indexLocale']);
 
     // Language change
-    Route::get('change',
-        ['as' => 'language', 'uses' => 'LanguageController@change']);
+    Route::get('change', ['as' => 'language', 'uses' => 'LanguageController@change']);
 
     // Best Places
-    Route::get('place/best',
-      ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
+    Route::get('place/best', ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
 
     // Place for a user
-    Route::get('place/user',
-      ['as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
+    Route::get('place/user', ['as' => 'user_places', 'uses' => 'PlaceController@placesForUser']);
 
     // Nearest Places
-    Route::get('place/{lat}/{lng}/{distance}',
-      ['as' => 'nearest_places', 'uses' => 'PlaceController@nearest']);
+    Route::get('place/{lat}/{lng}/{distance}', ['as' => 'nearest_places', 'uses' => 'PlaceController@nearest']);
 
     Route::resource('place', 'PlaceController', [
-      'names' => [
-        'index'   => 'place.index',
-        'create'  => 'place.create',
-        'store'   => 'place.store',
-        'show'    => 'place.show',
-        'edit'    => 'place.edit',
-        'update'  => 'place.update',
-        'destroy' => 'place.destroy',
-      ]
+        'names' => [
+            'index' => 'place.index',
+            'create' => 'place.create',
+            'store' => 'place.store',
+            'show' => 'place.show',
+            'edit' => 'place.edit',
+            'update' => 'place.update',
+            'destroy' => 'place.destroy',
+        ],
     ]);
 
-    Route::post('place/{place}/restore',
-      ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
+    Route::post('place/{place}/restore', ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
 
     Route::resource('place.comment', 'CommentController', [
-      'only' => [
-        'store',
-        'edit',
-        'update',
-        'destroy',
-      ],
-      'names' => [
-        'store'   => 'place.comment.store',
-        'edit'    => 'place.comment.edit',
-        'update'  => 'place.comment.update',
-        'destroy' => 'place.comment.destroy',
-      ]
+        'only' => [
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ],
+        'names' => [
+            'store' => 'place.comment.store',
+            'edit' => 'place.comment.edit',
+            'update' => 'place.comment.update',
+            'destroy' => 'place.comment.destroy',
+        ],
     ]);
 
-    Route::put('place/{place_id}/stars', ['as' => 'place.stars.update','uses' => 'StarController@update']);
+    Route::put('place/{place_id}/stars', ['as' => 'place.stars.update', 'uses' => 'StarController@update']);
     Route::delete('place/{place_id}/stars', ['as' => 'place.stars.destroy', 'uses' => 'StarController@destroy']);
 
-    Route::post('place/{place_id}/subscribe', ['as' => 'place.subscribe.store','uses' => 'SubscriptionController@store']);
-    Route::delete('place/{place_id}/subscribe', ['as' => 'place.subscribe.destroy', 'uses' => 'SubscriptionController@destroy']);
+    Route::post(
+        'place/{place_id}/subscribe',
+        [
+            'as' => 'place.subscribe.store',
+            'uses' => 'SubscriptionController@store',
+        ]
+    );
+    Route::delete(
+        'place/{place_id}/subscribe',
+        [
+            'as' => 'place.subscribe.destroy',
+            'uses' => 'SubscriptionController@destroy',
+        ]
+    );
 
     Route::resource('user', 'Auth\UserController', [
-      'only' => [
-        'show',
-        'edit',
-        'update',
-      ],
-      'names' => [
-        'show'    => 'user.show',
-        'edit'    => 'user.edit',
-        'update'  => 'user.update',
-      ]
+        'only' => [
+            'show',
+            'edit',
+            'update',
+        ],
+        'names' => [
+            'show' => 'user.show',
+            'edit' => 'user.edit',
+            'update' => 'user.update',
+        ],
     ]);
 
     // Authentication
-    Route::get('login',
-      ['as' => 'user_login', 'uses' => 'Auth\SessionsController@login']);
+    Route::get('login', ['as' => 'user_login', 'uses' => 'Auth\SessionsController@login']);
 
-    Route::post('login',
-      ['as' => 'user_login', 'uses' => 'Auth\SessionsController@postLogin']);
+    Route::post('login', ['as' => 'user_login', 'uses' => 'Auth\SessionsController@postLogin']);
 
-    Route::get('logout',
-      ['as' => 'user_logout', 'uses' => 'Auth\SessionsController@logout']);
+    Route::get('logout', ['as' => 'user_logout', 'uses' => 'Auth\SessionsController@logout']);
 
     // Registration
     Route::get('register', [
-      'as' => 'user_register',
-      'uses' => 'Auth\RegistrationController@register'
+        'as' => 'user_register',
+        'uses' => 'Auth\RegistrationController@register',
     ]);
 
     Route::post('register', [
-      'as' => 'user_register',
-      'uses' => 'Auth\RegistrationController@postRegister'
+        'as' => 'user_register',
+        'uses' => 'Auth\RegistrationController@postRegister',
     ]);
 
     Route::get('register/confirm/{token}', [
-      'as' => 'user_register_confirm',
-      'uses' => 'Auth\RegistrationController@confirmEmail'
+        'as' => 'user_register_confirm',
+        'uses' => 'Auth\RegistrationController@confirmEmail',
     ]);
 
     // Password reset link
     Route::get('password/email', [
-      'as' => 'user_password_email',
-      'uses' => 'Auth\PasswordController@getLocaleEmail'
+        'as' => 'user_password_email',
+        'uses' => 'Auth\PasswordController@getLocaleEmail',
     ]);
 
     Route::post('password/email', [
-      'as' => 'user_password_email',
-      'uses' => 'Auth\PasswordController@postLocaleEmail'
+        'as' => 'user_password_email',
+        'uses' => 'Auth\PasswordController@postLocaleEmail',
     ]);
 
     Route::get('password/reset/{token}', [
-      'as' => 'user_password_reset',
-      'uses' => 'Auth\PasswordController@getLocaleReset'
+        'as' => 'user_password_reset',
+        'uses' => 'Auth\PasswordController@getLocaleReset',
     ]);
 
     Route::post('password/reset', [
-      'as' => 'user_password_reset',
-      'uses' => 'Auth\PasswordController@postLocaleReset'
+        'as' => 'user_password_reset',
+        'uses' => 'Auth\PasswordController@postLocaleReset',
     ]);
 });
 
 // Social Authentication
-Route::get('/auth/{provider}',
-    [
-        'as' => 'social_login',
-        'uses' => 'Auth\AuthController@redirectToProvider'
-    ])
-    ->where('provider', 'facebook|github|twitter');
+Route::get('/auth/{provider}', [
+    'as' => 'social_login',
+    'uses' => 'Auth\AuthController@redirectToProvider',
+])->where('provider', 'facebook|github|twitter');
 
 Route::get('/auth/{provider}/callback', [
     'as' => 'social_callback',
-    'uses' => 'Auth\AuthController@handleProviderCallback'
+    'uses' => 'Auth\AuthController@handleProviderCallback',
 ])->where('provider', 'facebook|github|twitter');

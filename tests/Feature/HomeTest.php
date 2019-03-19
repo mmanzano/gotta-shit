@@ -19,42 +19,42 @@ class HomeTest extends TestCase
     }
 
     /** @test */
-    public function home_gotta_shit()
+    public function homeGottaShit()
     {
         $this->get('/en')
             ->assertSee('Gotta Shit');
     }
 
     /** @test */
-    public function home_login()
+    public function homeLogin()
     {
         $this->get('/en')
             ->assertSee('Login');
     }
 
     /** @test */
-    public function home_register()
+    public function homeRegister()
     {
         $this->get('/en')
             ->assertSee('Register');
     }
 
     /** @test */
-    public function home_all_guest()
+    public function homeAllGuest()
     {
         $this->get('/en')
             ->assertSee('All');
     }
 
     /** @test */
-    public function home_nearest_guest()
+    public function homeNearestGuest()
     {
         $this->get('/en')
             ->assertSee('Nearest');
     }
 
     /** @test */
-    public function home_all_user()
+    public function homeAllUser()
     {
         $user = factory(User::class)->create();
 
@@ -64,7 +64,7 @@ class HomeTest extends TestCase
     }
 
     /** @test */
-    public function home_nearest_user()
+    public function homeNearestUser()
     {
         $user = factory(User::class)->create();
 
@@ -74,7 +74,7 @@ class HomeTest extends TestCase
     }
 
     /** @test */
-    public function home_your_places()
+    public function homeYourPlaces()
     {
         $user = factory(User::class)->create();
 
@@ -84,7 +84,7 @@ class HomeTest extends TestCase
     }
 
     /** @test */
-    public function home_add()
+    public function homeAdd()
     {
         $user = factory(User::class)->create();
 
@@ -94,7 +94,7 @@ class HomeTest extends TestCase
     }
 
     /** @test */
-    public function home_logout()
+    public function homeLogout()
     {
         $user = factory(User::class)->create();
 

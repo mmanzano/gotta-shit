@@ -63,23 +63,20 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = $user->email;
         $this->view = 'emails.confirm';
-        $path = route('user_register_confirm',
-            ['language' => App::getLocale(), 'token' => $user->token]);
+        $path = route('user_register_confirm', ['language' => App::getLocale(), 'token' => $user->token]);
         $this->data = compact('user', 'path');
         $this->subject = $subject;
 
         $this->deliver();
     }
 
-    public function sendPlaceAddNotification(User $user, Place $place, string $subject)
+    public function sendPlaceAddNotification(Authenticatable $user, Place $place, string $subject)
     {
         $this->from = env('SES_EMAIL');
         $this->to = env('SES_EMAIL');
         $this->view = 'emails.notification.place';
-        $path = route('place.show',
-            ['language' => App::getLocale(), 'place' => $place->id]);
-        $path_user = route('user.show',
-            ['language' => App::getLocale(), 'user' => $user->id]);
+        $path = route('place.show', ['language' => App::getLocale(), 'place' => $place->id]);
+        $path_user = route('user.show', ['language' => App::getLocale(), 'user' => $user->id]);
         $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;
 
@@ -98,16 +95,22 @@ class AppMailer
             $this->from = env('SES_EMAIL');
             $this->to = $subscriber->email;
             $this->view = 'emails.notification.comment';
-            $path = route('place.show', [
+            $placeRoute = route(
+                'place.show',
+                [
                     'language' => App::getLocale(),
-                    'place' => $place->id
-                ]) . '#comment-' . $comment->id;
-            $path_author_of_comment = route('user.show', [
-                'language' => App::getLocale(),
-                'user' => $author_of_comment->id
-            ]);
-            $this->data = compact('path', 'place', 'subscriber',
-                'author_of_comment', 'path_author_of_comment');
+                    'place' => $place->id,
+                ]
+            );
+            $path = $placeRoute . '#comment-' . $comment->id;
+            $path_author_of_comment = route(
+                'user.show',
+                [
+                    'language' => App::getLocale(),
+                    'user' => $author_of_comment->id,
+                ]
+            );
+            $this->data = compact('path', 'place', 'subscriber', 'author_of_comment', 'path_author_of_comment');
             $this->subject = $subject;
 
             $this->deliver();
@@ -136,9 +139,13 @@ class AppMailer
     public function deliver()
     {
         $this->mailer
-            ->send($this->view, $this->data, function ($message) {
-                $message->from($this->from, 'GottaShit')
-                    ->to($this->to)->subject($this->subject);
-            });
+            ->send(
+                $this->view,
+                $this->data,
+                function ($message) {
+                    $message->from($this->from, 'GottaShit')
+                        ->to($this->to)->subject($this->subject);
+                }
+            );
     }
 }

@@ -11,7 +11,7 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_user_may_register_for_an_account_but_must_confirm_their_email_address()
+    public function aUserMayRegisterForAnAccountButMustConfirmTheirEmailAddress()
     {
         $registerRoute = route('user_register', [
             'language' => 'en',
@@ -25,7 +25,7 @@ class UserTest extends TestCase
             'password_confirmation' => 'secret'
         ]);
 
-        $this->assertDatabaseHas('users',[
+        $this->assertDatabaseHas('users', [
             'username' => 'gottashit',
             'verified' => 0
         ]);

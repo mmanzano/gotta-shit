@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth as Auth;
 class UserController extends Controller
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
@@ -20,8 +21,7 @@ class UserController extends Controller
     {
         $is_user = $this->isAuthUser($user->id);
 
-        $title = trans('gottashit.title.user_profile',
-            ['user' => $user->username]);
+        $title = trans('gottashit.title.user_profile', ['user' => $user->username]);
 
         return view('auth.view', compact('title', 'user', 'is_user'));
     }
@@ -29,16 +29,20 @@ class UserController extends Controller
     public function edit(string $language, User $user)
     {
         if (!$this->isAuthUser($user->id)) {
-            $status_message = trans('gottashit.user.edit_user_not_allowed');
+            $statusMessage = trans('gottashit.user.edit_user_not_allowed');
 
-            return redirect(route('user.show', [
-                'language' => App::getLocale(),
-                'user' => Auth::user()->id
-            ]))->with('status', $status_message);
+            $userShowRoute = route(
+                'user.show',
+                [
+                    'language' => App::getLocale(),
+                    'user' => Auth::user()->id,
+                ]
+            );
+
+            return redirect($userShowRoute)->with('status', $statusMessage);
         }
 
-        $title = trans('gottashit.title.edit_user',
-            ['user' => $user->username]);
+        $title = trans('gottashit.title.edit_user', ['user' => $user->username]);
 
         return view('auth.edit', compact('title', 'user'));
     }
@@ -50,13 +54,14 @@ class UserController extends Controller
         User $user
     ) {
         $logout = false;
-        $status_message = "";
+        $statusMessage = "";
 
         if (!$this->isAuthUser($user->id)) {
-            $status_message = trans('gottashit.user.update_user_not_allowed');
+            $statusMessage = trans('gottashit.user.update_user_not_allowed');
 
-            return redirect(route('home',
-                ['language' => App::getLocale()]))->with('status', $status_message);
+            $homeRoute = route('home', ['language' => App::getLocale()]);
+
+            return redirect($homeRoute)->with('status', $statusMessage);
         }
 
         $this->validate($request, [
@@ -80,10 +85,9 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->token = str_random(30);
             $user->modified = true;
-            $mailer->sendEmailConfirmationTo($user,
-                trans('gottashit.email.confirm_email_new_subject'));
+            $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_new_subject'));
 
-            $status_message = trans('auth.confirm_email') . "<br/>";
+            $statusMessage = trans('auth.confirm_email') . "<br/>";
         }
 
         if (trim($request->input('password')) != "") {
@@ -96,28 +100,30 @@ class UserController extends Controller
 
         $user->save();
 
-        $status_message .= trans('gottashit.user.updated_user',
-            ['user' => $user->full_name]);
+        $statusMessage .= trans('gottashit.user.updated_user', ['user' => $user->full_name]);
 
         if ($logout) {
             Auth::logout();
 
-            return redirect(route('home',
-                ['language' => App::getLocale()]))->with('status', $status_message);
+            $homeRoute = route('home', ['language' => App::getLocale()]);
+
+            return redirect($homeRoute)->with('status', $statusMessage);
         }
 
-        return redirect(route('user.show', [
-            'language' => App::getLocale(),
-            'user' => Auth::user()->id
-        ]))->with('status', $status_message);
+        $userShowRoute = route(
+            'user.show',
+            [
+                'language' => App::getLocale(),
+                'user' => Auth::id(),
+            ]
+        );
+
+        return redirect($userShowRoute)
+            ->with('status', $statusMessage);
     }
 
     private function isAuthUser($userId)
     {
-        if (Auth::check()) {
-            return Auth::id() == $userId;
-        }
-
-        return false;
+        return Auth::id() == $userId;
     }
 }

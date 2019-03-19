@@ -87,11 +87,9 @@ class CommentController extends Controller
             return response()->json([
                 'status' => 200,
                 'status_message' => $statusMessage,
-                'comment' => view('place.comment.view',
-                    compact('place', 'comment'))->render(),
+                'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
                 'number_of_comments' => $numberOfComments,
-                'button_box' => view('place.subscription.remove',
-                    compact('place'))->render(),
+                'button_box' => view('place.subscription.remove', compact('place'))->render(),
             ]);
         } else {
             $route = route('place.show', [
@@ -122,12 +120,10 @@ class CommentController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                'edit_box' => view('place.comment.partials.edit',
-                    compact('place', 'comment'))->render(),
+                'edit_box' => view('place.comment.partials.edit', compact('place', 'comment'))->render(),
             ]);
         } else {
-            return view('place.comment.edit',
-                compact('title', 'place', 'comment'));
+            return view('place.comment.edit', compact('title', 'place', 'comment'));
         }
     }
 
@@ -148,35 +144,38 @@ class CommentController extends Controller
         ]);
 
         if ($comment->isAuthor) {
-            $comment->comment = $request->input('comment');
+            $comment->update([
+                'comment' => $request->input('comment'),
+            ]);
 
-            $comment->save();
-
-            $status_message = trans('gottashit.comment.updated_comment',
-                ['place' => $place->name]);
+            $statusMessage = trans('gottashit.comment.updated_comment', ['place' => $place->name]);
         } else {
-            $status_message = trans('gottashit.comment.update_comment_not_allowed',
-                ['place' => $place->name]);
+            $statusMessage = trans('gottashit.comment.update_comment_not_allowed', ['place' => $place->name]);
         }
 
         if ($request->ajax()) {
-            $number_of_comments = trans_choice('gottashit.comment.comments',
+            $numberOfComments = trans_choice(
+                'gottashit.comment.comments',
                 $place->numberOfComments,
-                ['number_of_comments' => $place->numberOfComments]);
+                ['number_of_comments' => $place->numberOfComments]
+            );
 
             return response()->json([
                 'status' => 200,
-                'status_message' => $status_message,
-                'comment' => view('place.comment.view',
-                    compact('place', 'comment'))->render(),
-                'number_of_comments' => $number_of_comments,
+                'status_message' => $statusMessage,
+                'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
+                'number_of_comments' => $numberOfComments,
             ]);
         } else {
-            return redirect(route('place.show', [
-                    'language' => App::getLocale(),
-                    'place' => $place->id,
-                ]) . '#comment-' . $comment->id)->with('status',
-                $status_message);
+            $placeRoute = route('place.show', [
+                'language' => App::getLocale(),
+                'place' => $place->id,
+            ]);
+
+            $placeRouteWithAnchor = $placeRoute . '#comment-' . $comment->id;
+
+            return redirect($placeRouteWithAnchor)
+                ->with('status', $statusMessage);
         }
     }
 
@@ -192,32 +191,42 @@ class CommentController extends Controller
     public function destroy(Request $request, string $language, Place $place, PlaceComment $comment)
     {
         if ($comment->isAuthor || $place->isAuthor) {
-            $status_message = trans('gottashit.comment.deleted_comment',
-                ['place' => $place->name]);
+            $statusMessage = trans(
+                'gottashit.comment.deleted_comment',
+                ['place' => $place->name]
+            );
 
             $comment->forceDelete();
         } else {
-            $status_message = trans('gottashit.comment.delete_comment_not_allowed',
-                ['place' => $place->name]);
+            $statusMessage = trans(
+                'gottashit.comment.delete_comment_not_allowed',
+                ['place' => $place->name]
+            );
         }
 
         if ($request->ajax()) {
-            $number_of_comments = trans_choice('gottashit.comment.comments',
+            $number_of_comments = trans_choice(
+                'gottashit.comment.comments',
                 $place->numberOfComments,
-                ['number_of_comments' => $place->numberOfComments]);
+                ['number_of_comments' => $place->numberOfComments]
+            );
 
             return response()->json([
                 'status' => 200,
-                'status_message' => $status_message,
+                'status_message' => $statusMessage,
                 'number_of_comments' => $number_of_comments,
             ]);
         } else {
-            return redirect(route('place.show',
+            $placeRoute = route(
+                'place.show',
                 [
                     'language' => App::getLocale(),
                     'place' => $place->id,
-                ]))->with('status',
-                $status_message);
+                ]
+            );
+
+            return redirect($placeRoute)
+                ->with('status', $statusMessage);
         }
     }
 }

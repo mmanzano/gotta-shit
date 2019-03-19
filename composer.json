@@ -25,7 +25,8 @@
         "phpspec/phpspec": "~2.1",
         "symfony/dom-crawler": "3.1.*",
         "symfony/css-selector": "3.1.*",
-        "symfony/thanks": "^1.0"
+        "symfony/thanks": "^1.0",
+        "squizlabs/php_codesniffer": "^2.7"
     },
     "autoload": {
         "classmap": [
@@ -57,6 +58,12 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "lint": [
+            "./vendor/bin/phpcs -p --standard=PSR2 app",
+            "./vendor/bin/phpcs -p --standard=PSR2 config",
+            "./vendor/bin/phpcs -p --standard=PSR2 routes",
+            "./vendor/bin/phpcs -p --standard=PSR2 tests"
         ]
     },
     "config": {

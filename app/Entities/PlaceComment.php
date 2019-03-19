@@ -2,7 +2,6 @@
 
 namespace GottaShit\Entities;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth as Auth;
@@ -56,19 +55,12 @@ class PlaceComment extends Model
 
     public function getIsAuthorAttribute()
     {
-        $isAuthor = false;
-        if (Auth::check()) {
-            if ($this->user_id == Auth::user()->id) {
-                $isAuthor = true;
-            }
-        }
-
-        return $isAuthor;
+        return Auth::id() == $this->user_id;
     }
 
     public function getPublicationDateAttribute()
     {
-        if($this->created_at->diffInDays() >= 1) {
+        if ($this->created_at->diffInDays() >= 1) {
             return ucfirst($this->created_at->formatLocalized('%A %d %B %Y %H:%M'));
         } else {
             return $this->created_at->diffForHumans();

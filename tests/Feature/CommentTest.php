@@ -13,7 +13,7 @@ class CommentTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function comment_create()
+    public function commentCreate()
     {
         $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
@@ -59,7 +59,7 @@ class CommentTest extends TestCase
     }
 
     /** @test */
-    public function comment_edit()
+    public function commentEdit()
     {
         $user = factory(User::class)->create();
 
@@ -98,7 +98,8 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_comment_delete()
+    /** @test */
+    public function commentDelete()
     {
         $user = factory(User::class)->create();
 
