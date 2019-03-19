@@ -34,6 +34,12 @@ class SubscriptionTest extends TestCase
             'user_id' => $user->id,
         ]);
 
+        $user->subscriptions()->create([
+            'place_id' => $place->id,
+        ]);
+
+        $this->assertCount(1, $user->subscriptions()->where('place_id', $place->id)->get());
+
         $this->actingAs($user)
             ->json('DELETE', "/es/place/{$place->id}/subscribe")
             ->assertStatus(302);
