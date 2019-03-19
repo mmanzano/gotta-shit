@@ -15,7 +15,6 @@ class CommentTest extends TestCase
     /** @test */
     public function commentCreate()
     {
-        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
 
         $place = factory(Place::class)->create([
