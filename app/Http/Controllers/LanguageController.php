@@ -33,6 +33,10 @@ class LanguageController extends Controller
             Auth::user()->setLanguage($language);
         }
 
-        return redirect()->back();
+        $backRoute = request()->headers->get('referer');
+
+        $backRouteWithLanguage = preg_replace('/\/(es|en)\/?/', "/{$language}/", $backRoute);
+
+        return redirect()->to($backRouteWithLanguage);
     }
 }

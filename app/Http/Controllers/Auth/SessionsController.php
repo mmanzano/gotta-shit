@@ -29,8 +29,6 @@ class SessionsController extends Controller
      */
     public function login($language)
     {
-        $this->setLanguage($language);
-
         $title = trans('gottashit.title.login');
 
         return view('auth.login', compact('title'));
@@ -45,8 +43,6 @@ class SessionsController extends Controller
      */
     public function postLogin(Request $request, $language)
     {
-        $this->setLanguage($language);
-
         $this->loginPath = route('user_login',
             ['language' => App::getLocale()]);
 
@@ -56,8 +52,6 @@ class SessionsController extends Controller
         ]);
 
         if ($this->signIn($request)) {
-            $this->setLanguage($language);
-
             $status_message = trans('auth.login');
 
             return redirect(route('home',
@@ -80,8 +74,6 @@ class SessionsController extends Controller
      */
     public function logout($language)
     {
-        $this->setLanguage($language);
-
         Auth::logout();
 
         $status_message = trans('auth.logout');

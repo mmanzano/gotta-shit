@@ -17,8 +17,6 @@ class SubscriptionController extends Controller
 
     public function store(Request $request, $language, $place_id)
     {
-        $this->setLanguage($language);
-
         $this->subscribe($place_id);
 
         return $this->responseView($request, $place_id);
@@ -26,8 +24,6 @@ class SubscriptionController extends Controller
 
     public function destroy(Request $request, $language, $place_id)
     {
-        $this->setLanguage($language);
-
         $this->unsubscribe($place_id);
 
         return $this->responseView($request, $place_id);

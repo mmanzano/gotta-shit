@@ -31,8 +31,6 @@ class PlaceController extends Controller
      */
     public function index(string $language)
     {
-        $this->setLanguage($language);
-
         $places = Place::paginate(8);
 
         $title = trans('gottashit.title.all_places');
@@ -48,8 +46,6 @@ class PlaceController extends Controller
      */
     public function create(string $language)
     {
-        $this->setLanguage($language);
-
         $title = trans('gottashit.title.create_place');
 
         return view('place.create', compact('title'));
@@ -58,15 +54,13 @@ class PlaceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $request
+     * @param Request $request
      * @param AppMailer $mailer
      * @param $language
      * @return Response
      */
     public function store(Request $request, AppMailer $mailer, $language)
     {
-        $this->setLanguage($language);
-
         $this->validate($request, [
             'name' => 'required|max:255',
             'geo_lat' => 'required|numeric|between:-90,90|distinct_place_store',
@@ -109,7 +103,7 @@ class PlaceController extends Controller
         return redirect(
             route(
                 'place.show',
-                ['language' => $language, 'place' => $place->id]
+                ['language' => App::getLocale(), 'place' => $place->id]
             )
         )->with('status', $status_message);
     }
@@ -122,14 +116,12 @@ class PlaceController extends Controller
      */
     public function show($language, $id)
     {
-        $this->setLanguage($language);
-
         $place = Place::withTrashed()->findOrFail($id);
 
         $title = $place->name;
 
         if ($place->trashed() && !$place->isAuthor) {
-            return redirect(route('home', ['language' => $language]));
+            return redirect(route('home', ['language' => App::getLocale()]));
         }
 
         Carbon::setLocale(App::getLocale());
@@ -157,8 +149,6 @@ class PlaceController extends Controller
      */
     public function edit($language, $id)
     {
-        $this->setLanguage($language);
-
         $place = Place::findOrFail($id);
 
         $title = trans('gottashit.title.edit_place', ['place' => $place->name]);
@@ -169,14 +159,13 @@ class PlaceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $request
-     * @param  int $id
+     * @param Request $request
+     * @param string $language
+     * @param int $id
      * @return Response
      */
     public function update(Request $request, $language, $id)
     {
-        $this->setLanguage($language);
-
         $this->validate($request, [
             'name' => 'required|max:255',
             'geo_lat' => 'required|numeric|between:-90,90|distinct_place_update',
@@ -214,7 +203,7 @@ class PlaceController extends Controller
 
             return redirect(route('place.show',
                 [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]))->with('status',
                 $status_message);
@@ -223,7 +212,7 @@ class PlaceController extends Controller
                 ['place' => $place->name]);
 
             return redirect(route('home',
-                ['language' => $language]))->with('status', $status_message);
+                ['language' => App::getLocale()]))->with('status', $status_message);
         }
     }
 
@@ -235,8 +224,6 @@ class PlaceController extends Controller
      */
     public function destroy($language, $id)
     {
-        $this->setLanguage($language);
-
         $place = Place::withTrashed()->findOrFail($id);
 
         if ($place->isAuthor) {
@@ -252,20 +239,18 @@ class PlaceController extends Controller
             }
 
             return redirect(route('user_places',
-                ['language' => $language]))->with('status', $status_message);
+                ['language' => App::getLocale()]))->with('status', $status_message);
         } else {
             $status_message = trans('gottashit.place.delete_place_not_allowed',
                 ['place' => $place->name]);
 
             return redirect(route('home',
-                ['language' => $language]))->with('status', $status_message);
+                ['language' => App::getLocale()]))->with('status', $status_message);
         }
     }
 
     public function restore($language, $place_id)
     {
-        $this->setLanguage($language);
-
         $place = Place::withTrashed()->findOrFail($place_id);
 
         if ($place->isAuthor) {
@@ -276,7 +261,7 @@ class PlaceController extends Controller
 
             return redirect(route('place.show',
                 [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]))->with('status',
                 $status_message);
@@ -285,7 +270,7 @@ class PlaceController extends Controller
                 ['place' => $place->name]);
 
             return redirect(route('home',
-                ['language' => $language]))->with('status', $status_message);
+                ['language' => App::getLocale()]))->with('status', $status_message);
         }
     }
 
@@ -296,8 +281,6 @@ class PlaceController extends Controller
      */
     public function placesForUser($language)
     {
-        $this->setLanguage($language);
-
         if (Auth::check()) {
             $places = Place::where('user_id', Auth::user()->id)->paginate(8);
         } else {
@@ -311,8 +294,6 @@ class PlaceController extends Controller
 
     public function bestPlaces($language)
     {
-        $this->setLanguage($language);
-
         $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=',
             'places.id')
             ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
@@ -340,8 +321,6 @@ class PlaceController extends Controller
         $longitude,
         $distance
     ) {
-        $this->setLanguage($language);
-
         $totalLat = 180;
         $totalLng = 360;
         $radius = 6371000;

@@ -24,8 +24,6 @@ class RegistrationController extends Controller
      */
     public function register($language)
     {
-        $this->setLanguage($language);
-
         $title = trans('gottashit.title.register');
 
         return view('auth.register', compact('title'));
@@ -41,8 +39,6 @@ class RegistrationController extends Controller
      */
     public function postRegister(Request $request, AppMailer $mailer, $language)
     {
-        $this->setLanguage($language);
-
         $this->validate($request, [
             'full_name' => 'required|max:255',
             'username' => 'required|max:255|unique:users',
@@ -76,8 +72,6 @@ class RegistrationController extends Controller
      */
     public function confirmEmail($language, $token)
     {
-        $this->setLanguage($language);
-
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
         $status_message = trans('auth.confirmed');

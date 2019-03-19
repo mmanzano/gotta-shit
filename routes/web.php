@@ -11,17 +11,19 @@
 |
 */
 
-Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
+Route::group(['middleware' => ['lang']], function () {
+    Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 
-Route::post('/contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
+    Route::post('/contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
+});
 
-Route::group(['prefix' => '{language}'], function () {
+Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
     // Home
     Route::get('', ['as' => 'home', 'uses' => 'HomeController@index_locale']);
 
     // Language change
     Route::get('change',
-      ['as' => 'language', 'uses' => 'LanguageController@change']);
+        ['as' => 'language', 'uses' => 'LanguageController@change']);
 
     // Best Places
     Route::get('place/best',

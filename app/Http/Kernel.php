@@ -2,6 +2,12 @@
 
 namespace GottaShit\Http;
 
+use GottaShit\Http\Middleware\EncryptCookies;
+use GottaShit\Http\Middleware\IsAuthorCommentMiddleware;
+use GottaShit\Http\Middleware\IsAuthorMiddleware;
+use GottaShit\Http\Middleware\LanguageMiddleware;
+use GottaShit\Http\Middleware\RedirectIfAuthenticated;
+use GottaShit\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -14,7 +20,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-      \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
     ];
 
     /**
@@ -23,19 +29,19 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
-      'web' => [
-        \GottaShit\Http\Middleware\EncryptCookies::class,
-        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \GottaShit\Http\Middleware\VerifyCsrfToken::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-      ],
+        'web' => [
+            EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ],
 
-      'api' => [
-        'throttle:60,1',
-        'bindings',
-      ],
+        'api' => [
+            'throttle:60,1',
+            'bindings',
+        ],
     ];
 
     /**
@@ -46,13 +52,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-      'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-      'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-      'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-      'can' => \Illuminate\Auth\Middleware\Authorize::class,
-      'guest' => \GottaShit\Http\Middleware\RedirectIfAuthenticated::class,
-      'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-      'isAuthor' => \GottaShit\Http\Middleware\IsAuthorMiddleware::class,
-      'isAuthorComment' => \GottaShit\Http\Middleware\IsAuthorCommentMiddleware::class,
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'lang' => LanguageMiddleware::class,
+        'isAuthor' => IsAuthorMiddleware::class,
+        'isAuthorComment' => IsAuthorCommentMiddleware::class,
     ];
 }

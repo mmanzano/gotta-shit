@@ -19,8 +19,6 @@ class UserController extends Controller
 
     public function show($language, $user_id)
     {
-        $this->setLanguage($language);
-
         $user = User::findOrFail($user_id);
         $is_user = $this->is_user($user_id);
 
@@ -32,15 +30,13 @@ class UserController extends Controller
 
     public function edit($language, $user_id)
     {
-        $this->setLanguage($language);
-
         $user = User::findOrFail($user_id);
 
         if (!$this->is_user($user_id)) {
             $status_message = trans('gottashit.user.edit_user_not_allowed');
 
             return redirect(route('user.show', [
-                'language' => $language,
+                'language' => App::getLocale(),
                 'user' => Auth::user()->id
             ]))->with('status', $status_message);
         }
@@ -57,8 +53,6 @@ class UserController extends Controller
         $language,
         $user_id
     ) {
-        $this->setLanguage($language);
-
         $logout = false;
         $status_message = "";
 
@@ -66,7 +60,7 @@ class UserController extends Controller
             $status_message = trans('gottashit.user.update_user_not_allowed');
 
             return redirect(route('home',
-                ['language' => $language]))->with('status', $status_message);
+                ['language' => App::getLocale()]))->with('status', $status_message);
         }
 
         $this->validate($request, [
@@ -115,11 +109,11 @@ class UserController extends Controller
             Auth::logout();
 
             return redirect(route('home',
-                ['language' => $language]))->with('status', $status_message);
+                ['language' => App::getLocale()]))->with('status', $status_message);
         }
 
         return redirect(route('user.show', [
-            'language' => $language,
+            'language' => App::getLocale(),
             'user' => Auth::user()->id
         ]))->with('status', $status_message);
     }

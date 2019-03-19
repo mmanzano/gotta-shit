@@ -37,8 +37,6 @@ class CommentController extends Controller
         $language,
         $id_place
     ) {
-        $this->setLanguage($language);
-
         $this->validate($request, [
             'comment' => 'required',
         ]);
@@ -76,16 +74,17 @@ class CommentController extends Controller
             } else {
                 if (is_null($subscription->comment_id)) {
                     $subscriber = User::findOrFail($subscription->user_id);
-                    $this->setLanguageUser($subscriber);
-                    $mailer->sendCommentAddNotification($author_of_comment,
-                        $subscriber, $place, $comment, $subscription,
-                        trans('gottashit.email.new_comment_add',
-                            ['place' => $place->name]));
+                    $mailer->sendCommentAddNotification(
+                        $author_of_comment,
+                        $subscriber,
+                        $place,
+                        $comment,
+                        $subscription,
+                        trans('gottashit.email.new_comment_add', ['place' => $place->name], $subscriber->language)
+                    );
                 }
             }
         }
-
-        $this->setLanguage($language);
 
         $status_message = trans('gottashit.comment.created_comment',
             ['place' => $place->name]);
@@ -125,8 +124,6 @@ class CommentController extends Controller
      */
     public function edit(Request $request, $language, $id_place, $id_comment)
     {
-        $this->setLanguage($language);
-
         $place = Place::findOrFail($id_place);
         $comment = PlaceComment::findOrFail($id_comment);
 
@@ -155,8 +152,6 @@ class CommentController extends Controller
      */
     public function update(Request $request, $language, $id_place, $id_comment)
     {
-        $this->setLanguage($language);
-
         $this->validate($request, [
             'comment' => 'required',
         ]);
@@ -209,8 +204,6 @@ class CommentController extends Controller
      */
     public function destroy(Request $request, $language, $id_place, $id_comment)
     {
-        $this->setLanguage($language);
-
         $place = Place::findOrFail($id_place);
 
         $comment = PlaceComment::findOrFail($id_comment);

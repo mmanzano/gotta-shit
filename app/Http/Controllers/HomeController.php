@@ -23,8 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $this->setLanguage();
-
         $places = Place::paginate(1);
 
         $title = trans('gottashit.title.welcome');
@@ -35,13 +33,10 @@ class HomeController extends Controller
     /**
      * Show the application dashboard to the user.
      *
-     * @param $language
      * @return Response
      */
     public function index_locale($language)
     {
-        $this->setLanguage($language);
-
         $places = Place::paginate(1);
 
         $title = trans('gottashit.title.welcome');
