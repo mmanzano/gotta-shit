@@ -17,14 +17,14 @@ class SubscriptionController extends Controller
 
     public function store(Request $request, string $language, Place $place)
     {
-        $this->subscribe($place->id);
+        $this->subscribe($place);
 
         return $this->responseView($request, $place);
     }
 
     public function destroy(Request $request, string $language, Place $place)
     {
-        $this->unsubscribe($place->id);
+        $this->unsubscribe($place);
 
         return $this->responseView($request, $place);
     }

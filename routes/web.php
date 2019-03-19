@@ -62,18 +62,18 @@ Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
         ],
     ]);
 
-    Route::put('place/{place_id}/stars', ['as' => 'place.stars.update', 'uses' => 'StarController@update']);
-    Route::delete('place/{place_id}/stars', ['as' => 'place.stars.destroy', 'uses' => 'StarController@destroy']);
+    Route::put('place/{place}/stars', ['as' => 'place.stars.update', 'uses' => 'StarController@update']);
+    Route::delete('place/{place}/stars', ['as' => 'place.stars.destroy', 'uses' => 'StarController@destroy']);
 
     Route::post(
-        'place/{place_id}/subscribe',
+        'place/{place}/subscribe',
         [
             'as' => 'place.subscribe.store',
             'uses' => 'SubscriptionController@store',
         ]
     );
     Route::delete(
-        'place/{place_id}/subscribe',
+        'place/{place}/subscribe',
         [
             'as' => 'place.subscribe.destroy',
             'uses' => 'SubscriptionController@destroy',
