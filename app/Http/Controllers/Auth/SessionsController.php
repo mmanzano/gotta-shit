@@ -37,7 +37,7 @@ class SessionsController extends Controller
     /**
      * Perform the login.
      *
-     * @param  Request $request
+     * @param Request $request
      * @param $language
      * @return \Redirect
      */
@@ -85,7 +85,7 @@ class SessionsController extends Controller
     /**
      * Attempt to sign in the user.
      *
-     * @param  Request $request
+     * @param Request $request
      * @return boolean
      */
     protected function signIn(Request $request)
@@ -97,7 +97,7 @@ class SessionsController extends Controller
     /**
      * Get the login credentials and requirements.
      *
-     * @param  Request $request
+     * @param Request $request
      * @return array
      */
     protected function getCredentials(Request $request)

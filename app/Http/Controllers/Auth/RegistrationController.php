@@ -32,8 +32,8 @@ class RegistrationController extends Controller
     /**
      * Perform the registration.
      *
-     * @param  Request $request
-     * @param  AppMailer $mailer
+     * @param Request $request
+     * @param AppMailer $mailer
      * @param $language
      * @return \Redirect
      */
@@ -67,7 +67,7 @@ class RegistrationController extends Controller
      * Confirm a user's email address.
      *
      * @param $language
-     * @param  string $token
+     * @param string $token
      * @return mixed
      */
     public function confirmEmail($language, $token)

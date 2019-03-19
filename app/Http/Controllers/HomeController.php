@@ -33,9 +33,10 @@ class HomeController extends Controller
     /**
      * Show the application dashboard to the user.
      *
+     * @param string $language
      * @return Response
      */
-    public function index_locale($language)
+    public function index_locale(string $language)
     {
         $places = Place::paginate(1);
 

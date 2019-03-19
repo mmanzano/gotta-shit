@@ -21,9 +21,10 @@ class LanguageController extends Controller
     /**
      * Change the language
      *
+     * @param string $language
      * @return Response
      */
-    public function change($language)
+    public function change(string $language)
     {
         App::setLocale($language);
 

@@ -9,6 +9,7 @@ use GottaShit\Entities\User;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class CommentController extends Controller
@@ -24,24 +25,22 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $request
-     * @param \GottaShit\Mailers\AppMailer $mailer
-     * @param $language
-     * @param $id_place
+     * @param Request $request
+     * @param AppMailer $mailer
+     * @param string $language
+     * @param Place $place
      * @return Response
      * @throws \Throwable
      */
     public function store(
         Request $request,
         AppMailer $mailer,
-        $language,
-        $id_place
+        string $language,
+        Place $place
     ) {
         $this->validate($request, [
             'comment' => 'required',
         ]);
-
-        $place = Place::findOrFail($id_place);
 
         $comment = new PlaceComment();
 
@@ -105,7 +104,7 @@ class CommentController extends Controller
             ]);
         } else {
             return redirect(route('place.show', [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]) . '#comment-' . $comment->id)->with('status',
                 $status_message);
@@ -116,17 +115,14 @@ class CommentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Request $request
-     * @param $language
-     * @param $id_place
-     * @param $id_comment
+     * @param string $language
+     * @param Place $place
+     * @param PlaceComment $comment
      * @return Response
      * @throws \Throwable
      */
-    public function edit(Request $request, $language, $id_place, $id_comment)
+    public function edit(Request $request, string $language, Place $place, PlaceComment $comment)
     {
-        $place = Place::findOrFail($id_place);
-        $comment = PlaceComment::findOrFail($id_comment);
-
         $title = trans('gottashit.nav.edit') . $place->name;
 
         if ($request->ajax()) {
@@ -144,21 +140,17 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param $language
-     * @param $id_place
-     * @param $id_comment
+     * @param string $language
+     * @param Place $place
+     * @param PlaceComment $comment
      * @return Response
      * @throws \Throwable
      */
-    public function update(Request $request, $language, $id_place, $id_comment)
+    public function update(Request $request, string $language, Place $place, PlaceComment $comment)
     {
         $this->validate($request, [
             'comment' => 'required',
         ]);
-
-        $place = Place::findOrFail($id_place);
-
-        $comment = PlaceComment::findOrFail($id_comment);
 
         if ($comment->isAuthor) {
             $comment->comment = $request->input('comment');
@@ -186,7 +178,7 @@ class CommentController extends Controller
             ]);
         } else {
             return redirect(route('place.show', [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]) . '#comment-' . $comment->id)->with('status',
                 $status_message);
@@ -197,17 +189,13 @@ class CommentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @param $language
-     * @param $id_place
-     * @param $id_comment
+     * @param string $language
+     * @param Place $place
+     * @param PlaceComment $comment
      * @return Response
      */
-    public function destroy(Request $request, $language, $id_place, $id_comment)
+    public function destroy(Request $request, string $language, Place $place, PlaceComment $comment)
     {
-        $place = Place::findOrFail($id_place);
-
-        $comment = PlaceComment::findOrFail($id_comment);
-
         if ($comment->isAuthor || $place->isAuthor) {
             $status_message = trans('gottashit.comment.deleted_comment',
                 ['place' => $place->name]);
@@ -231,7 +219,7 @@ class CommentController extends Controller
         } else {
             return redirect(route('place.show',
                 [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]))->with('status',
                 $status_message);

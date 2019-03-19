@@ -15,42 +15,42 @@ class SubscriptionController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request, $language, $place_id)
+    public function store(Request $request, string $language, Place $place)
     {
-        $this->subscribe($place_id);
+        $this->subscribe($place->id);
 
-        return $this->responseView($request, $place_id);
+        return $this->responseView($request, $place);
     }
 
-    public function destroy(Request $request, $language, $place_id)
+    public function destroy(Request $request, string $language, Place $place)
     {
-        $this->unsubscribe($place_id);
+        $this->unsubscribe($place->id);
 
-        return $this->responseView($request, $place_id);
+        return $this->responseView($request, $place);
     }
 
-    protected function subscribe($place_id)
+    protected function subscribe(Place $place)
     {
         $subscription = new Subscription();
-        $subscription->place_id = $place_id;
+        $subscription->place_id = $place->id;
         $subscription->user_id = Auth::user()->id;
         $subscription->comment_id = null;
         $subscription->save();
     }
 
-    protected function unsubscribe($place_id)
+    protected function unsubscribe(Place $place)
     {
         $subscription = Subscription::where('user_id', Auth::user()->id)
-            ->where('place_id', $place_id);
+            ->where('place_id', $place->id);
+
         $subscription->forceDelete();
     }
 
-    public function responseView(Request $request, $place_id)
+    public function responseView(Request $request, Place $place)
     {
         $language = App::getLocale();
         $status_message = "";
         $view = "";
-        $place = Place::findOrFail($place_id);
 
         if ($request->getMethod() == "POST") {
             $status_message = trans('gottashit.subscription.subscribed_place');
@@ -73,7 +73,7 @@ class SubscriptionController extends Controller
             return redirect(route('place.show',
                 [
                     'language' => $language,
-                    'place' => $place_id,
+                    'place' => $place->id,
                 ]))->with('status',
                 $status_message);
         }

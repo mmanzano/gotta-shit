@@ -20,18 +20,16 @@ class StarController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param $language
-     * @param $id_place
+     * @param string $language
+     * @param Place $place
      * @return Response
      * @throws \Throwable
      */
-    public function update(Request $request, $language, $id_place)
+    public function update(Request $request, string $language, Place $place)
     {
         $this->validate($request, [
             'stars' => 'required|numeric|between:0,5',
         ]);
-
-        $place = Place::findOrFail($id_place);
 
         $idStar = $place->id_of_user_star;
 
@@ -75,14 +73,12 @@ class StarController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @param $language
-     * @param int $id
+     * @param string $language
+     * @param Place $place
      * @return Response
      */
-    public function destroy(Request $request, $language, $id)
+    public function destroy(Request $request, string $language, Place $place)
     {
-        $place = Place::findOrFail($id);
-
         $idStar = $place->id_of_user_star;
 
         if ($idStar != 0) {

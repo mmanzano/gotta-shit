@@ -56,10 +56,10 @@ class PlaceController extends Controller
      *
      * @param Request $request
      * @param AppMailer $mailer
-     * @param $language
+     * @param string $language
      * @return Response
      */
-    public function store(Request $request, AppMailer $mailer, $language)
+    public function store(Request $request, AppMailer $mailer, string $language)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -111,12 +111,13 @@ class PlaceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param string $language
+     * @param int $placeId
      * @return Response
      */
-    public function show($language, $id)
+    public function show(string $language, $placeId)
     {
-        $place = Place::withTrashed()->findOrFail($id);
+        $place = Place::withTrashed()->findOrFail($placeId);
 
         $title = $place->name;
 
@@ -144,13 +145,12 @@ class PlaceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param string $language
+     * @param Place $place
      * @return Response
      */
-    public function edit($language, $id)
+    public function edit(string $language, Place $place)
     {
-        $place = Place::findOrFail($id);
-
         $title = trans('gottashit.title.edit_place', ['place' => $place->name]);
 
         return view('place.edit', compact('title', 'place'));
@@ -161,10 +161,10 @@ class PlaceController extends Controller
      *
      * @param Request $request
      * @param string $language
-     * @param int $id
+     * @param Place $place
      * @return Response
      */
-    public function update(Request $request, $language, $id)
+    public function update(Request $request, string $language, Place $place)
     {
         $this->validate($request, [
             'name' => 'required|max:255',
@@ -172,8 +172,6 @@ class PlaceController extends Controller
             'geo_lng' => 'required_with:geo_lat|numeric|between:-180,180',
             'stars' => 'required|numeric|between:0,5',
         ]);
-
-        $place = Place::findOrFail($id);
 
         if ($place->isAuthor) {
             $place->name = $request->input('name');
@@ -219,12 +217,13 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param string $language
+     * @param int $placeId
      * @return Response
      */
-    public function destroy($language, $id)
+    public function destroy(string $language, int $placeId)
     {
-        $place = Place::withTrashed()->findOrFail($id);
+        $place = Place::withTrashed()->findOrFail($placeId);
 
         if ($place->isAuthor) {
             $status_message = trans('gottashit.place.deleted_place',
@@ -249,9 +248,16 @@ class PlaceController extends Controller
         }
     }
 
-    public function restore($language, $place_id)
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param string $language
+     * @param int $placeId
+     * @return Response
+     */
+    public function restore(string $language, int $placeId)
     {
-        $place = Place::withTrashed()->findOrFail($place_id);
+        $place = Place::withTrashed()->findOrFail($placeId);
 
         if ($place->isAuthor) {
             $place->restore();
@@ -277,9 +283,10 @@ class PlaceController extends Controller
     /**
      * Display a listing of the resource for the user
      *
+     * @param string $language
      * @return Response
      */
-    public function placesForUser($language)
+    public function placesForUser(string $language)
     {
         if (Auth::check()) {
             $places = Place::where('user_id', Auth::user()->id)->paginate(8);
@@ -292,7 +299,13 @@ class PlaceController extends Controller
         return view('places', compact('title', 'places'));
     }
 
-    public function bestPlaces($language)
+    /**
+     * Display a listing of the best resources
+     *
+     * @param string $language
+     * @return Response
+     */
+    public function bestPlaces(string $language)
     {
         $places = Place::rightJoin('place_stars', 'place_stars.place_id', '=',
             'places.id')
@@ -307,19 +320,17 @@ class PlaceController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param $latitude
-     * @param $longitude
+     * @param float $latitude
+     * @param float $longitude
      * @param int $distance in meters
      *
      * @return Response
      */
     public function nearest(
-        Request $request,
-        $language,
-        $latitude,
-        $longitude,
-        $distance
+        string $language,
+        float $latitude,
+        float $longitude,
+        int $distance
     ) {
         $totalLat = 180;
         $totalLng = 360;

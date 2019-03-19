@@ -12,13 +12,13 @@ class IsAuthorMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        $place = Place::findOrFail($request->place);
+        $place = $request->route('place');
 
         $author_id = $place->user_id;
         if (Auth::check()) {

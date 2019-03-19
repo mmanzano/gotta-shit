@@ -13,14 +13,14 @@ class IsAuthorCommentMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        $place = Place::findOrFail($request->place);
-        $comment = PlaceComment::findOrFail($request->comment);
+        $place = $request->route('place');
+        $comment = $request->route('comment');
 
         $author_comment_id = $comment->user_id;
 
