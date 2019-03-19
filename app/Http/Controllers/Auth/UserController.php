@@ -8,7 +8,6 @@ use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -17,10 +16,9 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($language, $user_id)
+    public function show(string $language, User $user)
     {
-        $user = User::findOrFail($user_id);
-        $is_user = $this->is_user($user_id);
+        $is_user = $this->isAuthUser($user->id);
 
         $title = trans('gottashit.title.user_profile',
             ['user' => $user->username]);
@@ -28,11 +26,9 @@ class UserController extends Controller
         return view('auth.view', compact('title', 'user', 'is_user'));
     }
 
-    public function edit($language, $user_id)
+    public function edit(string $language, User $user)
     {
-        $user = User::findOrFail($user_id);
-
-        if (!$this->is_user($user_id)) {
+        if (!$this->isAuthUser($user->id)) {
             $status_message = trans('gottashit.user.edit_user_not_allowed');
 
             return redirect(route('user.show', [
@@ -50,13 +46,13 @@ class UserController extends Controller
     public function update(
         Request $request,
         AppMailer $mailer,
-        $language,
-        $user_id
+        string $language,
+        User $user
     ) {
         $logout = false;
         $status_message = "";
 
-        if (!$this->is_user($user_id)) {
+        if (!$this->isAuthUser($user->id)) {
             $status_message = trans('gottashit.user.update_user_not_allowed');
 
             return redirect(route('home',
@@ -66,8 +62,6 @@ class UserController extends Controller
         $this->validate($request, [
             'full_name' => 'required|max:255',
         ]);
-
-        $user = User::findOrFail($user_id);
 
         $user->full_name = $request->input('full_name');
         if ($request->input('username') != $user->username) {
@@ -118,13 +112,10 @@ class UserController extends Controller
         ]))->with('status', $status_message);
     }
 
-    public function is_user($user_id)
+    private function isAuthUser($userId)
     {
         if (Auth::check()) {
-            $current_user_id = Auth::user()->id;
-            if ($current_user_id == $user_id) {
-                return true;
-            }
+            return Auth::id() == $userId;
         }
 
         return false;

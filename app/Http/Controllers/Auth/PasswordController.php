@@ -38,26 +38,26 @@ class PasswordController extends Controller
         $this->middleware('guest');
     }
 
-    public function getLocaleEmail($language)
+    public function getLocaleEmail(string $language)
     {
         return $this->getEmail();
     }
 
-    public function postLocaleEmail(Request $request, $language)
+    public function postLocaleEmail(Request $request, string $language)
     {
         $this->subject = trans('gottashit.email.reset_password_subject');
 
         return $this->postEmail($request);
     }
 
-    public function getLocaleReset($language, $token)
+    public function getLocaleReset(string $language, string $token)
     {
         return $this->getReset($token);
     }
 
-    public function postLocaleReset(Request $request, $language)
+    public function postLocaleReset(Request $request, string $language)
     {
-        $this->redirectTo = route('home', ['language' => $language]);
+        $this->redirectTo = route('home', ['language' => App::getLocale()]);
 
         return $this->postReset($request);
     }

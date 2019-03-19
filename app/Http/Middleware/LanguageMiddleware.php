@@ -28,7 +28,7 @@ class LanguageMiddleware
         return $next($request);
     }
 
-    private function setLanguage($language = null): void
+    private function setLanguage(?string $language = null): void
     {
         $language = $this->getLanguage($language);
 

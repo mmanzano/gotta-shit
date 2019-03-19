@@ -24,10 +24,10 @@ class SessionsController extends Controller
     /**
      * Show the login page.
      *
-     * @param $language
+     * @param string $language
      * @return \Response
      */
-    public function login($language)
+    public function login(string $language)
     {
         $title = trans('gottashit.title.login');
 
@@ -38,10 +38,10 @@ class SessionsController extends Controller
      * Perform the login.
      *
      * @param Request $request
-     * @param $language
+     * @param string $language
      * @return \Redirect
      */
-    public function postLogin(Request $request, $language)
+    public function postLogin(Request $request, string $language)
     {
         $this->loginPath = route('user_login',
             ['language' => App::getLocale()]);
@@ -69,10 +69,10 @@ class SessionsController extends Controller
     /**
      * Destroy the user's current session.
      *
-     * @param $language
+     * @param string $language
      * @return \Redirect
      */
-    public function logout($language)
+    public function logout(string $language)
     {
         Auth::logout();
 

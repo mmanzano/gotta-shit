@@ -48,7 +48,6 @@ class SubscriptionController extends Controller
 
     public function responseView(Request $request, Place $place)
     {
-        $language = App::getLocale();
         $status_message = "";
         $view = "";
 
@@ -72,7 +71,7 @@ class SubscriptionController extends Controller
         } else {
             return redirect(route('place.show',
                 [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]))->with('status',
                 $status_message);

@@ -62,7 +62,7 @@ class StarController extends Controller
         } else {
             return redirect(route('place.show',
                 [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]))->with('status',
                 $status_message);
@@ -100,7 +100,7 @@ class StarController extends Controller
         } else {
             return redirect(route('place.show',
                 [
-                    'language' => $language,
+                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]))->with('status',
                 $status_message);

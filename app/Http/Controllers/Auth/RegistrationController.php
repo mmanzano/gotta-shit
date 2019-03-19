@@ -19,10 +19,10 @@ class RegistrationController extends Controller
     /**
      * Show the register page.
      *
-     * @param $language
+     * @param string $language
      * @return \Response
      */
-    public function register($language)
+    public function register(string $language)
     {
         $title = trans('gottashit.title.register');
 
@@ -34,10 +34,10 @@ class RegistrationController extends Controller
      *
      * @param Request $request
      * @param AppMailer $mailer
-     * @param $language
+     * @param string $language
      * @return \Redirect
      */
-    public function postRegister(Request $request, AppMailer $mailer, $language)
+    public function postRegister(Request $request, AppMailer $mailer, string $language)
     {
         $this->validate($request, [
             'full_name' => 'required|max:255',
@@ -66,11 +66,11 @@ class RegistrationController extends Controller
     /**
      * Confirm a user's email address.
      *
-     * @param $language
+     * @param string $language
      * @param string $token
      * @return mixed
      */
-    public function confirmEmail($language, $token)
+    public function confirmEmail(string $language, string $token)
     {
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
