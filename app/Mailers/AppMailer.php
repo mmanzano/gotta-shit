@@ -95,14 +95,7 @@ class AppMailer
             $this->from = env('SES_EMAIL');
             $this->to = $subscriber->email;
             $this->view = 'emails.notification.comment';
-            $placeRoute = route(
-                'place.show',
-                [
-                    'language' => App::getLocale(),
-                    'place' => $place->id,
-                ]
-            );
-            $path = $placeRoute . '#comment-' . $comment->id;
+            $path = $comment->path;
             $path_author_of_comment = route(
                 'user.show',
                 [

@@ -4,6 +4,7 @@ namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class PlaceComment extends Model
@@ -65,5 +66,15 @@ class PlaceComment extends Model
         } else {
             return $this->created_at->diffForHumans();
         }
+    }
+
+    public function getPathAttribute()
+    {
+        $placeRoute = route('place.show', [
+            'language' => App::getLocale(),
+            'place' => $this->place_id,
+        ]);
+
+        return $placeRoute . '#comment-' . $this->id;
     }
 }

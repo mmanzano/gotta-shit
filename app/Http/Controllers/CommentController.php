@@ -4,9 +4,9 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
-use GottaShit\Entities\Subscription;
 use GottaShit\Http\Requests\CommentStoreRequest;
-use GottaShit\Mailers\AppMailer;
+use GottaShit\Http\Responses\CommentCreateResponse;
+use GottaShit\Jobs\ManageSubscriptions;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
@@ -26,82 +26,23 @@ class CommentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CommentStoreRequest $request
-     * @param AppMailer $mailer
      * @param string $language
      * @param Place $place
      * @return Response
      * @throws \Throwable
      */
-    public function store(
-        CommentStoreRequest $request,
-        AppMailer $mailer,
-        string $language,
-        Place $place
-    ) {
-        $comment = PlaceComment::create([
-            'place_id' => $place->id,
-            'user_id' => Auth::id(),
-            'comment' => $request->input('comment'),
-        ]);
-
-        $subscription_number = Subscription::where('user_id', Auth::id())
-            ->where('place_id', $place->id)
-            ->count();
-
-        if (!$subscription_number) {
-            Subscription::create([
-                'user_id' => Auth::id(),
+    public function store(CommentStoreRequest $request, string $language, Place $place)
+    {
+        $comment = Auth::user()
+            ->comments()
+            ->create([
+                'comment' => $request->input('comment'),
                 'place_id' => $place->id,
-                'comment_id' => null,
-            ]);
-        }
-
-        $place->subscriptions->filter(function ($subscription) {
-            return $subscription->user_id != Auth::id() && is_null($subscription->comment_id);
-        })->each(function ($subscription) use ($mailer, $place, $comment) {
-            $mailer->sendCommentAddNotification(
-                Auth::user(),
-                $subscription->user,
-                $place,
-                $comment,
-                $subscription,
-                trans('gottashit.email.new_comment_add', ['place' => $place->name], $subscription->user->language)
-            );
-        });
-
-        $place->subscriptions()
-            ->where('user_id', Auth::id())
-            ->update([
-                'comment_id' => null,
             ]);
 
-        $statusMessage = trans('gottashit.comment.created_comment', ['place' => $place->name]);
+        ManageSubscriptions::dispatch($place, $comment);
 
-        if ($request->ajax()) {
-            $numberOfComments = trans_choice(
-                'gottashit.comment.comments',
-                $place->numberOfComments,
-                ['number_of_comments' => $place->numberOfComments]
-            );
-
-            return response()->json([
-                'status' => 200,
-                'status_message' => $statusMessage,
-                'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
-                'number_of_comments' => $numberOfComments,
-                'button_box' => view('place.subscription.remove', compact('place'))->render(),
-            ]);
-        } else {
-            $route = route('place.show', [
-                'language' => App::getLocale(),
-                'place' => $place->id,
-            ]);
-
-            $routeWithAnchor = $route . '#comment-' . $comment->id;
-
-            return redirect($routeWithAnchor)
-                ->with('status', $statusMessage);
-        }
+        return (new CommentCreateResponse($comment))->response();
     }
 
     /**
@@ -166,17 +107,10 @@ class CommentController extends Controller
                 'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
                 'number_of_comments' => $numberOfComments,
             ]);
-        } else {
-            $placeRoute = route('place.show', [
-                'language' => App::getLocale(),
-                'place' => $place->id,
-            ]);
-
-            $placeRouteWithAnchor = $placeRoute . '#comment-' . $comment->id;
-
-            return redirect($placeRouteWithAnchor)
-                ->with('status', $statusMessage);
         }
+
+        return redirect($comment->path)
+            ->with('status', $statusMessage);
     }
 
     /**

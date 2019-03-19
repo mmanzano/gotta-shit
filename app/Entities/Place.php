@@ -2,6 +2,7 @@
 
 namespace GottaShit\Entities;
 
+use GottaShit\Mailers\AppMailer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth as Auth;
@@ -132,8 +133,8 @@ class Place extends Model
     public function getIdOfUserStarAttribute()
     {
         return $this->starsWithTrashed()
-            ->where('user_id', Auth::id())
-            ->first()->id ?? false;
+                ->where('user_id', Auth::id())
+                ->first()->id ?? false;
     }
 
     public function getCurrentUserVoteAttribute()
@@ -172,6 +173,13 @@ class Place extends Model
         } else {
             return $this->comments();
         }
+    }
+
+    public function getAuthUserSubscriptionAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id', Auth::id())
+            ->first();
     }
 
     public function getIsSubscribedAttribute()
