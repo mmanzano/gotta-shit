@@ -4,7 +4,7 @@ namespace GottaShit\Http\Responses;
 
 use GottaShit\Entities\PlaceComment;
 
-class CommentCreateResponse extends GottaShitResponse
+class CommentStoreResponse extends GottaShitResponse
 {
     /** @var PlaceComment */
     public $comment;

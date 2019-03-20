@@ -4,14 +4,15 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
+use GottaShit\Http\Requests\CommentEditRequest;
 use GottaShit\Http\Requests\CommentStoreRequest;
-use GottaShit\Http\Responses\CommentCreateResponse;
+use GottaShit\Http\Responses\CommentStoreResponse;
+use GottaShit\Http\Responses\CommentEditResponse;
 use GottaShit\Jobs\ManageSubscriptions;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
-use Throwable;
 
 class CommentController extends Controller
 {
@@ -29,7 +30,7 @@ class CommentController extends Controller
      * @param CommentStoreRequest $request
      * @param string $language
      * @param Place $place
-     * @return CommentCreateResponse
+     * @return CommentStoreResponse
      */
     public function store(CommentStoreRequest $request, string $language, Place $place)
     {
@@ -42,30 +43,21 @@ class CommentController extends Controller
 
         ManageSubscriptions::dispatch($place, $comment);
 
-        return new CommentCreateResponse($comment);
+        return new CommentStoreResponse($comment);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
+     * @param CommentEditRequest $request
      * @param string $language
      * @param Place $place
      * @param PlaceComment $comment
-     * @return Response
-     * @throws \Throwable
+     * @return CommentEditResponse
      */
-    public function edit(Request $request, string $language, Place $place, PlaceComment $comment)
+    public function edit(CommentEditRequest $request, string $language, Place $place, PlaceComment $comment)
     {
-        $title = trans('gottashit.nav.edit') . $place->name;
-
-        if ($request->ajax()) {
-            return response()->json([
-                'edit_box' => view('place.comment.partials.edit', compact('place', 'comment'))->render(),
-            ]);
-        } else {
-            return view('place.comment.edit', compact('title', 'place', 'comment'));
-        }
+        return new CommentEditResponse($comment);
     }
 
     /**
