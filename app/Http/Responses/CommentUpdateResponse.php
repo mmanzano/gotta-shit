@@ -5,7 +5,7 @@ namespace GottaShit\Http\Responses;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 
-class CommentStoreResponse extends GottaShitResponse
+class CommentUpdateResponse extends GottaShitResponse
 {
     /** @var PlaceComment */
     public $comment;
@@ -20,15 +20,15 @@ class CommentStoreResponse extends GottaShitResponse
     {
         $this->comment = $comment;
         $this->place = $comment->place;
-        $this->statusMessage = trans('gottashit.comment.created_comment', ['place' => $this->comment->place->name]);
+        $this->statusMessage = trans('gottashit.comment.updated_comment', ['place' => $this->place->name]);
     }
 
     protected function toJson()
     {
         $numberOfComments = trans_choice(
             'gottashit.comment.comments',
-            $this->comment->place->numberOfComments,
-            ['number_of_comments' => $this->comment->place->numberOfComments]
+            $this->place->numberOfComments,
+            ['number_of_comments' => $this->place->numberOfComments]
         );
 
         return response()->json([
@@ -39,7 +39,6 @@ class CommentStoreResponse extends GottaShitResponse
                 'comment' => $this->comment,
             ])->render(),
             'number_of_comments' => $numberOfComments,
-            'button_box' => view('place.subscription.remove', ['place' => $this->place])->render(),
         ]);
     }
 

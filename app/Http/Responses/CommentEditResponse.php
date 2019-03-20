@@ -2,6 +2,7 @@
 
 namespace GottaShit\Http\Responses;
 
+use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 
 class CommentEditResponse extends GottaShitResponse
@@ -9,10 +10,10 @@ class CommentEditResponse extends GottaShitResponse
     /** @var PlaceComment */
     public $comment;
 
-    /** @var string */
-    public $statusMessage;
+    /** @var Place */
+    public $place;
 
-    public function __construct($comment)
+    public function __construct(PlaceComment $comment)
     {
         $this->comment = $comment;
         $this->place = $comment->place;

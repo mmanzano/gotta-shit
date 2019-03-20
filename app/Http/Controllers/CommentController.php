@@ -6,8 +6,10 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Http\Requests\CommentEditRequest;
 use GottaShit\Http\Requests\CommentStoreRequest;
-use GottaShit\Http\Responses\CommentStoreResponse;
+use GottaShit\Http\Requests\CommentUpdateRequest;
 use GottaShit\Http\Responses\CommentEditResponse;
+use GottaShit\Http\Responses\CommentStoreResponse;
+use GottaShit\Http\Responses\CommentUpdateResponse;
 use GottaShit\Jobs\ManageSubscriptions;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,9 +21,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['store', 'update', 'destroy']]);
-
-        $this->middleware('isAuthorComment', ['only' => ['edit']]);
+        $this->middleware('auth', ['only' => ['store', 'edit', 'update', 'destroy']]);
     }
 
     /**
@@ -63,46 +63,20 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CommentUpdateRequest $request
      * @param string $language
      * @param Place $place
      * @param PlaceComment $comment
-     * @return Response
+     * @return CommentUpdateResponse
      * @throws \Throwable
      */
-    public function update(Request $request, string $language, Place $place, PlaceComment $comment)
+    public function update(CommentUpdateRequest $request, string $language, Place $place, PlaceComment $comment)
     {
-        $this->validate($request, [
-            'comment' => 'required',
+        $comment->update([
+            'comment' => $request->input('comment'),
         ]);
 
-        if ($comment->isAuthor) {
-            $comment->update([
-                'comment' => $request->input('comment'),
-            ]);
-
-            $statusMessage = trans('gottashit.comment.updated_comment', ['place' => $place->name]);
-        } else {
-            $statusMessage = trans('gottashit.comment.update_comment_not_allowed', ['place' => $place->name]);
-        }
-
-        if ($request->ajax()) {
-            $numberOfComments = trans_choice(
-                'gottashit.comment.comments',
-                $place->numberOfComments,
-                ['number_of_comments' => $place->numberOfComments]
-            );
-
-            return response()->json([
-                'status' => 200,
-                'status_message' => $statusMessage,
-                'comment' => view('place.comment.view', compact('place', 'comment'))->render(),
-                'number_of_comments' => $numberOfComments,
-            ]);
-        }
-
-        return redirect($comment->path)
-            ->with('status', $statusMessage);
+        return new CommentUpdateResponse($comment);
     }
 
     /**
