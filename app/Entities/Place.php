@@ -123,9 +123,9 @@ class Place extends Model
         return number_format($averagePercent, 0) . '%';
     }
 
-    public function getUserHasVotedAttribute()
+    public function getUserHasVotedAttribute(): bool
     {
-        return (bool)$this->starsWithTrashed()
+        return $this->starsWithTrashed()
                 ->where('user_id', Auth::id())
                 ->first()->id ?? false;
     }

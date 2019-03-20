@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
+use Throwable;
 
 class CommentController extends Controller
 {
@@ -28,8 +29,7 @@ class CommentController extends Controller
      * @param CommentStoreRequest $request
      * @param string $language
      * @param Place $place
-     * @return Response
-     * @throws \Throwable
+     * @return CommentCreateResponse
      */
     public function store(CommentStoreRequest $request, string $language, Place $place)
     {
@@ -42,7 +42,7 @@ class CommentController extends Controller
 
         ManageSubscriptions::dispatch($place, $comment);
 
-        return (new CommentCreateResponse($comment))->response();
+        return new CommentCreateResponse($comment);
     }
 
     /**
