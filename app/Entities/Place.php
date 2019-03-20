@@ -5,6 +5,7 @@ namespace GottaShit\Entities;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class Place extends Model
@@ -150,6 +151,17 @@ class Place extends Model
     public function getNumberOfCommentsAttribute()
     {
         return $this->commentsWithTrashed()->count();
+    }
+
+    public function getPathAttribute()
+    {
+        return route(
+            'place.show',
+            [
+                'language' => App::getLocale(),
+                'place' => $this->id,
+            ]
+        );
     }
 
     public function getIsAuthorAttribute()

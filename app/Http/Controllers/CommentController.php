@@ -4,16 +4,15 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
+use GottaShit\Http\Requests\CommentDestroyRequest;
 use GottaShit\Http\Requests\CommentEditRequest;
 use GottaShit\Http\Requests\CommentStoreRequest;
 use GottaShit\Http\Requests\CommentUpdateRequest;
+use GottaShit\Http\Responses\CommentDestroyResponse;
 use GottaShit\Http\Responses\CommentEditResponse;
 use GottaShit\Http\Responses\CommentStoreResponse;
 use GottaShit\Http\Responses\CommentUpdateResponse;
 use GottaShit\Jobs\ManageSubscriptions;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class CommentController extends Controller
@@ -68,7 +67,6 @@ class CommentController extends Controller
      * @param Place $place
      * @param PlaceComment $comment
      * @return CommentUpdateResponse
-     * @throws \Throwable
      */
     public function update(CommentUpdateRequest $request, string $language, Place $place, PlaceComment $comment)
     {
@@ -82,51 +80,16 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Request $request
+     * @param CommentDestroyRequest $request
      * @param string $language
      * @param Place $place
      * @param PlaceComment $comment
-     * @return Response
+     * @return CommentDestroyResponse
      */
-    public function destroy(Request $request, string $language, Place $place, PlaceComment $comment)
+    public function destroy(CommentDestroyRequest $request, string $language, Place $place, PlaceComment $comment)
     {
-        if ($comment->isAuthor || $place->isAuthor) {
-            $statusMessage = trans(
-                'gottashit.comment.deleted_comment',
-                ['place' => $place->name]
-            );
+        $comment->forceDelete();
 
-            $comment->forceDelete();
-        } else {
-            $statusMessage = trans(
-                'gottashit.comment.delete_comment_not_allowed',
-                ['place' => $place->name]
-            );
-        }
-
-        if ($request->ajax()) {
-            $number_of_comments = trans_choice(
-                'gottashit.comment.comments',
-                $place->numberOfComments,
-                ['number_of_comments' => $place->numberOfComments]
-            );
-
-            return response()->json([
-                'status' => 200,
-                'status_message' => $statusMessage,
-                'number_of_comments' => $number_of_comments,
-            ]);
-        } else {
-            $placeRoute = route(
-                'place.show',
-                [
-                    'language' => App::getLocale(),
-                    'place' => $place->id,
-                ]
-            );
-
-            return redirect($placeRoute)
-                ->with('status', $statusMessage);
-        }
+        return new CommentDestroyResponse($place);
     }
 }
