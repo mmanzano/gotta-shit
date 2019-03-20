@@ -20,7 +20,7 @@ class CommentUpdateRequest extends FormRequest
 
         $commentAuthorId = request()->route('comment')->user_id;
 
-        return  ($placeId === $commentPlaceId) && (Auth::id() === $commentAuthorId);
+        return  ($placeId == $commentPlaceId) && (Auth::id() == $commentAuthorId);
     }
 
     /**
