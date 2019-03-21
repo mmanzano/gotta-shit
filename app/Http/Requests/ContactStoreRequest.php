@@ -5,7 +5,7 @@ namespace GottaShit\Http\Requests;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactRequest extends FormRequest
+class ContactStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

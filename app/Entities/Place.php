@@ -2,7 +2,6 @@
 
 namespace GottaShit\Entities;
 
-use GottaShit\Mailers\AppMailer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
@@ -78,13 +77,28 @@ class Place extends Model
     {
         parent::boot();
 
-        static::deleted(function ($place) {
+        static::created(function (Place $place) {
+            if (request()->has('stars')) {
+                PlaceStar::create([
+                    'user_id' => $place->user_id,
+                    'place_id' => $place->id,
+                    'stars' => request('stars'),
+                ]);
+            }
+
+            Subscription::create([
+                'user_id' => $place->user_id,
+                'place_id' => $place->id,
+            ]);
+        });
+
+        static::deleted(function (Place $place) {
             $place->stars()->delete();
             $place->comments()->delete();
             $place->subscriptions()->delete();
         });
 
-        static::restored(function ($place) {
+        static::restored(function (Place $place) {
             $place->stars()->withTrashed()->restore();
             $place->comments()->withTrashed()->restore();
             $place->subscriptions()->withTrashed()->restore();

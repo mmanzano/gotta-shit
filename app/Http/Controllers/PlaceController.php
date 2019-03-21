@@ -5,17 +5,18 @@ namespace GottaShit\Http\Controllers;
 use Carbon\Carbon;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
-use GottaShit\Entities\Subscription;
-use GottaShit\Mailers\AppMailer;
+use GottaShit\Http\Requests\PlaceStoreRequest;
+use GottaShit\Jobs\ManagePlaceCreation;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class PlaceController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth', ['only' => ['create', 'store', 'update', 'destroy', 'restore', 'placesForUser']]);
@@ -23,88 +24,36 @@ class PlaceController extends Controller
         $this->middleware('isAuthor', ['only' => ['edit']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @param string $language
-     * @return Response
-     */
-    public function index(string $language)
+    public function index(string $language): View
     {
-        $places = Place::paginate(8);
-
-        $title = trans('gottashit.title.all_places');
-
-        return view('places', compact('title', 'places'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param string $language
-     * @return Response
-     */
-    public function create(string $language)
-    {
-        $title = trans('gottashit.title.create_place');
-
-        return view('place.create', compact('title'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @param AppMailer $mailer
-     * @param string $language
-     * @return Response
-     */
-    public function store(Request $request, AppMailer $mailer, string $language)
-    {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'geo_lat' => 'required|numeric|between:-90,90|distinct_place_store',
-            'geo_lng' => 'required_with:geo_lat|numeric|between:-180,180',
-            'stars' => 'required|numeric|between:0,5',
+        return view('places', [
+            'title' => trans('gottashit.title.all_places'),
+            'places' => Place::paginate(8),
         ]);
+    }
 
-        $place = new Place();
+    public function create(string $language): View
+    {
+        return view('place.create', [
+            'title' => trans('gottashit.title.create_place'),
+        ]);
+    }
 
-        $place->name = $request->input('name');
-        $place->geo_lat = number_format($request->input('geo_lat'), 6);
-        $place->geo_lng = number_format($request->input('geo_lng'), 6);
-        $place->user_id = Auth::user()->id;
+    public function store(PlaceStoreRequest $request, string $language): RedirectResponse
+    {
+        $place = Auth::user()
+            ->places()
+            ->create([
+                'name' => request('name'),
+                'geo_lat' => number_format(request('geo_lat'), 6),
+                'geo_lng' => number_format(request('geo_lng'), 6),
+            ]);
 
-        $place->save();
-
-        $star = new PlaceStar();
-
-        $star->place_id = $place->id;
-        $star->user_id = Auth::user()->id;
-        $star->stars = $request->input('stars');
-
-        $star->save();
-
-        $subscription = new Subscription();
-        $subscription->user_id = Auth::user()->id;
-        $subscription->place_id = $place->id;
-        $subscription->comment_id = null;
-        $subscription->save();
-
-        $mailer->sendPlaceAddNotification(
-            Auth::user(),
-            $place,
-            trans('gottashit.email.new_place_add')
-        );
+        ManagePlaceCreation::dispatch($place);
 
         $statusMessage = trans('gottashit.place.created_place', ['place' => $place->name]);
 
-        $placeRoute = route(
-            'place.show',
-            ['language' => App::getLocale(), 'place' => $place->id]
-        );
-
-        return redirect($placeRoute)
+        return redirect($place->path)
             ->with('status', $statusMessage);
     }
 
@@ -335,12 +284,8 @@ class PlaceController extends Controller
      *
      * @return Response
      */
-    public function nearest(
-        string $language,
-        float $latitude,
-        float $longitude,
-        int $distance
-    ) {
+    public function nearest(string $language, float $latitude, float $longitude, int $distance)
+    {
         $totalLat = 180;
         $totalLng = 360;
         $radius = 6371000;

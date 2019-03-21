@@ -15,9 +15,8 @@ class SubscriptionTest extends TestCase
     public function subscriptionCreate()
     {
         $user = factory(User::class)->create();
-        $place = factory(Place::class)->create([
-            'user_id' => $user->id,
-        ]);
+
+        $place = factory(Place::class)->create();
 
         $this->actingAs($user)
             ->json('POST', "/es/place/{$place->id}/subscribe")
@@ -30,9 +29,8 @@ class SubscriptionTest extends TestCase
     public function unsubscription()
     {
         $user = factory(User::class)->create();
-        $place = factory(Place::class)->create([
-            'user_id' => $user->id,
-        ]);
+
+        $place = factory(Place::class)->create();
 
         $user->subscriptions()->create([
             'place_id' => $place->id,

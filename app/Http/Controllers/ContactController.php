@@ -2,13 +2,13 @@
 
 namespace GottaShit\Http\Controllers;
 
-use GottaShit\Http\Requests\ContactRequest;
+use GottaShit\Http\Requests\ContactStoreRequest;
 use GottaShit\Mailers\AppMailer;
 use GuzzleHttp\Client;
 
 class ContactController extends Controller
 {
-    public function store(ContactRequest $request, AppMailer $mailer, Client $client)
+    public function store(ContactStoreRequest $request, AppMailer $mailer, Client $client)
     {
         if ($request->validateRecaptcha($client)) {
             $mailer->sendContactNotification(
