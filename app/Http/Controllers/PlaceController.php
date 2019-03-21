@@ -36,6 +36,17 @@ class PlaceController extends Controller
         ]);
     }
 
+    public function show(PlaceShowRequest $request, string $language, $placeId): View
+    {
+        optional($request->place->auth_user_subscription)
+            ->update(['comment_id' => null]);
+
+        return view('place', [
+            'title' => $request->place->name,
+            'place' => $request->place,
+        ]);
+    }
+
     public function create(string $language): View
     {
         return view('place.create', [
@@ -59,17 +70,6 @@ class PlaceController extends Controller
 
         return redirect($place->path)
             ->with('status', $statusMessage);
-    }
-
-    public function show(PlaceShowRequest $request, string $language, $placeId): View
-    {
-        optional($request->place->auth_user_subscription)
-            ->update(['comment_id' => null]);
-
-        return view('place', [
-            'title' => $request->place->name,
-            'place' => $request->place,
-        ]);
     }
 
     public function edit(PlaceEditRequest $request, string $language, Place $place): View
