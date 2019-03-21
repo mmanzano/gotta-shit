@@ -2,42 +2,28 @@
 
 namespace GottaShit\Http\Controllers;
 
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 
 class LanguageController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Language Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller changes your application language
-    |
-    */
-
-    /**
-     * Change the language
-     *
-     * @param string $language
-     * @return Response
-     */
-    public function change(string $language)
+    public function store(string $language): RedirectResponse
     {
         App::setLocale($language);
 
         Session::put('language', $language);
 
-        if (Auth::check()) {
-            Auth::user()->setLanguage($language);
-        }
+        optional(Auth::user())->setLanguage($language);
 
+        return redirect($this->changeRoute($language));
+    }
+
+    private function changeRoute(string $language): string
+    {
         $backRoute = request()->headers->get('referer');
 
-        $backRouteWithLanguage = preg_replace('/\/(es|en)\/?/', "/{$language}/", $backRoute);
-
-        return redirect()->to($backRouteWithLanguage);
+        return preg_replace('/\/(es|en)\/?/', "/{$language}/", $backRoute);
     }
 }

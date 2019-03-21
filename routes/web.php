@@ -34,7 +34,7 @@ Route::group(['middleware' => ['lang']], function () {
 
 Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
     // Language change
-    Route::get('change', ['as' => 'language', 'uses' => 'LanguageController@change']);
+    Route::get('language', ['as' => 'language', 'uses' => 'LanguageController@store']);
 
     // Best Places
     Route::get('place/best', ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);

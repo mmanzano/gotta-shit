@@ -3,11 +3,11 @@
 namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index(): Response
+    public function index(): View
     {
         return view('home', [
             'title' => trans('gottashit.title.welcome'),
