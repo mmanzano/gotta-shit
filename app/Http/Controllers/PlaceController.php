@@ -122,7 +122,7 @@ class PlaceController extends Controller
         $title = $place->name;
 
         if ($place->trashed() && !$place->isAuthor) {
-            return redirect(route('home', ['language' => App::getLocale()]));
+            return redirect(route('home'));
         }
 
         Carbon::setLocale(App::getLocale());
@@ -211,7 +211,7 @@ class PlaceController extends Controller
         } else {
             $statusMessage = trans('gottashit.place.update_place_not_allowed', ['place' => $place->name]);
 
-            $homeRoute = route('home', ['language' => App::getLocale()]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)
                 ->with('status', $statusMessage);
@@ -247,7 +247,7 @@ class PlaceController extends Controller
         } else {
             $statusMessage = trans('gottashit.place.delete_place_not_allowed', ['place' => $place->name]);
 
-            $homeRoute = route('home', ['language' => App::getLocale()]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)
                 ->with('status', $statusMessage);
@@ -283,7 +283,7 @@ class PlaceController extends Controller
         } else {
             $statusMessage = trans('gottashit.place.restore_place_not_allowed', ['place' => $place->name]);
 
-            $homeRoute = route('home', ['language' => App::getLocale()]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)
                 ->with('status', $statusMessage);

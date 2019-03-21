@@ -57,7 +57,7 @@ class PasswordController extends Controller
 
     public function postLocaleReset(Request $request, string $language)
     {
-        $this->redirectTo = route('home', ['language' => App::getLocale()]);
+        $this->redirectTo = route('home');
 
         return $this->postReset($request);
     }

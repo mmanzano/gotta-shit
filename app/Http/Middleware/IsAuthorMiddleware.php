@@ -21,7 +21,7 @@ class IsAuthorMiddleware
         if (Auth::id() != $place->user_id) {
             $statusMessage = trans('gottashit.place.edit_place_not_allowed', ['place' => $place->name]);
 
-            $homeRoute = route('home', ['language' => $request->language]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)
                 ->with('status', $statusMessage);

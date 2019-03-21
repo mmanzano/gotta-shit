@@ -77,7 +77,7 @@ class RegistrationController extends Controller
         $statusMessage = trans('auth.confirmed');
 
         if (Auth::check()) {
-            return redirect(route('root'));
+            return redirect(route('home'));
         } else {
             $userLoginRoute = route('user_login', ['language' => App::getLocale()]);
 

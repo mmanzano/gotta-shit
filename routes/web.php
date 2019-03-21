@@ -12,7 +12,7 @@
 */
 
 Route::group(['middleware' => ['lang']], function () {
-    Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
     Route::post('/contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
 
@@ -33,9 +33,6 @@ Route::group(['middleware' => ['lang']], function () {
 });
 
 Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
-    // Home
-    Route::get('', ['as' => 'home', 'uses' => 'HomeController@indexLocale']);
-
     // Language change
     Route::get('change', ['as' => 'language', 'uses' => 'LanguageController@change']);
 

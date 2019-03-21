@@ -59,7 +59,7 @@ class UserController extends Controller
         if (!$this->isAuthUser($user->id)) {
             $statusMessage = trans('gottashit.user.update_user_not_allowed');
 
-            $homeRoute = route('home', ['language' => App::getLocale()]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)->with('status', $statusMessage);
         }
@@ -105,7 +105,7 @@ class UserController extends Controller
         if ($logout) {
             Auth::logout();
 
-            $homeRoute = route('home', ['language' => App::getLocale()]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)->with('status', $statusMessage);
         }

@@ -130,7 +130,7 @@ class AuthController extends Controller
 
             Auth::login($authUser, true);
 
-            return redirect(route('root'))->with('status', $statusMessage);
+            return redirect(route('home'))->with('status', $statusMessage);
         }
 
         return $this->createUserAndRouteToProfile($provider, $user);

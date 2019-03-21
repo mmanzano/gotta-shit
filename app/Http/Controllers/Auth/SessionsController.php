@@ -53,7 +53,7 @@ class SessionsController extends Controller
         if ($this->signIn($request)) {
             $statusMessage = trans('auth.login');
 
-            $homeRoute = route('home', ['language' => App::getLocale()]);
+            $homeRoute = route('home');
 
             return redirect($homeRoute)
                 ->with('status', $statusMessage);
@@ -78,7 +78,7 @@ class SessionsController extends Controller
 
         $statusMessage = trans('auth.logout');
 
-        $homeRoute = route('home', ['language' => App::getLocale()]);
+        $homeRoute = route('home');
 
         return redirect($homeRoute)
             ->with('status', $statusMessage);
