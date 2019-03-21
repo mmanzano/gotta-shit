@@ -5,7 +5,7 @@ function getLocation() {
 }
 
 function showPosition(position){
-    $('#nearest-place').attr("href", '/' + GottaShit.locale + '/place/' + position.coords.latitude + '/' + position.coords.longitude+ '/30000');
+    $('#nearest-place').attr("href", '/place/' + position.coords.latitude + '/' + position.coords.longitude+ '/30000');
     $('#nearest-place').show();
 }
 

@@ -1,5 +1,7 @@
 {
     "/css/gottashit.css": "/css/gottashit.css",
+    "/mix.js.map": "/mix.js.map",
+    "/css/gottashit.css.map": "/css/gottashit.css.map",
     "/js/gottashit.js": "/js/gottashit.js",
     "/js/gottashit_place_field.js": "/js/gottashit_place_field.js",
     "/js/gottashit_place.js": "/js/gottashit_place.js"

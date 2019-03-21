@@ -23,4 +23,5 @@ mix.sass('resources/assets/sass/gottashit.scss', 'public/css/gottashit.css')
         'resources/assets/js/helpers.js'
     ], 'public/js/gottashit.js')
     .scripts(['resources/assets/js/place_field.js'], 'public/js/gottashit_place_field.js')
-    .scripts(['resources/assets/js/place.js'], 'public/js/gottashit_place.js');
+    .scripts(['resources/assets/js/place.js'], 'public/js/gottashit_place.js')
+    .sourceMaps();
