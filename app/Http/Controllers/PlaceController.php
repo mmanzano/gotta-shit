@@ -7,6 +7,7 @@ use GottaShit\Entities\PlaceStar;
 use GottaShit\Http\Requests\PlaceEditRequest;
 use GottaShit\Http\Requests\PlaceShowRequest;
 use GottaShit\Http\Requests\PlaceStoreRequest;
+use GottaShit\Http\Requests\PlaceUpdateRequest;
 use GottaShit\Jobs\ManagePlaceCreation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class PlaceController extends Controller
         $this->middleware(
             'auth',
             [
-                'only' => ['create', 'store', 'edit', 'update', 'destroy', 'restore', 'placesForUser']
+                'only' => ['create', 'store', 'edit', 'update', 'destroy', 'restore', 'placesForUser'],
             ]
         );
     }
@@ -72,7 +73,7 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function edit(PlaceEditRequest $request, string $language, Place $place)
+    public function edit(PlaceEditRequest $request, string $language, Place $place): View
     {
         return view('place.edit', [
             'title' => trans('gottashit.title.edit_place', ['place' => $place->name]),
@@ -80,66 +81,23 @@ class PlaceController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param string $language
-     * @param Place $place
-     * @return Response
-     */
-    public function update(Request $request, string $language, Place $place)
+    public function update(PlaceUpdateRequest $request, string $language, Place $place): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'geo_lat' => 'required|numeric|between:-90,90|distinct_place_update',
-            'geo_lng' => 'required_with:geo_lat|numeric|between:-180,180',
-            'stars' => 'required|numeric|between:0,5',
+        $place->update([
+            'name' => request('name'),
+            'geo_lat' => number_format(request('geo_lat'), 6),
+            'geo_lng' => number_format(request('geo_lng'), 6),
         ]);
 
-        if ($place->isAuthor) {
-            $place->name = $request->input('name');
-            $place->geo_lat = number_format($request->input('geo_lat'), 6);
-            $place->geo_lng = number_format($request->input('geo_lng'), 6);
+        PlaceStar::updateOrCreate([
+            'place_id' => $place->id,
+            'user_id' => Auth::id(),
+        ], ['stars' => request('stars')]);
 
-            $place->save();
+        $statusMessage = trans('gottashit.place.updated_place', ['place' => $place->name]);
 
-            $idStar = $place->id_of_user_star;
-
-            if ($idStar == 0) {
-                $star = new PlaceStar();
-
-                $star->place_id = $place->id;
-                $star->user_id = Auth::user()->id;
-            } else {
-                $star = PlaceStar::findOrFail($idStar);
-            }
-
-
-            $star->stars = $request->input('stars');
-
-            $star->save();
-
-            $statusMessage = trans('gottashit.place.updated_place', ['place' => $place->name]);
-
-            $placeRoute = route(
-                'place.show',
-                [
-                    'language' => App::getLocale(),
-                    'place' => $place->id,
-                ]
-            );
-
-            return redirect($placeRoute)
-                ->with('status', $statusMessage);
-        } else {
-            $statusMessage = trans('gottashit.place.update_place_not_allowed', ['place' => $place->name]);
-
-            $homeRoute = route('home');
-
-            return redirect($homeRoute)
-                ->with('status', $statusMessage);
-        }
+        return redirect($place->path)
+            ->with('status', $statusMessage);
     }
 
     /**

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException as TokenMismatchException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as MethodNotAllowedHttpException;
 
@@ -58,17 +59,22 @@ class Handler extends ExceptionHandler
                 return response()->view('errors.token');
             }
             if ($e instanceof BadMethodCallException) {
-                return response()->view('errors.404');
+                return redirect(route('home'));
             }
             if ($e instanceof RelationNotFoundException) {
-                return response()->view('errors.404');
+                return redirect(route('home'));
             }
             if ($e instanceof ModelNotFoundException) {
                 return response()->view('errors.404');
             }
-
             if ($e instanceof MethodNotAllowedHttpException) {
-                return response()->view('errors.404');
+                return redirect(route('home'));
+            }
+            if ($e instanceof AccessDeniedHttpException) {
+                return redirect(route('home'));
+            }
+            if ($e instanceof Exception) {
+                return redirect(route('home'));
             }
         }
 
