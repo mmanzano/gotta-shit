@@ -15,11 +15,11 @@
                 <ul>
                     @if(! $place->trashed())
                         <li>
-                            <a  class="button button-action" href="{{ route('place.edit', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ trans('gottashit.place.edit_place') }}</a>
+                            <a  class="button button-action" href="{{ route('place.edit', ['place' => $place->id]) }}">{{ trans('gottashit.place.edit_place') }}</a>
                         </li>
                     @else
                         <li>
-                            <form method="post" action="{{ route('place.restore', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                            <form method="post" action="{{ route('place.restore', ['place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="POST">
                                 <button class="button button-action" type="submit">
@@ -29,7 +29,7 @@
                         </li>
                     @endif
                     <li>
-                        <form method="post" action="{{ route('place.destroy', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                        <form method="post" action="{{ route('place.destroy', ['place' => $place->id]) }}">
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="DELETE">
                             <button class="button button-action button-delete-place" type="submit" id="delete-place-{{ $place->id }}">
@@ -50,7 +50,7 @@
                 <div class="star-rate actions-rate">
                     <ul>
                         <li>
-                            <form method="POST" action="{{ route('place.stars.update', ['language' => App::getLocale(), 'place' => $place->id]) }}">
+                            <form method="POST" action="{{ route('place.stars.update', ['place' => $place->id]) }}">
                                 {!! csrf_field() !!}
                                 <input name="_method" type="hidden" value="PUT">
                                 @include('place.partials.form_stars')

@@ -14,7 +14,7 @@
 Route::group(['middleware' => ['lang']], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-    Route::post('/contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
+    Route::post('contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
 
     Route::resource('comment', 'CommentController', [
         'only' => [
@@ -30,11 +30,6 @@ Route::group(['middleware' => ['lang']], function () {
             'destroy' => 'comment.destroy',
         ],
     ]);
-});
-
-Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
-    // Language change
-    Route::get('language', ['as' => 'language', 'uses' => 'LanguageController@store']);
 
     // Best Places
     Route::get('place/best', ['as' => 'best_places', 'uses' => 'PlaceController@bestPlaces']);
@@ -60,6 +55,7 @@ Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
     Route::post('place/{place}/restore', ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
 
     Route::put('place/{place}/stars', ['as' => 'place.stars.update', 'uses' => 'StarController@update']);
+
     Route::delete('place/{place}/stars', ['as' => 'place.stars.destroy', 'uses' => 'StarController@destroy']);
 
     Route::post(
@@ -69,6 +65,7 @@ Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
             'uses' => 'SubscriptionController@store',
         ]
     );
+
     Route::delete(
         'place/{place}/subscribe',
         [
@@ -133,6 +130,11 @@ Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
         'as' => 'user_password_reset',
         'uses' => 'Auth\PasswordController@postLocaleReset',
     ]);
+});
+
+Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
+    // Language change
+    Route::get('language', ['as' => 'language', 'uses' => 'LanguageController@store']);
 });
 
 // Social Authentication

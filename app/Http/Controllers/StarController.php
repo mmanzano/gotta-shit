@@ -19,12 +19,11 @@ class StarController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param string $language
      * @param Place $place
      * @return Response
      * @throws \Throwable
      */
-    public function update(Request $request, string $language, Place $place)
+    public function update(Request $request, Place $place)
     {
         $this->validate($request, [
             'stars' => 'required|numeric|between:0,5',
@@ -60,7 +59,6 @@ class StarController extends Controller
             $placeRoute = route(
                 'place.show',
                 [
-                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]
             );
@@ -74,11 +72,10 @@ class StarController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @param string $language
      * @param Place $place
      * @return Response
      */
-    public function destroy(Request $request, string $language, Place $place)
+    public function destroy(Request $request, Place $place)
     {
         $idStar = $place->id_of_user_star;
 
@@ -102,7 +99,6 @@ class StarController extends Controller
             $placeRoute = route(
                 'place.show',
                 [
-                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]
             );

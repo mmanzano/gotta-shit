@@ -13,7 +13,7 @@
 
             <p class="user-label">{{ trans('gottashit.user.full_name')}}: <span class="user-data">{{ $user->full_name }}</span></p>
             <p class="user-label">{{ trans('gottashit.user.email')}}: <span class="user-data">{{ $user->email }}</span></p>
-            <a class="button edit-user" href="{{ route('user.edit', ['language' => App::getLocale(), 'user' => $user->id]) }}">{{ trans('gottashit.user.edit_user') }}</a>
+            <a class="button edit-user" href="{{ route('user.edit', ['user' => $user->id]) }}">{{ trans('gottashit.user.edit_user') }}</a>
             @if(is_null($user->facebook_id))
                 <a class="button edit-user" href="{{ route('social_login', ['provider' => 'facebook']) }}">{{ trans('gottashit.user.add_facebook') }}</a>
             @endif
@@ -30,7 +30,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->places as $place)
-                    <a class="user-link" href="{{ route('place.show', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ $place->name }}</a>
+                    <a class="user-link" href="{{ route('place.show', ['place' => $place->id]) }}">{{ $place->name }}</a>
                 @endforeach
             </div>
         @endif
@@ -40,7 +40,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->placesTrashed as $place)
-                    <a class="user-link" href="{{ route('place.show', ['language' => App::getLocale(), 'place' => $place->id]) }}">{{ $place->name }}</a>
+                    <a class="user-link" href="{{ route('place.show', ['place' => $place->id]) }}">{{ $place->name }}</a>
                 @endforeach
             </div>
         @endif
@@ -51,7 +51,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->stars as $star)
-                    <a class="user-link" href="{{ route('place.show', ['language' => App::getLocale(), 'place' => $star->place->id]) }}">{{ $star->place->name }}</a>
+                    <a class="user-link" href="{{ route('place.show', ['place' => $star->place->id]) }}">{{ $star->place->name }}</a>
                 @endforeach
             </div>
         @endif

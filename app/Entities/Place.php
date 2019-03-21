@@ -172,7 +172,6 @@ class Place extends Model
         return route(
             'place.show',
             [
-                'language' => App::getLocale(),
                 'place' => $this->id,
             ]
         );

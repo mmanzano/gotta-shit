@@ -17,7 +17,7 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function show(string $language, User $user)
+    public function show(User $user)
     {
         $is_user = $this->isAuthUser($user->id);
 
@@ -26,7 +26,7 @@ class UserController extends Controller
         return view('auth.view', compact('title', 'user', 'is_user'));
     }
 
-    public function edit(string $language, User $user)
+    public function edit(User $user)
     {
         if (!$this->isAuthUser($user->id)) {
             $statusMessage = trans('gottashit.user.edit_user_not_allowed');
@@ -34,7 +34,6 @@ class UserController extends Controller
             $userShowRoute = route(
                 'user.show',
                 [
-                    'language' => App::getLocale(),
                     'user' => Auth::user()->id,
                 ]
             );
@@ -50,7 +49,6 @@ class UserController extends Controller
     public function update(
         Request $request,
         AppMailer $mailer,
-        string $language,
         User $user
     ) {
         $logout = false;
@@ -113,7 +111,6 @@ class UserController extends Controller
         $userShowRoute = route(
             'user.show',
             [
-                'language' => App::getLocale(),
                 'user' => Auth::id(),
             ]
         );

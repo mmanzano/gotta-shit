@@ -16,13 +16,9 @@ class PlaceTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $createFormRoute = route('place.create', [
-            'language' => 'en',
-        ]);
+        $createFormRoute = route('place.create');
 
-        $postRoute = route('place.store', [
-            'language' => 'en',
-        ]);
+        $postRoute = route('place.store');
 
         $this->actingAs($user)
             ->get($createFormRoute)
@@ -36,7 +32,6 @@ class PlaceTest extends TestCase
         ]);
 
         $redirectRoute = route('place.show', [
-            'language' => 'en',
             'place' => Place::first()->id,
         ]);
 
@@ -53,17 +48,14 @@ class PlaceTest extends TestCase
         ]);
 
         $editFormRoute = route('place.edit', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 
         $putRoute = route('place.update', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 
         $redirectRoute = route('place.show', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 
@@ -102,13 +94,10 @@ class PlaceTest extends TestCase
         $this->assertNull($place->deleted_at);
 
         $deleteRoute = route('place.destroy', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 
-        $userPlacesRoute = route('user_places', [
-            'language' => 'en',
-        ]);
+        $userPlacesRoute = route('user_places');
 
         $this->actingAs($user)
             ->delete($deleteRoute)

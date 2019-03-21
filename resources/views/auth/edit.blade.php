@@ -13,7 +13,7 @@
     @endif
 
     <div class="forms">
-        <form method="POST" action="{{ route('user.update', ['language' => App::getLocale(), 'user' => $user->id]) }}">
+        <form method="POST" action="{{ route('user.update', ['user' => $user->id]) }}">
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PUT">
 

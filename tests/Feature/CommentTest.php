@@ -34,7 +34,6 @@ class CommentTest extends TestCase
         $comment = PlaceComment::first();
 
         $placeRoute = route('place.show', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 
@@ -71,13 +70,11 @@ class CommentTest extends TestCase
         ]);
 
         $route = route('comment.update', [
-            'language' => 'en',
             'place' => $place->id,
             'comment' => $comment->id
         ]);
 
         $placeRoute = route('place.show', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 
@@ -115,13 +112,11 @@ class CommentTest extends TestCase
         ]);
 
         $route = route('comment.destroy', [
-            'language' => 'en',
             'place' => $place->id,
             'comment' => $comment->id,
         ]);
 
         $redirectRoute = route('place.show', [
-            'language' => 'en',
             'place' => $place->id,
         ]);
 

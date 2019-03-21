@@ -164,7 +164,6 @@ class AuthController extends Controller
         $userRoute = route(
             'user.show',
             [
-                'language' => App::getLocale(),
                 'user' => Auth::id(),
             ]
         );

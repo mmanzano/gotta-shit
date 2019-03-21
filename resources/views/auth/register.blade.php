@@ -26,7 +26,7 @@
             <a class="button" href="{{ route('social_login', ['provider' => 'github']) }}">{{ trans('gottashit.user.login_github') }}</a>
         </div>
 
-        <form method="POST" action="{{ route('user_register', ['language' => App::getLocale()]) }}">
+        <form method="POST" action="{{ route('user_register') }}">
             {!! csrf_field() !!}
 
             @include('auth.partials.user_form')

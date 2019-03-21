@@ -13,9 +13,7 @@ class UserTest extends TestCase
     /** @test */
     public function aUserMayRegisterForAnAccountButMustConfirmTheirEmailAddress()
     {
-        $registerRoute = route('user_register', [
-            'language' => 'en',
-        ]);
+        $registerRoute = route('user_register');
 
         $this->post($registerRoute, [
             'full_name' => 'Got to shit',
@@ -33,7 +31,6 @@ class UserTest extends TestCase
         $user = User::whereUsername('gottashit')->first();
 
         $registerConfirmRoute = route('user_register_confirm', [
-            'language' => 'en',
             'token' => $user->token,
         ]);
 

@@ -63,7 +63,7 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = $user->email;
         $this->view = 'emails.confirm';
-        $path = route('user_register_confirm', ['language' => App::getLocale(), 'token' => $user->token]);
+        $path = route('user_register_confirm', ['token' => $user->token]);
         $this->data = compact('user', 'path');
         $this->subject = $subject;
 
@@ -75,8 +75,8 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = env('SES_EMAIL');
         $this->view = 'emails.notification.place';
-        $path = route('place.show', ['language' => App::getLocale(), 'place' => $place->id]);
-        $path_user = route('user.show', ['language' => App::getLocale(), 'user' => $user->id]);
+        $path = route('place.show', ['place' => $place->id]);
+        $path_user = route('user.show', ['user' => $user->id]);
         $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;
 
@@ -99,7 +99,6 @@ class AppMailer
             $path_author_of_comment = route(
                 'user.show',
                 [
-                    'language' => App::getLocale(),
                     'user' => $author_of_comment->id,
                 ]
             );

@@ -19,7 +19,10 @@ class SubscriptionTest extends TestCase
         $place = factory(Place::class)->create();
 
         $this->actingAs($user)
-            ->json('POST', "/es/place/{$place->id}/subscribe")
+            ->json(
+                'POST',
+                route('place.subscribe.store', ['place' => $place->id])
+            )
             ->assertStatus(302);
 
         $this->assertCount(1, $user->subscriptions()->where('place_id', $place->id)->get());
@@ -39,7 +42,10 @@ class SubscriptionTest extends TestCase
         $this->assertCount(1, $user->subscriptions()->where('place_id', $place->id)->get());
 
         $this->actingAs($user)
-            ->json('DELETE', "/es/place/{$place->id}/subscribe")
+            ->json(
+                'DELETE',
+                route('place.subscribe.destroy', ['place' => $place->id])
+            )
             ->assertStatus(302);
 
         $this->assertCount(0, $user->subscriptions()->where('place_id', $place->id)->get());

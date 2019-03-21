@@ -19,10 +19,9 @@ class RegistrationController extends Controller
     /**
      * Show the register page.
      *
-     * @param string $language
      * @return \Response
      */
-    public function register(string $language)
+    public function register()
     {
         $title = trans('gottashit.title.register');
 
@@ -34,10 +33,9 @@ class RegistrationController extends Controller
      *
      * @param Request $request
      * @param AppMailer $mailer
-     * @param string $language
      * @return \Redirect
      */
-    public function postRegister(Request $request, AppMailer $mailer, string $language)
+    public function postRegister(Request $request, AppMailer $mailer)
     {
         $this->validate($request, [
             'full_name' => 'required|max:255',
@@ -56,21 +54,17 @@ class RegistrationController extends Controller
 
         $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
 
-        $statusMessage = trans('auth.confirm_email');
-
-        $userLoginRoute = route('user_login', ['language' => App::getLocale()]);
-
-        return redirect($userLoginRoute)->with('status', $statusMessage);
+        return redirect(route('user_login'))
+            ->with('status', trans('auth.confirm_email'));
     }
 
     /**
      * Confirm a user's email address.
      *
-     * @param string $language
      * @param string $token
      * @return mixed
      */
-    public function confirmEmail(string $language, string $token)
+    public function confirmEmail(string $token)
     {
         User::where('token', $token)->firstOrFail()->confirmEmail();
 
@@ -79,9 +73,7 @@ class RegistrationController extends Controller
         if (Auth::check()) {
             return redirect(route('home'));
         } else {
-            $userLoginRoute = route('user_login', ['language' => App::getLocale()]);
-
-            return redirect($userLoginRoute)
+            return redirect(route('user_login'))
                 ->with('status', $statusMessage);
         }
     }

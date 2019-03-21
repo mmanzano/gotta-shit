@@ -45,11 +45,11 @@ class LanguageMiddleware
             return Session::get('language');
         }
 
-        if (is_null($language)) {
+        if (is_null($language) && !empty($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
             return $this->getLanguageFromBrowser();
         }
 
-        return $language;
+        return $language ?? 'en';
     }
 
     private function getLanguageFromBrowser(): string

@@ -24,7 +24,7 @@
             <a class="button" href="{{ route('social_login', ['provider' => 'github']) }}">{{ trans('gottashit.user.login_github') }}</a>
         </div>
 
-        <form method="POST" action="{{ route('user_login', ['language' => App::getLocale()]) }}">
+        <form method="POST" action="{{ route('user_login') }}">
             {!! csrf_field() !!}
 
             <div>
@@ -50,7 +50,7 @@
             </div>
 
             <div>
-                <a class="forgot-password" href="{{ route('user_password_email', ['language' => App::getLocale()]) }}">{{ ucfirst(trans('gottashit.user.forgot_password')) }}</a>
+                <a class="forgot-password" href="{{ route('user_password_email') }}">{{ ucfirst(trans('gottashit.user.forgot_password')) }}</a>
             </div>
         </form>
     </div>

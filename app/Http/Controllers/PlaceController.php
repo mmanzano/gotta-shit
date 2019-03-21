@@ -28,7 +28,7 @@ class PlaceController extends Controller
         );
     }
 
-    public function index(string $language): View
+    public function index(): View
     {
         return view('places', [
             'title' => trans('gottashit.title.all_places'),
@@ -36,7 +36,7 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function show(PlaceShowRequest $request, string $language, $placeId): View
+    public function show(PlaceShowRequest $request, $placeId): View
     {
         optional($request->place->auth_user_subscription)
             ->update(['comment_id' => null]);
@@ -47,14 +47,14 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function create(string $language): View
+    public function create(): View
     {
         return view('place.create', [
             'title' => trans('gottashit.title.create_place'),
         ]);
     }
 
-    public function store(PlaceStoreRequest $request, string $language): RedirectResponse
+    public function store(PlaceStoreRequest $request): RedirectResponse
     {
         $place = Auth::user()
             ->places()
@@ -72,7 +72,7 @@ class PlaceController extends Controller
             ->with('status', $statusMessage);
     }
 
-    public function edit(PlaceEditRequest $request, string $language, Place $place): View
+    public function edit(PlaceEditRequest $request, Place $place): View
     {
         return view('place.edit', [
             'title' => trans('gottashit.title.edit_place', ['place' => $place->name]),
@@ -80,7 +80,7 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function update(PlaceUpdateRequest $request, string $language, Place $place): RedirectResponse
+    public function update(PlaceUpdateRequest $request, Place $place): RedirectResponse
     {
         $place->update([
             'name' => request('name'),
@@ -99,7 +99,7 @@ class PlaceController extends Controller
             ->with('status', $statusMessage);
     }
 
-    public function destroy(PlaceDestroyRequest $request, string $language, int $placeId): RedirectResponse
+    public function destroy(PlaceDestroyRequest $request, int $placeId): RedirectResponse
     {
         if ($request->place->trashed()) {
             $statusMessage = trans('gottashit.place.deleted_place_permanently', ['place' => $request->place->name]);
@@ -111,11 +111,11 @@ class PlaceController extends Controller
             $request->place->delete();
         }
 
-        return redirect(route('user_places', ['language' => App::getLocale()]))
+        return redirect(route('user_places'))
             ->with('status', $statusMessage);
     }
 
-    public function restore(PlaceDestroyRequest $request, string $language, int $placeId): RedirectResponse
+    public function restore(PlaceDestroyRequest $request, int $placeId): RedirectResponse
     {
         $request->place->restore();
 
@@ -125,7 +125,7 @@ class PlaceController extends Controller
             ->with('status', $statusMessage);
     }
 
-    public function placesForUser(string $language): View
+    public function placesForUser(): View
     {
         return view('places', [
             'title' => trans('gottashit.title.user_places'),
@@ -133,7 +133,7 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function bestPlaces(PlaceRepository $placeRepository, string $language): View
+    public function bestPlaces(PlaceRepository $placeRepository): View
     {
         return view('places', [
             'title' => trans('gottashit.title.best_places'),
@@ -143,7 +143,7 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function nearest(PlaceRepository $placeRepository, string $language, float $lat, float $lon, int $dist): View
+    public function nearest(PlaceRepository $placeRepository, float $lat, float $lon, int $dist): View
     {
         return view('places', [
             'title' => trans('gottashit.title.nearest_places'),

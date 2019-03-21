@@ -71,7 +71,6 @@ class PlaceComment extends Model
     public function getPathAttribute()
     {
         $placeRoute = route('place.show', [
-            'language' => App::getLocale(),
             'place' => $this->place_id,
         ]);
 

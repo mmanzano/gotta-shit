@@ -15,14 +15,14 @@ class SubscriptionController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request, string $language, Place $place)
+    public function store(Request $request, Place $place)
     {
         $this->subscribe($place);
 
         return $this->responseView($request, $place);
     }
 
-    public function destroy(Request $request, string $language, Place $place)
+    public function destroy(Request $request, Place $place)
     {
         $this->unsubscribe($place);
 
@@ -69,7 +69,6 @@ class SubscriptionController extends Controller
             $placeRoute = route(
                 'place.show',
                 [
-                    'language' => App::getLocale(),
                     'place' => $place->id,
                 ]
             );
