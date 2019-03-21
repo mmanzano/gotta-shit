@@ -25,12 +25,12 @@ class CommentController extends Controller
 
     public function store(CommentStoreRequest $request): CommentStoreResponse
     {
-        $place = Place::findOrFail($request->placeId);
+        $place = Place::findOrFail(request('placeId'));
 
         $comment = Auth::user()
             ->comments()
             ->create([
-                'comment' => $request->comment,
+                'comment' => request('comment'),
                 'place_id' => $place->id,
             ]);
 
