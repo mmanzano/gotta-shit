@@ -4,6 +4,7 @@ namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
+use GottaShit\Http\Requests\PlaceEditRequest;
 use GottaShit\Http\Requests\PlaceShowRequest;
 use GottaShit\Http\Requests\PlaceStoreRequest;
 use GottaShit\Jobs\ManagePlaceCreation;
@@ -19,9 +20,12 @@ class PlaceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['create', 'store', 'update', 'destroy', 'restore', 'placesForUser']]);
-
-        $this->middleware('isAuthor', ['only' => ['edit']]);
+        $this->middleware(
+            'auth',
+            [
+                'only' => ['create', 'store', 'edit', 'update', 'destroy', 'restore', 'placesForUser']
+            ]
+        );
     }
 
     public function index(string $language): View
@@ -68,18 +72,12 @@ class PlaceController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param string $language
-     * @param Place $place
-     * @return Response
-     */
-    public function edit(string $language, Place $place)
+    public function edit(PlaceEditRequest $request, string $language, Place $place)
     {
-        $title = trans('gottashit.title.edit_place', ['place' => $place->name]);
-
-        return view('place.edit', compact('title', 'place'));
+        return view('place.edit', [
+            'title' => trans('gottashit.title.edit_place', ['place' => $place->name]),
+            'place' => $place,
+        ]);
     }
 
     /**

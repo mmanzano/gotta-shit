@@ -3,7 +3,6 @@
 namespace GottaShit\Http;
 
 use GottaShit\Http\Middleware\EncryptCookies;
-use GottaShit\Http\Middleware\IsAuthorMiddleware;
 use GottaShit\Http\Middleware\LanguageMiddleware;
 use GottaShit\Http\Middleware\RedirectIfAuthenticated;
 use GottaShit\Http\Middleware\VerifyCsrfToken;
@@ -58,6 +57,5 @@ class Kernel extends HttpKernel
         'guest' => RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'lang' => LanguageMiddleware::class,
-        'isAuthor' => IsAuthorMiddleware::class,
     ];
 }
