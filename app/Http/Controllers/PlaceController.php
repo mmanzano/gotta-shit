@@ -2,9 +2,9 @@
 
 namespace GottaShit\Http\Controllers;
 
-use Carbon\Carbon;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceStar;
+use GottaShit\Http\Requests\PlaceShowRequest;
 use GottaShit\Http\Requests\PlaceStoreRequest;
 use GottaShit\Jobs\ManagePlaceCreation;
 use Illuminate\Http\RedirectResponse;
@@ -57,38 +57,15 @@ class PlaceController extends Controller
             ->with('status', $statusMessage);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param string $language
-     * @param int $placeId
-     * @return Response
-     */
-    public function show(string $language, $placeId)
+    public function show(PlaceShowRequest $request, string $language, $placeId): View
     {
-        $place = Place::withTrashed()->findOrFail($placeId);
+        optional($request->place->auth_user_subscription)
+            ->update(['comment_id' => null]);
 
-        $title = $place->name;
-
-        if ($place->trashed() && !$place->isAuthor) {
-            return redirect(route('home'));
-        }
-
-        Carbon::setLocale(App::getLocale());
-
-        if (Auth::check()) {
-            $user = Auth::user();
-            $subscriptions = $user->subscriptions()->getResults();
-
-            foreach ($subscriptions as $subscription) {
-                if (($subscription->user_id == $user->id) && (!$subscription->comment)) {
-                    $subscription->comment_id = null;
-                    $subscription->save();
-                }
-            }
-        }
-
-        return view('place', compact('title', 'place'));
+        return view('place', [
+            'title' => $request->place->name,
+            'place' => $request->place,
+        ]);
     }
 
     /**
