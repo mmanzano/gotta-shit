@@ -183,6 +183,20 @@ class Place extends Model
         return Auth::id() == $this->user_id;
     }
 
+    public function getAuthUserSubscriptionAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id', Auth::id())
+            ->first();
+    }
+
+    public function getIsSubscribedAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id', Auth::id())
+            ->exists();
+    }
+
     public function starsWithTrashed()
     {
         if ($this->trashed()) {
@@ -199,19 +213,5 @@ class Place extends Model
         } else {
             return $this->comments();
         }
-    }
-
-    public function getAuthUserSubscriptionAttribute()
-    {
-        return $this->subscriptions()
-            ->where('user_id', Auth::id())
-            ->first();
-    }
-
-    public function getIsSubscribedAttribute()
-    {
-        return $this->subscriptions()
-            ->where('user_id', Auth::id())
-            ->exists();
     }
 }
