@@ -23,16 +23,10 @@ class CommentController extends Controller
         $this->middleware('auth', ['only' => ['store', 'edit', 'update', 'destroy']]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param CommentStoreRequest $request
-     * @param string $language
-     * @param Place $place
-     * @return CommentStoreResponse
-     */
-    public function store(CommentStoreRequest $request, string $language, Place $place)
+    public function store(CommentStoreRequest $request): CommentStoreResponse
     {
+        $place = Place::findOrFail(request('placeId'));
+
         $comment = Auth::user()
             ->comments()
             ->create([
@@ -45,30 +39,12 @@ class CommentController extends Controller
         return new CommentStoreResponse($comment);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param CommentEditRequest $request
-     * @param string $language
-     * @param Place $place
-     * @param PlaceComment $comment
-     * @return CommentEditResponse
-     */
-    public function edit(CommentEditRequest $request, string $language, Place $place, PlaceComment $comment)
+    public function edit(CommentEditRequest $request, PlaceComment $comment): CommentEditResponse
     {
         return new CommentEditResponse($comment);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param CommentUpdateRequest $request
-     * @param string $language
-     * @param Place $place
-     * @param PlaceComment $comment
-     * @return CommentUpdateResponse
-     */
-    public function update(CommentUpdateRequest $request, string $language, Place $place, PlaceComment $comment)
+    public function update(CommentUpdateRequest $request, PlaceComment $comment): CommentUpdateResponse
     {
         $comment->update([
             'comment' => $request->input('comment'),
@@ -77,17 +53,10 @@ class CommentController extends Controller
         return new CommentUpdateResponse($comment);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param CommentDestroyRequest $request
-     * @param string $language
-     * @param Place $place
-     * @param PlaceComment $comment
-     * @return CommentDestroyResponse
-     */
-    public function destroy(CommentDestroyRequest $request, string $language, Place $place, PlaceComment $comment)
+    public function destroy(CommentDestroyRequest $request, PlaceComment $comment): CommentDestroyResponse
     {
+        $place = $comment->place;
+
         $comment->forceDelete();
 
         return new CommentDestroyResponse($place);

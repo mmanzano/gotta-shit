@@ -13,7 +13,7 @@ class CommentDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return request()->route('place')->isAuthor || request()->route('comment')->isAuthor;
+        return request()->route('comment')->place->isAuthor || request()->route('comment')->isAuthor;
     }
 
     /**

@@ -25,6 +25,7 @@ class CommentStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'placeId' => 'required|exists:places,id',
             'comment' => 'required',
         ];
     }

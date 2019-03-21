@@ -22,7 +22,7 @@ class CommentEditResponse extends GottaShitResponse
     protected function toJson()
     {
         return response()->json([
-            'edit_box' => view('place.comment.partials.edit', [
+            'edit_box' => view('comment.partials.edit', [
                 'place' => $this->place,
                 'comment' => $this->comment,
             ])->render(),
@@ -33,7 +33,7 @@ class CommentEditResponse extends GottaShitResponse
     {
         $title = trans('gottashit.nav.edit') . $this->place->name;
 
-        return view('place.comment.edit', [
+        return view('comment.edit', [
             'title' => $title,
             'place' => $this->place,
             'comment' => $this->comment,

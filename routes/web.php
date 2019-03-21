@@ -15,6 +15,21 @@ Route::group(['middleware' => ['lang']], function () {
     Route::get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
 
     Route::post('/contact', ['as' => 'contact', 'uses' => 'ContactController@store']);
+
+    Route::resource('comment', 'CommentController', [
+        'only' => [
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ],
+        'names' => [
+            'store' => 'comment.store',
+            'edit' => 'comment.edit',
+            'update' => 'comment.update',
+            'destroy' => 'comment.destroy',
+        ],
+    ]);
 });
 
 Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
@@ -46,21 +61,6 @@ Route::group(['prefix' => '{language}', 'middleware' => ['lang']], function () {
     ]);
 
     Route::post('place/{place}/restore', ['as' => 'place.restore', 'uses' => 'PlaceController@restore']);
-
-    Route::resource('place.comment', 'CommentController', [
-        'only' => [
-            'store',
-            'edit',
-            'update',
-            'destroy',
-        ],
-        'names' => [
-            'store' => 'place.comment.store',
-            'edit' => 'place.comment.edit',
-            'update' => 'place.comment.update',
-            'destroy' => 'place.comment.destroy',
-        ],
-    ]);
 
     Route::put('place/{place}/stars', ['as' => 'place.stars.update', 'uses' => 'StarController@update']);
     Route::delete('place/{place}/stars', ['as' => 'place.stars.destroy', 'uses' => 'StarController@destroy']);

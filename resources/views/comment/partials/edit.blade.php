@@ -9,7 +9,7 @@
         </div>
     @endif
     <div class="forms">
-        <form method="POST" action="{{ route('place.comment.update', ['language' => App::getLocale(), 'place' => $place->id, 'comment' => $comment->id]) }}" class="create-comment-form">
+        <form method="POST" action="{{ route('comment.update', ['comment' => $comment->id]) }}" class="create-comment-form">
             {!! csrf_field() !!}
             <input name="_method" type="hidden" value="PUT">
             @include('place.partials.comments')

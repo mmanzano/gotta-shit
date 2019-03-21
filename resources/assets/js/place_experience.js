@@ -61,9 +61,8 @@ function create_update_comment(e){
         if ($(that).parents('.comment-edit-box').val() !== undefined) {
             $(that).parents('.comment-edit-box').html(result.comment);
             status_message(result.status_message);
-        }
-        else {
-            $('#comment-textarea').val("")
+        } else {
+            $('#comment-textarea').val("");
             $('#place-comments-list').append(result.comment);
             $('.place-comments-number p').text(result.number_of_comments);
             $('.button-subscribe').parents('form').parent().html(result.button_box);

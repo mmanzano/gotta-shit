@@ -34,7 +34,7 @@ class CommentUpdateResponse extends GottaShitResponse
         return response()->json([
             'status' => 200,
             'status_message' => $this->statusMessage,
-            'comment' => view('place.comment.view', [
+            'comment' => view('comment.view', [
                 'place' => $this->place,
                 'comment' => $this->comment,
             ])->render(),

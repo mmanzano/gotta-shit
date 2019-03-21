@@ -14,13 +14,7 @@ class CommentUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        $placeId = request()->route('place')->id;
-
-        $commentPlaceId = request()->route('comment')->place_id;
-
-        $commentAuthorId = request()->route('comment')->user_id;
-
-        return  ($placeId == $commentPlaceId) && (Auth::id() == $commentAuthorId);
+        return  request()->route('comment')->isAuthor;
     }
 
     /**

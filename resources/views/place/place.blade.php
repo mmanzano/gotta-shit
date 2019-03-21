@@ -101,13 +101,13 @@
 
             <div id="place-comments-list">
                 @foreach($place->commentsWithTrashed as $comment)
-                    @include('place.comment.view')
+                    @include('comment.view')
                 @endforeach
             </div>
             @if(! $place->trashed())
                 @if(Auth::check())
                     <div class="forms">
-                        <form method="POST" action="{{ route('place.comment.store', ['language' => App::getLocale(), 'place' => $place->id]) }}" class="create-comment-form">
+                        <form method="POST" action="{{ route('comment.store') }}" class="create-comment-form">
                             {!! csrf_field() !!}
                             <div>
                                 <label class="input-label" for="comment">
@@ -120,6 +120,7 @@
                                 @endif
                             </div>
 
+                            <input type="hidden" value="{{ $place->id }}" name="placeId">
                             <div>
                                 <button class="button button-create-comment" type="submit">{{ trans('gottashit.comment.create_comment') }}</button>
                             </div>

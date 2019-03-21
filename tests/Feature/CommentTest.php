@@ -15,19 +15,18 @@ class CommentTest extends TestCase
     /** @test */
     public function commentCreate()
     {
+        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
 
         $place = factory(Place::class)->create([
             'user_id' => $user->id,
         ]);
 
-        $route = route('place.comment.store', [
-            'language' => 'en',
-            'place' => $place->id
-        ]);
+        $route = route('comment.store');
 
         $response = $this->actingAs($user)
             ->post($route, [
+                'placeId' => $place->id,
                 'comment' => 'Hello! Great Site',
             ]);
 
@@ -72,7 +71,7 @@ class CommentTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $route = route('place.comment.update', [
+        $route = route('comment.update', [
             'language' => 'en',
             'place' => $place->id,
             'comment' => $comment->id
@@ -116,7 +115,7 @@ class CommentTest extends TestCase
             'id' => $comment->id
         ]);
 
-        $route = route('place.comment.destroy', [
+        $route = route('comment.destroy', [
             'language' => 'en',
             'place' => $place->id,
             'comment' => $comment->id,

@@ -20,7 +20,7 @@ class CommentDestroyResponse extends GottaShitResponse
 
     protected function toJson()
     {
-        $number_of_comments = trans_choice(
+        $numberOfComments = trans_choice(
             'gottashit.comment.comments',
             $this->place->numberOfComments,
             ['number_of_comments' => $this->place->numberOfComments]
@@ -29,7 +29,7 @@ class CommentDestroyResponse extends GottaShitResponse
         return response()->json([
             'status' => 200,
             'status_message' => $this->statusMessage,
-            'number_of_comments' => $number_of_comments,
+            'number_of_comments' => $numberOfComments,
         ]);
     }
 
