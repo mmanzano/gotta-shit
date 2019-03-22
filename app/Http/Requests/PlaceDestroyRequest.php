@@ -17,7 +17,7 @@ class PlaceDestroyRequest extends FormRequest
     {
         $this->place = Place::withTrashed()->findOrFail(request()->route('place'));
 
-        return $this->place->isAuthor;
+        return $this->place->is_author;
     }
 
     /**

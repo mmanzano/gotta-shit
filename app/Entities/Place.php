@@ -3,76 +3,28 @@
 namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class Place extends Model
 {
     use SoftDeletes;
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+
+    /** @var string */
     protected $table = 'places';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $fillable = ['name', 'geo_lat', 'geo_lng', 'user_id'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $hidden = [];
 
+    /** @var array */
     protected $dates = ['deleted_at'];
 
-    /**
-     * A Place belongs to an User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('GottaShit\Entities\User');
-    }
-
-    /**
-     * A Place has many Stars.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function stars()
-    {
-        return $this->hasMany('GottaShit\Entities\PlaceStar');
-    }
-
-    /**
-     * A Place has many Comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany('GottaShit\Entities\PlaceComment');
-    }
-
-    /**
-     * A Place has many Subscriptions.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subscriptions()
-    {
-        return $this->hasMany('GottaShit\Entities\Subscription');
-    }
-
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
 
@@ -113,35 +65,39 @@ class Place extends Model
         });
     }
 
-    public function getStarsAmountAttribute()
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo('GottaShit\Entities\User');
+    }
+
+    public function stars(): HasMany
+    {
+        return $this->hasMany('GottaShit\Entities\PlaceStar');
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany('GottaShit\Entities\PlaceComment');
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany('GottaShit\Entities\Subscription');
+    }
+
+    public function getStarsAmountAttribute(): int
     {
         return $this->starsWithTrashed()->count();
     }
 
-    public function getStarsAverageAttribute()
+    public function getStarsAverageAttribute(): float
     {
-        $starsForPlace = $this->starsWithTrashed()->get();
-
-        if ($starsForPlace->count() == 0) {
-            return 0.00;
-        }
-
-        $average = $starsForPlace->sum('stars') / $starsForPlace->count();
-
-        return number_format($average, 2);
+        return number_format($this->starsWithTrashed()->avg('stars'), 2);
     }
 
-    public function getStarsProgressBarAttribute()
+    public function getStarsProgressBarAttribute(): string
     {
-        $starsForPlace = $this->starsWithTrashed()->get();
-
-        if ($starsForPlace->count() == 0) {
-            return '0%';
-        }
-
-        $average = $starsForPlace->sum('stars') / $starsForPlace->count();
-
-        $averagePercent = ($average / 5) * 100;
+        $averagePercent = ($this->stars_average / 5) * 100;
 
         return number_format($averagePercent, 0) . '%';
     }
@@ -153,72 +109,47 @@ class Place extends Model
                 ->first()->id ?? false;
     }
 
-    public function getIdOfUserStarAttribute()
+    public function getCurrentUserVoteAttribute(): int
     {
         return $this->starsWithTrashed()
                 ->where('user_id', Auth::id())
-                ->first()->id ?? false;
-    }
-
-    public function getCurrentUserVoteAttribute()
-    {
-        return number_format(
-            $this->starsWithTrashed()
-                ->where('user_id', Auth::id())
                 ->first()
-                ->stars ?? -1
-        );
+                ->stars ?? -1;
     }
 
-    public function getNumberOfCommentsAttribute()
+    public function getNumberOfCommentsAttribute(): int
     {
         return $this->commentsWithTrashed()->count();
     }
 
-    public function getPathAttribute()
+    public function getPathAttribute(): string
     {
-        return route(
-            'place.show',
-            [
-                'place' => $this->id,
-            ]
-        );
+        return route('place.show', ['place' => $this->id]);
     }
 
-    public function getIsAuthorAttribute()
+    public function getIsAuthorAttribute(): bool
     {
         return Auth::id() == $this->user_id;
     }
 
-    public function getAuthUserSubscriptionAttribute()
-    {
-        return $this->subscriptions()
-            ->where('user_id', Auth::id())
-            ->first();
-    }
-
-    public function getIsSubscribedAttribute()
+    public function getIsSubscribedAttribute(): bool
     {
         return $this->subscriptions()
             ->where('user_id', Auth::id())
             ->exists();
     }
 
-    public function starsWithTrashed()
+    public function commentsWithTrashed(): HasMany
     {
-        if ($this->trashed()) {
-            return $this->stars()->onlyTrashed();
-        } else {
-            return $this->stars();
-        }
+        return $this->trashed()
+            ? $this->comments()->onlyTrashed()
+            : $this->comments();
     }
 
-    public function commentsWithTrashed()
+    private function starsWithTrashed(): HasMany
     {
-        if ($this->trashed()) {
-            return $this->comments()->onlyTrashed();
-        } else {
-            return $this->comments();
-        }
+        return $this->trashed()
+            ? $this->stars()->onlyTrashed()
+            : $this->stars();
     }
 }

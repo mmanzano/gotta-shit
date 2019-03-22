@@ -19,7 +19,7 @@ class PlaceShowRequest extends FormRequest
     {
         $this->place = Place::withTrashed()->findOrFail(request()->route('place'));
 
-        if ($this->place->trashed() && !$this->place->isAuthor) {
+        if ($this->place->trashed() && !$this->place->is_author) {
             return false;
         }
 

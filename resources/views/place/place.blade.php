@@ -10,7 +10,7 @@
     @endif
 
     <div class="place-title">
-        @if($place->isAuthor)
+        @if($place->is_author)
             <div class="actions">
                 <ul>
                     @if(! $place->trashed())
@@ -83,7 +83,7 @@
                     @if(Auth::check())
                         <div class="actions actions-subscribe">
                             <ul>
-                                @if(! $place->isSubscribed)
+                                @if(!$place->is_subscribed)
                                     <li>
                                         @include('place.subscription.add')
                                     </li>
@@ -96,7 +96,7 @@
                         </div>
                     @endif
                 @endif
-                <p>{{ trans_choice('gottashit.comment.comments', $place->numberOfComments, ['number_of_comments' => $place->numberOfComments]) }}</p>
+                <p>{{ trans_choice('gottashit.comment.comments', $place->number_of_comments, ['number_of_comments' => $place->number_of_comments]) }}</p>
             </div>
 
             <div id="place-comments-list">

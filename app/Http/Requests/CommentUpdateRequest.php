@@ -13,7 +13,7 @@ class CommentUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return request()->route('comment')->isAuthor;
+        return request()->route('comment')->is_author;
     }
 
     /**

@@ -27,8 +27,8 @@ class CommentStoreResponse extends GottaShitResponse
     {
         $numberOfComments = trans_choice(
             'gottashit.comment.comments',
-            $this->comment->place->numberOfComments,
-            ['number_of_comments' => $this->comment->place->numberOfComments]
+            $this->comment->place->number_of_comments,
+            ['number_of_comments' => $this->comment->place->number_of_comments]
         );
 
         return response()->json([

@@ -13,7 +13,7 @@ class PlaceEditRequest extends FormRequest
      */
     public function authorize()
     {
-        return request()->route('place')->isAuthor;
+        return request()->route('place')->is_author;
     }
 
     /**

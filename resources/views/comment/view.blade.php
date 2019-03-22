@@ -5,11 +5,11 @@
             {{ $comment->user->username }}<br/>
             <span class="place-comments-date">{{ $comment->publicationDate }}</span>
         </p>
-        @if(($comment->isAuthor || $place->isAuthor) && ! $place->trashed())
+        @if(($comment->is_author || $place->is_author) && !$place->trashed())
         <div class="actions">
             <ul>
 
-                @if($comment->isAuthor)
+                @if($comment->is_author)
                 <li>
                     <a  class="button button-action button-edit-comment" href="{{ route('comment.edit', ['comment' => $comment->id]) }}">{{ trans('gottashit.comment.edit_comment') }}</a>
                 </li>
