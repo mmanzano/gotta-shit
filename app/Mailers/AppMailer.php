@@ -8,7 +8,6 @@ use GottaShit\Entities\Subscription;
 use GottaShit\Entities\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Support\Facades\App;
 
 class AppMailer
 {

@@ -6,7 +6,6 @@ use GottaShit\Entities\User;
 use GottaShit\Http\Controllers\Controller;
 use GottaShit\Mailers\AppMailer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class UserController extends Controller
@@ -48,7 +47,7 @@ class UserController extends Controller
 
     public function update(
         Request $request,
-        AppMailer $mailer,
+        AppMailer $appMailer,
         User $user
     ) {
         $logout = false;
@@ -83,7 +82,7 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->token = str_random(30);
             $user->modified = true;
-            $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_new_subject'));
+            $appMailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_new_subject'));
 
             $statusMessage = trans('auth.confirm_email') . "<br/>";
         }

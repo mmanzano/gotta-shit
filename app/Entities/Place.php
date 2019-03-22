@@ -4,7 +4,6 @@ namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class Place extends Model
@@ -90,6 +89,15 @@ class Place extends Model
                 'user_id' => $place->user_id,
                 'place_id' => $place->id,
             ]);
+        });
+
+        static::updated(function (Place $place) {
+            if (request()->has('stars')) {
+                PlaceStar::updateOrCreate([
+                    'place_id' => $place->id,
+                    'user_id' => Auth::id(),
+                ], ['stars' => request('stars')]);
+            }
         });
 
         static::deleted(function (Place $place) {

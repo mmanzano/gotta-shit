@@ -4,8 +4,6 @@ namespace GottaShit\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Support\Facades\Auth as Auth;
-use Illuminate\Support\Facades\App;
 
 class Authenticate
 {

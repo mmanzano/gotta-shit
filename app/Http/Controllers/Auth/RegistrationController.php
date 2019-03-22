@@ -32,10 +32,10 @@ class RegistrationController extends Controller
      * Perform the registration.
      *
      * @param Request $request
-     * @param AppMailer $mailer
+     * @param AppMailer $appMailer
      * @return \Redirect
      */
-    public function postRegister(Request $request, AppMailer $mailer)
+    public function postRegister(Request $request, AppMailer $appMailer)
     {
         $this->validate($request, [
             'full_name' => 'required|max:255',
@@ -52,7 +52,7 @@ class RegistrationController extends Controller
             'language' => App::getLocale(),
         ]);
 
-        $mailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
+        $appMailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
 
         return redirect(route('user_login'))
             ->with('status', trans('auth.confirm_email'));

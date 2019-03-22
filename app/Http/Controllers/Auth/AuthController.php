@@ -4,7 +4,6 @@ namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 

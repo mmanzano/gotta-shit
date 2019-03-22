@@ -3,7 +3,6 @@
 namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceStar;
 use GottaShit\Http\Requests\PlaceDestroyRequest;
 use GottaShit\Http\Requests\PlaceEditRequest;
 use GottaShit\Http\Requests\PlaceShowRequest;
@@ -12,7 +11,6 @@ use GottaShit\Http\Requests\PlaceUpdateRequest;
 use GottaShit\Jobs\ManagePlaceCreation;
 use GottaShit\Repositories\PlaceRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\View\View;
 
@@ -38,8 +36,7 @@ class PlaceController extends Controller
 
     public function show(PlaceShowRequest $request, $placeId): View
     {
-        optional($request->place->auth_user_subscription)
-            ->update(['comment_id' => null]);
+        Auth::user()->updateOrCreateSubscription($request->place);
 
         return view('place', [
             'title' => $request->place->name,
@@ -88,11 +85,6 @@ class PlaceController extends Controller
             'geo_lng' => number_format(request('geo_lng'), 6),
         ]);
 
-        PlaceStar::updateOrCreate([
-            'place_id' => $place->id,
-            'user_id' => Auth::id(),
-        ], ['stars' => request('stars')]);
-
         $statusMessage = trans('gottashit.place.updated_place', ['place' => $place->name]);
 
         return redirect($place->path)
@@ -138,8 +130,7 @@ class PlaceController extends Controller
         return view('places', [
             'title' => trans('gottashit.title.best_places'),
             'places' => $placeRepository
-                ->bestPlaces()
-                ->paginate(8),
+                ->paginatedBestPlaces(),
         ]);
     }
 
@@ -148,8 +139,7 @@ class PlaceController extends Controller
         return view('places', [
             'title' => trans('gottashit.title.nearest_places'),
             'places' => $placeRepository
-                ->nearTo($lat, $lon, $dist)
-                ->paginate(8),
+                ->paginatedNearTo($lat, $lon, $dist),
         ]);
     }
 }

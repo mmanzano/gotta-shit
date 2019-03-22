@@ -5,7 +5,6 @@ namespace GottaShit\Http\Controllers;
 use GottaShit\Entities\Place;
 use GottaShit\Entities\Subscription;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class SubscriptionController extends Controller

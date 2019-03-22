@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PlaceShowRequest extends FormRequest
 {
+    /** @var Place $place */
     public $place;
 
     /**

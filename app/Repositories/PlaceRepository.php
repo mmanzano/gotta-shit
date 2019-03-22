@@ -6,15 +6,16 @@ use Illuminate\Support\Facades\DB;
 
 class PlaceRepository
 {
-    public function bestPlaces()
+    public function paginatedBestPlaces()
     {
         return Place::rightJoin('place_stars', 'place_stars.place_id', '=', 'places.id')
             ->select(DB::raw('places.*, sum(place_stars.stars)/count(place_stars.stars) AS star_average'))
             ->groupBy('places.id')
-            ->orderBy('star_average', 'desc');
+            ->orderBy('star_average', 'desc')
+            ->paginate(8);
     }
 
-    public function nearTo(float $latitude, float $longitude, int $distance)
+    public function paginatedNearTo(float $latitude, float $longitude, int $distance)
     {
         $totalLat = 180;
 
@@ -31,6 +32,7 @@ class PlaceRepository
         $deltaLng = ($totalLng * $distance) / ($totalMeters);
 
         return Place::whereBetween('geo_lat', [$latitude - $deltaLat, $latitude + $deltaLat])
-            ->whereBetween('geo_lng', [$longitude - $deltaLng, $longitude + $deltaLng]);
+            ->whereBetween('geo_lng', [$longitude - $deltaLng, $longitude + $deltaLng])
+            ->paginate(8);
     }
 }

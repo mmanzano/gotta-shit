@@ -8,10 +8,10 @@ use GuzzleHttp\Client;
 
 class ContactController extends Controller
 {
-    public function store(ContactStoreRequest $request, AppMailer $mailer, Client $client)
+    public function store(ContactStoreRequest $request, AppMailer $appMailer, Client $client)
     {
         if ($request->validateRecaptcha($client)) {
-            $mailer->sendContactNotification(
+            $appMailer->sendContactNotification(
                 request('email'),
                 request('subject'),
                 request('body')

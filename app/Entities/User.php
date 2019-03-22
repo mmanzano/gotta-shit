@@ -25,6 +25,9 @@ class User extends Authenticatable
         'full_name',
         'username',
         'email',
+        'verified',
+        'modified',
+        'token',
         'password',
         'language',
         'github_id',
@@ -121,15 +124,24 @@ class User extends Authenticatable
      */
     public function confirmEmail()
     {
-        $this->verified = true;
-        $this->modified = false;
-        $this->token = null;
-        $this->save();
+        $this->update([
+            'verified' => true,
+            'modified' => false,
+            'token' => null,
+        ]);
     }
 
     public function setLanguage($language)
     {
-        $this->language = $language;
-        $this->save();
+        $this->update([
+            'language' => $language,
+        ]);
+    }
+
+    public function updateOrCreateSubscription($place)
+    {
+        return $this->subscriptions()->updateOrCreate([
+            'place_id' => $place->id
+        ], ['comment_id' => null]);
     }
 }

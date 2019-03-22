@@ -43,18 +43,10 @@ class ManageSubscriptions implements ShouldQueue
      */
     public function handle(AppMailer $appMailer)
     {
-        $userSubscription = $this->place->auth_user_subscription;
+        Auth::user()->updateOrCreateSubscription($this->place);
 
-        if ($userSubscription === null) {
-            $userSubscription = Subscription::create([
-                'place_id' => $this->place->id,
-                'user_id' => Auth::id(),
-            ]);
-        }
-
-        $userSubscription->update(['comment_id' => null]);
-
-        $this->place->subscriptions()
+        $this->place
+            ->subscriptions()
             ->where('user_id', '!=', Auth::id())
             ->whereNull('comment_id')
             ->get()

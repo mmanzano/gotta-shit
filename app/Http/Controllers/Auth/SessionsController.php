@@ -5,7 +5,6 @@ namespace GottaShit\Http\Controllers\Auth;
 use GottaShit\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class SessionsController extends Controller
