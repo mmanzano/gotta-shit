@@ -14,7 +14,7 @@ return [
     */
 
     'confirm_email' => 'Por favor, confirma tu dirección de correo electrónico',
-    'confirmed' => 'Tu usuario está ahora confirmado. Por favor, entra.',
+    'confirmed' => 'Tu usuario está ahora confirmado. ¡Hola de nuevo! Comienza a evaluar baños de otros o añade cualquier otro.',
     'failed' => 'Estos valores no coinciden con ningún usuario o no has confirmado tu correo electrónico.',
     'logout' => '¡Nos vemos pronto! Gracias por todo.',
     'login' => '¡Hola de nuevo! Comienza a evaluar baños de otros o añade cualquier otro.',

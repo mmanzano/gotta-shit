@@ -21,6 +21,6 @@ class AuthController extends Controller
 
         Auth::login($socialiteGottaShit->getAuthUser($socialiteUser, $provider), true);
 
-        return redirect(route('user.show', ['user' => Auth::id()]));
+        return redirect(Auth::user()->path);
     }
 }

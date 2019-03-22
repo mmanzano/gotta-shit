@@ -2,8 +2,8 @@
 
 namespace GottaShit\Entities;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -33,7 +33,7 @@ class User extends Authenticatable
         'github_id',
         'facebook_id',
         'twitter_id',
-        'avatar'
+        'avatar',
     ];
 
     /**
@@ -117,6 +117,11 @@ class User extends Authenticatable
         return $this->placesTrashed()->count();
     }
 
+    public function getPathAttribute()
+    {
+        return route('user.show', ['user' => $this->id]);
+    }
+
     /**
      * Confirm the user.
      *
@@ -141,7 +146,7 @@ class User extends Authenticatable
     public function updateOrCreateSubscription(Place $place)
     {
         return $this->subscriptions()->updateOrCreate([
-            'place_id' => $place->id
+            'place_id' => $place->id,
         ], ['comment_id' => null]);
     }
 

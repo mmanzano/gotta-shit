@@ -75,7 +75,7 @@ class AppMailer
         $this->to = env('SES_EMAIL');
         $this->view = 'emails.notification.place';
         $path = route('place.show', ['place' => $place->id]);
-        $path_user = route('user.show', ['user' => $user->id]);
+        $path_user = $user->path;
         $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;
 
@@ -95,12 +95,7 @@ class AppMailer
             $this->to = $subscriber->email;
             $this->view = 'emails.notification.comment';
             $path = $comment->path;
-            $path_author_of_comment = route(
-                'user.show',
-                [
-                    'user' => $author_of_comment->id,
-                ]
-            );
+            $path_author_of_comment = $author_of_comment->path;
             $this->data = compact('path', 'place', 'subscriber', 'author_of_comment', 'path_author_of_comment');
             $this->subject = $subject;
 

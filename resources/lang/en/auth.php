@@ -14,7 +14,7 @@ return [
     */
 
     'confirm_email' => 'Please confirm your email address',
-    'confirmed' => 'You are now confirmed. Please login.',
+    'confirmed' => 'You are now confirmed. Welcome back! Start to evaluate others WC or add one.',
     'failed' => 'These credentials do not match our records.',
     'logout' => 'You have now been signed out. See you.',
     'login' => 'Welcome back! Start to evaluate others WC or add one.',
