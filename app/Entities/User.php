@@ -138,10 +138,17 @@ class User extends Authenticatable
         ]);
     }
 
-    public function updateOrCreateSubscription($place)
+    public function updateOrCreateSubscription(Place $place)
     {
         return $this->subscriptions()->updateOrCreate([
             'place_id' => $place->id
         ], ['comment_id' => null]);
+    }
+
+    public function deleteSubscription(Place $place)
+    {
+        return $this->subscriptions()
+            ->where('place_id', $place->id)
+            ->forceDelete();
     }
 }

@@ -7,7 +7,6 @@ use GottaShit\Entities\PlaceStar;
 use GottaShit\Http\Requests\StartUpdateRequest;
 use GottaShit\Http\Responses\StarDestroyResponse;
 use GottaShit\Http\Responses\StarUpdateResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class StarController extends Controller

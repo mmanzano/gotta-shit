@@ -3,8 +3,8 @@
 namespace GottaShit\Http\Controllers;
 
 use GottaShit\Entities\Place;
-use GottaShit\Entities\Subscription;
-use Illuminate\Http\Request;
+use GottaShit\Http\Responses\SubscriptionDestroyResponse;
+use GottaShit\Http\Responses\SubscriptionStoreResponse;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class SubscriptionController extends Controller
@@ -14,66 +14,17 @@ class SubscriptionController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request, Place $place)
+    public function store(Place $place): SubscriptionStoreResponse
     {
-        $this->subscribe($place);
+        Auth::user()->updateOrCreateSubscription($place);
 
-        return $this->responseView($request, $place);
+        return new SubscriptionStoreResponse($place);
     }
 
-    public function destroy(Request $request, Place $place)
+    public function destroy(Place $place): SubscriptionDestroyResponse
     {
-        $this->unsubscribe($place);
+        Auth::user()->deleteSubscription($place);
 
-        return $this->responseView($request, $place);
-    }
-
-    protected function subscribe(Place $place)
-    {
-        $subscription = new Subscription();
-        $subscription->place_id = $place->id;
-        $subscription->user_id = Auth::user()->id;
-        $subscription->comment_id = null;
-        $subscription->save();
-    }
-
-    protected function unsubscribe(Place $place)
-    {
-        $subscription = Subscription::where('user_id', Auth::user()->id)
-            ->where('place_id', $place->id);
-
-        $subscription->forceDelete();
-    }
-
-    public function responseView(Request $request, Place $place)
-    {
-        if ($request->getMethod() == "POST") {
-            $statusMessage = trans('gottashit.subscription.subscribed_place');
-            $view = "place.subscription.remove";
-        }
-
-        if ($request->getMethod() == "DELETE") {
-            $statusMessage = trans('gottashit.subscription.unsubscribed_place');
-            $view = "place.subscription.add";
-        }
-
-        if ($request->ajax()) {
-            return response()->json([
-                'status' => 200,
-                'status_message' => $statusMessage ?? '',
-                'button_box' => view($view ?? '', compact('place'))->render(),
-                'request' => $request->getMethod(),
-            ]);
-        } else {
-            $placeRoute = route(
-                'place.show',
-                [
-                    'place' => $place->id,
-                ]
-            );
-
-            return redirect($placeRoute)
-                ->with('status', $statusMessage);
-        }
+        return new SubscriptionDestroyResponse($place);
     }
 }
