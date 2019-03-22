@@ -3,50 +3,31 @@
 namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subscription extends Model
 {
     use SoftDeletes;
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+
+    /** @var string */
     protected $table = 'subscriptions';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $fillable = ['user_id', 'place_id', 'comment_id'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $hidden = [];
 
+    /** @var array */
     protected $dates = ['deleted_at'];
 
-    /**
-     * A Subscription belongs to User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * A Subscription belongs to Place.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function place()
+    public function place(): BelongsTo
     {
         return $this->belongsTo(Place::class);
     }
