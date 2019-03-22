@@ -3,7 +3,6 @@
 namespace GottaShit\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class CommentEditRequest extends FormRequest
 {

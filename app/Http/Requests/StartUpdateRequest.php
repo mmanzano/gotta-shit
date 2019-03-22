@@ -3,8 +3,9 @@
 namespace GottaShit\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class CommentUpdateRequest extends FormRequest
+class StartUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class CommentUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return request()->route('comment')->isAuthor;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,7 @@ class CommentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required',
+            'stars' => 'required|numeric|between:0,5',
         ];
     }
 }
