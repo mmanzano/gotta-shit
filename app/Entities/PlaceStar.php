@@ -3,52 +3,32 @@
 namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PlaceStar extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $table = 'place_stars';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $fillable = ['user_id', 'place_id', 'stars'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $hidden = [];
 
+    /** @var array */
     protected $dates = ['deleted_at'];
 
-    /**
-     * A Star belongs to User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('GottaShit\Entities\User');
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * A Star belongs to Place.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function place()
+    public function place(): BelongsTo
     {
-        return $this->belongsTo('GottaShit\Entities\Place');
+        return $this->belongsTo(Place::class);
     }
 }
