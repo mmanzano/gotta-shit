@@ -3,7 +3,7 @@
     <div class="place-comments-user">
         <p class="place-comments-user-name">
             {{ $comment->user->username }}<br/>
-            <span class="place-comments-date">{{ $comment->publicationDate }}</span>
+            <span class="place-comments-date">{{ $comment->publication_date }}</span>
         </p>
         @if(($comment->is_author || $place->is_author) && !$place->trashed())
         <div class="actions">

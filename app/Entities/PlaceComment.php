@@ -3,6 +3,7 @@
 namespace GottaShit\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth as Auth;
 
@@ -10,65 +11,42 @@ class PlaceComment extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $table = 'place_comments';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $fillable = ['user_id', 'place_id', 'comment'];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $hidden = [];
 
+    /** @var array */
     protected $dates = ['deleted_at'];
 
-    /**
-     * A Comment belongs to User.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('GottaShit\Entities\User');
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * A Comment belongs to Place.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function place()
+    public function place(): BelongsTo
     {
-        return $this->belongsTo('GottaShit\Entities\Place');
+        return $this->belongsTo(Place::class);
     }
 
-    public function getIsAuthorAttribute()
+    public function getPathAttribute(): string
+    {
+        return $this->place->path . '#comment-' . $this->id;
+    }
+
+    public function getIsAuthorAttribute(): bool
     {
         return Auth::id() == $this->user_id;
     }
 
-    public function getPublicationDateAttribute()
+    public function getPublicationDateAttribute(): string
     {
-        if ($this->created_at->diffInDays() >= 1) {
-            return ucfirst($this->created_at->formatLocalized('%A %d %B %Y %H:%M'));
-        } else {
-            return $this->created_at->diffForHumans();
-        }
-    }
-
-    public function getPathAttribute()
-    {
-        return $this->place->path . '#comment-' . $this->id;
+        return $this->created_at->diffInDays() >= 1
+            ? ucfirst($this->created_at->formatLocalized('%A %d %B %Y %H:%M'))
+            : $this->created_at->diffForHumans();
     }
 }

@@ -67,22 +67,22 @@ class Place extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('GottaShit\Entities\User');
+        return $this->belongsTo(User::class);
     }
 
     public function stars(): HasMany
     {
-        return $this->hasMany('GottaShit\Entities\PlaceStar');
+        return $this->hasMany(PlaceStar::class);
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany('GottaShit\Entities\PlaceComment');
+        return $this->hasMany(PlaceComment::class);
     }
 
     public function subscriptions(): HasMany
     {
-        return $this->hasMany('GottaShit\Entities\Subscription');
+        return $this->hasMany(Subscription::class);
     }
 
     public function getStarsAmountAttribute(): int
