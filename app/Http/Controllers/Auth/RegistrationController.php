@@ -4,10 +4,12 @@ namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Entities\User;
 use GottaShit\Http\Controllers\Controller;
+use GottaShit\Http\Requests\Auth\RegisterPostRequest;
 use GottaShit\Mailers\AppMailer;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\View\View;
 
 class RegistrationController extends Controller
 {
@@ -16,34 +18,15 @@ class RegistrationController extends Controller
         $this->middleware('guest', ['only' => ['register', 'postRegister']]);
     }
 
-    /**
-     * Show the register page.
-     *
-     * @return \Response
-     */
-    public function register()
+    public function register(): View
     {
-        $title = trans('gottashit.title.register');
-
-        return view('auth.register', compact('title'));
+        return view('auth.register', [
+            'title' => trans('gottashit.title.register'),
+        ]);
     }
 
-    /**
-     * Perform the registration.
-     *
-     * @param Request $request
-     * @param AppMailer $appMailer
-     * @return \Redirect
-     */
-    public function postRegister(Request $request, AppMailer $appMailer)
+    public function postRegister(RegisterPostRequest $request, AppMailer $appMailer): RedirectResponse
     {
-        $this->validate($request, [
-            'full_name' => 'required|max:255',
-            'username' => 'required|max:255|unique:users',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-
         $user = User::create([
             'full_name' => $request->input('full_name'),
             'username' => $request->input('username'),
@@ -58,23 +41,14 @@ class RegistrationController extends Controller
             ->with('status', trans('auth.confirm_email'));
     }
 
-    /**
-     * Confirm a user's email address.
-     *
-     * @param string $token
-     * @return mixed
-     */
-    public function confirmEmail(string $token)
+    public function confirmEmail(string $token): RedirectResponse
     {
-        User::where('token', $token)->firstOrFail()->confirmEmail();
+        $user = User::where('token', $token)->firstOrFail();
 
-        $statusMessage = trans('auth.confirmed');
+        $user->confirmEmail();
 
-        if (Auth::check()) {
-            return redirect(route('home'));
-        } else {
-            return redirect(route('user_login'))
-                ->with('status', $statusMessage);
-        }
+        Auth::login($user, true);
+
+        return redirect(route('home'))->with('status', trans('auth.confirmed'));
     }
 }
