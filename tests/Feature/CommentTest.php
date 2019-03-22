@@ -33,11 +33,7 @@ class CommentTest extends TestCase
 
         $comment = PlaceComment::first();
 
-        $placeRoute = route('place.show', [
-            'place' => $place->id,
-        ]);
-
-        $redirectRoute = "{$placeRoute}#comment-{$comment->id}";
+        $redirectRoute = "{$place->path}#comment-{$comment->id}";
 
         $response->assertRedirect($redirectRoute);
 
@@ -74,11 +70,7 @@ class CommentTest extends TestCase
             'comment' => $comment->id
         ]);
 
-        $placeRoute = route('place.show', [
-            'place' => $place->id,
-        ]);
-
-        $redirectRoute = "{$placeRoute}#comment-{$comment->id}";
+        $redirectRoute = "{$place->path}#comment-{$comment->id}";
 
         $this->actingAs($user)
             ->put($route, [
@@ -116,13 +108,9 @@ class CommentTest extends TestCase
             'comment' => $comment->id,
         ]);
 
-        $redirectRoute = route('place.show', [
-            'place' => $place->id,
-        ]);
-
         $this->actingAs($user)
             ->delete($route)
-            ->assertRedirect($redirectRoute);
+            ->assertRedirect($place->path);
 
         $this->assertDatabaseMissing('place_comments', [
             'id' => $comment->id

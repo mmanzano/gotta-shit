@@ -31,11 +31,7 @@ class PlaceTest extends TestCase
             'stars' => 4,
         ]);
 
-        $redirectRoute = route('place.show', [
-            'place' => Place::first()->id,
-        ]);
-
-        $response->assertRedirect($redirectRoute);
+        $response->assertRedirect(Place::first()->path);
     }
 
     /** @test */
@@ -55,10 +51,6 @@ class PlaceTest extends TestCase
             'place' => $place->id,
         ]);
 
-        $redirectRoute = route('place.show', [
-            'place' => $place->id,
-        ]);
-
         $this->actingAs($user)
             ->get($editFormRoute)
             ->assertStatus(200);
@@ -69,7 +61,7 @@ class PlaceTest extends TestCase
                 'geo_lat' => 40.5,
                 'geo_lng' => -3.4,
                 'stars' => 4,
-            ])->assertRedirect($redirectRoute);
+            ])->assertRedirect($place->path);
 
         $this->assertDatabaseHas('places', [
             'name' => 'Bar Pepe 2',

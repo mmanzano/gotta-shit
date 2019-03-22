@@ -74,7 +74,7 @@ class AppMailer
         $this->from = env('SES_EMAIL');
         $this->to = env('SES_EMAIL');
         $this->view = 'emails.notification.place';
-        $path = route('place.show', ['place' => $place->id]);
+        $path = $place->path;
         $path_user = $user->path;
         $this->data = compact('path', 'place', 'user', 'path_user');
         $this->subject = $subject;

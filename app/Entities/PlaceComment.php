@@ -69,10 +69,6 @@ class PlaceComment extends Model
 
     public function getPathAttribute()
     {
-        $placeRoute = route('place.show', [
-            'place' => $this->place_id,
-        ]);
-
-        return $placeRoute . '#comment-' . $this->id;
+        return $this->place->path . '#comment-' . $this->id;
     }
 }

@@ -30,7 +30,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->places as $place)
-                    <a class="user-link" href="{{ route('place.show', ['place' => $place->id]) }}">{{ $place->name }}</a>
+                    <a class="user-link" href="{{ $place->path }}">{{ $place->name }}</a>
                 @endforeach
             </div>
         @endif
@@ -40,7 +40,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->placesTrashed as $place)
-                    <a class="user-link" href="{{ route('place.show', ['place' => $place->id]) }}">{{ $place->name }}</a>
+                    <a class="user-link" href="{{ $place->path }}">{{ $place->name }}</a>
                 @endforeach
             </div>
         @endif
@@ -51,7 +51,7 @@
         @if($is_user)
             <div class="user-label">
                 @foreach($user->stars as $star)
-                    <a class="user-link" href="{{ route('place.show', ['place' => $star->place->id]) }}">{{ $star->place->name }}</a>
+                    <a class="user-link" href="{{ $star->place->path }}">{{ $star->place->name }}</a>
                 @endforeach
             </div>
         @endif
