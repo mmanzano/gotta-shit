@@ -33,7 +33,7 @@ class SocialiteGottaShit
         return in_array($provider, ['github', 'facebook', 'twitter']);
     }
 
-    private function getUserFromSocialite(string $provider, string $socialiteId, string $socialiteEmail)
+    private function getUserFromSocialite(string $provider, string $socialiteId, ?string $socialiteEmail)
     {
         if ($user = User::where($provider . '_id', $socialiteId)->first()) {
             return $user;
