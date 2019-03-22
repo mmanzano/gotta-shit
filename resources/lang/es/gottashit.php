@@ -110,8 +110,8 @@ return [
         'edit_user_not_allowed' => 'No puedes editar ese usuario',
         'update_user_not_allowed' => 'No puedes actualizar ese usuario',
         'number_of_places' => 'Cantidad de lugares',
-        'number_of_places_deleted' => 'Cantidad de lugares borrados',
-        'number_of_places_rated' => 'Cantidad de lugares votados',
+        'number_of_deleted_places' => 'Cantidad de lugares borrados',
+        'number_of_rates_places' => 'Cantidad de lugares votados',
         'no_notifications_warning' => 'No recibirás notificaciones por correo electrónico hasta que verifiques o definas tu correo electrónico',
 
     ],

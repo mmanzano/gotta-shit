@@ -25,7 +25,7 @@
             @endif
         @endif
 
-        <p class="user-label">{{ trans('gottashit.user.number_of_places') }}: <span class="user-data">{{ $user->numberOfPlaces }}</span></p>
+        <p class="user-label">{{ trans('gottashit.user.number_of_places') }}: <span class="user-data">{{ $user->number_of_places }}</span></p>
 
         @if($is_user)
             <div class="user-label">
@@ -35,7 +35,7 @@
             </div>
         @endif
 
-        <p class="user-label">{{ trans('gottashit.user.number_of_places_deleted') }}: <span class="user-data">{{ $user->numberOfPlacesTrashed }}</span></p>
+        <p class="user-label">{{ trans('gottashit.user.number_of_deleted_places') }}: <span class="user-data">{{ $user->number_of_trashed_places }}</span></p>
 
         @if($is_user)
             <div class="user-label">
@@ -46,7 +46,7 @@
         @endif
 
 
-        <p class="user-label">{{ trans('gottashit.user.number_of_places_rated') }}: <span class="user-data">{{ $user->numberOfPlacesRated }}</span></p>
+        <p class="user-label">{{ trans('gottashit.user.number_of_rated_places') }}: <span class="user-data">{{ $user->number_of_rated_places }}</span></p>
 
         @if($is_user)
             <div class="user-label">

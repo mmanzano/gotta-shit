@@ -110,8 +110,8 @@ return [
         'edit_user_not_allowed' => 'You are not allowed for edit this user',
         'update_user_not_allowed' => 'You are not allowed for update this user',
         'number_of_places' => 'Number of places',
-        'number_of_places_deleted' => 'Number of places deleted',
-        'number_of_places_rated' => 'Number of places rated',
+        'number_of_deleted_places' => 'Number of deleted places',
+        'number_of_rated_places' => 'Number of rated places',
         'no_notifications_warning' => 'You will not receive more email notifications until confirm or defined your email',
     ],
 

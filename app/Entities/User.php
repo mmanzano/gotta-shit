@@ -2,6 +2,8 @@
 
 namespace GottaShit\Entities;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -9,18 +11,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $table = 'users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $fillable = [
         'full_name',
         'username',
@@ -36,19 +30,10 @@ class User extends Authenticatable
         'avatar',
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * Boot the model.
-     *
-     * @return void
-     */
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
 
@@ -57,88 +42,63 @@ class User extends Authenticatable
         });
     }
 
-    /**
-     * An User has many Places.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function places()
+    public function places(): HasMany
     {
-        return $this->hasMany('GottaShit\Entities\Place');
+        return $this->hasMany(Place::class);
     }
 
-    /**
-     * An User has many Stars.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function stars()
-    {
-        return $this->hasMany('GottaShit\Entities\PlaceStar');
-    }
-
-    /**
-     * An User has many Comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany('GottaShit\Entities\PlaceComment');
-    }
-
-    /**
-     * An User has many Subscriptions.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function subscriptions()
-    {
-        return $this->hasMany('GottaShit\Entities\Subscription');
-    }
-
-    public function getNumberOfPlacesAttribute()
-    {
-        return $this->places()->count();
-    }
-
-    public function getNumberOfPlacesRatedAttribute()
-    {
-        return $this->stars()->count();
-    }
-
-    public function placesTrashed()
+    public function placesTrashed(): HasMany
     {
         return $this->places()->onlyTrashed();
     }
 
-    public function getNumberOfPlacesTrashedAttribute()
+    public function stars(): HasMany
     {
-        return $this->placesTrashed()->count();
+        return $this->hasMany(PlaceStar::class);
     }
 
-    public function getPathAttribute()
+    public function comments(): HasMany
+    {
+        return $this->hasMany(PlaceComment::class);
+    }
+
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function getPathAttribute(): string
     {
         return route('user.show', ['user' => $this->id]);
     }
 
-    /**
-     * Confirm the user.
-     *
-     * @return void
-     */
-    public function confirmEmail()
+    public function getNumberOfPlacesAttribute(): int
     {
-        $this->update([
+        return $this->places()->count();
+    }
+
+    public function getNumberOfRatedPlacesAttribute(): int
+    {
+        return $this->stars()->count();
+    }
+
+    public function getNumberOfTrashedPlacesAttribute(): int
+    {
+        return $this->placesTrashed()->count();
+    }
+
+    public function confirmEmail(): bool
+    {
+        return $this->update([
             'verified' => true,
             'modified' => false,
             'token' => null,
         ]);
     }
 
-    public function setLanguage($language)
+    public function setLanguage($language): bool
     {
-        $this->update([
+        return $this->update([
             'language' => $language,
         ]);
     }
