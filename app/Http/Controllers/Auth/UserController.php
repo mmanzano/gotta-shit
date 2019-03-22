@@ -7,7 +7,7 @@ use GottaShit\Http\Controllers\Controller;
 use GottaShit\Http\Requests\Auth\UserEditRequest;
 use GottaShit\Http\Requests\Auth\UserUpdateRequest;
 use GottaShit\Jobs\ManageChangeEmail;
-use GottaShit\Mailers\AppMailer;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\View\View;
 
@@ -36,7 +36,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserUpdateRequest $request, AppMailer $appMailer, User $user)
+    public function update(UserUpdateRequest $request, User $user): RedirectResponse
     {
         $user->update([
             'full_name' => request('full_name'),
