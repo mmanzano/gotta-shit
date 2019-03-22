@@ -3,9 +3,12 @@
 namespace GottaShit\Http\Controllers\Auth;
 
 use GottaShit\Http\Controllers\Controller;
+use GottaShit\Http\Requests\Auth\LoginPostRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\View\View;
 
 class SessionsController extends Controller
 {
@@ -20,40 +23,20 @@ class SessionsController extends Controller
         $this->middleware('auth', ['only' => ['logout']]);
     }
 
-    /**
-     * Show the login page.
-     *
-     * @return \Response
-     */
-    public function login()
+    public function login(): View
     {
-        $title = trans('gottashit.title.login');
-
-        return view('auth.login', compact('title'));
+        return view('auth.login', [
+            'title' => trans('gottashit.title.login'),
+        ]);
     }
 
-    /**
-     * Perform the login.
-     *
-     * @param Request $request
-     * @return \Redirect
-     */
-    public function postLogin(Request $request)
+    public function postLogin(LoginPostRequest $request): RedirectResponse
     {
         $this->loginPath = route('user_login');
 
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
         if ($this->signIn($request)) {
-            $statusMessage = trans('auth.login');
-
-            $homeRoute = route('home');
-
-            return redirect($homeRoute)
-                ->with('status', $statusMessage);
+            return redirect(route('home'))
+                ->with('status', trans('auth.login'));
         }
 
         return redirect($this->loginPath())
@@ -63,30 +46,15 @@ class SessionsController extends Controller
             ]);
     }
 
-    /**
-     * Destroy the user's current session.
-     *
-     * @return \Redirect
-     */
-    public function logout()
+    public function logout(): RedirectResponse
     {
         Auth::logout();
 
-        $statusMessage = trans('auth.logout');
-
-        $homeRoute = route('home');
-
-        return redirect($homeRoute)
-            ->with('status', $statusMessage);
+        return redirect(route('home'))
+            ->with('status', trans('auth.logout'));
     }
 
-    /**
-     * Attempt to sign in the user.
-     *
-     * @param Request $request
-     * @return boolean
-     */
-    protected function signIn(Request $request)
+    protected function signIn(Request $request): bool
     {
         return Auth::attempt(
             $this->getCredentials($request),
@@ -94,13 +62,7 @@ class SessionsController extends Controller
         );
     }
 
-    /**
-     * Get the login credentials and requirements.
-     *
-     * @param Request $request
-     * @return array
-     */
-    protected function getCredentials(Request $request)
+    protected function getCredentials(Request $request): array
     {
         return [
             'email' => $request->input('email'),
@@ -109,12 +71,7 @@ class SessionsController extends Controller
         ];
     }
 
-    /**
-     * Determine if the class is using the ThrottlesLogins trait.
-     *
-     * @return bool
-     */
-    protected function isUsingThrottlesLoginsTrait()
+    protected function isUsingThrottlesLoginsTrait(): bool
     {
         return in_array(
             ThrottlesLogins::class,
@@ -122,32 +79,17 @@ class SessionsController extends Controller
         );
     }
 
-    /**
-     * Get the login username to be used by the controller.
-     *
-     * @return string
-     */
-    public function loginUsername()
+    public function loginUsername(): string
     {
         return property_exists($this, 'username') ? $this->username : 'email';
     }
 
-    /**
-     * Get the path to the login route.
-     *
-     * @return string
-     */
-    public function loginPath()
+    public function loginPath(): string
     {
         return property_exists($this, 'loginPath') ? $this->loginPath : '/login';
     }
 
-    /**
-     * Get the failed login message.
-     *
-     * @return string
-     */
-    protected function getFailedLoginMessage()
+    protected function getFailedLoginMessage(): string
     {
         return trans('auth.failed');
     }
