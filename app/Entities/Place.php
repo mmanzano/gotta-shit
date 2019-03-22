@@ -75,9 +75,23 @@ class Place extends Model
         return $this->hasMany(PlaceStar::class);
     }
 
+    public function starsWithTrashed(): HasMany
+    {
+        return $this->trashed()
+            ? $this->stars()->onlyTrashed()
+            : $this->stars();
+    }
+
     public function comments(): HasMany
     {
         return $this->hasMany(PlaceComment::class);
+    }
+
+    public function commentsWithTrashed(): HasMany
+    {
+        return $this->trashed()
+            ? $this->comments()->onlyTrashed()
+            : $this->comments();
     }
 
     public function subscriptions(): HasMany
@@ -137,19 +151,5 @@ class Place extends Model
         return $this->subscriptions()
             ->where('user_id', Auth::id())
             ->exists();
-    }
-
-    public function commentsWithTrashed(): HasMany
-    {
-        return $this->trashed()
-            ? $this->comments()->onlyTrashed()
-            : $this->comments();
-    }
-
-    private function starsWithTrashed(): HasMany
-    {
-        return $this->trashed()
-            ? $this->stars()->onlyTrashed()
-            : $this->stars();
     }
 }
