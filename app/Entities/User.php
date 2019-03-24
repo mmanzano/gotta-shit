@@ -2,7 +2,6 @@
 
 namespace GottaShit\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -108,6 +107,18 @@ class User extends Authenticatable
         return $this->subscriptions()->updateOrCreate([
             'place_id' => $place->id,
         ], ['comment_id' => null]);
+    }
+
+    public function updateSubscription(Place $place)
+    {
+        return $this->subscriptions()->when(
+            $this->subscriptions()->where('place_id', $place->id)->exists(),
+            function ($query) use ($place) {
+                return $query->where('place_id', $place->id)
+                    ->first()
+                    ->update(['comment_id' => null]);
+            }
+        );
     }
 
     public function deleteSubscription(Place $place)

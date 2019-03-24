@@ -12,6 +12,52 @@ class PlaceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function placeShow()
+    {
+        $user = factory(User::class)->create();
+
+        $place = factory(Place::class)->create();
+
+        $this->assertCount(0, $user->subscriptions);
+
+        $this->actingAs($user)
+            ->get($place->path)
+            ->assertStatus(200);
+
+        $this->assertCount(0, $user->fresh()->subscriptions);
+    }
+
+    /** @test */
+    public function placeShowWithActiveSubscription()
+    {
+        $user = factory(User::class)->create();
+
+        $place = factory(Place::class)->create();
+
+        $user->updateOrCreateSubscription($place);
+
+        $this->assertCount(1, $user->subscriptions);
+        $user->subscriptions()->first()->update(['comment_id' => 1]);
+        $this->assertNotNull($user->subscriptions()->first()->comment_id);
+
+        $this->actingAs($user)
+            ->get($place->path)
+            ->assertStatus(200);
+
+        $this->assertCount(1, $user->fresh()->subscriptions);
+        $this->assertNull($user->fresh()->subscriptions()->first()->comment_id);
+    }
+
+    /** @test */
+    public function placeShowWithoutLoginUser()
+    {
+        $place = factory(Place::class)->create();
+
+        $this->get($place->path)
+            ->assertStatus(200);
+    }
+
+    /** @test */
     public function placeCreate()
     {
         $user = factory(User::class)->create();

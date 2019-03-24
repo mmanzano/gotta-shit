@@ -36,7 +36,9 @@ class PlaceController extends Controller
 
     public function show(PlaceShowRequest $request, $placeId): View
     {
-        Auth::user()->updateOrCreateSubscription($request->place);
+        if (Auth::check()) {
+            Auth::user()->updateSubscription($request->place);
+        }
 
         return view('place', [
             'title' => $request->place->name,
