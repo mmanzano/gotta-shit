@@ -8,13 +8,15 @@ A little application in Laravel to mark the best sites to shit.
 
 Technologies:
 
-- Laravel 5.1
+- Laravel 5.5 (Current LTS)
 
 - Html
 
-- Css
+- Css (Sass)
 
 - Javascript/Jquery
+
+- Google Maps
 
 ### Next Steps
 
