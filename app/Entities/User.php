@@ -111,14 +111,9 @@ class User extends Authenticatable
 
     public function updateSubscription(Place $place)
     {
-        return $this->subscriptions()->when(
-            $this->subscriptions()->where('place_id', $place->id)->exists(),
-            function ($query) use ($place) {
-                return $query->where('place_id', $place->id)
-                    ->first()
-                    ->update(['comment_id' => null]);
-            }
-        );
+        return $this->subscriptions()
+            ->where('place_id', $place->id)
+            ->update(['comment_id' => null]);
     }
 
     public function deleteSubscription(Place $place)

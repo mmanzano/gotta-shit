@@ -12,6 +12,15 @@ class PlaceTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function placeShowWithoutLoginUser()
+    {
+        $place = factory(Place::class)->create();
+
+        $this->get($place->path)
+            ->assertStatus(200);
+    }
+
+    /** @test */
     public function placeShow()
     {
         $user = factory(User::class)->create();
@@ -46,15 +55,6 @@ class PlaceTest extends TestCase
 
         $this->assertCount(1, $user->fresh()->subscriptions);
         $this->assertNull($user->fresh()->subscriptions()->first()->comment_id);
-    }
-
-    /** @test */
-    public function placeShowWithoutLoginUser()
-    {
-        $place = factory(Place::class)->create();
-
-        $this->get($place->path)
-            ->assertStatus(200);
     }
 
     /** @test */
