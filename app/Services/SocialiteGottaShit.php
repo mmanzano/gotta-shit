@@ -56,7 +56,9 @@ class SocialiteGottaShit
 
         $socialiteEmail = $socialiteUser->getEmail();
 
-        $socialiteAvatar = $socialiteUser->getavatar();
+        $socialiteEmail = empty($socialiteEmail) ? null : $socialiteEmail;
+
+        $socialiteAvatar = $socialiteUser->getAvatar();
 
         $this->updateSocialiteInfo($provider, $authUser, $socialiteId, $socialiteAvatar);
 
