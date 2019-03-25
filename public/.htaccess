@@ -8,14 +8,6 @@
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-    # Force https schema
-    RewriteCond %{HTTPS} off
-    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-    # from www.gottashit.com to https://gottashit.com
-    RewriteCond %{HTTP_HOST} ^www.gottashit.com$ [NC]
-    RewriteRule ^(.*)$ https://gottashit.com/$1 [L,R=301]
-
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
