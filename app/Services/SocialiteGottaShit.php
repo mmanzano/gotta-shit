@@ -35,15 +35,15 @@ class SocialiteGottaShit
 
     private function getUserFromSocialite(string $provider, string $socialiteId, ?string $socialiteEmail)
     {
-        if ($user = User::where($provider . '_id', $socialiteId)->first()) {
-            return $user;
-        }
-
-        if ($user = Auth::user()) {
+        if ($socialiteId && $user = User::where($provider . '_id', $socialiteId)->first()) {
             return $user;
         }
 
         if ($socialiteEmail && $user = User::where('email', $socialiteEmail)->first()) {
+            return $user;
+        }
+
+        if ($user = Auth::user()) {
             return $user;
         }
 
