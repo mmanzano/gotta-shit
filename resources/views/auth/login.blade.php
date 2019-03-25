@@ -13,10 +13,6 @@
 
     <div class="forms">
         <div>
-            <a class="button" href="{{ route('social_login', ['provider' => 'facebook']) }}">{{ trans('gottashit.user.login_facebook') }}</a>
-        </div>
-
-        <div>
             <a class="button" href="{{ route('social_login', ['provider' => 'twitter']) }}">{{ trans('gottashit.user.login_twitter') }}</a>
         </div>
 

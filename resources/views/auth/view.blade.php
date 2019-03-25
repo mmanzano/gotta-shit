@@ -14,9 +14,6 @@
             <p class="user-label">{{ trans('gottashit.user.full_name')}}: <span class="user-data">{{ $user->full_name }}</span></p>
             <p class="user-label">{{ trans('gottashit.user.email')}}: <span class="user-data">{{ $user->email }}</span></p>
             <a class="button edit-user" href="{{ route('user.edit', ['user' => $user->id]) }}">{{ trans('gottashit.user.edit_user') }}</a>
-            @if(is_null($user->facebook_id))
-                <a class="button edit-user" href="{{ route('social_login', ['provider' => 'facebook']) }}">{{ trans('gottashit.user.add_facebook') }}</a>
-            @endif
             @if(is_null($user->twitter_id))
                 <a class="button edit-user" href="{{ route('social_login', ['provider' => 'twitter']) }}">{{ trans('gottashit.user.add_twitter') }}</a>
             @endif
