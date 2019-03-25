@@ -43,7 +43,7 @@ class SocialiteGottaShit
             return $user;
         }
 
-        if ($user = User::where('email', $socialiteEmail)->first()) {
+        if ($socialiteEmail && $user = User::where('email', $socialiteEmail)->first()) {
             return $user;
         }
 
