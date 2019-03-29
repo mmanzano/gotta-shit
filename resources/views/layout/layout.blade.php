@@ -5,19 +5,20 @@
     @yield('scripts_head_section')
 </head>
 <body>
+<div id="app">
+    @include('sections.navigation_user')
 
-@include('sections.navigation_user')
+    @include('sections.header')
 
-@include('sections.header')
+    @include('sections.navigation')
 
-@include('sections.navigation')
+    @include('sections.disclaimer')
 
-@include('sections.disclaimer')
+    @yield('content')
 
-@yield('content')
-
-@include('sections.call_to_action')
-@include('sections.footer')
+    @include('sections.call_to_action')
+    @include('sections.footer')
+</div>
 
 @include('scripts.javascript')
 

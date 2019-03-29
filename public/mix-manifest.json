@@ -1,8 +1,9 @@
 {
-    "/css/gottashit.css": "/css/gottashit.css",
-    "/mix.js.map": "/mix.js.map",
-    "/css/gottashit.css.map": "/css/gottashit.css.map",
-    "/js/gottashit.js": "/js/gottashit.js",
-    "/js/gottashit_place_field.js": "/js/gottashit_place_field.js",
-    "/js/gottashit_place.js": "/js/gottashit_place.js"
+    "/js/app.js": "/js/app.js?id=f3b938677bd564e1c4f7",
+    "/css/gottashit.css": "/css/gottashit.css?id=312fa23b6baad914dc83",
+    "/js/app.js.map": "/js/app.js.map?id=64075e821a6b19fc3a8f",
+    "/css/gottashit.css.map": "/css/gottashit.css.map?id=f509a53dfadc6bf42b5e",
+    "/js/gottashit.js": "/js/gottashit.js?id=7f5b049f7c906233712f",
+    "/js/gottashit_place_field.js": "/js/gottashit_place_field.js?id=515b36384337bb435b6b",
+    "/js/gottashit_place.js": "/js/gottashit_place.js?id=f7ae739aaeac684fb895"
 }

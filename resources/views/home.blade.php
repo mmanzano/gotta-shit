@@ -46,5 +46,5 @@
     <script>
         onload();
     </script>
-    <script src="{{ asset('/js/gottashit_place.js') }}"></script>
+    <script src="{{ mix('/js/gottashit_place.js') }}"></script>
 @endsection

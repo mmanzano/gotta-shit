@@ -23,5 +23,5 @@
 @endsection
 
 @section('javascript')
-    <script src="{{ asset('/js/gottashit_place_field.js') }}"></script>
+    <script src="{{ mix('/js/gottashit_place_field.js') }}"></script>
 @endsection

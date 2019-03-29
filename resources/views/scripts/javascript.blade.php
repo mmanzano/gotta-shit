@@ -2,7 +2,7 @@
     <ul>
     </ul>
 </div>
-
+<script src="{{ mix('/js/app.js') }}"></script>
 <script>
     var GottaShit = {
         'analytics': '{{ env('GOOGLE_ANALYTICS') !== "" ? env('GOOGLE_ANALYTICS') : 'WithoutIdForGoogleAnalytics' }}',
@@ -54,4 +54,4 @@
         },
     }
 </script>
-<script src="{{ asset('/js/gottashit.js') }}"></script>
+<script src="{{ mix('/js/gottashit.js') }}"></script>
