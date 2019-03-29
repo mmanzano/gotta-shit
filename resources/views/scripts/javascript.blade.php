@@ -49,7 +49,7 @@
             'latLonInitial': 0,
         @endif
     'messages': {
-            delete_place_confirm: "{!! trans('gottashit.place.delete_place_confirm') !!}",
+            archive_place_confirm: "{!! trans('gottashit.place.archive_place_confirm') !!}",
             delete_comment_confirm: "{!! trans('gottashit.comment.delete_comment_confirm') !!}",
         },
     }

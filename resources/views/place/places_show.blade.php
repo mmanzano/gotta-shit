@@ -19,7 +19,7 @@
                                     @if($place->trashed())
                                         {{ trans('gottashit.place.delete_place_permanently') }}
                                     @else
-                                        {{ trans('gottashit.place.delete_place') }}
+                                        {{ trans('gottashit.place.archive_place') }}
                                     @endif
                                 </button>
                             </form>

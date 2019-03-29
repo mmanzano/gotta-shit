@@ -1,15 +1,15 @@
-$('.places').on('click', '.button-delete-place', delete_place_confirm);
-$('.place').on('click', '.button-delete-place', delete_place_confirm);
+$('.places').on('click', '.button-delete-place', archive_place_confirm);
+$('.place').on('click', '.button-delete-place', archive_place_confirm);
 $('#place-comments-list').on('click', '.button-delete-comment', delete_comment_confirm);
 $('#place-comments-list').on('click', '.button-edit-comment', edit_comment);
 $('.place-comments-number').on('click', '.button-subscribe', subscribe);
 $('.place-comments').on('click', '.button-create-comment', create_update_comment);
 
-function delete_place_confirm(e){
-    if ($(this).html() !== GottaShit.messages.delete_place_confirm) {
+function archive_place_confirm(e){
+    if ($(this).html() !== GottaShit.messages.archive_place_confirm) {
         e.preventDefault();
         $(this).addClass('red');
-        $(this).text(GottaShit.messages.delete_place_confirm);
+        $(this).text(GottaShit.messages.archive_place_confirm);
     }
 }
 

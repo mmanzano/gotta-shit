@@ -15,7 +15,7 @@ class PlaceLanguageTest extends TestCase
         $this->assertTrue(Lang::has('gottashit.place.edit_place'));
         $this->assertTrue(Lang::has('gottashit.place.update_place'));
         $this->assertTrue(Lang::has('gottashit.place.updated_place'));
-        $this->assertTrue(Lang::has('gottashit.place.delete_place'));
-        $this->assertTrue(Lang::has('gottashit.place.deleted_place'));
+        $this->assertTrue(Lang::has('gottashit.place.archive_place'));
+        $this->assertTrue(Lang::has('gottashit.place.archived_place'));
     }
 }

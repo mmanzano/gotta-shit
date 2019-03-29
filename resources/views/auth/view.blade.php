@@ -32,7 +32,7 @@
             </div>
         @endif
 
-        <p class="user-label">{{ trans('gottashit.user.number_of_deleted_places') }}: <span class="user-data">{{ $user->number_of_trashed_places }}</span></p>
+        <p class="user-label">{{ trans('gottashit.user.number_of_archived_places') }}: <span class="user-data">{{ $user->number_of_trashed_places }}</span></p>
 
         @if($is_user)
             <div class="user-label">

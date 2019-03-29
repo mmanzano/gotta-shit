@@ -100,7 +100,7 @@ class PlaceController extends Controller
 
             $request->place->forceDelete();
         } else {
-            $statusMessage = trans('gottashit.place.deleted_place', ['place' => $request->place->name]);
+            $statusMessage = trans('gottashit.place.archived_place', ['place' => $request->place->name]);
 
             $request->place->delete();
         }
