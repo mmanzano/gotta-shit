@@ -3,6 +3,9 @@ language: php
 php:
   - 7.1
 
+services:
+ - mysql
+
 before_script:
  - mv .travis.env .env
  - mysql -e 'create database gottashit_travis;'
