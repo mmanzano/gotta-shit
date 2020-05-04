@@ -11,14 +11,16 @@ class UserConfirmationNotification extends Notification
 {
     use Queueable;
 
+    public $subject;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($subject)
     {
-        //
+        $this->subject = $subject;
     }
 
     /**
@@ -40,7 +42,11 @@ class UserConfirmationNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('notifications.user-confirmation-notification');
+        $path = route('user_register_confirm', ['token' => $notifiable->token]);
+
+        return (new MailMessage)
+            ->subject($this->subject)
+            ->markdown('notifications.user-confirmation-notification', compact('path'));
     }
 
     /**

@@ -52,6 +52,8 @@ return [
         'new_comment_add' => "Añadieron un nuevo comentario a :place",
         'new_comment_action' => "<a href=':path'>Haz click aquí</a> para ver el nuevo comentario para <a href=':path'>:place</a> creado por <a href=':path_author_of_comment'>:username_author_of_comment</a>",
         'new_contact_form' => "Nuevo contacto desde el sitio web",
+        'confirm_email_call_to_action' => "Confirma tu correo electrónico",
+        'thanks' => "Gracias",
     ],
 
     'nav' => [

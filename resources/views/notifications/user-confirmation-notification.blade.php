@@ -1,12 +1,12 @@
 @component('mail::message')
-# Introduction
+# {{ trans('gottashit.email.confirm_email_subject') }}
 
-The body of your message.
+{{ trans('gottashit.email.confirm_email_thanks') }}
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => $path])
+    {{ trans('gottashit.email.confirm_email_call_to_action') }}
 @endcomponent
 
-Thanks,<br>
+{{ trans('gottashit.email.thanks') }},<br>
 {{ config('app.name') }}
 @endcomponent

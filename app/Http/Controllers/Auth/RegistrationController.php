@@ -6,6 +6,7 @@ use GottaShit\Entities\User;
 use GottaShit\Http\Controllers\Controller;
 use GottaShit\Http\Requests\Auth\RegisterPostRequest;
 use GottaShit\Mailers\AppMailer;
+use GottaShit\Notifications\UserConfirmationNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;
@@ -35,7 +36,7 @@ class RegistrationController extends Controller
             'language' => App::getLocale(),
         ]);
 
-        $appMailer->sendEmailConfirmationTo($user, trans('gottashit.email.confirm_email_subject'));
+        $user->notify(new UserConfirmationNotification(trans('gottashit.email.confirm_email_subject')));
 
         return redirect(route('user_login'))
             ->with('status', trans('auth.confirm_email'));

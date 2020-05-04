@@ -4,6 +4,7 @@ namespace GottaShit\Jobs;
 
 use GottaShit\Entities\User;
 use GottaShit\Mailers\AppMailer;
+use GottaShit\Notifications\UserConfirmationNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -45,6 +46,6 @@ class ManageChangeEmail implements ShouldQueue
                 'modified' => true,
             ]);
 
-        $appMailer->sendEmailConfirmationTo($this->user, trans('gottashit.email.confirm_email_new_subject'));
+        $this->user->notify(new UserConfirmationNotification(trans('gottashit.email.confirm_email_new_subject')));
     }
 }
