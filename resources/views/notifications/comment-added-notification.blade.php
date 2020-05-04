@@ -1,12 +1,10 @@
 @component('mail::message')
-# Introduction
+# {{ trans('gottashit.email.new_comment_add', ['place' => $place_name]) }}
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => url($path)])
+    {{ trans('gottashit.email.new_comment_call_to_action') }}
 @endcomponent
 
-Thanks,<br>
+{{ trans('gottashit.email.thanks') }},<br>
 {{ config('app.name') }}
 @endcomponent

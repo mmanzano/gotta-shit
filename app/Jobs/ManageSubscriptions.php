@@ -6,6 +6,7 @@ use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
 use GottaShit\Entities\Subscription;
 use GottaShit\Mailers\AppMailer;
+use GottaShit\Notifications\CommentAddedNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -51,20 +52,10 @@ class ManageSubscriptions implements ShouldQueue
             ->whereNull('comment_id')
             ->get()
             ->each(function ($subscription) use ($appMailer) {
-                $appMailer->sendCommentAddNotification(
-                    Auth::user(),
-                    $subscription->user,
-                    $this->place,
+                $subscription->user->notify(new CommentAddedNotification(
                     $this->comment,
-                    $subscription,
-                    trans(
-                        'gottashit.email.new_comment_add',
-                        [
-                            'place' => $this->place->name,
-                        ],
-                        $subscription->user->language
-                    )
-                );
+                    $subscription
+                ));
             });
     }
 }

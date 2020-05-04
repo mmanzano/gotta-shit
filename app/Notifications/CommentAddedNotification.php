@@ -11,14 +11,18 @@ class CommentAddedNotification extends Notification
 {
     use Queueable;
 
+    public $comment;
+    public $subscription;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($comment, $subscription)
     {
-        //
+        $this->comment = $comment;
+        $this->subscription = $subscription;
     }
 
     /**
@@ -29,6 +33,10 @@ class CommentAddedNotification extends Notification
      */
     public function via($notifiable)
     {
+        if ($notifiable->modified) {
+            return [];
+        }
+
         return ['mail'];
     }
 
@@ -40,7 +48,22 @@ class CommentAddedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('notifications.comment-added-notification');
+        $this->view = 'emails.notification.comment';
+        $path = $this->comment->path;
+        $place_name = $this->comment->place->name;
+
+        $this->subscription->comment_id = $this->comment->id;
+        $this->subscription->save();
+
+        $subject = trans(
+            'gottashit.email.new_comment_add',
+            ['place' => $this->comment->place->name],
+            $notifiable->language
+        );
+
+        return (new MailMessage)
+            ->subject($subject)
+            ->markdown('notifications.comment-added-notification', compact('path', 'place_name'));
     }
 
     /**
