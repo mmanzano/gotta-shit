@@ -3,14 +3,12 @@
 namespace GottaShit\Jobs;
 
 use GottaShit\Entities\User;
-use GottaShit\Mailers\AppMailer;
 use GottaShit\Notifications\UserConfirmationNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 
 class ManageChangeEmail implements ShouldQueue
 {
@@ -32,10 +30,9 @@ class ManageChangeEmail implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param AppMailer $appMailer
      * @return void
      */
-    public function handle(AppMailer $appMailer)
+    public function handle()
     {
         $token = str_random(30);
 

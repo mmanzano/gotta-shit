@@ -4,8 +4,6 @@ namespace GottaShit\Jobs;
 
 use GottaShit\Entities\Place;
 use GottaShit\Entities\PlaceComment;
-use GottaShit\Entities\Subscription;
-use GottaShit\Mailers\AppMailer;
 use GottaShit\Notifications\CommentAddedNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -39,10 +37,9 @@ class ManageSubscriptions implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param AppMailer $appMailer
      * @return void
      */
-    public function handle(AppMailer $appMailer)
+    public function handle()
     {
         Auth::user()->updateOrCreateSubscription($this->place);
 
@@ -51,11 +48,10 @@ class ManageSubscriptions implements ShouldQueue
             ->where('user_id', '!=', Auth::id())
             ->whereNull('comment_id')
             ->get()
-            ->each(function ($subscription) use ($appMailer) {
-                $subscription->user->notify(new CommentAddedNotification(
-                    $this->comment,
-                    $subscription
-                ));
+            ->each(function ($subscription) {
+                $subscription->user->notify(
+                    new CommentAddedNotification($this->comment, $subscription)
+                );
             });
     }
 }

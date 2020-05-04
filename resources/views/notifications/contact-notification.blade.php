@@ -1,12 +1,10 @@
 @component('mail::message')
-# Introduction
+# {{ trans('gottashit.email.new_contact_form') }}
 
-The body of your message.
+{{ trans('gottashit.email.new_contact_form') }}
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+Email: {{ $email }}
 
-Thanks,<br>
-{{ config('app.name') }}
+Body: {{ $body }}
+
 @endcomponent

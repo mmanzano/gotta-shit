@@ -11,14 +11,20 @@ class ContactNotification extends Notification
 {
     use Queueable;
 
+    public $subject;
+    public $email;
+    public $body;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($subject, $email, $body)
     {
-        //
+        $this->subject = $subject;
+        $this->email = $email;
+        $this->body = $body;
     }
 
     /**
@@ -40,7 +46,12 @@ class ContactNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('notifications.contact-notification');
+        return (new MailMessage)
+            ->subject($this->subject)
+            ->markdown('notifications.contact-notification', [
+                'email' => $this->email,
+                'body' => $this->body,
+            ]);
     }
 
     /**

@@ -5,7 +5,6 @@ namespace GottaShit\Http\Controllers\Auth;
 use GottaShit\Entities\User;
 use GottaShit\Http\Controllers\Controller;
 use GottaShit\Http\Requests\Auth\RegisterPostRequest;
-use GottaShit\Mailers\AppMailer;
 use GottaShit\Notifications\UserConfirmationNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
@@ -26,7 +25,7 @@ class RegistrationController extends Controller
         ]);
     }
 
-    public function postRegister(RegisterPostRequest $request, AppMailer $appMailer): RedirectResponse
+    public function postRegister(RegisterPostRequest $request): RedirectResponse
     {
         $user = User::create([
             'full_name' => $request->input('full_name'),
