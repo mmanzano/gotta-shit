@@ -11,14 +11,16 @@ class PlaceAddedNotification extends Notification
 {
     use Queueable;
 
+    public $place;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($place)
     {
-        //
+        $this->place = $place;
     }
 
     /**
@@ -40,7 +42,14 @@ class PlaceAddedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('notifications.place-added-notification');
+        $path = $this->place->path;
+        $place_name = $this->place->name;
+        $username = $this->place->user->username;
+        $user_path = $this->place->user->path;
+
+        return (new MailMessage)
+            ->subject(trans('gottashit.email.new_place_add'))
+            ->markdown('notifications.place-added-notification', compact('path', 'place_name', 'username', 'user_path'));
     }
 
     /**
