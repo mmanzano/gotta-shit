@@ -18,7 +18,7 @@ Technologies:
 
 - Google Maps
 
-### Next Steps
+## Next Steps
 
 [] Say Goodbye to Google Maps - [leafletjs](https://leafletjs.com)
 
@@ -26,6 +26,32 @@ Technologies:
 
 [] Improve the css part - [Tailwind](https://tailwindcss.com)
 
-### License
+### Docker
+
+#### up
+
+docker-compose up --build -d
+
+#### composer install
+
+docker-compose exec --user $(id -u) phpgottashit composer install
+
+#### migrate
+
+docker-compose exec phpgottashit php artisan migrate
+
+#### seed
+
+docker-compose exec phpgottashit php artisan db:seed
+
+#### tests
+
+docker-compose exec --user $(id -u) phpgottashit ./vendor/bin/phpunit
+
+#### destroy
+
+docker-compose down
+
+## License
 
 GottaShit is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

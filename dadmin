@@ -1,0 +1,41 @@
+#!/bin/bash
+case "$1" in
+  "up")
+    docker-compose up --build -d
+    ;;
+  "cinstall")
+    docker-compose exec --user $(id -u) phpgottashit composer install
+    ;;
+  "migrate")
+    docker-compose exec phpgottashit php artisan migrate
+    ;;
+  "rollback")
+    docker-compose exec phpgottashit php artisan migrate:rollback
+    ;;
+  "seed")
+    docker-compose exec phpgottashit php artisan db:seed
+    ;;
+  "phpunit")
+    docker-compose exec --user $(id -u) phpgottashit ./vendor/bin/phpunit
+    ;;
+  "permissions")
+    docker-compose exec phpgottashit chmod +777 -R storage/framework
+    docker-compose exec phpgottashit chmod +777 -R storage/logs
+    ;;
+  "cc")
+    docker-compose exec --user $(id -u) phpgottashit php artisan config:clear
+    docker-compose exec --user $(id -u) phpgottashit php artisan cache:clear
+    docker-compose exec --user $(id -u) phpgottashit php artisan view:clear
+    ;;
+  "destroy")
+    docker-compose down
+    docker rm -f $(docker ps -a -q)
+    docker rmi -f $(docker images -a -q)
+    docker volume rm $(docker volume ls -q)
+    docker network rm $(docker network ls | tail -n+2 | awk '{if($2 !~ /bridge|none|host/){ print $1 }}')
+    ;;
+  *)
+    echo "You have failed to specify what to do correctly."
+    exit 1
+    ;;
+esac
