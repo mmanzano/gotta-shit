@@ -1,10 +1,16 @@
 #!/bin/bash
 case "$1" in
-  "up")
+  "build")
     docker-compose up --build -d
     ;;
   "cinstall")
     docker-compose exec --user $(id -u) phpgottashit composer install
+    ;;
+  "key")
+    docker-compose exec --user $(id -u) phpgottashit php artisan key:generate
+    ;;
+  "tinker")
+    docker-compose exec phpgottashit php artisan tinker
     ;;
   "migrate")
     docker-compose exec phpgottashit php artisan migrate
@@ -26,6 +32,16 @@ case "$1" in
     docker-compose exec --user $(id -u) phpgottashit php artisan config:clear
     docker-compose exec --user $(id -u) phpgottashit php artisan cache:clear
     docker-compose exec --user $(id -u) phpgottashit php artisan view:clear
+    ;;
+  "up")
+    docker-compose up -d
+    ;;
+  "stop")
+    docker-compose stop
+    ;;
+  "down")
+    sudo rm -rf docker-storage
+    docker-compose down
     ;;
   "destroy")
     docker-compose down

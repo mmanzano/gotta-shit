@@ -2,6 +2,7 @@
 
 namespace GottaShit\Http\Controllers;
 
+use GottaShit\Entities\User;
 use GottaShit\Http\Requests\ContactStoreRequest;
 use GottaShit\Notifications\ContactNotification;
 use GuzzleHttp\Client;

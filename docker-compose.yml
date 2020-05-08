@@ -6,14 +6,14 @@ services:
       context: ""
       dockerfile: docker/php/Dockerfile
     volumes:
-      - ./../../code/gotta-shit:/var/www/web
+      - ./:/var/www/web
       - ~/.ssh:/root/.ssh
       - ~/.config/composer/auth.json:/.composer/auth.json
 
   webgottashit:
     image: nginx:latest
     volumes:
-      - ./../../code/project:/var/www/web
+      - ./:/var/www/web
       - ./docker/web/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./docker-storage/logs/nginx:/var/log/nginx
     ports:
@@ -21,16 +21,14 @@ services:
     depends_on:
       - phpgottashit
 
-  dbgottashit:
-    build: docker/db
+  mysqlgottashit:
+    build: docker/mysql
     environment:
       MYSQL_DATABASE: 'homestead_gottashit'
       MYSQL_USER: 'homestead'
       MYSQL_PASSWORD: 'secret'
       MYSQL_ROOT_PASSWORD: 'secret'
+    ports:
+      - 13306:3306
     volumes:
-      - ./docker-storage/bddata:/var/lib/mysql
-
-volumes:
-  bddata:
-    driver: local
+      - ./docker-storage/mysql:/var/lib/mysql

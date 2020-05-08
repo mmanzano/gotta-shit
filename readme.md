@@ -24,33 +24,119 @@ Technologies:
 
 [] Embrace the backend - [VueJS](https://vuejs.org) under Laravel Mix
 
-[] Improve the css part - [Tailwind](https://tailwindcss.com)
+[] Improve the css part
 
 ### Docker
 
-#### up
+## How it works
 
+```
+chmod +x dadmin
+./dadmin build
+./dadmin cinstall
+./dadmin migrate
+./dadmin seed
+```
+
+Then you can enter to your copy of the site in `http://localhost:8000`.
+
+## Available commands from dadmin
+
+### ./dadmin build
+
+```
 docker-compose up --build -d
+```
 
-#### composer install
+### ./dadmin cinstall
 
-docker-compose exec --user $(id -u) phpgottashit composer install
+```
+docker-compose exec --user $(id -u) phpproject composer install
+```
 
-#### migrate
+### ./dadmin key
 
-docker-compose exec phpgottashit php artisan migrate
+```
+docker-compose exec --user $(id -u) phpproject php artisan key:generate
+```
 
-#### seed
+### ./dadmin tinker
 
-docker-compose exec phpgottashit php artisan db:seed
+```
+docker-compose exec phpproject php artisan tinker
+```
 
-#### tests
+### ./dadmin migrate
 
-docker-compose exec --user $(id -u) phpgottashit ./vendor/bin/phpunit
+```
+docker-compose exec phpproject php artisan migrate
+```
 
-#### destroy
+### ./dadmin rollback
 
+```
+docker-compose exec phpproject php artisan migrate:rollback
+```
+
+### ./dadmin seed
+
+```
+docker-compose exec phpproject php artisan db:seed
+```
+
+### ./dadmin phpunit
+
+```
+docker-compose exec --user $(id -u) phpproject ./vendor/bin/phpunit
+```
+
+### ./dadmin permissions
+
+Please, execute `git stash -u` before this command. Execute `git stash pop` after. I am opening to suggestions to resolve this permissions issue.
+
+```
+docker-compose exec phpproject chmod +777 -R storage/framework
+docker-compose exec phpproject chmod +777 -R storage/logs
+```
+
+### ./dadmin cc
+
+```
+docker-compose exec --user $(id -u) phpproject php artisan config:clear
+docker-compose exec --user $(id -u) phpproject php artisan cache:clear
+docker-compose exec --user $(id -u) phpproject php artisan view:clear
+```
+
+### ./dadmin up
+
+```
+docker-compose up -d
+```
+
+### ./dadmin stop
+
+```
+docker-compose stop
+```
+
+### ./dadmin down
+
+```
+sudo rm -rf docker-storage
 docker-compose down
+```
+
+### ./dadmin destroy
+
+This command ***delete all docker containers, images, volumes, networks*** in the current machine (be careful).
+
+```
+docker-compose down
+docker rm -f $(docker ps -a -q)
+docker rmi -f $(docker images -a -q)
+docker volume rm $(docker volume ls -q)
+docker network rm $(docker network ls | tail -n+2 | awk '{if($2 !~ /bridge|none|host/){ print $1 }}')
+```
 
 ## License
 

@@ -31,7 +31,7 @@ class ManageSubscriptions implements ShouldQueue
     public function __construct(Place $place, PlaceComment $comment)
     {
         $this->place = $place;
-        $this->coment = $comment;
+        $this->comment = $comment;
     }
 
     /**
