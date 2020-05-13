@@ -1,12 +1,12 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceStar;
-use GottaShit\Http\Requests\StartUpdateRequest;
-use GottaShit\Http\Responses\StarDestroyResponse;
-use GottaShit\Http\Responses\StarUpdateResponse;
+use App\Entities\Place;
+use App\Entities\PlaceStar;
+use App\Http\Requests\StartUpdateRequest;
+use App\Http\Responses\StarDestroyResponse;
+use App\Http\Responses\StarUpdateResponse;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class StarController extends Controller

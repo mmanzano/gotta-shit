@@ -1,10 +1,10 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
-use GottaShit\Entities\User;
-use GottaShit\Http\Requests\ContactStoreRequest;
-use GottaShit\Notifications\ContactNotification;
+use App\Entities\User;
+use App\Http\Requests\ContactStoreRequest;
+use App\Notifications\ContactNotification;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
 

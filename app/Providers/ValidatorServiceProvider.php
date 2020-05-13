@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaShit\Providers;
+namespace App\Providers;
 
-use GottaShit\Entities\Place;
+use App\Entities\Place;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 

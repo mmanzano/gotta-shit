@@ -1,12 +1,12 @@
 <?php
 
-namespace GottaShit\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use GottaShit\Entities\User;
-use GottaShit\Http\Controllers\Controller;
-use GottaShit\Http\Requests\Auth\UserEditRequest;
-use GottaShit\Http\Requests\Auth\UserUpdateRequest;
-use GottaShit\Jobs\ManageChangeEmail;
+use App\Entities\User;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\UserEditRequest;
+use App\Http\Requests\Auth\UserUpdateRequest;
+use App\Jobs\ManageChangeEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\View\View;

@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaShit\Exceptions;
+namespace App\Exceptions;
 
 use BadMethodCallException;
 use Exception;

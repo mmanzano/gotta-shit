@@ -1,10 +1,10 @@
 <?php
 
-namespace GottaShit\Jobs;
+namespace App\Jobs;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
-use GottaShit\Notifications\CommentAddedNotification;
+use App\Entities\Place;
+use App\Entities\PlaceComment;
+use App\Notifications\CommentAddedNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

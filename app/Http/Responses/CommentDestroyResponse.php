@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaShit\Http\Responses;
+namespace App\Http\Responses;
 
-use GottaShit\Entities\Place;
+use App\Entities\Place;
 
 class CommentDestroyResponse extends GottaShitResponse
 {

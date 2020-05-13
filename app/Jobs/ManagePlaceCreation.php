@@ -1,10 +1,10 @@
 <?php
 
-namespace GottaShit\Jobs;
+namespace App\Jobs;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\User;
-use GottaShit\Notifications\PlaceAddedNotification;
+use App\Entities\Place;
+use App\Entities\User;
+use App\Notifications\PlaceAddedNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

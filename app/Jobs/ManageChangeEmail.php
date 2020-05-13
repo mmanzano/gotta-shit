@@ -1,9 +1,9 @@
 <?php
 
-namespace GottaShit\Jobs;
+namespace App\Jobs;
 
-use GottaShit\Entities\User;
-use GottaShit\Notifications\UserConfirmationNotification;
+use App\Entities\User;
+use App\Notifications\UserConfirmationNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

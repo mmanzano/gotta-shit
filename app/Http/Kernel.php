@@ -1,11 +1,11 @@
 <?php
 
-namespace GottaShit\Http;
+namespace App\Http;
 
-use GottaShit\Http\Middleware\EncryptCookies;
-use GottaShit\Http\Middleware\LanguageMiddleware;
-use GottaShit\Http\Middleware\RedirectIfAuthenticated;
-use GottaShit\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\LanguageMiddleware;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel

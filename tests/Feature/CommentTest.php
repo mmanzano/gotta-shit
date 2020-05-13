@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
-use GottaShit\Entities\User;
+use App\Entities\Place;
+use App\Entities\PlaceComment;
+use App\Entities\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaShit\Http\Requests;
+namespace App\Http\Requests;
 
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Http\FormRequest;

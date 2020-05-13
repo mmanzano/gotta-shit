@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => GottaShit\Entities\User::class,
+            'model' => App\Entities\User::class,
         ],
 
         // 'users' => [

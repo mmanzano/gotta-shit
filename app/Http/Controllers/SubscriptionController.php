@@ -1,10 +1,10 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
-use GottaShit\Entities\Place;
-use GottaShit\Http\Responses\SubscriptionDestroyResponse;
-use GottaShit\Http\Responses\SubscriptionStoreResponse;
+use App\Entities\Place;
+use App\Http\Responses\SubscriptionDestroyResponse;
+use App\Http\Responses\SubscriptionStoreResponse;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class SubscriptionController extends Controller

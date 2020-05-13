@@ -1,9 +1,9 @@
 <?php
 
-namespace GottaShit\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use GottaShit\Http\Controllers\Controller;
-use GottaShit\Http\Requests\Auth\LoginPostRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginPostRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

@@ -1,9 +1,9 @@
 <?php
 
-namespace GottaShit\Http\Responses;
+namespace App\Http\Responses;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
+use App\Entities\Place;
+use App\Entities\PlaceComment;
 
 class CommentUpdateResponse extends GottaShitResponse
 {

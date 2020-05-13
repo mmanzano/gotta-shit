@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
-use GottaShit\Entities\Place;
+use App\Entities\Place;
 use Illuminate\View\View;
 
 class HomeController extends Controller

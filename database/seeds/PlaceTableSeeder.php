@@ -1,7 +1,7 @@
 <?php
 
-use GottaShit\Entities\User;
-use GottaShit\Entities\Place;
+use App\Entities\User;
+use App\Entities\Place;
 use Illuminate\Database\Seeder;
 
 class PlaceTableSeeder extends Seeder

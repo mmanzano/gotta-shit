@@ -1,7 +1,7 @@
 <?php
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\User;
+use App\Entities\Place;
+use App\Entities\User;
 
 $factory->define(Place::class, function ($faker) {
     $initialLat = 40.5;

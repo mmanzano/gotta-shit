@@ -143,12 +143,12 @@ return [
         /*
          * Application Service Providers...
          */
-        GottaShit\Providers\AppServiceProvider::class,
-        GottaShit\Providers\AuthServiceProvider::class,
-        GottaShit\Providers\BroadcastServiceProvider::class,
-        GottaShit\Providers\EventServiceProvider::class,
-        GottaShit\Providers\RouteServiceProvider::class,
-        \GottaShit\Providers\ValidatorServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        \App\Providers\ValidatorServiceProvider::class,
 
         /*
          * Third Party Providers

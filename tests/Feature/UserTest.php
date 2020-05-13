@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use GottaShit\Entities\User;
+use App\Entities\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;

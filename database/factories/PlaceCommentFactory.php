@@ -1,8 +1,8 @@
 <?php
 
-use GottaShit\Entities\PlaceComment;
-use GottaShit\Entities\User;
-use GottaShit\Entities\Place;
+use App\Entities\PlaceComment;
+use App\Entities\User;
+use App\Entities\Place;
 
 $factory->define(PlaceComment::class, function ($faker) {
     return [

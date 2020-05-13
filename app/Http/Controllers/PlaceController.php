@@ -1,15 +1,15 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
-use GottaShit\Entities\Place;
-use GottaShit\Http\Requests\PlaceDestroyRequest;
-use GottaShit\Http\Requests\PlaceEditRequest;
-use GottaShit\Http\Requests\PlaceShowRequest;
-use GottaShit\Http\Requests\PlaceStoreRequest;
-use GottaShit\Http\Requests\PlaceUpdateRequest;
-use GottaShit\Jobs\ManagePlaceCreation;
-use GottaShit\Repositories\PlaceRepository;
+use App\Entities\Place;
+use App\Http\Requests\PlaceDestroyRequest;
+use App\Http\Requests\PlaceEditRequest;
+use App\Http\Requests\PlaceShowRequest;
+use App\Http\Requests\PlaceStoreRequest;
+use App\Http\Requests\PlaceUpdateRequest;
+use App\Jobs\ManagePlaceCreation;
+use App\Repositories\PlaceRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\View\View;

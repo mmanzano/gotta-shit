@@ -34,7 +34,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "GottaShit\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {

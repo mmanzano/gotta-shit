@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => GottaShit\Entities\User::class,
+        'model'  => App\Entities\User::class,
         'key' => '',
         'secret' => '',
     ],

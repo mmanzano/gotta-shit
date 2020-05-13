@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaShit\Http\Responses;
+namespace App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace GottaShit\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use GottaShit\Entities\User;
-use GottaShit\Http\Controllers\Controller;
-use GottaShit\Http\Requests\Auth\RegisterPostRequest;
-use GottaShit\Notifications\UserConfirmationNotification;
+use App\Entities\User;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterPostRequest;
+use App\Notifications\UserConfirmationNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth as Auth;

@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaShit\Http\Requests;
+namespace App\Http\Requests;
 
-use GottaShit\Entities\Place;
+use App\Entities\Place;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PlaceShowRequest extends FormRequest

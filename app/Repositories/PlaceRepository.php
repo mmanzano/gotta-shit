@@ -1,7 +1,7 @@
 <?php
-namespace GottaShit\Repositories;
+namespace App\Repositories;
 
-use GottaShit\Entities\Place;
+use App\Entities\Place;
 use Illuminate\Support\Facades\DB;
 
 class PlaceRepository

@@ -1,8 +1,8 @@
 <?php
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceStar;
-use GottaShit\Entities\User;
+use App\Entities\Place;
+use App\Entities\PlaceStar;
+use App\Entities\User;
 
 $factory->define(PlaceStar::class, function ($faker) {
     return [

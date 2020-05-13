@@ -1,6 +1,6 @@
 <?php
 
-use GottaShit\Entities\User;
+use App\Entities\User;
 
 $factory->define(User::class, function ($faker) {
     return [

@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaShit\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use GottaShit\Services\SocialiteGottaShit;
+use App\Services\SocialiteGottaShit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;

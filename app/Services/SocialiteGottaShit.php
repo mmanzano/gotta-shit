@@ -1,8 +1,8 @@
 <?php
 
-namespace GottaShit\Services;
+namespace App\Services;
 
-use GottaShit\Entities\User;
+use App\Entities\User;
 use Illuminate\Support\Facades\Auth;
 
 class SocialiteGottaShit

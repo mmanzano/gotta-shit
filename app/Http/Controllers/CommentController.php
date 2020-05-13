@@ -1,18 +1,18 @@
 <?php
 
-namespace GottaShit\Http\Controllers;
+namespace App\Http\Controllers;
 
-use GottaShit\Entities\Place;
-use GottaShit\Entities\PlaceComment;
-use GottaShit\Http\Requests\CommentDestroyRequest;
-use GottaShit\Http\Requests\CommentEditRequest;
-use GottaShit\Http\Requests\CommentStoreRequest;
-use GottaShit\Http\Requests\CommentUpdateRequest;
-use GottaShit\Http\Responses\CommentDestroyResponse;
-use GottaShit\Http\Responses\CommentEditResponse;
-use GottaShit\Http\Responses\CommentStoreResponse;
-use GottaShit\Http\Responses\CommentUpdateResponse;
-use GottaShit\Jobs\ManageSubscriptions;
+use App\Entities\Place;
+use App\Entities\PlaceComment;
+use App\Http\Requests\CommentDestroyRequest;
+use App\Http\Requests\CommentEditRequest;
+use App\Http\Requests\CommentStoreRequest;
+use App\Http\Requests\CommentUpdateRequest;
+use App\Http\Responses\CommentDestroyResponse;
+use App\Http\Responses\CommentEditResponse;
+use App\Http\Responses\CommentStoreResponse;
+use App\Http\Responses\CommentUpdateResponse;
+use App\Jobs\ManageSubscriptions;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class CommentController extends Controller

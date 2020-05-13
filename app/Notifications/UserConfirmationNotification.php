@@ -1,6 +1,6 @@
 <?php
 
-namespace GottaShit\Notifications;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
