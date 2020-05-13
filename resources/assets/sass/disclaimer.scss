@@ -16,8 +16,8 @@
   border-radius: 5px;
   margin-left: .5em;
   &:hover {
-    color: $disclaimer_color - 100;
-    background: $disclaimer_background - 100;
+    color: #919191;
+    background: #000C12;
   }
 }
 .status-message ul {
@@ -34,6 +34,6 @@
     background: $disclaimer_background;
     color: $disclaimer_color;
     padding: .5em;
-    border: 1px solid $disclaimer_background - 100;
+    border: 1px solid #000C12;
   }
 }

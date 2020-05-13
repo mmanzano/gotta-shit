@@ -19,15 +19,15 @@ $nav_background: $background_nav;
 $nav_link_background: $background_nav_link;
 $nav_link: $background_nav_color;
 
-$disclaimer_background: $background_content - 100;
+$disclaimer_background: #0000FF;
 $disclaimer_color: #F5F5F5;
 
 $errors_background: gray;
-$error_color: #a94442;
-$error_background: #f2dede;
+$error_color: #A94442;
+$error_background: #F2DEDE;
 
-$home_help_background: $background_content + 50;
-$home_help_color: $background_content - 100;
+$home_help_background: #C3FFFF;
+$home_help_color: #2D7076;
 
 $pagination_background: $background_content;
 $pagination_color: whitesmoke;
