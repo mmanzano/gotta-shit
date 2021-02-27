@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use App\Entities\Place;
 use App\Entities\PlaceStar;
 use App\Entities\User;
