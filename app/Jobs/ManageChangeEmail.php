@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class ManageChangeEmail implements ShouldQueue
 {
@@ -34,7 +35,7 @@ class ManageChangeEmail implements ShouldQueue
      */
     public function handle()
     {
-        $token = str_random(30);
+        $token = Str::random(30);
 
         $this->user
             ->update([

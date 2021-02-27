@@ -1,4 +1,5 @@
 <?php
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Entities\PlaceComment;
 use App\Entities\User;

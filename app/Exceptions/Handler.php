@@ -9,11 +9,13 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Session\TokenMismatchException as TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as MethodNotAllowedHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -34,51 +36,54 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception $e
+     * @param  \Throwable $exception
      * @return void
-     * @throws Exception
+     *
+     * @throws \Throwable
      */
-    public function report(Exception $e)
+    public function report(Throwable $exception)
     {
-        return parent::report($e);
+        return parent::report($exception);
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Exception $e
-     * @return \Illuminate\Http\Response
+     * @param  \Throwable $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
      */
-    public function render($request, Exception $e)
+    public function render($request, Throwable $exception)
     {
         $capture = !env('APP_DEBUG');
 
         if ($capture) {
-            if ($e instanceof TokenMismatchException) {
+            if ($exception instanceof TokenMismatchException) {
                 return response()->view('errors.token');
             }
-            if ($e instanceof BadMethodCallException) {
+            if ($exception instanceof BadMethodCallException) {
                 return redirect(route('home'));
             }
-            if ($e instanceof RelationNotFoundException) {
+            if ($exception instanceof RelationNotFoundException) {
                 return redirect(route('home'));
             }
-            if ($e instanceof ModelNotFoundException) {
+            if ($exception instanceof ModelNotFoundException) {
                 return response()->view('errors.404');
             }
-            if ($e instanceof MethodNotAllowedHttpException) {
+            if ($exception instanceof MethodNotAllowedHttpException) {
                 return redirect(route('home'));
             }
-            if ($e instanceof AccessDeniedHttpException) {
+            if ($exception instanceof AccessDeniedHttpException) {
                 return redirect(route('home'));
             }
-            if ($e instanceof Exception) {
+            if ($exception instanceof Exception) {
                 return redirect(route('home'));
             }
         }
 
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
     }
 
     /**
@@ -86,7 +91,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Illuminate\Auth\AuthenticationException $exception
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|JsonResponse
      */
     protected function unauthenticated(
         $request,

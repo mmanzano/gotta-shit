@@ -4,10 +4,25 @@ case "$1" in
     docker-compose up --build -d
     ;;
   "cinstall")
-    docker-compose exec --user $(id -u) phpgottashit composer install
+    docker-compose exec --user $(id -u) -e COMPOSER_MEMORY_LIMIT=-1 phpgottashit composer install
+    ;;
+  "dump-autoload")
+    docker-compose exec --user $(id -u) -e COMPOSER_MEMORY_LIMIT=-1 phpgottashit composer dump-autoload
     ;;
   "key")
     docker-compose exec --user $(id -u) phpgottashit php artisan key:generate
+    ;;
+  "uartisan")
+    shift
+    docker-compose exec --user $(id -u) -e COMPOSER_MEMORY_LIMIT=-1 phpgottashit php artisan $*
+    ;;
+  "artisan")
+    shift
+    docker-compose exec phpgottashit php artisan $*
+    ;;
+  "composer")
+    shift
+    docker-compose exec --user $(id -u) -e COMPOSER_MEMORY_LIMIT=-1 phpgottashit composer $*
     ;;
   "tinker")
     docker-compose exec phpgottashit php artisan tinker
@@ -22,7 +37,8 @@ case "$1" in
     docker-compose exec phpgottashit php artisan db:seed
     ;;
   "phpunit")
-    docker-compose exec --user $(id -u) phpgottashit ./vendor/bin/phpunit
+    shift
+    docker-compose exec --user $(id -u) phpgottashit ./vendor/bin/phpunit $*
     ;;
   "permissions")
     docker-compose exec phpgottashit chmod +777 -R storage/framework
