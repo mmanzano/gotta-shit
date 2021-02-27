@@ -2,7 +2,7 @@
 @foreach($places as $place)
     <div class="place-card">
         <div class="place-title-card" id="place-title-card-{{ $place->id }}">
-            <h2><a class="place-title-link-card" href="{{ $place->path }}" id="place-title-link-card-{{ $place->id }}">{{ str_limit($place->name, 14) }}</a></h2>
+            <h2><a class="place-title-link-card" href="{{ $place->path }}" id="place-title-link-card-{{ $place->id }}">{{ Str::limit($place->name, 14) }}</a></h2>
             @if($place->is_author)
                 <div class="card actions actions-card">
                     <ul>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SocialiteGottaShit
 {
@@ -108,7 +109,7 @@ class SocialiteGottaShit
     {
         $username = trim($user->getNickname())
             ? $user->getNickname()
-            : str_slug($user->getName());
+            : Str::slug($user->getName());
 
         $append = 1;
 
