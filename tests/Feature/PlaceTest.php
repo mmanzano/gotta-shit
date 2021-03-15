@@ -14,7 +14,7 @@ class PlaceTest extends TestCase
     /** @test */
     public function placeShowWithoutLoginUser()
     {
-        $place = factory(Place::class)->create();
+        $place = Place::factory()->create();
 
         $this->get($place->path)
             ->assertStatus(200);
@@ -23,9 +23,9 @@ class PlaceTest extends TestCase
     /** @test */
     public function placeShow()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create();
+        $place = Place::factory()->create();
 
         $this->assertCount(0, $user->subscriptions);
 
@@ -39,9 +39,9 @@ class PlaceTest extends TestCase
     /** @test */
     public function placeShowWithActiveSubscription()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create();
+        $place = Place::factory()->create();
 
         $user->updateOrCreateSubscription($place);
 
@@ -60,7 +60,7 @@ class PlaceTest extends TestCase
     /** @test */
     public function placeCreate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $createFormRoute = route('place.create');
 
@@ -83,9 +83,9 @@ class PlaceTest extends TestCase
     /** @test */
     public function placeEdit()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create([
+        $place = Place::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -119,9 +119,9 @@ class PlaceTest extends TestCase
     /** @test */
     public function placeDelete()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create([
+        $place = Place::factory()->create([
             'user_id' => $user->id,
         ]);
 

@@ -15,9 +15,9 @@ class CommentTest extends TestCase
     /** @test */
     public function commentCreate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create([
+        $place = Place::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -53,13 +53,13 @@ class CommentTest extends TestCase
     /** @test */
     public function commentEdit()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create([
+        $place = Place::factory()->create([
             'user_id' => $user->id,
         ]);
 
-        $comment = factory(PlaceComment::class)->create([
+        $comment = PlaceComment::factory()->create([
             'comment' => 'Hello',
             'place_id' => $place->id,
             'user_id' => $user->id,
@@ -87,13 +87,13 @@ class CommentTest extends TestCase
     /** @test */
     public function commentDelete()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
-        $place = factory(Place::class)->create([
+        $place = Place::factory()->create([
             'user_id' => $user->id,
         ]);
 
-        $comment = factory(PlaceComment::class)->create([
+        $comment = PlaceComment::factory()->create([
             'comment' => 'Hello',
             'place_id' => $place->id,
             'user_id' => $user->id,

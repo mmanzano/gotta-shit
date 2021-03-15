@@ -15,7 +15,7 @@ class HomeTest extends TestCase
     {
         parent::setUp();
 
-        factory(Place::class)->create();
+        Place::factory()->create();
     }
 
     /** @test */
@@ -56,7 +56,7 @@ class HomeTest extends TestCase
     /** @test */
     public function homeAllUser()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get('/en')
@@ -66,7 +66,7 @@ class HomeTest extends TestCase
     /** @test */
     public function homeNearestUser()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get('/en')
@@ -76,7 +76,7 @@ class HomeTest extends TestCase
     /** @test */
     public function homeYourPlaces()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get('/en')
@@ -86,7 +86,7 @@ class HomeTest extends TestCase
     /** @test */
     public function homeAdd()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get('/en')
@@ -96,7 +96,7 @@ class HomeTest extends TestCase
     /** @test */
     public function homeLogout()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $this->actingAs($user)
             ->get('/en')
