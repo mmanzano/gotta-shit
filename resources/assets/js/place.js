@@ -16,36 +16,47 @@
             var width = GottaShit.places[objectNumber].stars_width;
         }
         $("#place-stars-points-" + id).width(width);
-        var myLatlng = new google.maps.LatLng(lat,lng);
-        var mapOptions = {
-            zoom: 16,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            zoomControl: true,
-            zoomControlOptions: {
-                style: google.maps.ZoomControlStyle.SMALL,
-                position: google.maps.ControlPosition.RIGHT_BOTTOM
+        //var myLatlng = new google.maps.LatLng(lat,lng);
+        // var mapOptions = {
+        //     zoom: 16,
+        //     center: myLatlng,
+        //     mapTypeId: google.maps.MapTypeId.ROADMAP,
+        //     zoomControl: true,
+        //     zoomControlOptions: {
+        //         style: google.maps.ZoomControlStyle.SMALL,
+        //         position: google.maps.ControlPosition.RIGHT_BOTTOM
+        //     },
+        //     mapTypeControl: false,
+        //     streetViewControl: false,
+        //     scrollwheel: false,
+        //     draggable: false
+        // };
+
+        map = L.map(document.getElementById(element.attr('id')), {
+            center: {
+                lat,
+                lng,
             },
-            mapTypeControl: false,
-            streetViewControl: false,
-            scrollwheel: false,
-            draggable: false
-        };
-
-        map = new google.maps.Map(document.getElementById(element.attr('id')), mapOptions);
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map
+            zoom: 14
         });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // var marker = new google.maps.Marker({
+        //     position: myLatlng,
+        //     map: map
+        // });
+       L.marker([lat,lng]).addTo(map);
 
         // event triggered when map is clicked
-        google.maps.event.addListener(map, 'click', function (event) {
-            map.setOptions({
-                scrollwheel: true,
-                draggable: true
-            });
-        });
+        // google.maps.event.addListener(map, 'click', function (event) {
+        //     map.setOptions({
+        //         scrollwheel: true,
+        //         draggable: true
+        //     });
+        // });
         objectNumber++
     }
 

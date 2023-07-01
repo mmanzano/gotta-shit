@@ -23,6 +23,7 @@ mix.sass('resources/assets/sass/gottashit.scss', 'public/css/gottashit.css')
         'resources/assets/js/rate.js',
         'resources/assets/js/helpers.js'
     ], 'public/js/gottashit.js')
+    .copy('node_modules/leaflet/dist/images/*', 'public')
     .scripts(['resources/assets/js/place_field.js'], 'public/js/gottashit_place_field.js')
     .scripts(['resources/assets/js/place.js'], 'public/js/gottashit_place.js')
     .js('resources/assets/js/app.js', 'public/js/app.js')

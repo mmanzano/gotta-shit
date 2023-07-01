@@ -2,6 +2,11 @@
     "/js/app.js": "/js/app.js?id=bf28a9f196a40acaec76f26d5a7d6c20",
     "/css/gottashit.css": "/css/gottashit.css?id=d80685ff7c65e2053267c9ffc432073a",
     "/js/gottashit.js": "/js/gottashit.js?id=d3235dc763517a93166945f3a5c34049",
-    "/js/gottashit_place_field.js": "/js/gottashit_place_field.js?id=515b36384337bb435b6b5043f32aad0b",
-    "/js/gottashit_place.js": "/js/gottashit_place.js?id=f7ae739aaeac684fb895e672a6a7c3c1"
+    "/layers-2x.png": "/layers-2x.png?id=f905cd0e87fcdde8969be92b8a9a3fa9",
+    "/layers.png": "/layers.png?id=3d61d49c98ea3572cae4482e97b666d0",
+    "/marker-icon-2x.png": "/marker-icon-2x.png?id=da330e712dc6fc8c7d58fb25a970b9ca",
+    "/marker-icon.png": "/marker-icon.png?id=1045a925825f69b0a8742f01f3387f73",
+    "/marker-shadow.png": "/marker-shadow.png?id=43ccefc930d47f2e3a17d50aa82930d8",
+    "/js/gottashit_place_field.js": "/js/gottashit_place_field.js?id=80ec5eb5dd658b25ca70afba159c2946",
+    "/js/gottashit_place.js": "/js/gottashit_place.js?id=8929d0d22821df166ce91d5feecc10f7"
 }

@@ -9,6 +9,5 @@
 </title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ mix('/css/gottashit.css') }}" rel="stylesheet">
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_JS_KEY') }}&v=3.exp&libraries=places"></script>
 
 
