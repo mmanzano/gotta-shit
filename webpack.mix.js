@@ -13,6 +13,7 @@ let mix = require('laravel-mix');
 
 mix.sass('resources/assets/sass/gottashit.scss', 'public/css/gottashit.css')
     .scripts([
+        'node_modules/leaflet/dist/leaflet.js',
         'resources/assets/js/jquery.min.js',
         'resources/assets/js/analytics.js',
         'resources/assets/js/nearest.js',
