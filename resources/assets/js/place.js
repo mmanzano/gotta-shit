@@ -1,42 +1,51 @@
-(function($){
-
-    function drawing_map(objectNumber){
+(function ($) {
+    function drawing_map(objectNumber)
+    {
         var map;
         var element = $(this);
-        if(GottaShit.place !== undefined) {
-            var id = GottaShit.place.id;
-            var lat = parseFloat(GottaShit.place.geo_lat, 6);
-            var lng = parseFloat(GottaShit.place.geo_lng, 6);
-            var width = GottaShit.place.stars_width;
+        var id;
+        var lat;
+        var lng;
+        var width;
+        if (GottaShit.place !== undefined) {
+            id = GottaShit.place.id;
+            lat = parseFloat(GottaShit.place.geo_lat, 6);
+            lng = parseFloat(GottaShit.place.geo_lng, 6);
+            width = GottaShit.place.stars_width;
+        } else if (GottaShit.places !== undefined) {
+            id = GottaShit.places[objectNumber].id;
+            lat = parseFloat(GottaShit.places[objectNumber].geo_lat, 6);
+            lng = parseFloat(GottaShit.places[objectNumber].geo_lng, 6);
+            width = GottaShit.places[objectNumber].stars_width;
         }
-        else if(GottaShit.places !== undefined){
-            var id = GottaShit.places[objectNumber].id;
-            var lat = parseFloat(GottaShit.places[objectNumber].geo_lat, 6);
-            var lng = parseFloat(GottaShit.places[objectNumber].geo_lng, 6);
-            var width = GottaShit.places[objectNumber].stars_width;
-        }
-        $("#place-stars-points-" + id).width(width);
-        //var myLatlng = new google.maps.LatLng(lat,lng);
-        // var mapOptions = {
-        //     zoom: 16,
-        //     center: myLatlng,
-        //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-        //     zoomControl: true,
-        //     zoomControlOptions: {
-        //         style: google.maps.ZoomControlStyle.SMALL,
-        //         position: google.maps.ControlPosition.RIGHT_BOTTOM
-        //     },
-        //     mapTypeControl: false,
-        //     streetViewControl: false,
-        //     scrollwheel: false,
-        //     draggable: false
-        // };
 
-        map = L.map(document.getElementById(element.attr('id')), {
+        $("#place-stars-points-" + id).width(width);
+
+        map = addMap(document.getElementById(element.attr('id')), lat, lng);
+        // event triggered when map is clicked
+        map.on('click', function (e) {
+            map.off();
+            map.remove();
+            let theElement = document.getElementById(element.attr('id'))
+            addMap(theElement, lat, lng, {
+                scrollWheelZoom: true,
+                dragging: true,
+            });
+        });
+
+        objectNumber++
+    }
+
+    function addMap(element, lat, lng, options = {})
+    {
+        let map = L.map(element, {
+            ...options,
             center: {
                 lat,
                 lng,
             },
+            scrollWheelZoom: true,
+            dragging: true,
             zoom: 14
         });
 
@@ -44,20 +53,22 @@
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // var marker = new google.maps.Marker({
-        //     position: myLatlng,
-        //     map: map
-        // });
-       L.marker([lat,lng]).addTo(map);
+        // Add marker to the map
+        let customIcon = L.icon({
+            iconUrl: '/marker-icon.png',
+            iconRetinaUrl: '/marker-icon-2x.png',
+            shadowUrl: '/marker-shadow.png',
+            iconSize:    [25, 41],
+            iconAnchor:  [12, 41],
+            popupAnchor: [1, -34],
+            tooltipAnchor: [16, -28],
+            shadowSize:  [41, 41]
+        });
+        L.marker([lat,lng], {
+            icon: customIcon,
+        }).addTo(map);
 
-        // event triggered when map is clicked
-        // google.maps.event.addListener(map, 'click', function (event) {
-        //     map.setOptions({
-        //         scrollwheel: true,
-        //         draggable: true
-        //     });
-        // });
-        objectNumber++
+        return map;
     }
 
     $(document).ready(function () {
