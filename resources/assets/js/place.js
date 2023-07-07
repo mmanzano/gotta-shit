@@ -24,13 +24,8 @@
         map = addMap(document.getElementById(element.attr('id')), lat, lng);
         // event triggered when map is clicked
         map.on('click', function (e) {
-            map.off();
-            map.remove();
-            let theElement = document.getElementById(element.attr('id'))
-            addMap(theElement, lat, lng, {
-                scrollWheelZoom: true,
-                dragging: true,
-            });
+            map.scrollWheelZoom.enable();
+            map.dragging.enable();
         });
 
         objectNumber++
@@ -39,14 +34,14 @@
     function addMap(element, lat, lng, options = {})
     {
         let map = L.map(element, {
-            ...options,
             center: {
                 lat,
                 lng,
             },
-            scrollWheelZoom: true,
-            dragging: true,
-            zoom: 14
+            scrollWheelZoom: false,
+            dragging: false,
+            zoom: 14,
+            ...options
         });
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
